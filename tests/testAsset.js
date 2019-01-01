@@ -1,6 +1,4 @@
-export default {
-
-testAsset : {
+const testAsset = {
   theName : 'Clinical Data', 
   theType : 'Information',
   theShortCode : 'CD',
@@ -27,8 +25,8 @@ testAsset : {
          "value":"High",
          "rationale":"Clinical data is partially anonymised."},
         {"name":"Integrity",
-         "value":"None",
-         "rationale":"None"},
+         "value":"High",
+         "rationale":"Don't touch this"},
         {"name":"Availability",
          "value":"None",
          "rationale":"None"},
@@ -59,7 +57,31 @@ testAsset : {
          "theTailRole" : "",
          "theTailMultiplicity" :"*",
          "theTailNav" : 0,
-         "theTailName" : "Workflow"}
+         "theTailName" : "Workflow"},
+        {"theHeadNav": 0,
+         "theHeadType" : "Association",
+         "theHeadMultiplicity":"*",
+         "theHeadRole":"",
+         "theTailRole" : "",
+         "theTailMultiplicity" :"*",
+         "theTailNav" : 0,
+         "theTailName" : "Portal"},
+        {"theHeadNav": 0,
+         "theHeadType" : "Association",
+         "theHeadMultiplicity":"*",
+         "theHeadRole":"",
+         "theTailRole" : "",
+         "theTailMultiplicity" :"*",
+         "theTailNav" : 0,
+         "theTailName" : "SomeAsset"},
+        {"theHeadNav": 0,
+         "theHeadType" : "Association",
+         "theHeadMultiplicity":"*",
+         "theHeadRole":"",
+         "theTailRole" : "",
+         "theTailMultiplicity" :"*",
+         "theTailNav" : 0,
+         "theTailName" : "SomeOtherAsset"}
       ],
       "theProperties" : [
         {"name":"Confidentiality",
@@ -91,6 +113,4 @@ testAsset : {
   ]
 }
 
-
-
-}
+export default testAsset;

@@ -1,7 +1,8 @@
 <template>
   <div class="asset">
     <b-breadcrumb :items="bcItems" />
-    <b-form @submit="onSubmit">
+    <property-modal ref="assetPropertyDialog" :securityProperty="selectedProperty" v-on:property-update="updateAssetProperty"/> 
+    <b-form @submit="onSubmit" v-on:property-update="updateAssetProperty">
       <b-card no-body>
         <b-tabs card>
           <b-tab title="Summary" active>
@@ -45,173 +46,62 @@
             </b-card>
           </b-tab>
         </b-tabs>
-      <b-container fluid>
-        <b-card header="Environments" no-body class="text-left">
-          <template slot="header">
-            <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addEnvironment"/> Environment
-          </template> 
-        <b-row class="jusfify-content-md-left" align-content>
-          <b-col sm="12">
-           <b-tabs v-model="envPropIndex">
-             <b-tab v-for="envProp in objt.theEnvironmentProperties" :key="envProp.theName" :title=envProp.theName>
-                <template slot="title">
-                  <font-awesome-icon icon="trash" :style="{color: 'red'}" @click="deleteEnvironment"/>  {{envProp.theName}}
-                </template> 
-              </b-tab>
-            </b-tabs>
-          </b-col>
-        </b-row>
-        <b-row class="justify-content-md-left" v-show="this.objt.theEnvironmentProperties.length">
-          <b-col sm="12">
-            <b-tabs >
-              <b-tab title="Definition" active>
-                <b-table striped hover :items="notNone" :fields=propTableFields @row-clicked="viewAssetProperty">
-                  <template slot="HEAD_propactions" slot-scope="data">
-                    <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addAssetProperty"/> 
-                  </template>
-                  <template slot="propactions" slot-scope="row">
-                    <font-awesome-icon icon="trash" :style="{color: 'red'}" @click.stop="clearAssetProperty(row.item)"/>
-                  </template>
-                </b-table>
-              </b-tab>
-              <b-tab title="Associations">
-                <b-table striped hover :items="assetAssociations" :fields="assocTableFields" @row-clicked="viewAssetAssociation">
-                  <template slot="HEAD_assocactions" slot-scope="data">
-                    <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addAssetAssociation"/> 
-                  </template>
-                  <template slot="assocactions" slot-scope="row">
-                    <font-awesome-icon icon="trash" :style="{color: 'red'}" @click.stop="deleteAssetAssociation(row.index)"/>
-                  </template>
-                </b-table>
-              </b-tab>
-            </b-tabs>
-          </b-col>
-        </b-row>
-        </b-card>
-      </b-container>
+        <b-container fluid>
+          <b-card header="Environments" no-body class="text-left">
+            <template slot="header">
+              <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addEnvironment"/> Environment
+            </template> 
+            <b-row class="jusfify-content-md-left" align-content>
+              <b-col sm="12">
+                <b-tabs v-model="envPropIndex">
+                  <b-tab v-for="envProp in objt.theEnvironmentProperties" :key="envProp.theName" :title=envProp.theName>
+                    <template slot="title">
+                      <font-awesome-icon icon="trash" :style="{color: 'red'}" @click="deleteEnvironment"/>  {{envProp.theName}}
+                    </template> 
+                  </b-tab>
+                </b-tabs>
+              </b-col>
+            </b-row>
+            <b-row class="justify-content-md-left" v-show="this.objt.theEnvironmentProperties.length">
+              <b-col sm="12">
+                <b-tabs >
+                  <b-tab title="Definition" active>
+                    <b-table striped hover :items="notNone" :fields=propTableFields @row-clicked="viewAssetProperty">
+                      <template slot="HEAD_propactions" slot-scope="data"> 
+                        <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addAssetProperty(data)"/> 
+                      </template>
+                      <template slot="propactions" slot-scope="row">
+                        <font-awesome-icon icon="trash" :style="{color: 'red'}" @click.stop="clearAssetProperty(row.item)"/>
+                      </template>
+                    </b-table>
+                  </b-tab>
+                  <b-tab title="Associations">
+                    <b-table striped hover :items="assetAssociations" :fields="assocTableFields" @row-clicked="viewAssetAssociation">
+                     <template slot="HEAD_assocactions" slot-scope="data">
+                        <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addAssetAssociation(data)"/> 
+                      </template>
+                      <template slot="assocactions" slot-scope="row">
+                        <font-awesome-icon icon="trash" :style="{color: 'red'}" @click.stop="deleteAssetAssociation(row.index)"/>
+                      </template>
+                    </b-table>
+                  </b-tab>
+                </b-tabs>
+              </b-col>
+            </b-row>
+          </b-card>
+        </b-container>
       </b-card>
       <div>
-      <b-button type="submit" variant="primary">Submit</b-button>
+        <b-button type="submit" variant="primary">Submit</b-button>
       </div>
     </b-form>
   </div>
 </template>
 
 <script>
-const testAsset = {
-  theName : 'Clinical Data', 
-  theType : 'Information',
-  theShortCode : 'CD',
-  theDescription: 'Clinical Data',
-  theSignificance: 'Unanonymised and in the wrong hands, this could be very damaging.',
-  isCritical: 0,
-  theTags : [],
-  theEnvironmentProperties : [
-    {
-      "theName" : "Psychosis",
-      "theAssociations" : [
-        {
-          "theHeadNav": 0,
-          "theHeadType" : "Association",
-          "theHeadMultiplicity":"*",
-          "theHeadRole": "",
-          "theTailRole" : "",
-          "theTailMultiplicity" :"*",
-          "theTailNav" : 0,
-          "theTailName" : "Cache"}
-      ],
-      "theProperties" : [
-        {"name":"Confidentiality",
-         "value":"High",
-         "rationale":"Clinical data is partially anonymised."},
-        {"name":"Integrity",
-         "value":"High",
-         "rationale":"Don't touch this"},
-        {"name":"Availability",
-         "value":"None",
-         "rationale":"None"},
-        {"name":"Accountability",
-         "value":"None",
-         "rationale":"None"},
-        {"name":"Anonymity",
-         "value":"None",
-         "rationale":"None"},
-        {"name":"Pseudonymity",
-         "value":"None",
-         "rationale":"None"},
-        {"name":"Unlinkability",
-         "value":"None",
-         "rationale":"None"},
-        {"name":"Unobservability",
-         "value":"None",
-         "rationale":"None"}
-      ]
-    },
-    {
-      "theName" : "Stroke",
-      "theAssociations" : [
-        {"theHeadNav": 0,
-         "theHeadType" : "Association",
-         "theHeadMultiplicity":"*",
-         "theHeadRole":"",
-         "theTailRole" : "",
-         "theTailMultiplicity" :"*",
-         "theTailNav" : 0,
-         "theTailName" : "Workflow"},
-        {"theHeadNav": 0,
-         "theHeadType" : "Association",
-         "theHeadMultiplicity":"*",
-         "theHeadRole":"",
-         "theTailRole" : "",
-         "theTailMultiplicity" :"*",
-         "theTailNav" : 0,
-         "theTailName" : "Portal"},
-        {"theHeadNav": 0,
-         "theHeadType" : "Association",
-         "theHeadMultiplicity":"*",
-         "theHeadRole":"",
-         "theTailRole" : "",
-         "theTailMultiplicity" :"*",
-         "theTailNav" : 0,
-         "theTailName" : "SomeAsset"},
-        {"theHeadNav": 0,
-         "theHeadType" : "Association",
-         "theHeadMultiplicity":"*",
-         "theHeadRole":"",
-         "theTailRole" : "",
-         "theTailMultiplicity" :"*",
-         "theTailNav" : 0,
-         "theTailName" : "SomeOtherAsset"}
-      ],
-      "theProperties" : [
-        {"name":"Confidentiality",
-         "value":"Low",
-         "rationale":"Clinical data is fully anonymised."},
-        {"name":"Integrity",
-         "value":"None",
-         "rationale":"None"},
-        {"name":"Availability",
-         "value":"None",
-         "rationale":"None"},
-        {"name":"Accountability",
-         "value":"None",
-         "rationale":"None"},
-        {"name":"Anonymity",
-         "value":"None",
-         "rationale":"None"},
-        {"name":"Pseudonymity",
-         "value":"None",
-         "rationale":"None"},
-        {"name":"Unlinkability",
-         "value":"None",
-         "rationale":"None"},
-        {"name":"Unobservability",
-         "value":"None",
-         "rationale":"None"}
-      ]
-    }
-  ]
-}
+
+ import PropertyModal from '@/components/PropertyModal.vue'
+import testAsset from '../../tests/testAsset.js'
 
 export default {
   computed : {
@@ -228,9 +118,14 @@ export default {
       return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theAssociations : [] ;
     }
   },
+  components : {
+    PropertyModal
+  },
   data() {
     return {
       envPropIndex : 0,
+      pmShow : false,
+      selectedProperty : {},
       assetTypes: ['Hardware','Information','People','System'],
       envFields : {
         envactions : {label : ''},
@@ -259,24 +154,24 @@ export default {
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
-      alert(JSON.stringify(this.objt));
+      console.log(evt);
+      console.log("Submitting " + JSON.stringify(this.objt));
     },
-    addAssetProperty(evt) {
-      evt.preventDefault();
-      alert('Adding asset property');
+    addAssetProperty(data) {
+      console.log(data);
     },
-    addAssetAssociation(evt) {
-      evt.preventDefault();
-      alert('Adding asset association');
+    addAssetAssociation(data) {
+      console.log(data);
     },
     deleteAssetAssociation(index) {
       this.objt.theEnvironmentProperties[this.envPropIndex].theAssociations.splice(index,1);
     },
-    viewAssetAssociation(item) {
-      alert(JSON.stringify(item));
+    viewAssetAssociation(data) {
+      console.log(JSON.stringify(data));
     },
-    viewAssetProperty(item) {
-      alert(JSON.stringify(item));
+    viewAssetProperty(data) {
+      this.selectedProperty = JSON.parse(JSON.stringify(data));
+      this.$refs.assetPropertyDialog.show();  
     },
     clearAssetProperty(item) {
       this.objt.theEnvironmentProperties[this.envPropIndex].theProperties.map(prop => { 
@@ -290,10 +185,17 @@ export default {
       this.objt.theEnvironmentProperties.splice(this.envPropIndex,1);
     },
     addEnvironment(evt) {
-      alert('Add environment');
+      console.log(evt);
+      console.log('Add environment');
     },
+    updateAssetProperty : function(updProp) {
+      this.objt.theEnvironmentProperties[this.envPropIndex].theProperties.map(prop => { 
+        if (prop.name == updProp.name) {
+          prop.value = updProp.value;
+          prop.rationale = updProp.rationale;
+        }
+      });
+    }
   }
 }
 </script>
-<style>
-</style>

@@ -10,7 +10,6 @@
 import ModelSummary from '@/components/ModelSummary.vue'
 
 export default {
-  name: 'modelsummary',
   components: {
     ModelSummary
   },
