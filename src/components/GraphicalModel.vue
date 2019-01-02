@@ -20,7 +20,7 @@
     },
     data() {
       return {
-        svgData : '<svg><p>Undefined</p></svg>'
+        svgData : ''
       }
     },
     mounted() {
