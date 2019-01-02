@@ -39,10 +39,31 @@
           </b-tab>
           <b-tab title="Criticality">
             <b-card bg-variant="light">
+              <b-container>
+                <b-row>
+                  <b-col sm="2">
+                    <b-form-checkbox v-model="objt.isCritical" >Critical Asset</b-form-checkbox>
+                  </b-col>
+                </b-row>
+                <b-row>
+                  <b-col>
+                    <b-form-textarea v-model="objt.theCriticalRationale" type="text" :rows=2 :max-rows=4 v-if="objt.isCritical">
+                    </b-form-textarea>
+                  </b-col>
+                </b-row>
+              </b-container>
             </b-card>
           </b-tab>
           <b-tab title="Interfaces">
             <b-card bg-variant="light">
+              <b-table striped hover :items="objt.theInterfaces" :fields=interfaceTableFields @row-clicked="viewInterface">
+                <template slot="HEAD_intactions" slot-scope="data"> 
+                  <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addInterface(data)"/> 
+                </template>
+                <template slot="intactions" slot-scope="row">
+                  <font-awesome-icon icon="trash" :style="{color: 'red'}" @click.stop="deleteInterface(row.item)"/>
+                </template>
+              </b-table>
             </b-card>
           </b-tab>
         </b-tabs>
@@ -140,6 +161,13 @@ export default {
         value : {label : 'Value'},
         rationale : {label : 'Rationale'} 
       },
+      interfaceTableFields : {
+        intactions : {label : ''},
+        theInterfaceName : {label : 'Interface'},
+        theInterfaceType : {label : 'Type'},
+        theAccessRight : {label : 'Access Right'},
+        thePrivilege : {label : 'Privilege'} 
+      },
       assocTableFields : [
         {key: 'assocactions', label: ''},
         {key: 'theHeadNav', label: 'Nav'},
@@ -172,6 +200,15 @@ export default {
     },
     deleteAssetAssociation(index) {
       this.objt.theEnvironmentProperties[this.envPropIndex].theAssociations.splice(index,1);
+    },
+    addInterface(data) {
+      console.log(data);
+    },
+    deleteInterface(index) {
+      this.objt.theInterfaces.splice(index,1);
+    },
+    viewInterface(data) {
+      console.log(data);
     },
     viewAssetAssociation(data) {
       console.log(JSON.stringify(data));

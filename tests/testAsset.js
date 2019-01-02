@@ -5,7 +5,9 @@ const testAsset = {
   theDescription: 'Clinical Data',
   theSignificance: 'Unanonymised and in the wrong hands, this could be very damaging.',
   isCritical: 0,
+  theCriticalRationale: "",
   theTags : [],
+  theInterfaces : [{"theInterfaceName" : "if1","theInterfaceType" : "provided","theAccessRight" : "anonymous", "thePrivilege" : "normal"}],
   theEnvironmentProperties : [
     {
       "theName" : "Psychosis",
