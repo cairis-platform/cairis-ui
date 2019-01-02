@@ -1,4 +1,5 @@
-const testAsset = {
+const testData = { 
+asset : {
   theName : 'Clinical Data', 
   theType : 'Information',
   theShortCode : 'CD',
@@ -113,6 +114,13 @@ const testAsset = {
       ]
     }
   ]
+},
+assets : [
+  {asset: 'Corporate Network',type: 'Systems'},
+  {asset: 'Diary Entry',type: 'Information'},
+  {asset: 'Enterprise SCADA Network',type: 'Systems'}
+]
 }
 
-export default testAsset;
+
+export default testData;

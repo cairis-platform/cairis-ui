@@ -16,16 +16,13 @@
 
 <script>
 
-const testAssets = [
-  {asset: 'Corporate Network',type: 'Systems'},
-  {asset: 'Diary Entry',type: 'Information'},
-  {asset: 'Enterprise SCADA Network',type: 'Systems'}
-];
+import testData from '../../tests/testData.js'
+
 export default {
   data() {
     return {
       bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Assets', to: {name: 'assets'}}],
-      items: testAssets,
+      items: testData['assets'],
       assetsFields : {
         assetsactions : {label : ''},
         asset : {label : 'Asset'},

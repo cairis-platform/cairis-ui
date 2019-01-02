@@ -2,6 +2,7 @@
   <div class="asset">
     <b-breadcrumb :items="bcItems" />
     <property-modal ref="assetPropertyDialog" :securityProperty="selectedProperty" v-on:property-update="updateAssetProperty"/> 
+    <dimension-modal ref="environmentDialog" dimension="environment" :existing="environmentNames" v-on:dimension-modal-update="addEnvironmentProperty"/> 
     <b-form @submit="onSubmit" v-on:property-update="updateAssetProperty">
       <b-card no-body>
         <b-tabs card>
@@ -122,7 +123,8 @@
 <script>
 
 import PropertyModal from '@/components/PropertyModal.vue'
-import testAsset from '../../tests/testAsset.js'
+import DimensionModal from '@/components/DimensionModal.vue'
+import testData from '../../tests/testData.js'
 
 export default {
   computed : {
@@ -143,7 +145,8 @@ export default {
     }
   },
   components : {
-    PropertyModal
+    PropertyModal,
+    DimensionModal
   },
   data() {
     return {
@@ -179,7 +182,7 @@ export default {
         {key: 'theTailNav', label: 'Tail Nav'},
         {key: 'theTailName', label: 'Tail Asset'}
       ],
-      objt: testAsset
+      objt: testData['asset']
     }
   }, 
   methods: {
@@ -231,7 +234,7 @@ export default {
     },
     addEnvironment(evt) {
       console.log(evt);
-      console.log('Add environment');
+      this.$refs.environmentDialog.show();  
     },
     updateAssetProperty : function(updProp) {
       this.objt.theEnvironmentProperties[this.envPropIndex].theProperties.map(prop => { 
@@ -240,6 +243,9 @@ export default {
           prop.rationale = updProp.rationale;
         }
       });
+    },
+    addEnvironmentProperty : function(envName) {
+      alert("Adding" + envName);
     }
   }
 }
