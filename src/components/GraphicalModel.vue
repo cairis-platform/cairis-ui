@@ -5,30 +5,53 @@
         :controlIconsEnabled="true"
         :fit="true"
         :center="true">
-    <div v-html="this.svgData"></div>
+   <div v-html="this.svgData" v-on:click="onClick($event)"></div> 
   </SvgPanZoom>
 </template>
 
 <script>
   import SvgPanZoom from 'vue-svg-pan-zoom';
-  import axios from 'axios'
+  import axios from 'axios';
 
   export default {
     name: 'graphical-model',
-    components : {
-      SvgPanZoom
+    props : {
+      api : String
+    },
+    computed : {
+      svgData() {
+        return this.theSvgData == null ? '<svg><p>No data</p></svg>' : this.theSvgData;
+      }
     },
     data() {
       return {
-        svgData : ''
+        theSvgData : null
       }
     },
+    components : {
+      SvgPanZoom
+    },
+    methods : {
+      onClick(event) {
+        event.preventDefault();
+        var url = event.target.parentElement.href.baseVal;
+        if (url != undefined) {
+          this.$emit('graphical-model-url',url);
+        }
+      },
+      loadModel() {
+        axios.get(this.$store.state.url +  this.api + "?session_id=" + this.$store.state.session)
+        .then(response => {
+          this.theSvgData = response.data;
+         })
+        .catch((error) => console.log(error))
+      }
+    },
+    watch : {
+      api : 'loadModel'
+    },
     mounted() {
-      axios.get(this.$store.state.url + "/api/assets/model/environment/Psychosis/asset/all?session_id=" + this.$store.state.session)
-      .then(response => {
-        this.svgData = response.data;
-       })
-      .catch((error) => console.log(error))
+      this.loadModel(); 
     }
   };
 </script>
