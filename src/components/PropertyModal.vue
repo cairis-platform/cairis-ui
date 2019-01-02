@@ -1,6 +1,17 @@
 <template>
   <b-modal ref="propertyDialog" :title="securityProperty.name" @ok="onOk">
     <b-card>
+      <div v-if="securityProperty.update == true">
+        <b-form-group label="Property" label-class="text-sm-left" label-cols="3" horizontal label-for="thePropertyInput" >
+          <b-form-input readonly id="thePropertyInput" v-model="securityProperty.name"></b-form-input>
+        </b-form-group>
+      </div>
+      <div v-if="securityProperty.update == false">
+      <b-form-group label="Property" label-class="text-sm-left" label-cols="3" horizontal label-for="thePropertyInput" >
+        <b-form-select id="theValueInput" v-model="securityProperty.name" :options="securityProperty.propertyNames" required>
+        </b-form-select>
+      </b-form-group>
+      </div>
       <b-form-group label="Value" label-class="text-sm-left" label-cols="3" horizontal label-for="theValueInput" >
         <b-form-select id="theValueInput" v-model="securityProperty.value" :options="propertyValues" required>
         </b-form-select>

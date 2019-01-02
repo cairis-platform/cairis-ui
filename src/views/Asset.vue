@@ -100,7 +100,7 @@
 
 <script>
 
- import PropertyModal from '@/components/PropertyModal.vue'
+import PropertyModal from '@/components/PropertyModal.vue'
 import testAsset from '../../tests/testAsset.js'
 
 export default {
@@ -116,6 +116,9 @@ export default {
     },
     assetAssociations() {
       return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theAssociations : [] ;
+    },
+    unusedProperties() {
+      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theProperties.filter(prop => (prop.value == 'None')).map(prop => prop.name) : [];
     }
   },
   components : {
@@ -158,6 +161,10 @@ export default {
       console.log("Submitting " + JSON.stringify(this.objt));
     },
     addAssetProperty(data) {
+      this.selectedProperty = {'name' : '','value' : '','rationale' : ''};
+      this.selectedProperty['update'] = false;
+      this.selectedProperty['propertyNames'] = this.objt.theEnvironmentProperties[this.envPropIndex].theProperties.filter(prop => (prop.value == 'None')).map(prop => prop.name);
+      this.$refs.assetPropertyDialog.show();  
       console.log(data);
     },
     addAssetAssociation(data) {
@@ -171,6 +178,7 @@ export default {
     },
     viewAssetProperty(data) {
       this.selectedProperty = JSON.parse(JSON.stringify(data));
+      this.selectedProperty['update'] = true;
       this.$refs.assetPropertyDialog.show();  
     },
     clearAssetProperty(item) {
