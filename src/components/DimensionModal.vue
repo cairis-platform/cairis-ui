@@ -16,7 +16,9 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
       dimension : String,
       existing : {
         type: Array,
-        default : []
+        default : function () {
+          return [];
+        }
       }
     },
     data () {
@@ -46,6 +48,7 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
         }
         else {
           this.$emit('dimension-modal-update',this.selected);
+          this.$refs.dimensionDialog.hide();
         }
       }
     }

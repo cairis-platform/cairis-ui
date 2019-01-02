@@ -78,7 +78,7 @@
                 <b-tabs v-model="envPropIndex">
                   <b-tab v-for="envProp in objt.theEnvironmentProperties" :key="envProp.theName" :title=envProp.theName>
                     <template slot="title">
-                      <font-awesome-icon icon="trash" :style="{color: 'red'}" @click="deleteEnvironment"/>  {{envProp.theName}}
+                      <font-awesome-icon icon="trash" :style="{color: 'red'}" @click="deleteEnvironment(envProp.theName)"/>  {{envProp.theName}}
                     </template> 
                   </b-tab>
                 </b-tabs>
@@ -229,8 +229,8 @@ export default {
         }
       });
     },
-    deleteEnvironment() {
-      this.objt.theEnvironmentProperties.splice(this.envPropIndex,1);
+    deleteEnvironment(envName) {
+      this.objt.theEnvironmentProperties = this.objt.theEnvironmentProperties.filter(envProp => envProp.theName != envName);
     },
     addEnvironment(evt) {
       console.log(evt);
@@ -245,7 +245,7 @@ export default {
       });
     },
     addEnvironmentProperty : function(envName) {
-      alert("Adding" + envName);
+      console.log("Adding " + envName);
     }
   }
 }
