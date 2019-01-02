@@ -1,5 +1,5 @@
 <template>
-  <b-modal ref="propertyDialog" :title="securityProperty.name" @ok="onOk">
+  <b-modal ref="propertyDialog" :title="this.dialogTitle"  @ok="onOk">
     <b-card>
       <div v-if="securityProperty.update == true">
         <b-form-group label="Property" label-class="text-sm-left" label-cols="3" horizontal label-for="thePropertyInput" >
@@ -33,6 +33,9 @@
     computed : {
       valueNotNone() {
         return this.securityProperty.value != 'None';
+      },
+      dialogTitle() {
+        return (this.securityProperty.update ? "Update" : "Add") + " Security Property";
       }
     },
     data() {
