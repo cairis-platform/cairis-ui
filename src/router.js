@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Home from './views/Home.vue';
 import Asset from './views/Asset.vue';
 import Assets from './views/Assets.vue';
+import AssetModel from './views/AssetModel.vue';
 import NotFound from './components/NotFound.vue';
 
 Vue.use(Router);
@@ -25,6 +26,11 @@ export default new Router({
       path: '/assets',
       name: 'assets',
       component: Assets
+    },
+    {
+      path: '/assetmodel',
+      name: 'assetmodel',
+      component: AssetModel
     },
     {
       path: '/about',

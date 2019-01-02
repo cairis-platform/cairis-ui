@@ -17,7 +17,9 @@
     "vue": "^2.5.17",
     "vue-axios": "^2.1.4",
     "vue-router": "^3.0.1",
-    "vuex": "^3.0.1"
+    "vue-svg-pan-zoom": "^0.1.0",
+    "vuex": "^3.0.1",
+    "xml2js": "^0.4.19"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.2.0",

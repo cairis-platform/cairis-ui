@@ -1,8 +1,8 @@
 <template>
   <div class="modelsummary">
     <b-card>
-      <b-form-group id="modelSummaryToolbar" horizontal label="Environments" label-for="modelSummaryEnvironments">
-        <b-form-select v-model="selectedEnvironment" :options="environments" />
+      <b-form-group id="modelSummaryToolbar" horizontal :label-cols="2" label="Environments" label-for="modelSummaryEnvironments">
+        <dimension-select id="modelSummaryEnvironment" dimension= "environment" v-on:dimension-select-change="onEnvironmentSelected" />
       </b-form-group>
       <b-tabs pill card>
         <b-tab title="Summary" active>
@@ -15,12 +15,22 @@
 </template>
 
 <script>
+
+import DimensionSelect from '@/components/DimensionSelect.vue'
+
 export default {
   name: 'ModelSummary',
+  components : {
+    DimensionSelect
+  },
   data() {
     return {
-      selectedEnvironment : null,
-      environments : ['Core Technology','Psychosis','Stroke']
+      selectedEnvironment : ''
+    }
+  },
+  methods : {
+    onEnvironmentSelected(item) {
+      this.selectedEnvironment = item;
     }
   }
 }
