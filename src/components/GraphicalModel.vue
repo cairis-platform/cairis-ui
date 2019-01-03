@@ -17,7 +17,11 @@
   export default {
     name: 'graphical-model',
     props : {
-      api : String
+      api : String,
+      parameters : {
+        type : String,
+        default : ''
+      }
     },
     computed : {
       svgData() {
@@ -45,7 +49,11 @@
         }
       },
       loadModel() {
-        axios.get(this.$store.state.url +  this.api + "?session_id=" + this.$store.state.session)
+        var url = this.$store.state.url +  this.api + "?session_id=" + this.$store.state.session
+        if (this.parameters != '') {
+          url += this.parameters;
+        }
+        axios.get(url)
         .then(response => {
           this.theSvgData = response.data;
          })
@@ -53,7 +61,8 @@
       }
     },
     watch : {
-      api : 'loadModel'
+      api : 'loadModel',
+      parameters : 'loadModel'
     },
     mounted() {
       this.loadModel(); 

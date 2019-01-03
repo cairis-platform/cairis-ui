@@ -42,9 +42,8 @@ export default {
     }
   },
   watch : {
-    existing : function() {
-      this.updateSelector();
-    }
+    existing : 'updateSelector',
+    environment : 'updateSelector'
   },
   methods : {
     onChange(item) {

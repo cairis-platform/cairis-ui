@@ -23,7 +23,7 @@
       </b-row>
     </b-container>
     </b-card>
-    <graphical-model v-if="theEnvironmentName != ''" :api="assetModelURI" v-on:graphical-model-url="nodeClicked"/>
+    <graphical-model v-if="theEnvironmentName != ''" :api="assetModelURI" :parameters="concernsParameter" v-on:graphical-model-url="nodeClicked"/>
   </div>
 </template>
 
@@ -38,7 +38,10 @@ export default {
       return [{text: 'Home', to: {name: 'home'}},{text: 'Asset Model', to: {name: 'assetmodel'}}]
     },
     assetModelURI() {
-      return "/api/assets/model/environment/" + this.theEnvironmentName + "/asset/" + this.theAssetName;
+      return "/api/assets/model/environment/" + this.theEnvironmentName + "/asset/" + this.theAssetName ;
+    },
+    concernsParameter() {
+      return this.theConcernsHidden == true ? '' : '&hide_concerns=0'
     }
   },
   data() {
