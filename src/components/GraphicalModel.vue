@@ -4,8 +4,9 @@
         :zoomEnabled="true"
         :controlIconsEnabled="true"
         :fit="true"
-        :center="true">
-   <div v-html="this.svgData" v-on:click="onClick($event)"></div> 
+        @svgpanzoom="registerSvgPanZoom"
+        :center="true"> 
+  <b-container fluid v-html="this.svgData" v-on:click="onClick($event)"></b-container> 
   </SvgPanZoom>
 </template>
 
@@ -25,13 +26,17 @@
     },
     data() {
       return {
-        theSvgData : null
+        theSvgData : null,
+        svgpanzoom : null
       }
     },
     components : {
       SvgPanZoom
     },
     methods : {
+      registerSvgPanZoom(svgpanzoom) {
+        this.svgpanzoom = svgpanzoom;
+      },
       onClick(event) {
         event.preventDefault();
         var url = event.target.parentElement.href.baseVal;

@@ -1,5 +1,6 @@
 <template>
-  <b-container id="app">
+  <div id="app">
+  <b-container fluid>
     <b-row>
       <b-col>
         <navbar/>
@@ -11,6 +12,7 @@
       </b-col>
     </b-row>
   </b-container>
+  </div>
 </template>
 
 <script>
@@ -23,17 +25,20 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
+div {
+  width: 100%;
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  text-align: left;
   color: #2c3e50;
 }
-#nav {
+ #nav {
   padding: 30px;
-}
+} 
 
 #nav a {
   font-weight: bold;

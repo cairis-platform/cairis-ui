@@ -2,7 +2,7 @@
   <div class="assetmodel">
     <b-breadcrumb :items="bcItems" />
     <b-card no-body>
-    <b-container>
+    <b-container fluid>
       <b-row>
         <b-col>
           <b-form-group label="Environment" label-for="assetModelEnvironment" :label-cols="4" horizontal>
