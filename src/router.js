@@ -4,6 +4,7 @@ import Home from './views/Home.vue';
 import Asset from './views/Asset.vue';
 import Assets from './views/Assets.vue';
 import AssetModel from './views/AssetModel.vue';
+import GoalModel from './views/GoalModel.vue';
 import NotFound from './components/NotFound.vue';
 
 Vue.use(Router);
@@ -18,9 +19,10 @@ export default new Router({
       component: Home
     },
     {
-      path: '/asset',
+      path: '/asset/:assetName',
       name: 'asset',
-      component: Asset
+      component: Asset,
+      props: true
     },
     {
       path: '/assets',
@@ -39,6 +41,11 @@ export default new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+    },
+    {
+      path: '/goalmodel',
+      name: 'goalmodel',
+      component: GoalModel
     },
     {
       path: '*',

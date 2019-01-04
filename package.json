@@ -22,15 +22,15 @@
     "xml2js": "^0.4.19"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.2.0",
-    "@vue/cli-plugin-eslint": "^3.2.0",
-    "@vue/cli-plugin-unit-mocha": "^3.2.0",
-    "@vue/cli-service": "^3.2.2",
-    "@vue/test-utils": "^1.0.0-beta.20",
+    "@vue/cli-plugin-babel": "^3.2.2",
+    "@vue/cli-plugin-eslint": "^3.2.2",
+    "@vue/cli-plugin-unit-mocha": "^3.2.2",
+    "@vue/cli-service": "^3.2.3",
+    "@vue/test-utils": "^1.0.0-beta.28",
     "babel-eslint": "^10.0.1",
     "chai": "^4.1.2",
     "eslint": "^5.8.0",
-    "eslint-plugin-vue": "^5.0.0-0",
+    "eslint-plugin-vue": "^5.1.0",
     "vue-template-compiler": "^2.5.17"
   }
 }

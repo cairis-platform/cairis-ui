@@ -1,6 +1,6 @@
 <template>
   <div class="asset">
-    <b-breadcrumb :items="bcItems" />
+    <b-breadcrumb :items="bcItems" /> 
     <property-modal ref="assetPropertyDialog" :securityProperty="selectedProperty" v-on:property-update="updateAssetProperty"/> 
     <dimension-modal ref="environmentDialog" dimension="environment" :existing="environmentNames" v-on:dimension-modal-update="addEnvironmentProperty"/> 
     <b-form @submit="onSubmit" v-on:property-update="updateAssetProperty">
@@ -34,7 +34,7 @@
           </b-tab>
           <b-tab title="Significance">
             <b-card bg-variant="light">
-              <b-form-textarea v-model="objt.theDescription" type="text" :rows=2 :max-rows=4 required>
+              <b-form-textarea v-model="objt.theSignificance" type="text" :rows=2 :max-rows=4 required>
               </b-form-textarea>
             </b-card>
           </b-tab>
@@ -76,9 +76,9 @@
             <b-row class="jusfify-content-md-left" align-content>
               <b-col sm="12">
                 <b-tabs v-model="envPropIndex">
-                  <b-tab v-for="envProp in objt.theEnvironmentProperties" :key="envProp.theName" :title=envProp.theName>
+                  <b-tab v-for="envProp in objt.theEnvironmentProperties" :key="envProp.theEnvironmentName" :title=envProp.theName>
                     <template slot="title">
-                      <font-awesome-icon icon="trash" :style="{color: 'red'}" @click="deleteEnvironment(envProp.theName)"/>  {{envProp.theName}}
+                      <font-awesome-icon icon="trash" :style="{color: 'red'}" @click="deleteEnvironment(envProp.theEnvironmentName)"/>  {{envProp.theEnvironmentName}}
                     </template> 
                   </b-tab>
                 </b-tabs>
@@ -124,15 +124,30 @@
 
 import PropertyModal from '@/components/PropertyModal.vue'
 import DimensionModal from '@/components/DimensionModal.vue'
-import testData from '../../tests/testData.js'
+import axios from 'axios';
+import store from '../store'
+
+/*const emptyAsset = 
+  {
+    'theName' : '',
+    'theTags' : '',
+    'theShortCode' : '',
+    'theType' : '',
+    'theDescription' : '',
+    'isCritical' : false,
+    'theCriticalRationale' : false,
+    'theEnvironmentProperties' : []}*/
 
 export default {
+  props : {
+    assetName : String
+  },
   computed : {
     notNone() {
       return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theProperties.filter(prop => prop.value != 'None') : [];
     },
     environmentNames() {
-      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties.map(prop => prop.theName) : [];
+      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties.map(prop => prop.theEnvironmentName) : [];
     },
     bcItems() {
       return [{text: 'Home', to: {name: 'home'}},{text: 'Assets', to: {name: 'assets'}},{text: this.objt.theName, to : {name: 'asset'}}]
@@ -182,10 +197,36 @@ export default {
         {key: 'theTailNav', label: 'Tail Nav'},
         {key: 'theTailName', label: 'Tail Asset'}
       ],
-      objt: testData['asset']
+      objt : {
+        'theName' : '',
+        'theTags' : '',
+        'theShortCode' : '',
+        'theType' : '',
+        'theDescription' : '',
+        'theSignificance' : '',
+        'isCritical' : '',
+        'theCriticalRationale' : '',
+        'theEnvironmentProperties' : []}
     }
   }, 
+  beforeRouteEnter (to, from, next) {
+    if (to.params.assetName == 'New asset') {
+      next();
+    }
+    else {
+      var url = store.state.url + "/api/assets/name/" + to.params.assetName + "?session_id=" + store.state.session;
+      axios.get(url)
+      .then(response => {
+        next(vm => (vm.objt = response.data))
+      })
+      .catch((error) => {
+        console.log(error)})
+    }
+  },
   methods: {
+    setData(objt) {
+      this.objt = objt;
+    },
     onSubmit(evt) {
       evt.preventDefault();
       console.log(evt);
@@ -233,7 +274,7 @@ export default {
       this.objt.theEnvironmentProperties = this.objt.theEnvironmentProperties.filter(envProp => envProp.theName != envName);
     },
     addEnvironment(evt) {
-      console.log(evt);
+      evt.preventDefault();
       this.$refs.environmentDialog.show();  
     },
     updateAssetProperty : function(updProp) {
@@ -245,7 +286,38 @@ export default {
       });
     },
     addEnvironmentProperty : function(envName) {
-      console.log("Adding " + envName);
+      var defaultEnvProp = {
+        'theEnvironmentName' : envName,
+        'theAssociations' : [],
+        'theProperties' : [
+          {"name":"Confidentiality",
+           "value":"None",
+           "rationale":"None"},
+          {"name":"Integrity",
+           "value":"None",
+           "rationale":"None"},
+          {"name":"Availability",
+           "value":"None",
+           "rationale":"None"},
+          {"name":"Accountability",
+           "value":"None",
+           "rationale":"None"},
+          {"name":"Anonymity",
+           "value":"None",
+           "rationale":"None"},
+          {"name":"Pseudonymity",
+           "value":"None",
+           "rationale":"None"},
+          {"name":"Unlinkability",
+           "value":"None",
+           "rationale":"None"},
+          {"name":"Unobservability",
+           "value":"None",
+           "rationale":"None"}
+        ]
+      }
+      this.objt.theEnvironmentProperties.push(defaultEnvProp);
+      this.envProp = this.objt.theEnvironmentProperties.length;
     }
   }
 }
