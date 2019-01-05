@@ -113,9 +113,14 @@
           </b-card>
         </b-container>
       </b-card>
-      <div>
-        <b-button type="submit" variant="primary">Submit</b-button>
-      </div>
+      <b-container fluid>
+        <b-form-row>
+          <b-col md="4" offset-md="5" >
+            <b-button type="submit" variant="primary" @click="onCommit">{{commitLabel}}</b-button>
+            <b-button type="submit" variant="secondary" @click="onCancel">Cancel</b-button>
+          </b-col>
+        </b-form-row>
+      </b-container> 
     </b-form>
   </div>
 </template>
@@ -126,17 +131,6 @@ import PropertyModal from '@/components/PropertyModal.vue'
 import DimensionModal from '@/components/DimensionModal.vue'
 import axios from 'axios';
 import store from '../store'
-
-/*const emptyAsset = 
-  {
-    'theName' : '',
-    'theTags' : '',
-    'theShortCode' : '',
-    'theType' : '',
-    'theDescription' : '',
-    'isCritical' : false,
-    'theCriticalRationale' : false,
-    'theEnvironmentProperties' : []}*/
 
 export default {
   props : {
@@ -166,9 +160,9 @@ export default {
   data() {
     return {
       envPropIndex : 0,
-      pmShow : false,
+      commitLabel : 'Create',
       selectedProperty : {},
-      assetTypes: ['Hardware','Information','People','System'],
+      assetTypes: ['Hardware','Information','People','Systems'],
       envFields : {
         envactions : {label : ''},
         theName : {label : 'Environment'}
@@ -217,7 +211,10 @@ export default {
       var url = store.state.url + "/api/assets/name/" + to.params.assetName + "?session_id=" + store.state.session;
       axios.get(url)
       .then(response => {
-        next(vm => (vm.objt = response.data))
+        next(vm => {
+          vm.commitLabel = 'Update';
+          vm.objt = response.data;
+        })
       })
       .catch((error) => {
         console.log(error)})
@@ -318,6 +315,14 @@ export default {
       }
       this.objt.theEnvironmentProperties.push(defaultEnvProp);
       this.envProp = this.objt.theEnvironmentProperties.length;
+    },
+    onCommit(evt) {
+      evt.preventDefault();
+      alert("Commit");
+    },
+    onCancel(evt) {
+      evt.preventDefault();
+      this.$router.push({ name: 'assets'})
     }
   }
 }

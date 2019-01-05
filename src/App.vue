@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-  <b-container fluid>
+  <b-container id="app" fluid>
+    <div id="content">
     <b-row>
       <b-col>
         <navbar/>
@@ -11,17 +11,20 @@
         <router-view/>
       </b-col>
     </b-row>
+    </div>
+    <status-footer/>
   </b-container>
-  </div>
 </template>
 
 <script>
 import Navbar from './components/Navbar';
+import StatusFooter from './components/StatusFooter';
 
 export default {
   name: 'App',
   components: {
-    Navbar
+    Navbar,
+    StatusFooter
   }
 }
 </script>
@@ -48,4 +51,9 @@ div {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+#content {
+  padding-bottom: 30px; 
+}
+
 </style>

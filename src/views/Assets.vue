@@ -17,6 +17,7 @@
 <script>
 
 import axios from 'axios';
+import EventBus from '../utils/event-bus';
 
 export default {
   data() {
@@ -38,7 +39,18 @@ export default {
       this.$router.push({ name: 'asset', params : {assetName: 'New asset'}});
     },
     deleteAsset(index) {
-      this.items.splice(index,1);
+      var url = "/api/assets/name/" + this.items[index].theName;
+      axios.delete(url,{
+        baseURL : this.$store.state.url,
+        params : {'session_id' : this.$store.state.session}
+       })
+      .then(response => {
+        this.items.splice(index,1);
+        EventBus.$emit('operation-success','Some object deleted')
+       })
+      .catch((error) => {
+        EventBus.$emit('operation-failure',error)
+      })
     }
   },
   mounted() {
