@@ -31,7 +31,7 @@
         <b-dropdown-item href="#">Roles</b-dropdown-item>
         <b-dropdown-item :to="{name: 'assets'}">Assets</b-dropdown-item>
         <b-dropdown-item href="#">Asset Associations</b-dropdown-item>
-        <b-dropdown-item href="#">Attackers</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'attackers'}">Attackers</b-dropdown-item>
         <b-dropdown-item href="#">Threats</b-dropdown-item>
         <b-dropdown-item href="#">Vulnerabilities</b-dropdown-item>
         <b-dropdown-item href="#">Risks</b-dropdown-item>
@@ -101,7 +101,6 @@
       <b-nav-item href="#" right>Logout</b-nav-item>
     </b-navbar-nav>
   </b-navbar>
-
 </template>
 
 
