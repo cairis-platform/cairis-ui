@@ -3,7 +3,13 @@
     <b-breadcrumb :items="bcItems" /> 
     <property-modal ref="assetPropertyDialog" :securityProperty="selectedProperty" v-on:property-update="updateAssetProperty"/> 
     <dimension-modal ref="environmentDialog" dimension="environment" :existing="environmentNames" v-on:dimension-modal-update="addEnvironmentProperty"/> 
-    <b-form @submit="onSubmit" v-on:property-update="updateAssetProperty">
+    <p v-if="errors.length">
+      <b>Please correct the following error(s):</b>
+      <ul>
+        <li v-for="error in errors" :key="error">{{ error }}</li>
+      </ul>
+    </p>
+    <b-form v-on:property-update="updateAssetProperty">
       <b-card no-body>
         <b-tabs card>
           <b-tab title="Summary" active>
@@ -131,6 +137,7 @@ import PropertyModal from '@/components/PropertyModal.vue'
 import DimensionModal from '@/components/DimensionModal.vue'
 import axios from 'axios';
 import store from '../store'
+import EventBus from '../utils/event-bus';
 
 export default {
   props : {
@@ -159,6 +166,7 @@ export default {
   },
   data() {
     return {
+      errors : [],
       envPropIndex : 0,
       commitLabel : 'Create',
       selectedProperty : {},
@@ -192,15 +200,16 @@ export default {
         {key: 'theTailName', label: 'Tail Asset'}
       ],
       objt : {
-        'theName' : '',
-        'theTags' : '',
-        'theShortCode' : '',
-        'theType' : '',
-        'theDescription' : '',
-        'theSignificance' : '',
-        'isCritical' : '',
-        'theCriticalRationale' : '',
-        'theEnvironmentProperties' : []}
+        theName : '',
+        theTags : '',
+        theShortCode : '',
+        theType : '',
+        theDescription : '',
+        theSignificance : '',
+        isCritical : 0,
+        theCriticalRationale : '',
+        theInterfaces : [],
+        theEnvironmentProperties : []}
     }
   }, 
   beforeRouteEnter (to, from, next) {
@@ -208,8 +217,11 @@ export default {
       next();
     }
     else {
-      var url = store.state.url + "/api/assets/name/" + to.params.assetName + "?session_id=" + store.state.session;
-      axios.get(url)
+      var url = "/api/assets/name/" + to.params.assetName
+      axios.get(url,{
+        baseURL : store.state.url,
+        params : {'session_id' : store.state.session}
+      })
       .then(response => {
         next(vm => {
           vm.commitLabel = 'Update';
@@ -217,17 +229,80 @@ export default {
         })
       })
       .catch((error) => {
-        console.log(error)})
+        EventBus.$emit('operation-failure',error)
+      })
     }
   },
   methods: {
     setData(objt) {
       this.objt = objt;
     },
-    onSubmit(evt) {
+    onCancel(evt) {
       evt.preventDefault();
-      console.log(evt);
-      console.log("Submitting " + JSON.stringify(this.objt));
+      this.$router.push({ name: 'assets'})
+    },
+    checkForm() {
+      this.errors = []
+      if (this.objt.theName.length == 0) {
+        this.errors.push('Asset name is required');
+      }
+      if (this.objt.theShortCode.length == 0) {
+        this.errors.push('Short code is required');
+      }
+      if (this.objt.theType.length == 0) {
+        this.errors.push('Asset type is required');
+      }
+      if (this.objt.theDescription.length == 0) {
+        this.errors.push('Description is required');
+      }
+      if (this.objt.theSignificance.length == 0) {
+        this.errors.push('Significance is required');
+      }
+      if (this.objt.theEnvironmentProperties.length == 0) {
+        this.errors.push('No environment properties have been defined')
+      }
+      if (!this.errors.length) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    },
+    commitAsset() {
+      if (this.commitLabel == 'Update') {
+        var url = this.$store.state.url + "/api/assets/name/" + this.assetName + "?session_id=" + this.$store.state.session;
+        axios.put(url,{
+          session_id : this.$store.state.session,
+          object : this.objt
+        })
+        .then(response => {
+          EventBus.$emit('operation-success',this.objt.theName + ' created')
+          this.$router.push({ name: 'assets'})
+        })
+        .catch((error) => {
+          EventBus.$emit('operation-failure',error)
+        })
+      }
+      else {
+        var url = this.$store.state.url + "/api/assets";
+        axios.post(url,{
+          session_id : this.$store.state.session,
+          object : this.objt
+        })
+        .then(response => {
+          EventBus.$emit('operation-success',this.objt.theName + ' updated')
+          this.$router.push({ name: 'assets'})
+        })
+        .catch((error) => {
+          EventBus.$emit('operation-failure',error)
+        })
+      }
+    },
+    onCommit(evt) {
+      evt.preventDefault();
+      if (this.checkForm()) {
+        this.commitAsset();
+      }
     },
     addAssetProperty(data) {
       this.selectedProperty = {'name' : '','value' : '','rationale' : ''};
@@ -315,14 +390,6 @@ export default {
       }
       this.objt.theEnvironmentProperties.push(defaultEnvProp);
       this.envProp = this.objt.theEnvironmentProperties.length;
-    },
-    onCommit(evt) {
-      evt.preventDefault();
-      alert("Commit");
-    },
-    onCancel(evt) {
-      evt.preventDefault();
-      this.$router.push({ name: 'assets'})
     }
   }
 }

@@ -6,6 +6,7 @@
 <script>
 
 import axios from 'axios'
+import EventBus from '../utils/event-bus';
 
 export default {
   name: 'dimension-select',
@@ -50,13 +51,15 @@ export default {
       this.$emit('dimension-select-change',item);
     },
     updateSelector() {
-      var url = this.$store.state.url + "/api/dimensions/table/" + this.dimension
+      var url = "/api/dimensions/table/" + this.dimension
       if (this.environment != '') {
         url += '/environment/' + this.environment;
       }
-      url += "?session_id=" + this.$store.state.session;
       var ref = this;
-      axios.get(url)
+      axios.get(url,{
+        baseURL : this.$store.state.url,
+        params : {'session_id' : this.$store.state.session},
+      })
       .then(response => {
         ref.items = response.data
         ref.items = ref.items.length > 0 ? ref.items.filter((item) => {if (!ref.existing.includes(item)) return item; }) : []
@@ -67,7 +70,9 @@ export default {
           ref.items.unshift('all')
         }
       })
-      .catch((error) => console.log(error))
+      .catch((error) => {
+        EventBus.$emit('operation-failure','Error updating selector:' + error)
+      })
     }
   },
   mounted : function() {

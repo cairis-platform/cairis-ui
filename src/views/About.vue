@@ -5,6 +5,7 @@
 <script>
 
 import axios from 'axios';
+import EventBus from '../utils/event-bus';
 
 export default {
   data() {
@@ -21,7 +22,9 @@ export default {
     .then(response => {
       this.theVersion = response.data;
      })
-    .catch((error) => console.log(error))
+    .catch((error) => {
+      EventBus.$emit('operation-failure',error)
+    })
   }
 }      
 

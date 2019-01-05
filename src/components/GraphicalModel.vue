@@ -13,6 +13,7 @@
 <script>
   import SvgPanZoom from 'vue-svg-pan-zoom';
   import axios from 'axios';
+  import EventBus from '../utils/event-bus';
 
   export default {
     name: 'graphical-model',
@@ -57,7 +58,9 @@
         .then(response => {
           this.theSvgData = response.data;
          })
-        .catch((error) => console.log(error))
+        .catch((error) => {
+          EventBus.$emit('operation-failure',error)
+        })
       }
     },
     watch : {
