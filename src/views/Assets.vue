@@ -33,10 +33,10 @@ export default {
   },
   methods : {
     assetClicked(row) {
-      this.$router.push({ name: 'asset', params : {assetName: row.theName}});
+      this.$router.push({ name: 'asset', params : {objectName: row.theName}});
     },
     addAsset() {
-      this.$router.push({ name: 'asset', params : {assetName: 'New asset'}});
+      this.$router.push({ name: 'asset', params : {objectName: 'New asset'}});
     },
     deleteAsset(index) {
       var url = "/api/assets/name/" + this.items[index].theName;

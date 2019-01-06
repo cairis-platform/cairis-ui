@@ -33,10 +33,10 @@ export default {
   },
   methods : {
     attackerClicked(row) {
-      this.$router.push({ name: 'attacker', params : {attackerName: row.theName}});
+      this.$router.push({ name: 'attacker', params : {objectName: row.theName}});
     },
-    addAsset() {
-      this.$router.push({ name: 'attacker', params : {attackerName: 'New attacker'}});
+    addAttacker() {
+      this.$router.push({ name: 'attacker', params : {objectName: 'New attacker'}});
     },
     deleteAttacker(index) {
       var attackerName = JSON.parse(JSON.stringify(this.items[index].theName));

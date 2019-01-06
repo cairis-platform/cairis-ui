@@ -4,6 +4,7 @@ import Home from './views/Home.vue';
 import Asset from './views/Asset.vue';
 import Assets from './views/Assets.vue';
 import AssetModel from './views/AssetModel.vue';
+import Attacker from './views/Attacker.vue';
 import Attackers from './views/Attackers.vue';
 import GoalModel from './views/GoalModel.vue';
 import NotFound from './components/NotFound.vue';
@@ -20,7 +21,7 @@ export default new Router({
       component: Home
     },
     {
-      path: '/asset/:assetName',
+      path: '/asset/:objectName',
       name: 'asset',
       component: Asset,
       props: true
@@ -34,6 +35,12 @@ export default new Router({
       path: '/assetmodel',
       name: 'assetmodel',
       component: AssetModel
+    },
+    {
+      path: '/attacker/:objectName',
+      name: 'attacker',
+      component: Attacker,
+      props: true
     },
     {
       path: '/attackers',

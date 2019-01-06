@@ -1,20 +1,20 @@
 <template>
   <div class="asset">
     <b-breadcrumb :items="bcItems" /> 
-    <property-modal ref="assetPropertyDialog" :securityProperty="selectedProperty" v-on:property-update="updateAssetProperty"/> 
-    <dimension-modal ref="environmentDialog" dimension="environment" :existing="environmentNames" v-on:dimension-modal-update="addEnvironmentProperty"/> 
+    <property-modal ref="assetPropertyDialog" :securityProperty="selectedProperty" v-on:property-update="updateProperty"/> 
+    <dimension-modal ref="environmentDialog" dimension="environment" :existing="environmentNames" v-on:dimension-modal-update="addAssetEnvironmentProperty"/> 
     <p v-if="errors.length">
       <b>Please correct the following error(s):</b>
       <ul>
         <li v-for="error in errors" :key="error">{{ error }}</li>
       </ul>
     </p>
-    <b-form v-on:property-update="updateAssetProperty">
+    <b-form v-on:property-update="updateProperty">
       <b-card no-body>
         <b-tabs card>
           <b-tab title="Summary" active>
             <b-card bg-variant="light">
-              <b-form-group label="Assets" label-class="text-md-left" label-cols="1" horizontal label-for="theAssetInput">
+              <b-form-group label="Asset" label-class="text-md-left" label-cols="1" horizontal label-for="theAssetInput">
                 <b-form-input id="theAssetInput" v-model="objt.theName" type="text" required>
                 </b-form-input>
               </b-form-group>
@@ -94,12 +94,12 @@
               <b-col sm="12">
                 <b-tabs >
                   <b-tab title="Definition" active>
-                    <b-table striped hover :items="notNone" :fields=propTableFields @row-clicked="viewAssetProperty">
+                    <b-table striped hover :items="notNone" :fields=propTableFields @row-clicked="viewProperty">
                       <template slot="HEAD_propactions" slot-scope="data"> 
                         <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addAssetProperty(data)"/> 
                       </template>
                       <template slot="propactions" slot-scope="row">
-                        <font-awesome-icon icon="trash" :style="{color: 'red'}" @click.stop="clearAssetProperty(row.item)"/>
+                        <font-awesome-icon icon="trash" :style="{color: 'red'}" @click.stop="clearProperty(row.item)"/>
                       </template>
                     </b-table>
                   </b-tab>
@@ -138,17 +138,18 @@ import DimensionModal from '@/components/DimensionModal.vue'
 import axios from 'axios';
 import store from '../store'
 import EventBus from '../utils/event-bus';
+import objectMixin from '../mixins/objectMixin'
 
 export default {
   props : {
-    assetName : String
+    objectName : String
   },
+  mixins : [
+    objectMixin
+  ],
   computed : {
     notNone() {
       return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theProperties.filter(prop => prop.value != 'None') : [];
-    },
-    environmentNames() {
-      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties.map(prop => prop.theEnvironmentName) : [];
     },
     bcItems() {
       return [{text: 'Home', to: {name: 'home'}},{text: 'Assets', to: {name: 'assets'}},{text: this.objt.theName, to : {name: 'asset'}}]
@@ -213,11 +214,11 @@ export default {
     }
   }, 
   beforeRouteEnter (to, from, next) {
-    if (to.params.assetName == 'New asset') {
+    if (to.params.objectName == 'New asset') {
       next();
     }
     else {
-      var url = "/api/assets/name/" + to.params.assetName
+      var url = "/api/assets/name/" + to.params.objectName
       axios.get(url,{
         baseURL : store.state.url,
         params : {'session_id' : store.state.session}
@@ -234,13 +235,6 @@ export default {
     }
   },
   methods: {
-    setData(objt) {
-      this.objt = objt;
-    },
-    onCancel(evt) {
-      evt.preventDefault();
-      this.$router.push({ name: 'assets'})
-    },
     checkForm() {
       this.errors = []
       if (this.objt.theName.length == 0) {
@@ -268,41 +262,17 @@ export default {
         return false;
       }
     },
-    commitAsset() {
-      if (this.commitLabel == 'Update') {
-        var url = this.$store.state.url + "/api/assets/name/" + this.assetName + "?session_id=" + this.$store.state.session;
-        axios.put(url,{
-          session_id : this.$store.state.session,
-          object : this.objt
-        })
-        .then(response => {
-          EventBus.$emit('operation-success',this.objt.theName + ' created')
-          this.$router.push({ name: 'assets'})
-        })
-        .catch((error) => {
-          EventBus.$emit('operation-failure',error)
-        })
-      }
-      else {
-        var url = this.$store.state.url + "/api/assets";
-        axios.post(url,{
-          session_id : this.$store.state.session,
-          object : this.objt
-        })
-        .then(response => {
-          EventBus.$emit('operation-success',this.objt.theName + ' updated')
-          this.$router.push({ name: 'assets'})
-        })
-        .catch((error) => {
-          EventBus.$emit('operation-failure',error)
-        })
-      }
-    },
     onCommit(evt) {
       evt.preventDefault();
       if (this.checkForm()) {
-        this.commitAsset();
+        var updateUrl = this.$store.state.url + "/api/assets/name/" + this.objectName + "?session_id=" + this.$store.state.session;
+        var createUrl = this.$store.state.url + "/api/assets";
+        this.commitObject(updateUrl,createUrl,'assets');
       }
+    },
+    onCancel(evt) {
+      evt.preventDefault();
+      this.$router.push({ name: 'assets'})
     },
     addAssetProperty(data) {
       this.selectedProperty = {'name' : '','value' : '','rationale' : ''};
@@ -329,67 +299,16 @@ export default {
     viewAssetAssociation(data) {
       console.log(JSON.stringify(data));
     },
-    viewAssetProperty(data) {
-      this.selectedProperty = JSON.parse(JSON.stringify(data));
-      this.selectedProperty['update'] = true;
-      this.$refs.assetPropertyDialog.show();  
-    },
-    clearAssetProperty(item) {
-      this.objt.theEnvironmentProperties[this.envPropIndex].theProperties.map(prop => { 
-        if (prop.name == item.name) {
-          prop.value = 'None';
-          prop.rationale = 'None';
-        }
-      });
-    },
-    deleteEnvironment(envName) {
-      this.objt.theEnvironmentProperties = this.objt.theEnvironmentProperties.filter(envProp => envProp.theName != envName);
-    },
     addEnvironment(evt) {
       evt.preventDefault();
       this.$refs.environmentDialog.show();  
     },
-    updateAssetProperty : function(updProp) {
-      this.objt.theEnvironmentProperties[this.envPropIndex].theProperties.map(prop => { 
-        if (prop.name == updProp.name) {
-          prop.value = updProp.value;
-          prop.rationale = updProp.rationale;
-        }
+    addAssetEnvironmentProperty : function(envName) {
+      this.addEnvironmentProperty({
+        theEnvironmentName : envName,
+        theAssociations : [],
+        theProperties : this.defaultProperties()
       });
-    },
-    addEnvironmentProperty : function(envName) {
-      var defaultEnvProp = {
-        'theEnvironmentName' : envName,
-        'theAssociations' : [],
-        'theProperties' : [
-          {"name":"Confidentiality",
-           "value":"None",
-           "rationale":"None"},
-          {"name":"Integrity",
-           "value":"None",
-           "rationale":"None"},
-          {"name":"Availability",
-           "value":"None",
-           "rationale":"None"},
-          {"name":"Accountability",
-           "value":"None",
-           "rationale":"None"},
-          {"name":"Anonymity",
-           "value":"None",
-           "rationale":"None"},
-          {"name":"Pseudonymity",
-           "value":"None",
-           "rationale":"None"},
-          {"name":"Unlinkability",
-           "value":"None",
-           "rationale":"None"},
-          {"name":"Unobservability",
-           "value":"None",
-           "rationale":"None"}
-        ]
-      }
-      this.objt.theEnvironmentProperties.push(defaultEnvProp);
-      this.envProp = this.objt.theEnvironmentProperties.length;
     }
   }
 }
