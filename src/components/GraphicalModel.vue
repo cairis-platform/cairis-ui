@@ -1,13 +1,12 @@
 <template>
-  <SvgPanZoom 
-        style="width: 100%; height: 100%; border:1px solid black;"
-        :zoomEnabled="true"
-        :controlIconsEnabled="true"
-        :fit="true"
-        @svgpanzoom="registerSvgPanZoom"
-        :center="true"> 
-  <b-container fluid v-html="this.svgData" v-on:click="onClick($event)"></b-container> 
-  </SvgPanZoom>
+  <SvgPanZoom
+    style="width: 100%; height: 800px; border:1px solid black;"
+    :zoomEnabled="true"
+    :controlIconsEnabled="true"
+    :fit="true"
+    :center="true"> 
+    <svg width="100%" height="800" v-html="theSvgData" v-on:click="onClick($event)"></svg> 
+  </SvgPanZoom> 
 </template>
 
 <script>
@@ -24,24 +23,15 @@
         default : ''
       }
     },
-    computed : {
-      svgData() {
-        return this.theSvgData == null ? '<svg><p>No data</p></svg>' : this.theSvgData;
-      }
-    },
-    data() {
-      return {
-        theSvgData : null,
-        svgpanzoom : null
-      }
-    },
     components : {
       SvgPanZoom
     },
+    data() {
+      return {
+        theSvgData : null
+      }
+    },
     methods : {
-      registerSvgPanZoom(svgpanzoom) {
-        this.svgpanzoom = svgpanzoom;
-      },
       onClick(event) {
         event.preventDefault();
         var url = event.target.parentElement.href.baseVal;

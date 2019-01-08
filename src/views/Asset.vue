@@ -1,8 +1,8 @@
 <template>
   <div class="asset">
     <b-breadcrumb :items="bcItems" /> 
-    <property-modal ref="assetPropertyDialog" :securityProperty="selectedProperty" v-on:property-update="updateProperty"/> 
     <dimension-modal ref="environmentDialog" dimension="environment" :existing="environmentNames" v-on:dimension-modal-update="addAssetEnvironmentProperty"/> 
+    <property-modal ref="assetPropertyDialog" :securityProperty="selectedProperty" v-on:property-update="updateProperty"/> 
     <p v-if="errors.length">
       <b>Please correct the following error(s):</b>
       <ul>
@@ -82,13 +82,13 @@
             <b-row class="jusfify-content-md-left" align-content>
               <b-col sm="12">
                 <b-tabs v-model="envPropIndex">
-                  <b-tab v-for="envProp in objt.theEnvironmentProperties" :key="envProp.theEnvironmentName" :title=envProp.theName>
+                  <b-tab v-for="envProp in this.objt.theEnvironmentProperties" :key="envProp.theEnvironmentName" :title=envProp.theName>
                     <template slot="title">
                       <font-awesome-icon icon="trash" :style="{color: 'red'}" @click="deleteEnvironment(envProp.theEnvironmentName)"/>  {{envProp.theEnvironmentName}}
                     </template> 
                   </b-tab>
-                </b-tabs>
-              </b-col>
+                 </b-tabs>
+               </b-col>
             </b-row>
             <b-row class="justify-content-md-left" v-show="this.objt.theEnvironmentProperties.length">
               <b-col sm="12">
@@ -105,7 +105,7 @@
                   </b-tab>
                   <b-tab title="Associations">
                     <b-table striped hover :items="assetAssociations" :fields="assocTableFields" @row-clicked="viewAssetAssociation">
-                     <template slot="HEAD_assocactions" slot-scope="data">
+                      <template slot="HEAD_assocactions" slot-scope="data">
                         <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addAssetAssociation(data)"/> 
                       </template>
                       <template slot="assocactions" slot-scope="row">
@@ -148,9 +148,6 @@ export default {
     objectMixin
   ],
   computed : {
-    notNone() {
-      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theProperties.filter(prop => prop.value != 'None') : [];
-    },
     bcItems() {
       return [{text: 'Home', to: {name: 'home'}},{text: 'Assets', to: {name: 'assets'}},{text: this.objt.theName, to : {name: 'asset'}}]
     },
@@ -167,8 +164,8 @@ export default {
   },
   data() {
     return {
-      errors : [],
       envPropIndex : 0,
+      errors : [],
       commitLabel : 'Create',
       selectedProperty : {},
       assetTypes: ['Hardware','Information','People','Systems'],

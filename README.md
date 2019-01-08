@@ -30,5 +30,7 @@ npm run lint
 npm run test:unit
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Working with CAIRIS
+
+You will need a CAIRIS server to get/post/put/delete objects.  For the time being, the IP address of your CAIRIS server needs to be manually set in store/index.js.
+You will also need to import a CAIRIS model into the cairis_test_default database, which is associated with the `test` session that is also hardcoded into store/index.js.  To do this, just use the cimport.py script without setting a user or database.

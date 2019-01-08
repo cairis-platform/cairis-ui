@@ -39,14 +39,15 @@ export default {
       this.$router.push({ name: 'asset', params : {objectName: 'New asset'}});
     },
     deleteAsset(index) {
-      var url = "/api/assets/name/" + this.items[index].theName;
+      const assetName = this.items[index].theName;
+      const url = "/api/assets/name/" + assetName;
       axios.delete(url,{
         baseURL : this.$store.state.url,
         params : {'session_id' : this.$store.state.session}
        })
       .then(response => {
         this.items.splice(index,1);
-        EventBus.$emit('operation-success','Some object deleted')
+        EventBus.$emit('operation-success',response.data.message)
        })
       .catch((error) => {
         EventBus.$emit('operation-failure',error)
@@ -54,7 +55,7 @@ export default {
     }
   },
   mounted() {
-    var url = "/api/assets/summary";
+    const url = "/api/assets/summary";
     axios.get(url,{
       baseURL : this.$store.state.url,
       params : {'session_id' : this.$store.state.session}

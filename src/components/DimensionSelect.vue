@@ -24,7 +24,7 @@ export default {
         return ''
       }
     },
-    all : {
+    includeall : {
       type: Boolean,
       default : function() {
         return false
@@ -66,7 +66,7 @@ export default {
         if (ref.items.length == 1) {
           ref.$emit('dimension-select-change',ref.items[0]);
         } 
-        if (ref.all) {
+        if (ref.includeall) {
           ref.items.unshift('all')
         }
       })
