@@ -14,8 +14,10 @@
     "@fortawesome/vue-fontawesome": "^0.1.4",
     "axios": "^0.18.0",
     "bootstrap-vue": "^2.0.0-rc.11",
+    "chart.js": "^2.7.3",
     "vue": "^2.5.17",
     "vue-axios": "^2.1.4",
+    "vue-chartjs": "^3.4.0",
     "vue-router": "^3.0.1",
     "vue-svg-pan-zoom": "^0.1.0",
     "vuex": "^3.0.1"

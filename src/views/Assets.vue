@@ -7,7 +7,7 @@
         <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addAsset()"/> 
       </template>
       <template slot="assetsactions" slot-scope="row">
-        <font-awesome-icon icon="trash" :style="{color: 'red'}" @click.stop="deleteAsset(row.index)"/>
+        <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteAsset(row.index)"/>
       </template>
     </b-table>
     </b-card>

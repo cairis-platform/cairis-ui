@@ -68,7 +68,7 @@
                   <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addInterface(data)"/> 
                 </template>
                 <template slot="intactions" slot-scope="row">
-                  <font-awesome-icon icon="trash" :style="{color: 'red'}" @click.stop="deleteInterface(row.item)"/>
+                  <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteInterface(row.item)"/>
                 </template>
               </b-table>
             </b-card>
@@ -84,7 +84,7 @@
                 <b-tabs v-model="envPropIndex">
                   <b-tab v-for="envProp in this.objt.theEnvironmentProperties" :key="envProp.theEnvironmentName" :title=envProp.theName>
                     <template slot="title">
-                      <font-awesome-icon icon="trash" :style="{color: 'red'}" @click="deleteEnvironment(envProp.theEnvironmentName)"/>  {{envProp.theEnvironmentName}}
+                      <font-awesome-icon icon="minus" :style="{color: 'red'}" @click="deleteEnvironment(envProp.theEnvironmentName)"/>  {{envProp.theEnvironmentName}}
                     </template> 
                   </b-tab>
                  </b-tabs>
@@ -99,7 +99,7 @@
                         <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addAssetProperty(data)"/> 
                       </template>
                       <template slot="propactions" slot-scope="row">
-                        <font-awesome-icon icon="trash" :style="{color: 'red'}" @click.stop="clearProperty(row.item)"/>
+                        <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="clearProperty(row.item)"/>
                       </template>
                     </b-table>
                   </b-tab>
@@ -109,7 +109,7 @@
                         <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addAssetAssociation(data)"/> 
                       </template>
                       <template slot="assocactions" slot-scope="row">
-                        <font-awesome-icon icon="trash" :style="{color: 'red'}" @click.stop="deleteAssetAssociation(row.index)"/>
+                        <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteAssetAssociation(row.index)"/>
                       </template>
                     </b-table>
                   </b-tab>

@@ -8,7 +8,7 @@ export default {
     },
     notNone() {
       return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theProperties.filter(prop => prop.value != 'None') : [];
-    },
+    }
   },
   methods : {
     deleteEnvironment(envName) {

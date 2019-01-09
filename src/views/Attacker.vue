@@ -17,15 +17,15 @@
           </b-col>
           <b-col md=10>
             <b-container fluid>
-              <b-form-group label="Attacker" label-class="text-md-left" label-cols="2" horizontal label-for="theAttackerInput">
+              <b-form-group label="<b>Attacker</b>" label-class="text-md-left" label-for="theAttackerInput">
                 <b-form-input id="theAttackerInput" v-model="objt.theName" type="text" required>
                 </b-form-input>
               </b-form-group>
-              <b-form-group label="Tags" label-class="text-md-left" label-cols="2" horizontal label-for="theTagsInput">
+              <b-form-group label="<b>Tags</b>" label-class="text-md-left" label-for="theTagsInput">
                 <b-form-input id="theTagsInput" v-model="objt.theTags" type="text">
                 </b-form-input>
               </b-form-group>
-              <b-form-group label="Description" label-class="text-md-left" label-cols="2" horizontal label-for="theDescription">
+              <b-form-group label="<b>Description</b>" label-class="text-md-left" label-for="theDescription">
                 <b-form-textarea id="theDescriptionInput" v-model="objt.theDescription" type="text" :rows=5 :max-rows=7 required>
                 </b-form-textarea>
               </b-form-group>
@@ -34,7 +34,7 @@
         </b-row>
         <b-row>
           <b-container fluid>
-            <b-card header="Environments" no-body class="text-left">
+            <b-card header="<b>Environments</b>" no-body class="text-left">
               <template slot="header">
                 <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addEnvironment"/> Environment
               </template> 
@@ -43,23 +43,44 @@
                   <b-tabs v-model="envPropIndex">
                     <b-tab v-for="envProp in objt.theEnvironmentProperties" :key="envProp.theEnvironmentName" :title=envProp.theName>
                       <template slot="title">
-                        <font-awesome-icon icon="trash" :style="{color: 'red'}" @click="deleteEnvironment(envProp.theEnvironmentName)"/>  {{envProp.theEnvironmentName}}
+                        <font-awesome-icon icon="minus" :style="{color: 'red'}" @click="deleteEnvironment(envProp.theEnvironmentName)"/>  {{envProp.theEnvironmentName}}
                       </template> 
                     </b-tab>
                   </b-tabs>
                 </b-col>
               </b-row>
               <b-row class="justify-content-md-left" v-show="this.objt.theEnvironmentProperties.length">
-                <b-col sm="12">
-                  <b-tabs>
-                    <b-tab title="Role" active>
-                    </b-tab>
-                    <b-tab title="Motivation">
-                    </b-tab>
-                    <b-tab title="Capabilities">
-                    </b-tab>
-                  </b-tabs>
+                <b-col sm="4">
+                  <b-table striped bordered :fields="roleTableFields" :items="objt.theEnvironmentProperties[envPropIndex].theRoles.map(role => ({name : role}))">
+                    <template slot="HEAD_roleactions" slot-scope="data"> 
+                      <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addRole(data)"/> 
+                    </template>
+                    <template slot="roleactions" slot-scope="row">
+                      <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteRole(row.item)"/>
+                    </template>
+                  </b-table>
                 </b-col>
+                <b-col sm="4">
+                  <b-table striped bordered :fields="motiveTableFields" :items="objt.theEnvironmentProperties[envPropIndex].theMotives.map(motive => ({name : motive}))">
+                    <template slot="HEAD_motiveactions" slot-scope="data"> 
+                      <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addMotive(data)"/> 
+                    </template>
+                    <template slot="motiveactions" slot-scope="row">
+                      <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteMotive(row.item)"/>
+                    </template>
+                  </b-table>
+                </b-col>
+                <b-col sm="4">
+                  <b-table striped bordered :fields="capabilityTableFields" :items="objt.theEnvironmentProperties[envPropIndex].theCapabilities">
+                    <template slot="HEAD_capabilityactions" slot-scope="data"> 
+                      <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addCapability(data)"/> 
+                    </template>
+                    <template slot="capabilityactions" slot-scope="row">
+                      <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteCapability(row.item)"/>
+                    </template>
+                  </b-table>
+                </b-col>
+
               </b-row>
             </b-card>
           </b-container>
@@ -110,6 +131,19 @@ export default {
       errors : [],
       envPropIndex : 0,
       commitLabel : 'Create',
+      roleTableFields : {
+        roleactions : {label : ''},
+        name : {label : 'Role'}
+      },
+      motiveTableFields : {
+        motiveactions : {label : ''},
+        name : {label : 'Motivation'}
+      },
+      capabilityTableFields : {
+        capabilityactions : {label : ''},
+        name : {label : 'Capability'},
+        value : {label : 'Value'}
+      },
       objt : {
         theName : '',
         theTags : [],
@@ -156,8 +190,25 @@ export default {
         theMotives : [],
         theCapabilities : []
       });
+    },
+    addRole(data) {
+      this.objt.theEnvironmentProperties[this.envPropIndex].theRoles.push('new role');
+    },
+    deleteRole(item) {
+      this.objt.theEnvironmentProperties[this.envPropIndex].theRoles = this.objt.theEnvironmentProperties[this.envPropIndex].theRoles.filter(role => (role != item.name));
+    },
+    addMotive(data) {
+      console.log('adding motive');
+    },
+    deleteMotive(item) {
+      this.objt.theEnvironmentProperties[this.envPropIndex].theMotives = this.objt.theEnvironmentProperties[this.envPropIndex].theMotives.filter(motive => (motive != item.name));
+    },
+    addCapability(data) {
+      console.log('adding capability');
+    },
+    deleteCapability(item) {
+      this.objt.theEnvironmentProperties[this.envPropIndex].theCapabilities = this.objt.theEnvironmentProperties[this.envPropIndex].theCapabilities.filter(cap => (cap.name != item.name));
     }
-
   }
 
 }

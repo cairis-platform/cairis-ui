@@ -7,7 +7,7 @@
         <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addAttacker()"/> 
       </template>
       <template slot="attackersactions" slot-scope="row">
-        <font-awesome-icon icon="trash" :style="{color: 'red'}" @click.stop="deleteAttacker(row.index)"/>
+        <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteAttacker(row.index)"/>
       </template>
     </b-table>
     </b-card>
