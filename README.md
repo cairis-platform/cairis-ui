@@ -1,5 +1,9 @@
 # cairis-ui
 
+UI for CAIRIS.  
+
+The current design is based on the CAIRIS 1.x UI, but -- once complete -- this will replace the existing CAIRIS 1.x UI.  
+
 ## Project setup
 ```
 npm install
