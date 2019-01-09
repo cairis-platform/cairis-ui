@@ -5,6 +5,7 @@
         <dimension-select id="modelSummaryEnvironment" dimension= "environment" v-on:dimension-select-change="onEnvironmentSelected" />
       </b-form-group>
       <b-tabs pill card>
+        <b-card no-body>
         <b-tab title="Summary" active>
           <b-row>
             <b-col sm="4">
@@ -27,8 +28,35 @@
             </b-col>
           </b-row>
         </b-tab>
+        </b-card>
+        <b-card no-body>
         <b-tab title="Threat Model">
+          <b-row>
+            <b-col sm="12">
+              <b-table b-table striped bordered :items="this.entityTable">
+              </b-table>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col sm="12">
+              <b-table b-table striped bordered :items="this.processTable">
+              </b-table>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col sm="12">
+              <b-table b-table striped bordered :items="this.datastoreTable">
+              </b-table>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col sm="12">
+              <b-table b-table striped bordered :items="this.dataflowTable">
+              </b-table>
+            </b-col>
+          </b-row>
         </b-tab>
+        </b-card>
       </b-tabs>
     </b-card>
   </div>
@@ -68,12 +96,56 @@ export default {
                   backgroundColor : this.theRiskSummary.map(rs => this.backgroundColor[rs.theLabel])}
                ]}
     },
+    processTable() {
+      return this.theProcesses.map(row => {
+        const r = {}
+        r['Process'] = row.theElement
+        row.theProperties.map( col => {
+          r[col.theProperty] = col.theThreats.toString()
+        })
+        return r
+      }) 
+    },
+    entityTable() {
+      return this.theEntities.map(row => {
+        const r = {}
+        r['Entity'] = row.theElement
+        row.theProperties.map( col => {
+          r[col.theProperty] = col.theThreats.toString()
+        })
+        return r
+      }) 
+    },
+    datastoreTable() {
+      return this.theDatastores.map(row => {
+        const r = {}
+        r['Datastore'] = row.theElement
+        row.theProperties.map( col => {
+          r[col.theProperty] = col.theThreats.toString()
+        })
+        return r
+      }) 
+    },
+    dataflowTable() {
+      return this.theDataflows.map(row => {
+        const r = {}
+        r['Dataflow'] = row.theElement
+        row.theProperties.map( col => {
+          r[col.theProperty] = col.theThreats.toString()
+        })
+        return r
+      }) 
+    }
   },
   data() {
     return {
       selectedEnvironment : '',
       theVulnerabilitySummary : [],
       theThreatSummary : [],
+      theDataflows : [],
+      theProcesses : [],
+      theDatastores : [],
+      theEntities : [],
       theRiskSummary : [],
       backgroundColor : {
         'Negligible' : '#ffe5e5',
@@ -121,12 +193,32 @@ export default {
           })
           .then(response => {
             this.theRiskSummary = response.data;
+            const tmUrl = "/api/threats/model/environment/" + this.selectedEnvironment;
+            axios.get(tmUrl,{
+              baseURL : this.$store.state.url,
+              params : {'session_id' : this.$store.state.session}
+            })
+            .then(response => {
+              this.theDataflows = response.data.theDataflows;
+              this.theProcesses = response.data.theProcesses;
+              this.theDatastores = response.data.theDatastores;
+              this.theEntities = response.data.theEntities;
+            })
+            .catch((error) => {
+              console.log(error)
+            })
           })
-          .catch((error) => console.log(error))
+          .catch((error) => {
+            console.log(error)
+          })
         })
-        .catch((error) => console.log(error))
+        .catch((error) => {
+          console.log(error)
+        })
       })
-      .catch((error) => console.log(error))
+      .catch((error) => {
+        console.log(error)
+      })
     }
   }
 }

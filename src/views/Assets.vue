@@ -26,7 +26,7 @@ export default {
       items: [],
       assetsFields : {
         assetsactions : {label : ''},
-        theName : {label : 'Asset'},
+        theName : {label : 'Asset', },
         theType : {label : 'Type'}
       }
     }
