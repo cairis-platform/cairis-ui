@@ -32,7 +32,7 @@ Authors: Shamal Faily
     <b-form>
       <b-container fluid>
       <b-card no body>
-        <b-row v-align="start">
+        <b-row>
           <b-col md=2>
             <b-img :src="attackerImage" fluid-grow /> 
           </b-col>
@@ -59,7 +59,7 @@ Authors: Shamal Faily
               <template slot="header">
                 <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addEnvironment"/> Environment
               </template> 
-              <b-row class="jusfify-content-md-left" align-content>
+              <b-row align-content>
                 <b-col sm="12">
                   <b-tabs v-model="envPropIndex">
                     <b-tab v-for="envProp in objt.theEnvironmentProperties" :key="envProp.theEnvironmentName" :title=envProp.theName>
@@ -70,7 +70,7 @@ Authors: Shamal Faily
                   </b-tabs>
                 </b-col>
               </b-row>
-              <b-row class="justify-content-md-left" v-show="this.objt.theEnvironmentProperties.length">
+              <b-row v-show="this.objt.theEnvironmentProperties.length">
                 <b-col sm="4">
                   <b-table striped bordered :fields="roleTableFields" :items="objt.theEnvironmentProperties[envPropIndex].theRoles.map(role => ({name : role}))">
                     <template slot="HEAD_roleactions" slot-scope="data"> 

@@ -21,7 +21,6 @@ Authors: Shamal Faily
 -->
 
   <div class="asset">
-    <b-breadcrumb :items="bcItems" /> 
     <dimension-modal ref="environmentDialog" dimension="environment" :existing="environmentNames" v-on:dimension-modal-update="addAssetEnvironmentProperty"/> 
     <property-modal ref="assetPropertyDialog" :securityProperty="selectedProperty" v-on:property-update="updateProperty"/> 
     <p v-if="errors.length">
@@ -55,13 +54,13 @@ Authors: Shamal Faily
           </b-tab>
           <b-tab title="Description">
             <b-card bg-variant="light">
-              <b-form-textarea v-model="objt.theDescription" type="text" :rows=2 :max-rows=4 required>
+              <b-form-textarea id="theDescription" v-model="objt.theDescription" type="text" :rows=2 :max-rows=4 required>
               </b-form-textarea>
             </b-card>
           </b-tab>
           <b-tab title="Significance">
             <b-card bg-variant="light">
-              <b-form-textarea v-model="objt.theSignificance" type="text" :rows=2 :max-rows=4 required>
+              <b-form-textarea id="theSignificance" v-model="objt.theSignificance" type="text" :rows=2 :max-rows=4 required>
               </b-form-textarea>
             </b-card>
           </b-tab>
@@ -79,7 +78,7 @@ Authors: Shamal Faily
                     </b-form-textarea>
                   </b-col>
                 </b-row>
-              </b-container>
+              </b-container> 
             </b-card>
           </b-tab>
           <b-tab title="Interfaces">
@@ -100,28 +99,28 @@ Authors: Shamal Faily
             <template slot="header">
               <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addEnvironment"/> Environment
             </template> 
-            <b-row class="jusfify-content-md-left" align-content>
+            <b-row>
               <b-col sm="12">
                 <b-tabs v-model="envPropIndex">
                   <b-tab v-for="envProp in this.objt.theEnvironmentProperties" :key="envProp.theEnvironmentName" :title=envProp.theName>
                     <template slot="title">
                       <font-awesome-icon icon="minus" :style="{color: 'red'}" @click="deleteEnvironment(envProp.theEnvironmentName)"/>  {{envProp.theEnvironmentName}}
                     </template> 
-                  </b-tab>
+                  </b-tab> 
                  </b-tabs>
-               </b-col>
+               </b-col> 
             </b-row>
-            <b-row class="justify-content-md-left" v-show="this.objt.theEnvironmentProperties.length">
+            <b-row v-show="this.objt.theEnvironmentProperties.length">
               <b-col sm="12">
                 <b-tabs >
                   <b-tab title="Definition" active>
                     <b-table striped hover :items="notNone" :fields=propTableFields @row-clicked="viewProperty">
                       <template slot="HEAD_propactions" slot-scope="data"> 
                         <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addAssetProperty(data)"/> 
-                      </template>
+                      </template> 
                       <template slot="propactions" slot-scope="row">
                         <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="clearProperty(row.item)"/>
-                      </template>
+                      </template> 
                     </b-table>
                   </b-tab>
                   <b-tab title="Associations">
@@ -132,14 +131,14 @@ Authors: Shamal Faily
                       <template slot="assocactions" slot-scope="row">
                         <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteAssetAssociation(row.index)"/>
                       </template>
-                    </b-table>
-                  </b-tab>
+                    </b-table> 
+                  </b-tab> 
                 </b-tabs>
               </b-col>
-            </b-row>
+            </b-row> 
           </b-card>
         </b-container>
-      </b-card>
+      </b-card> 
       <b-container fluid>
         <b-form-row>
           <b-col md="4" offset-md="5" >
@@ -154,16 +153,17 @@ Authors: Shamal Faily
 
 <script>
 
-import PropertyModal from '@/components/PropertyModal.vue'
-import DimensionModal from '@/components/DimensionModal.vue'
-import axios from 'axios';
-import store from '../store'
-import EventBus from '../utils/event-bus';
 import objectMixin from '../mixins/objectMixin'
+import PropertyModal from './PropertyModal'
+import DimensionModal from './DimensionModal'
 
 export default {
   props : {
-    objectName : String
+    object : Object,
+    label : String
+  },
+  watch : {
+    object: 'setObject'
   },
   mixins : [
     objectMixin
@@ -185,9 +185,10 @@ export default {
   },
   data() {
     return {
+      objt : this.object,
+      commitLabel : this.label,
       envPropIndex : 0,
       errors : [],
-      commitLabel : 'Create',
       selectedProperty : {},
       assetTypes: ['Hardware','Information','People','Systems'],
       envFields : {
@@ -217,41 +218,9 @@ export default {
         {key: 'theTailMultiplicity', label: 'Tail Nry'},
         {key: 'theTailNav', label: 'Tail Nav'},
         {key: 'theTailName', label: 'Tail Asset'}
-      ],
-      objt : {
-        theName : '',
-        theTags : '',
-        theShortCode : '',
-        theType : '',
-        theDescription : '',
-        theSignificance : '',
-        isCritical : 0,
-        theCriticalRationale : '',
-        theInterfaces : [],
-        theEnvironmentProperties : []}
+      ]
     }
   }, 
-  beforeRouteEnter (to, from, next) {
-    if (to.params.objectName == 'New asset') {
-      next();
-    }
-    else {
-      var url = "/api/assets/name/" + to.params.objectName
-      axios.get(url,{
-        baseURL : store.state.url,
-        params : {'session_id' : store.state.session}
-      })
-      .then(response => {
-        next(vm => {
-          vm.commitLabel = 'Update';
-          vm.objt = response.data;
-        })
-      })
-      .catch((error) => {
-        EventBus.$emit('operation-failure',error)
-      })
-    }
-  },
   methods: {
     checkForm() {
       this.errors = []
@@ -280,12 +249,14 @@ export default {
         return false;
       }
     },
+    setObject() {
+      this.objt = this.object;
+      this.commitLabel = this.label;
+    },
     onCommit(evt) {
       evt.preventDefault();
       if (this.checkForm()) {
-        var updateUrl = this.$store.state.url + "/api/assets/name/" + this.objectName + "?session_id=" + this.$store.state.session;
-        var createUrl = this.$store.state.url + "/api/assets";
-        this.commitObject(updateUrl,createUrl,'assets');
+        this.$emit('asset-commit',this.objt);
       }
     },
     onCancel(evt) {

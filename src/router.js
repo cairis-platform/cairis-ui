@@ -19,7 +19,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
-import Asset from './views/Asset.vue';
+import AssetView from './views/AssetView.vue';
 import Assets from './views/Assets.vue';
 import AssetModel from './views/AssetModel.vue';
 import Attacker from './views/Attacker.vue';
@@ -41,7 +41,7 @@ export default new Router({
     {
       path: '/asset/:objectName',
       name: 'asset',
-      component: Asset,
+      component: AssetView,
       props: true
     },
     {
