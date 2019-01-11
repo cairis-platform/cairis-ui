@@ -34,14 +34,13 @@ import axiosMixin from '../mixins/axiosMixin'
 import Attacker from '@/components/Attacker.vue'
 import store from '../store'
 import EventBus from '../utils/event-bus';
-import objectMixin from '../mixins/objectMixin'
 
 export default {
   props : {
     objectName : String
   },
   mixins : [
-    objectMixin
+    axiosMixin
   ],
   computed : {
     bcItems() {

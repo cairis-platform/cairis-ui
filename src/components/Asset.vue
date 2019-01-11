@@ -22,6 +22,7 @@ Authors: Shamal Faily
 
   <div class="asset">
     <dimension-modal ref="environmentDialog" dimension="environment" :existing="environmentNames" v-on:dimension-modal-update="addAssetEnvironmentProperty"/> 
+    <association-modal ref="assetAssociationDialog" :assetAssociation="selectedAssociation" v-on:association-update="updateAssetAssociation"/> 
     <property-modal ref="assetPropertyDialog" :securityProperty="selectedProperty" v-on:property-update="updateProperty"/> 
     <p v-if="errors.length">
       <b>Please correct the following error(s):</b>
@@ -156,6 +157,7 @@ Authors: Shamal Faily
 import objectMixin from '../mixins/objectMixin'
 import PropertyModal from './PropertyModal'
 import DimensionModal from './DimensionModal'
+import AssociationModal from './AssociationModal'
 
 export default {
   props : {
@@ -178,7 +180,8 @@ export default {
   },
   components : {
     PropertyModal,
-    DimensionModal
+    DimensionModal,
+    AssociationModal
   },
   data() {
     return {
@@ -187,6 +190,7 @@ export default {
       envPropIndex : 0,
       errors : [],
       selectedProperty : {},
+      selectedAssociation : {theHeadNav : 0, theHeadType : 'Association', theHeadMultiplicity : '*', theHeadRole: '', theTailRole : '', theTailMultiplicity : '*', theTailNav : 0, theTailName : ''},
       assetTypes: ['Hardware','Information','People','Systems'],
       envFields : {
         envactions : {label : ''},
@@ -268,6 +272,11 @@ export default {
       console.log(data);
     },
     addAssetAssociation(data) {
+      this.selectedAssociation['asset'] = this.objt.theName;
+      this.selectedAssociation['environment'] = this.objt.theEnvironmentProperties[this.envPropIndex].theName;
+      this.selectedAssociation['association'] = {theHeadNav : 0, theHeadType : 'Association', theHeadMultiplicity : '*', theHeadRole: '', theTailRole : '', theTailMultiplicity : '*', theTailNav : 0, theTailName : ''};
+      this.selectedProperty['update'] = false;
+      this.$refs.assetAssociationDialog.show();  
       console.log(data);
     },
     deleteAssetAssociation(index) {
@@ -282,9 +291,6 @@ export default {
     viewInterface(data) {
       console.log(data);
     },
-    viewAssetAssociation(data) {
-      console.log(JSON.stringify(data));
-    },
     addEnvironment(evt) {
       evt.preventDefault();
       this.$refs.environmentDialog.show();  
@@ -295,6 +301,22 @@ export default {
         theAssociations : [],
         theProperties : this.defaultProperties()
       });
+    },
+    updateAssetAssociation : function(updAssoc) {
+      if (updAssoc.update) {
+        // skip for now
+      }
+      else {
+        this.objt.theEnvironmentProperties[this.envPropIndex].theAssociations.push(updAssoc.association);
+      }
+    },
+    viewAssetAssociation(data) {
+      this.selectedAssociation['asset'] = this.objt.theName
+      this.selectedAssociation['environment'] = this.objt.theEnvironmentProperties[this.envPropIndex].theName
+      this.selectedAssociation['association'] = JSON.parse(JSON.stringify(data));
+      this.selectedAssociation['update'] = true;
+      this.$refs.assetAssociationDialog.show();  
+      console.log(data);
     }
   }
 }

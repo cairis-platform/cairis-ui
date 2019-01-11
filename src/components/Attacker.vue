@@ -21,6 +21,9 @@ Authors: Shamal Faily
 -->
   <div class="attacker">
     <dimension-modal ref="environmentDialog" dimension="environment" :existing="environmentNames" v-on:dimension-modal-update="addAttackerEnvironmentProperty"/> 
+    <dimension-modal ref="roleDialog" dimension="role" :existing="environmentRoles" v-on:dimension-modal-update="addAttackerRole"/> 
+    <dimension-modal ref="motiveDialog" dimension="motivation" :existing="environmentMotives" v-on:dimension-modal-update="addAttackerMotive"/> 
+    <capability-modal ref="capabilityDialog" :existing="capabilityNames" v-on:capability-modal-update="addAttackerCapability"/> 
     <p v-if="errors.length">
       <b>Please correct the following error(s):</b>
       <ul>
@@ -121,6 +124,7 @@ Authors: Shamal Faily
 <script>
 
 import DimensionModal from '@/components/DimensionModal.vue'
+import CapabilityModal from '@/components/CapabilityModal.vue'
 import objectMixin from '../mixins/objectMixin'
 
 export default {
@@ -146,10 +150,14 @@ export default {
     },
     environmentCapabilities() {
       return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theCapabilities : []
-    }
+    },
+    capabilityNames() {
+      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theCapabilities.map(cap => cap.name) : []
+    },
   },
   components : {
-    DimensionModal
+    DimensionModal,
+    CapabilityModal
   },
   data() {
     return {
@@ -196,19 +204,31 @@ export default {
       });
     },
     addRole(data) {
-      this.objt.theEnvironmentProperties[this.envPropIndex].theRoles.push('new role');
+      this.$refs.roleDialog.show();  
+      console.log(data);
+    },
+    addAttackerRole(data) {
+      this.objt.theEnvironmentProperties[this.envPropIndex].theRoles.push(data);
+    },
+    addAttackerMotive(data) {
+      this.objt.theEnvironmentProperties[this.envPropIndex].theMotives.push(data);
+    },
+    addAttackerCapability(data) {
+      this.objt.theEnvironmentProperties[this.envPropIndex].theCapabilities.push(data);
     },
     deleteRole(item) {
       this.objt.theEnvironmentProperties[this.envPropIndex].theRoles = this.objt.theEnvironmentProperties[this.envPropIndex].theRoles.filter(role => (role != item.name));
     },
     addMotive(data) {
-      console.log('adding motive');
+      this.$refs.motiveDialog.show();  
+      console.log(data);
     },
     deleteMotive(item) {
       this.objt.theEnvironmentProperties[this.envPropIndex].theMotives = this.objt.theEnvironmentProperties[this.envPropIndex].theMotives.filter(motive => (motive != item.name));
     },
     addCapability(data) {
-      console.log('adding capability');
+      this.$refs.capabilityDialog.show();  
+      console.log(data);
     },
     deleteCapability(item) {
       this.objt.theEnvironmentProperties[this.envPropIndex].theCapabilities = this.objt.theEnvironmentProperties[this.envPropIndex].theCapabilities.filter(cap => (cap.name != item.name));
