@@ -19,9 +19,7 @@ under the License.
 
 Authors: Shamal Faily 
 -->
-
   <div class="attacker">
-    <b-breadcrumb :items="bcItems" /> 
     <dimension-modal ref="environmentDialog" dimension="environment" :existing="environmentNames" v-on:dimension-modal-update="addAttackerEnvironmentProperty"/> 
     <p v-if="errors.length">
       <b>Please correct the following error(s):</b>
@@ -59,7 +57,7 @@ Authors: Shamal Faily
               <template slot="header">
                 <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addEnvironment"/> Environment
               </template> 
-              <b-row align-content>
+              <b-row>
                 <b-col sm="12">
                   <b-tabs v-model="envPropIndex">
                     <b-tab v-for="envProp in objt.theEnvironmentProperties" :key="envProp.theEnvironmentName" :title=envProp.theName>
@@ -72,7 +70,7 @@ Authors: Shamal Faily
               </b-row>
               <b-row v-show="this.objt.theEnvironmentProperties.length">
                 <b-col sm="4">
-                  <b-table striped bordered :fields="roleTableFields" :items="objt.theEnvironmentProperties[envPropIndex].theRoles.map(role => ({name : role}))">
+                  <b-table striped bordered :fields="roleTableFields" :items="environmentRoles">
                     <template slot="HEAD_roleactions" slot-scope="data"> 
                       <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addRole(data)"/> 
                     </template>
@@ -82,7 +80,7 @@ Authors: Shamal Faily
                   </b-table>
                 </b-col>
                 <b-col sm="4">
-                  <b-table striped bordered :fields="motiveTableFields" :items="objt.theEnvironmentProperties[envPropIndex].theMotives.map(motive => ({name : motive}))">
+                  <b-table striped bordered :fields="motiveTableFields" :items="environmentMotives">
                     <template slot="HEAD_motiveactions" slot-scope="data"> 
                       <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addMotive(data)"/> 
                     </template>
@@ -92,7 +90,7 @@ Authors: Shamal Faily
                   </b-table>
                 </b-col>
                 <b-col sm="4">
-                  <b-table striped bordered :fields="capabilityTableFields" :items="objt.theEnvironmentProperties[envPropIndex].theCapabilities">
+                  <b-table striped bordered :fields="capabilityTableFields" :items="environmentCapabilities">
                     <template slot="HEAD_capabilityactions" slot-scope="data"> 
                       <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addCapability(data)"/> 
                     </template>
@@ -101,7 +99,6 @@ Authors: Shamal Faily
                     </template>
                   </b-table>
                 </b-col>
-
               </b-row>
             </b-card>
           </b-container>
@@ -124,24 +121,31 @@ Authors: Shamal Faily
 <script>
 
 import DimensionModal from '@/components/DimensionModal.vue'
-import axios from 'axios';
-import store from '../store'
-import EventBus from '../utils/event-bus';
 import objectMixin from '../mixins/objectMixin'
 
 export default {
   props : {
-    objectName : String
+    object : Object,
+    label : String
+  },
+  watch : {
+    object: 'setObject'
   },
   mixins : [
     objectMixin
   ],
   computed : {
-    bcItems() {
-     return [{text: 'Home', to: {name: 'home'}},{text: 'Attackers', to: {name: 'attackers'}},{text: this.objt.theName, to : {name: 'attacker'}}]
-    },
     attackerImage() {
       return this.objt.theImage != '' ? this.$store.state.url + '/images/' + this.objt.theImage : this.$store.state.url + '/assets/default-avatar.png'
+    },
+    environmentRoles() {
+      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theRoles.map(role => ({name : role})) : []
+    },
+    environmentMotives() {
+      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theMotives.map(motive => ({name : motive})): []
+    },
+    environmentCapabilities() {
+      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theCapabilities : []
     }
   },
   components : {
@@ -150,6 +154,7 @@ export default {
   data() {
     return {
       errors : [],
+      objt : this.object,
       envPropIndex : 0,
       commitLabel : 'Create',
       roleTableFields : {
@@ -164,41 +169,19 @@ export default {
         capabilityactions : {label : ''},
         name : {label : 'Capability'},
         value : {label : 'Value'}
-      },
-      objt : {
-        theName : '',
-        theTags : [],
-        theDescription : '',
-        theImage : '',
-        theEnvironmentProperties : []
       }
     }
   },
-  beforeRouteEnter (to, from, next) {
-    if (to.params.objectName == 'New attacker') {
-      next();
-    }
-    else {
-      var url = "/api/attackers/name/" + to.params.objectName
-      axios.get(url,{
-        baseURL : store.state.url,
-        params : {'session_id' : store.state.session}
-      })
-      .then(response => {
-        next(vm => {
-          vm.commitLabel = 'Update';
-          vm.objt = response.data;
-        })
-      })
-      .catch((error) => {
-        EventBus.$emit('operation-failure',error)
-      })
-    }
-  },
   methods : {
+    setObject() {
+      this.objt = this.object;
+      this.commitLabel = this.label;
+    },
     onCommit(evt) {
       evt.preventDefault();
-      this.$router.push({ name: 'attackers'})
+      if (this.checkForm()) {
+        this.$emit('attacker-commit',this.objt);
+      }
     },
     onCancel(evt) {
       evt.preventDefault();
@@ -231,6 +214,5 @@ export default {
       this.objt.theEnvironmentProperties[this.envPropIndex].theCapabilities = this.objt.theEnvironmentProperties[this.envPropIndex].theCapabilities.filter(cap => (cap.name != item.name));
     }
   }
-
 }
 </script>

@@ -169,9 +169,6 @@ export default {
     objectMixin
   ],
   computed : {
-    bcItems() {
-      return [{text: 'Home', to: {name: 'home'}},{text: 'Assets', to: {name: 'assets'}},{text: this.objt.theName, to : {name: 'asset'}}]
-    },
     assetAssociations() {
       return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theAssociations : [] ;
     },

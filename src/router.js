@@ -22,7 +22,7 @@ import Home from './views/Home.vue';
 import AssetView from './views/AssetView.vue';
 import Assets from './views/Assets.vue';
 import AssetModel from './views/AssetModel.vue';
-import Attacker from './views/Attacker.vue';
+import AttackerView from './views/AttackerView.vue';
 import Attackers from './views/Attackers.vue';
 import GoalModel from './views/GoalModel.vue';
 import NotFound from './components/NotFound.vue';
@@ -57,7 +57,7 @@ export default new Router({
     {
       path: '/attacker/:objectName',
       name: 'attacker',
-      component: Attacker,
+      component: AttackerView,
       props: true
     },
     {
