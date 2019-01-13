@@ -19,8 +19,6 @@ under the License.
 
 Authors: Shamal Faily 
 -->
-<!--  <div id="svgViewer" style="height: 100%; width: 100%;" v-html="theSvgData" v-on:click="onClick($event)">
-  </div> -->
   <div id="svgViewer" style="height: 100%; width: 100%;" v-html="theSvgData" v-on:click="onClick($event)">
   </div> 
 </template>

@@ -77,6 +77,21 @@ export default {
       else if (dimName == 'requirements') {
         alert('requirement modal')
       }
+      else if (dimName == 'requirements') {
+        alert('requirement modal')
+      }
+      else if (dimName == 'obstacles') {
+        alert('obstacle modal')
+      }
+      else if (dimName == 'roles') {
+        alert('role modal')
+      }
+      else if (dimName == 'tasks') {
+        alert('task modal')
+      }
+      else if (dimName == 'domainproperties') {
+        alert('domain property modal')
+      }
     },
     environmentSelected(envName) {
       this.theEnvironmentName = envName
