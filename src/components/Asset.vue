@@ -190,7 +190,23 @@ export default {
       envPropIndex : 0,
       errors : [],
       selectedProperty : {},
-      selectedAssociation : {theHeadNav : 0, theHeadType : 'Association', theHeadMultiplicity : '*', theHeadRole: '', theTailRole : '', theTailMultiplicity : '*', theTailNav : 0, theTailName : ''},
+      selectedAssociation : {
+        asset : '',
+        environment : '',
+        update : false,
+        initial : '',
+        association : {
+          theHeadNav : 0, 
+          theHeadType : 'Association', 
+          theHeadMultiplicity : '*', 
+          theHeadRole: '', 
+          theTailRole : '', 
+          theTailMultiplicity : '*', 
+          theTypeType : 'Association',
+          theTailNav : 0, 
+          theTailName : ''
+         }
+      },
       assetTypes: ['Hardware','Information','People','Systems'],
       envFields : {
         envactions : {label : ''},
@@ -273,9 +289,9 @@ export default {
     },
     addAssetAssociation(data) {
       this.selectedAssociation['asset'] = this.objt.theName;
-      this.selectedAssociation['environment'] = this.objt.theEnvironmentProperties[this.envPropIndex].theName;
-      this.selectedAssociation['association'] = {theHeadNav : 0, theHeadType : 'Association', theHeadMultiplicity : '*', theHeadRole: '', theTailRole : '', theTailMultiplicity : '*', theTailNav : 0, theTailName : ''};
-      this.selectedProperty['update'] = false;
+      this.selectedAssociation['environment'] = this.objt.theEnvironmentProperties[this.envPropIndex].theEnvironmentName;
+      this.selectedAssociation['association'] = {theHeadNav : 0, theHeadType : 'Association', theHeadMultiplicity : '*', theHeadRole: '', theTailRole : '', theTailMultiplicity : '*', theTailNav : 0, theTailType : 'Association', theTailName : ''};
+      this.selectedAssociation['update'] = false;
       this.$refs.assetAssociationDialog.show();  
       console.log(data);
     },
@@ -304,19 +320,20 @@ export default {
     },
     updateAssetAssociation : function(updAssoc) {
       if (updAssoc.update) {
-        // skip for now
+        this.objt.theEnvironmentProperties[this.envPropIndex].theAssociations[updAssoc.index] = updAssoc.association;
       }
       else {
         this.objt.theEnvironmentProperties[this.envPropIndex].theAssociations.push(updAssoc.association);
       }
     },
-    viewAssetAssociation(data) {
+    viewAssetAssociation(data,index) {
       this.selectedAssociation['asset'] = this.objt.theName
-      this.selectedAssociation['environment'] = this.objt.theEnvironmentProperties[this.envPropIndex].theName
+      this.selectedAssociation['index'] = index
+      this.selectedAssociation['environment'] = this.objt.theEnvironmentProperties[this.envPropIndex].theEnvironmentName
       this.selectedAssociation['association'] = JSON.parse(JSON.stringify(data));
       this.selectedAssociation['update'] = true;
+      this.selectedAssociation['initial'] = this.selectedAssociation['association'].theTailName
       this.$refs.assetAssociationDialog.show();  
-      console.log(data);
     }
   }
 }

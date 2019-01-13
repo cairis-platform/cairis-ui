@@ -50,12 +50,18 @@ export default {
       default : function() {
         return false
       }
-    } 
+    },
+    initial : {
+      type: String,
+      default : function() {
+        return ''
+      }
+    }
   },
   data () {
     return {
       items : [],
-      selected : ''
+      selected : this.initial
     }
   },
   computed : {
@@ -65,7 +71,8 @@ export default {
   },
   watch : {
     existing : 'updateSelector',
-    environment : 'updateSelector'
+    environment : 'updateSelector',
+    initial: 'updateSelector'
   },
   methods : {
     onChange(item) {
@@ -90,6 +97,7 @@ export default {
         if (ref.includeall) {
           ref.items.unshift('all')
         }
+        this.selected = this.initial
       })
       .catch((error) => {
         EventBus.$emit('operation-failure','Error updating selector:' + error)

@@ -19,21 +19,16 @@ under the License.
 
 Authors: Shamal Faily 
 -->
-
-  <SvgPanZoom
-    style="width: 100%; height: 800px; border:1px solid black;"
-    :zoomEnabled="true"
-    :controlIconsEnabled="true"
-    :fit="true"
-    :center="true"> 
-    <svg width="100%" height="800" v-html="theSvgData" v-on:click="onClick($event)"></svg> 
-  </SvgPanZoom> 
+<!--  <div id="svgViewer" style="height: 100%; width: 100%;" v-html="theSvgData" v-on:click="onClick($event)">
+  </div> -->
+  <div id="svgViewer" style="height: 100%; width: 100%;" v-html="theSvgData" v-on:click="onClick($event)">
+  </div> 
 </template>
 
 <script>
-  import SvgPanZoom from 'vue-svg-pan-zoom';
   import axios from 'axios';
   import EventBus from '../utils/event-bus';
+  import svg_pan_zoom from 'svg-pan-zoom';
 
   export default {
     name: 'graphical-model',
@@ -43,9 +38,6 @@ Authors: Shamal Faily
         type : String,
         default : ''
       }
-    },
-    components : {
-      SvgPanZoom
     },
     data() {
       return {
@@ -67,7 +59,7 @@ Authors: Shamal Faily
         }
         axios.get(url)
         .then(response => {
-          this.theSvgData = response.data;
+          this.theSvgData = response.data.substring(0,5) + `id="svg-id" ` + response.data.slice(5);
          })
         .catch((error) => {
           EventBus.$emit('operation-failure',error)
@@ -80,6 +72,17 @@ Authors: Shamal Faily
     },
     mounted() {
       this.loadModel(); 
+    },
+    updated() {
+      if (this.theSvgData != null) {
+        svg_pan_zoom('#svg-id', {
+          zoomEnabled: true,
+          controlIconsEnabled: true,
+          fit: true,
+          center: true,
+          minZoom: 0.2});
+      }
+
     }
   };
 </script>

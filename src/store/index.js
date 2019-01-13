@@ -24,6 +24,6 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state : {
     session: 'test',
-    url : 'http://192.168.161.146:7071'
+    url : 'http://192.168.161.152:7071'
   }
 });

@@ -22,7 +22,7 @@ Authors: Shamal Faily
 
   <b-modal ref="dimensionDialog" :title="this.dialogTitle"  @ok="onOk">
     <b-card>
-      <dimension-select :dimension=this.dimension :existing=this.existing v-on:dimension-select-change="dimensionSelected" />
+      <dimension-select :dimension=this.dimension :existing=this.existing :initial=this.initial v-on:dimension-select-change="dimensionSelected" />
     </b-card>
   </b-modal>
 </template>
@@ -39,6 +39,12 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
         type: Array,
         default : function () {
           return [];
+        }
+      },
+      initial : {
+        type: String,
+        default : function() {
+          return '';
         }
       }
     },
