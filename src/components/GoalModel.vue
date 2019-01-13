@@ -21,7 +21,6 @@ Authors: Shamal Faily
 -->
 
   <div class="goalmodel">
-    <b-breadcrumb :items="bcItems" />
     <b-card no-body>
     <b-container fluid>
       <b-row>
@@ -54,9 +53,6 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
 
 export default {
   computed : {
-    bcItems() {
-      return [{text: 'Home', to: {name: 'home'}},{text: 'Goal Model', to: {name: 'goalmodel'}}]
-    },
     goalModelURI() {
       return "/api/goals/model/environment/" + this.theEnvironmentName + "/goal/" + this.theGoalName + "/usecase/" + this.theUseCaseName;
     }
@@ -74,7 +70,13 @@ export default {
   },
   methods : {
     nodeClicked(url) {
-      alert('clicked ' + url)
+      const dimName = url.slice(5).substring(0, url.slice(5).indexOf('/'))
+      if (dimName == 'goals') {
+        alert('goal modal')
+      }
+      else if (dimName == 'requirements') {
+        alert('requirement modal')
+      }
     },
     environmentSelected(envName) {
       this.theEnvironmentName = envName

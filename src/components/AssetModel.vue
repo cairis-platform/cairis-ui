@@ -21,7 +21,6 @@ Authors: Shamal Faily
 -->
 
   <div class="assetmodel">
-    <b-breadcrumb :items="bcItems" />
     <b-card no-body>
     <b-container fluid>
       <b-row>
@@ -39,7 +38,6 @@ Authors: Shamal Faily
           <b-form-group label="Hide Concerns" label-form="assetModelHideConcerns" :label-cols="4" horizontal>
             <b-form-checkbox id="assetModelHideConcerns" v-model="theConcernsHidden" />
           </b-form-group>
-
         </b-col>
       </b-row>
     </b-container>
@@ -57,9 +55,6 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
 
 export default {
   computed : {
-    bcItems() {
-      return [{text: 'Home', to: {name: 'home'}},{text: 'Asset Model', to: {name: 'assetmodel'}}]
-    },
     assetModelURI() {
       return "/api/assets/model/environment/" + this.theEnvironmentName + "/asset/" + this.theAssetName ;
     },
@@ -80,7 +75,13 @@ export default {
   },
   methods : {
     nodeClicked(url) {
-      alert('clicked ' + url)
+      const dimName = url.slice(5).substring(0, url.slice(5).indexOf('/'))
+      if (dimName == 'assets') {
+        alert('loading asset modal')
+      }
+      else {
+        alert('loading personas modal')
+      }
     },
     environmentSelected(envName) {
       this.theEnvironmentName = envName

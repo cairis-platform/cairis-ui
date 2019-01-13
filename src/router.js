@@ -21,10 +21,10 @@ import Router from 'vue-router';
 import Home from './views/Home.vue';
 import AssetView from './views/AssetView.vue';
 import Assets from './views/Assets.vue';
-import AssetModel from './views/AssetModel.vue';
+import AssetModelView from './views/AssetModelView.vue';
 import AttackerView from './views/AttackerView.vue';
 import Attackers from './views/Attackers.vue';
-import GoalModel from './views/GoalModel.vue';
+import GoalModelView from './views/GoalModelView.vue';
 import NotFound from './components/NotFound.vue';
 
 Vue.use(Router);
@@ -52,7 +52,7 @@ export default new Router({
     {
       path: '/assetmodel',
       name: 'assetmodel',
-      component: AssetModel
+      component: AssetModelView
     },
     {
       path: '/attacker/:objectName',
@@ -76,7 +76,7 @@ export default new Router({
     {
       path: '/goalmodel',
       name: 'goalmodel',
-      component: GoalModel
+      component: GoalModelView
     },
     {
       path: '*',
