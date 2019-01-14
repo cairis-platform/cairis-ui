@@ -22,6 +22,7 @@ Authors: Shamal Faily
 
   <div class="assetmodel">
     <asset-modal ref="assetDialog" :environment="this.theEnvironmentName" :asset="this.theSelectedObject"/> 
+    <persona-modal ref="personaDialog" :environment="this.theEnvironmentName" :persona="this.theSelectedObject"/> 
     <b-card no-body>
     <b-container fluid>
       <b-row>
@@ -55,6 +56,7 @@ import axios from 'axios';
 import GraphicalModel from '@/components/GraphicalModel.vue'
 import DimensionSelect from '@/components/DimensionSelect.vue'
 import AssetModal from '@/components/AssetModal.vue'
+import PersonaModal from '@/components/PersonaModal.vue'
 import EventBus from '../utils/event-bus';
 
 export default {
@@ -77,7 +79,8 @@ export default {
   components : {
     GraphicalModel,
     DimensionSelect,
-    AssetModal
+    AssetModal,
+    PersonaModal
   },
   methods : {
     nodeClicked(url) {
@@ -91,8 +94,8 @@ export default {
         if (dimName == 'assets') {
           this.$refs.assetDialog.show();  
         }
-        else {
-          alert('loading personas modal')
+        else if (dimName == 'personas') {
+          this.$refs.personaDialog.show();  
         }
       })
       .catch((error) => {
