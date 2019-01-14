@@ -21,6 +21,7 @@ Authors: Shamal Faily
 -->
 
   <div class="assetmodel">
+    <asset-modal ref="assetDialog" :environment="this.theEnvironmentName" :asset="this.theSelectedObject"/> 
     <b-card no-body>
     <b-container fluid>
       <b-row>
@@ -50,8 +51,11 @@ Authors: Shamal Faily
 
 <script>
 
+import axios from 'axios';
 import GraphicalModel from '@/components/GraphicalModel.vue'
 import DimensionSelect from '@/components/DimensionSelect.vue'
+import AssetModal from '@/components/AssetModal.vue'
+import EventBus from '../utils/event-bus';
 
 export default {
   computed : {
@@ -66,22 +70,36 @@ export default {
     return {
       theEnvironmentName : '',
       theAssetName : 'all',
-      theConcernsHidden : true
+      theConcernsHidden : true,
+      theSelectedObject: null
     }
   },
   components : {
     GraphicalModel,
-    DimensionSelect
+    DimensionSelect,
+    AssetModal
   },
   methods : {
     nodeClicked(url) {
-      const dimName = url.slice(5).substring(0, url.slice(5).indexOf('/'))
-      if (dimName == 'assets') {
-        alert('loading asset modal')
-      }
-      else {
-        alert('loading personas modal')
-      }
+      axios.get(url,{
+        baseURL : this.$store.state.url,
+        params : {'session_id' : this.$store.state.session}
+      })
+      .then(response => {
+        this.theSelectedObject = response.data;
+        const dimName = url.slice(5).substring(0, url.slice(5).indexOf('/'))
+        if (dimName == 'assets') {
+          this.$refs.assetDialog.show();  
+        }
+        else {
+          alert('loading personas modal')
+        }
+      })
+      .catch((error) => {
+        EventBus.$emit('operation-failure',error)
+      })
+
+
     },
     environmentSelected(envName) {
       this.theEnvironmentName = envName
