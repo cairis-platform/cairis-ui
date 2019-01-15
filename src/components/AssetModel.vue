@@ -84,13 +84,16 @@ export default {
   },
   methods : {
     nodeClicked(url) {
+      const dimName = url.slice(5).substring(0, url.slice(5).indexOf('/'))
+      if (['assets','personas'].indexOf(dimName) == -1) {
+        return;
+      }
       axios.get(url,{
         baseURL : this.$store.state.url,
         params : {'session_id' : this.$store.state.session}
       })
       .then(response => {
         this.theSelectedObject = response.data;
-        const dimName = url.slice(5).substring(0, url.slice(5).indexOf('/'))
         if (dimName == 'assets') {
           this.$refs.assetDialog.show();  
         }

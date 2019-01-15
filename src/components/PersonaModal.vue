@@ -22,42 +22,30 @@ Authors: Shamal Faily
 
   <b-modal ref="personaDialog" ok-only :title="dialogTitle">
     <b-container v-if="objt != undefined">
-      <b-tabs card>
+      <b-tabs>
         <b-tab title="Activities" active>
-          <b-card bg-variant="light">
-            <b-form-textarea v-model="objt.theActivities" type="text" :rows=4 :max-rows=8 required>
-            </b-form-textarea>
-          </b-card>
+          <b-form-textarea v-model="objt.theActivities" type="text" :rows=4 :max-rows=8 required>
+          </b-form-textarea>
         </b-tab>
         <b-tab title="Attitudes">
-          <b-card bg-variant="light">
-            <b-form-textarea v-model="objt.theAttitudes" type="text" :rows=4 :max-rows=8 required>
-            </b-form-textarea>
-          </b-card>
+          <b-form-textarea v-model="objt.theAttitudes" type="text" :rows=4 :max-rows=8 required>
+          </b-form-textarea>
         </b-tab>
         <b-tab title="Aptitudes">
-          <b-card bg-variant="light">
-            <b-form-textarea v-model="objt.theAptitudes" type="text" :rows=4 :max-rows=8 required>
-            </b-form-textarea>
-          </b-card>
+          <b-form-textarea v-model="objt.theAptitudes" type="text" :rows=4 :max-rows=8 required>
+          </b-form-textarea>
         </b-tab>
         <b-tab title="Motivations">
-          <b-card bg-variant="light">
-            <b-form-textarea v-model="objt.theMotivations" type="text" :rows=4 :max-rows=8 required>
-            </b-form-textarea>
-          </b-card>
+          <b-form-textarea v-model="objt.theMotivations" type="text" :rows=4 :max-rows=8 required>
+          </b-form-textarea>
         </b-tab>
         <b-tab title="Skills">
-          <b-card bg-variant="light">
-            <b-form-textarea v-model="objt.theSkills" type="text" :rows=4 :max-rows=8 required>
-            </b-form-textarea>
-          </b-card>
+          <b-form-textarea v-model="objt.theSkills" type="text" :rows=4 :max-rows=8 required>
+          </b-form-textarea>
         </b-tab>
         <b-tab title="Narrative">
-          <b-card bg-variant="light">
-            <b-form-textarea v-model="narrative" type="text" :rows=4 :max-rows=8 required>
-            </b-form-textarea>
-          </b-card>
+          <b-form-textarea v-model="narrative" type="text" :rows=4 :max-rows=8 required>
+          </b-form-textarea>
         </b-tab>
       </b-tabs>
     </b-container>

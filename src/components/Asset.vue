@@ -24,6 +24,7 @@ Authors: Shamal Faily
     <dimension-modal ref="environmentDialog" dimension="environment" :existing="environmentNames" v-on:dimension-modal-update="addAssetEnvironmentProperty"/> 
     <association-modal ref="assetAssociationDialog" :assetAssociation="selectedAssociation" v-on:association-update="updateAssetAssociation"/> 
     <property-modal ref="assetPropertyDialog" :securityProperty="selectedProperty" v-on:property-update="updateProperty"/> 
+    <asset-interface-modal ref="assetInterfaceDialog" :assetInterface="selectedInterface" v-on:interface-update="updateAssetInterface"/> 
     <p v-if="errors.length">
       <b>Please correct the following error(s):</b>
       <ul>
@@ -158,6 +159,7 @@ import objectMixin from '../mixins/objectMixin'
 import PropertyModal from './PropertyModal'
 import DimensionModal from './DimensionModal'
 import AssociationModal from './AssociationModal'
+import AssetInterfaceModal from './AssetInterfaceModal'
 
 export default {
   props : {
@@ -181,7 +183,8 @@ export default {
   components : {
     PropertyModal,
     DimensionModal,
-    AssociationModal
+    AssociationModal,
+    AssetInterfaceModal
   },
   data() {
     return {
@@ -206,6 +209,15 @@ export default {
           theTailNav : 0, 
           theTailName : ''
          }
+      },
+      selectedInterface : {
+        update : false,
+        interface : {
+          theInterfaceName : '',
+          theInterfaceType : '',
+          theAccessRight : '',
+          thePrivilege : ''
+        }
       },
       assetTypes: ['Hardware','Information','People','Systems'],
       envFields : {
@@ -299,13 +311,27 @@ export default {
       this.objt.theEnvironmentProperties[this.envPropIndex].theAssociations.splice(index,1);
     },
     addInterface(data) {
+      this.selectedInterface['interface'] = {theInterfaceName : '', theInterfaceType : '', theAccessRight : '', thePrivilege: ''};
+      this.selectedInterface['update'] = false;
+      this.$refs.assetInterfaceDialog.show();  
       console.log(data);
     },
     deleteInterface(index) {
       this.objt.theInterfaces.splice(index,1);
     },
-    viewInterface(data) {
-      console.log(data);
+    viewInterface(data,index) {
+      this.selectedInterface['index'] = index
+      this.selectedInterface['interface'] = JSON.parse(JSON.stringify(data));
+      this.selectedInterface['update'] = true;
+      this.$refs.assetInterfaceDialog.show();  
+    },
+    updateAssetInterface : function(updIf) {
+      if (updIf.update) {
+        this.$set(this.objt.theInterfaces,updIf.index,updIf.interface);
+      }
+      else {
+        this.objt.theInterfaces.push(updIf.interface);
+      }
     },
     addEnvironment(evt) {
       evt.preventDefault();
@@ -320,7 +346,7 @@ export default {
     },
     updateAssetAssociation : function(updAssoc) {
       if (updAssoc.update) {
-        this.objt.theEnvironmentProperties[this.envPropIndex].theAssociations[updAssoc.index] = updAssoc.association;
+        this.$set(this.objt.theEnvironmentProperties[this.envPropIndex].theAssociations,updAssoc.index,updAssoc.association);
       }
       else {
         this.objt.theEnvironmentProperties[this.envPropIndex].theAssociations.push(updAssoc.association);

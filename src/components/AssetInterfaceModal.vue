@@ -1,0 +1,114 @@
+<template>
+<!--  
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+
+Authors: Shamal Faily 
+-->
+
+  <b-modal ref="interfaceDialog" :title="this.dialogTitle"  @ok="onOk">
+    <p v-if="errors.length">
+      <b>Please correct the following error(s):</b>
+      <ul>
+        <li v-for="error in errors" :key="error">{{ error }}</li>
+      </ul>
+    </p> 
+    <b-card>
+      <b-form-group label="Interface" label-class="text-sm-left" label-cols="3" horizontal label-for="theInterface" >
+        <dimension-select id="theInterface" dimension='interface' :initial="this.interface.interface.theInterfaceName" v-on:dimension-select-change="interfaceSelected" required />
+      </b-form-group>
+      <b-form-group label="Type" label-class="text-sm-left" label-cols="3" horizontal label-for="theType" >
+        <b-form-select id="theType" v-model="interface.interface.theInterfaceType" :options="typeValues" class="mb-3" required></b-form-select>
+      </b-form-group>
+      <b-form-group label="Access Right" label-class="text-sm-left" label-cols="3" horizontal label-for="theAccessRight" >
+        <dimension-select id="theAccessRight" dimension='access_right' :initial="this.interface.interface.theAccessRight" v-on:dimension-select-change="accessRightSelected" required />
+      </b-form-group>
+      <b-form-group label="Privilege" label-class="text-sm-left" label-cols="3" horizontal label-for="thePrivilege" >
+        <dimension-select id="thePrivilege" dimension='privilege' :initial="this.interface.interface.thePrivilege" v-on:dimension-select-change="privilegeSelected" required />
+      </b-form-group>
+    </b-card>
+  </b-modal> 
+</template>
+
+<script>
+
+import DimensionSelect from '@/components/DimensionSelect.vue'
+
+  export default {
+    name : 'asset-interface-modal',
+    props : {
+      assetInterface : Object
+    },
+    data () {
+      return {
+        interface: this.assetInterface,
+        errors : [],
+        typeValues : ['provided','required']
+      }
+    },
+    components : {
+      DimensionSelect
+    },
+    computed : {
+      dialogTitle() {
+        return (this.assetInterface.update ? "Update" : "Add") + " Asset Interface";
+      }
+    },
+    methods : {
+      checkForm() {
+        this.errors = []
+        if (this.interface.interface.theInterfaceName.length == 0) {
+          this.errors.push('Interface name is required');
+        }
+        if (this.interface.interface.theInterfaceType.length == 0) {
+          this.errors.push('Interface type is required');
+        }
+        if (this.interface.interface.theAccessRight.length == 0) {
+          this.errors.push('Access right is required');
+        }
+        if (this.interface.interface.thePrivilege.length == 0) {
+          this.errors.push('Privilege is required');
+        }
+        if (!this.errors.length) {
+          return true;
+        }
+        else {
+          return false;
+        }
+      },
+      show() {
+        this.$refs.interfaceDialog.show();
+      },
+      interfaceSelected(item) {
+        this.interface.interface.theInterfaceName = item;
+      },
+      accessRightSelected(item) {
+        this.interface.interface.theAccessRight = item;
+      },
+      privilegeSelected(item) {
+        this.interface.interface.thePrivilege = item;
+      },
+      onOk(evt) {
+        evt.preventDefault();
+        if (this.checkForm()) {
+          this.$emit('interface-update',{interface : this.interface.interface, update : this.assetInterface.update,index: this.assetInterface.update ? this.interface.index : -1});
+          this.$refs.interfaceDialog.hide();
+        }
+      }
+    }
+  }
+</script>
