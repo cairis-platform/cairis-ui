@@ -35,7 +35,8 @@ Authors: Shamal Faily
       <b-card no body>
         <b-row>
           <b-col md=2>
-            <b-img :src="attackerImage" fluid-grow /> 
+            <b-img :src="attackerImage" rounded center fluid-grow @click="imageClicked" /> 
+            <p><input type="file" ref="attackerimageupload" style="display: none" @change="imageSelected"></p>
           </b-col>
           <b-col md=10>
             <b-container fluid>
@@ -126,6 +127,8 @@ Authors: Shamal Faily
 import DimensionModal from '@/components/DimensionModal.vue'
 import CapabilityModal from '@/components/CapabilityModal.vue'
 import objectMixin from '../mixins/objectMixin'
+import axios from 'axios'
+import EventBus from '../utils/event-bus';
 
 export default {
   props : {
@@ -232,7 +235,43 @@ export default {
     },
     deleteCapability(item) {
       this.objt.theEnvironmentProperties[this.envPropIndex].theCapabilities = this.objt.theEnvironmentProperties[this.envPropIndex].theCapabilities.filter(cap => (cap.name != item.name));
-    }
+    },
+    imageClicked() {
+      this.$refs.attackerimageupload.click();
+    },
+    imageSelected(evt) {
+      evt.preventDefault();
+      const fd = new FormData();
+      fd.append('file',this.$refs.attackerimageupload.files[0])
+      const url = this.$store.state.url + '/api/upload/image?session_id=' + this.$store.state.session
+      axios.post(url, fd)
+      .then(response => {
+        this.objt.theImage = response.data.filename;
+        EventBus.$emit('operation-success',response.data.message)
+      })
+      .catch((error) => {
+        EventBus.$emit('operation-failure',error)
+        console.log(error)
+      })
+    },
+    checkForm() {
+      this.errors = []
+      if (this.objt.theName.length == 0) {
+        this.errors.push('Attacker name is required');
+      }
+      if (this.objt.theDescription.length == 0) {
+        this.errors.push('Description is required');
+      }
+      if (this.objt.theEnvironmentProperties.length == 0) {
+        this.errors.push('No environment properties have been defined')
+      }
+      if (!this.errors.length) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    },
   }
 }
 </script>

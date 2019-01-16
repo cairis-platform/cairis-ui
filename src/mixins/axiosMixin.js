@@ -51,5 +51,15 @@ export default {
         })
       }
     }
+  },
+  postImage(formData) {
+    const url = '/api/upload/image?session_id=' + this.$store.state.session
+    axios.post(url, formData)
+    .then(response => {
+      EventBus.$emit('operation-success',response.data.message)
+    })
+    .catch((error) => {
+      EventBus.$emit('operation-failure',error)
+    })
   }
 }
