@@ -24,7 +24,15 @@ import Assets from './views/Assets.vue';
 import AssetModelView from './views/AssetModelView.vue';
 import AttackerView from './views/AttackerView.vue';
 import Attackers from './views/Attackers.vue';
+import Dependencies from './views/Dependencies.vue';
 import GoalModelView from './views/GoalModelView.vue';
+import Goals from './views/Goals.vue';
+import Obstacles from './views/Obstacles.vue';
+import Risks from './views/Risks.vue';
+import Roles from './views/Roles.vue';
+import Threats from './views/Threats.vue';
+import UseCases from './views/UseCases.vue';
+import Vulnerabilities from './views/Vulnerabilities.vue';
 import NotFound from './components/NotFound.vue';
 
 Vue.use(Router);
@@ -68,15 +76,52 @@ export default new Router({
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+    },
+    {
+      path: '/dependencies',
+      name: 'dependencies',
+      component: Dependencies
     },
     {
       path: '/goalmodel',
       name: 'goalmodel',
       component: GoalModelView
+    },
+    {
+      path: '/goals',
+      name: 'goals',
+      component: Goals
+    },
+    {
+      path: '/obstacles',
+      name: 'obstacles',
+      component: Obstacles
+    },
+    {
+      path: '/risks',
+      name: 'risks',
+      component: Risks
+    },
+    {
+      path: '/roles',
+      name: 'roles',
+      component: Roles
+    },
+    {
+      path: '/threats',
+      name: 'threats',
+      component: Threats 
+    },
+    {
+      path: '/usecases',
+      name: 'usecases',
+      component: UseCases
+    },
+    {
+      path: '/vulnerabilities',
+      name: 'vulnerabilities',
+      component: Vulnerabilities
     },
     {
       path: '*',

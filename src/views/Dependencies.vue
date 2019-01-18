@@ -19,14 +19,12 @@ under the License.
 
 Authors: Shamal Faily 
 -->
-
-  <div class="attackers">
-    <objects :breadCrumbItems="bcItems" :fieldList="objectsFields" :getUrl="theGetUrl" :delUrl="theDelUrl" :dimName="dimension"/>
+  <div class="dependencies">
+    <objects :breadCrumbItems="bcItems" :fieldList="objectsFields" :getUrl="theGetUrl" :dimName="dimension" />
   </div>
 </template>
 
 <script>
-
 import Objects from '@/components/Objects.vue'
 
 export default {
@@ -35,16 +33,18 @@ export default {
   },
   data() {
     return {
-      bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Attackers', to: {name: 'attackers'}}],
+      bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Dependencies', to: {name: 'dependencies'}}],
       items: [],
       objectsFields : {
         objectsactions : {label : ''},
-        theName : {label : 'Attacker'},
-        theDescription : {label : 'Description'}
+        theEnvironmentName : {label : 'Environment'},
+        theDepender : {label : 'Depender'},
+        theDependee : {label : 'Dependee'},
+        theDependencyType : {label : 'Type'},
+        theDependency : {label : 'Dependency'}
       },
-      theGetUrl : '/api/attackers/summary',
-      theDelUrl : '/api/attackers/name/',
-      dimension : 'attacker'
+      theGetUrl : '/api/dependencies',
+      dimension : 'dependency'
     }
   }
 }
