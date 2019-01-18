@@ -28,6 +28,7 @@ import Dependencies from './views/Dependencies.vue';
 import GoalModelView from './views/GoalModelView.vue';
 import Goals from './views/Goals.vue';
 import Obstacles from './views/Obstacles.vue';
+import Personas from './views/Personas.vue';
 import Risks from './views/Risks.vue';
 import Roles from './views/Roles.vue';
 import Threats from './views/Threats.vue';
@@ -97,6 +98,11 @@ export default new Router({
       path: '/obstacles',
       name: 'obstacles',
       component: Obstacles
+    },
+    {
+      path: '/personas',
+      name: 'personas',
+      component: Personas
     },
     {
       path: '/risks',
