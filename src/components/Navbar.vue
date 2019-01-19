@@ -56,9 +56,9 @@ Authors: Shamal Faily
         <b-dropdown-item :to="{name: 'threats'}">Threats</b-dropdown-item>
         <b-dropdown-item :to="{name: 'vulnerabilities'}">Vulnerabilities</b-dropdown-item>
         <b-dropdown-item :to="{name: 'risks'}">Risks</b-dropdown-item>
-        <b-dropdown-item href="#">Responses</b-dropdown-item>
-        <b-dropdown-item href="#">Countermeasures</b-dropdown-item>
-        <b-dropdown-item href="#">Security Patterns</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'responses'}">Responses</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'countermeasures'}">Countermeasures</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'securitypatterns'}">Security Patterns</b-dropdown-item>
       </b-nav-item-dropdown>
       <b-nav-item-dropdown text="UX">
         <b-dropdown-item href="#">Environments</b-dropdown-item>

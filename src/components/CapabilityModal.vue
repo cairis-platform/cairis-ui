@@ -23,7 +23,7 @@ Authors: Shamal Faily
   <b-modal ref="capabilityDialog" title="Select capability"  @ok="onOk">
     <b-card>
       <b-form-group label="Capability" label-class="text-md-left" label-cols="3" horizontal label-for="theCapabilityInput">
-        <dimension-select :dimension='capability' :existing="existingCapabilities" v-on:dimension-select-change="capabiltySelected" />
+        <dimension-select id="theCapabilityInput" dimension='capability' :existing="existingCapabilities" v-on:dimension-select-change="capabilitySelected" />
       </b-form-group>
       <b-form-group label="Value" label-class="text-md-left" label-cols="3" horizontal label-for="theValueInput">
         <b-form-select id="theValueInput" v-model="value" :options="valueTypes" class="mb-3" required>
@@ -49,7 +49,7 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
     },
     data () {
       return {
-        capability  : '',
+        theCapability  : '',
         existingCapabilities : this.existing,
         value : '',
         valueTypes : ['Low','Medium','High']
@@ -63,15 +63,15 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
         this.$refs.capabilityDialog.show();
       },
       capabilitySelected(item) {
-        this.capability = item;
+        this.theCapability = item;
       },
       onOk(evt) {
         evt.preventDefault();
-        if (this.capability.length == 0) {
+        if (this.theCapability.length == 0) {
           alert("Please select a capability");
         }
         else {
-          this.$emit('capability-modal-update',{name : this.capability, value: this.value});
+          this.$emit('capability-modal-update',{name : this.theCapability, value: this.value});
           this.$refs.capabilityDialog.hide();
         }
       }

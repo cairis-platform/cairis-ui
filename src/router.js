@@ -24,13 +24,16 @@ import Assets from './views/Assets.vue';
 import AssetModelView from './views/AssetModelView.vue';
 import AttackerView from './views/AttackerView.vue';
 import Attackers from './views/Attackers.vue';
+import Countermeasures from './views/Countermeasures.vue';
 import Dependencies from './views/Dependencies.vue';
 import GoalModelView from './views/GoalModelView.vue';
 import Goals from './views/Goals.vue';
 import Obstacles from './views/Obstacles.vue';
 import Personas from './views/Personas.vue';
+import Responses from './views/Responses.vue';
 import Risks from './views/Risks.vue';
 import Roles from './views/Roles.vue';
+import SecurityPatterns from './views/SecurityPatterns.vue';
 import Threats from './views/Threats.vue';
 import UseCases from './views/UseCases.vue';
 import Vulnerabilities from './views/Vulnerabilities.vue';
@@ -80,6 +83,11 @@ export default new Router({
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
     },
     {
+      path: '/counteremeasures',
+      name: 'countermeasures',
+      component: Countermeasures
+    },
+    {
       path: '/dependencies',
       name: 'dependencies',
       component: Dependencies
@@ -105,6 +113,11 @@ export default new Router({
       component: Personas
     },
     {
+      path: '/responses',
+      name: 'responses',
+      component: Responses
+    },
+    {
       path: '/risks',
       name: 'risks',
       component: Risks
@@ -113,6 +126,11 @@ export default new Router({
       path: '/roles',
       name: 'roles',
       component: Roles
+    },
+    {
+      path: '/securitypatterns',
+      name: 'securitypatterns',
+      component: SecurityPatterns
     },
     {
       path: '/threats',
