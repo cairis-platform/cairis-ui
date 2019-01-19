@@ -33,6 +33,7 @@ import Personas from './views/Personas.vue';
 import Responses from './views/Responses.vue';
 import Risks from './views/Risks.vue';
 import Roles from './views/Roles.vue';
+import RoleView from './views/RoleView.vue';
 import SecurityPatterns from './views/SecurityPatterns.vue';
 import Threats from './views/Threats.vue';
 import UseCases from './views/UseCases.vue';
@@ -126,6 +127,12 @@ export default new Router({
       path: '/roles',
       name: 'roles',
       component: Roles
+    },
+    {
+      path: '/roles/:objectName',
+      name: 'role',
+      component: RoleView,
+      props: true
     },
     {
       path: '/securitypatterns',
