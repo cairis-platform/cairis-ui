@@ -30,6 +30,7 @@ import GoalModelView from './views/GoalModelView.vue';
 import Goals from './views/Goals.vue';
 import Obstacles from './views/Obstacles.vue';
 import Personas from './views/Personas.vue';
+import PersonaView from './views/PersonaView.vue';
 import Responses from './views/Responses.vue';
 import Risks from './views/Risks.vue';
 import Roles from './views/Roles.vue';
@@ -112,6 +113,12 @@ export default new Router({
       path: '/personas',
       name: 'personas',
       component: Personas
+    },
+    {
+      path: '/persona/:objectName',
+      name: 'persona',
+      component: PersonaView,
+      props: true
     },
     {
       path: '/responses',
