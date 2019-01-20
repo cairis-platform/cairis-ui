@@ -57,13 +57,25 @@ export default {
   },
   methods : {
     objectClicked(row) {
-      this.$router.push({ name: this.dimName, params : {objectName: row.theName}});
+      if (this.dimName != 'vulnerability') {
+        this.$router.push({ name: this.dimName, params : {objectName: row.theName}});
+      }
+      else {
+        this.$router.push({ name: this.dimName, params : {objectName: row.theVulnerabilityName}});
+      }
     },
     addObject() {
       this.$router.push({ name: this.dimName, params : {objectName: 'New ' + this.dimName}});
     },
     deleteObject(index) {
-      var objtName = JSON.parse(JSON.stringify(this.items[index].theName));
+      var itemName = '';
+      if (this.dimName != 'vulnerability') {
+        var itemName = this.items[index].theName;
+      }
+      else {
+        var itemName = this.items[index].theVulnerabilityName;
+      }
+      var objtName = JSON.parse(JSON.stringify(itemName));
       axios.delete(this.delUrl + objtName,{
         baseURL : this.$store.state.url,
         params : {'session_id' : this.$store.state.session}

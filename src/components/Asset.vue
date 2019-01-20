@@ -85,7 +85,7 @@ Authors: Shamal Faily
           </b-tab>
           <b-tab title="Interfaces">
             <b-card bg-variant="light">
-              <b-table striped hover :items="objt.theInterfaces" :fields=interfaceTableFields @row-clicked="viewInterface">
+              <b-table striped small hover :items="objt.theInterfaces" :fields=interfaceTableFields @row-clicked="viewInterface">
                 <template slot="HEAD_intactions" slot-scope="data"> 
                   <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addInterface(data)"/> 
                 </template>
@@ -116,7 +116,7 @@ Authors: Shamal Faily
               <b-col sm="12">
                 <b-tabs >
                   <b-tab title="Definition" active>
-                    <b-table striped hover :items="notNone" :fields=propTableFields @row-clicked="viewProperty">
+                    <b-table striped small hover :items="notNone" :fields=propTableFields @row-clicked="viewProperty">
                       <template slot="HEAD_propactions" slot-scope="data"> 
                         <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addAssetProperty(data)"/> 
                       </template> 
@@ -126,7 +126,7 @@ Authors: Shamal Faily
                     </b-table>
                   </b-tab>
                   <b-tab title="Associations">
-                    <b-table striped hover :items="assetAssociations" :fields="assocTableFields" @row-clicked="viewAssetAssociation">
+                    <b-table striped small hover :items="assetAssociations" :fields="assocTableFields" @row-clicked="viewAssetAssociation">
                       <template slot="HEAD_assocactions" slot-scope="data">
                         <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addAssetAssociation(data)"/> 
                       </template>

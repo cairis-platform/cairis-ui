@@ -31,7 +31,7 @@ export default {
   },
   methods : {
     deleteEnvironment(envName) {
-      this.objt.theEnvironmentProperties = this.objt.theEnvironmentProperties.filter(envProp => envProp.theName != envName);
+      this.objt.theEnvironmentProperties = this.objt.theEnvironmentProperties.filter(envProp => envProp.theEnvironmentName != envName);
     },
     addEnvironment(evt) {
       evt.preventDefault();

@@ -74,7 +74,7 @@ Authors: Shamal Faily
               </b-row>
               <b-row v-show="this.objt.theEnvironmentProperties.length">
                 <b-col sm="4">
-                  <b-table striped bordered :fields="roleTableFields" :items="environmentRoles">
+                  <b-table striped small bordered :fields="roleTableFields" :items="environmentRoles">
                     <template slot="HEAD_roleactions" slot-scope="data"> 
                       <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addRole(data)"/> 
                     </template>
@@ -84,7 +84,7 @@ Authors: Shamal Faily
                   </b-table>
                 </b-col>
                 <b-col sm="4">
-                  <b-table striped bordered :fields="motiveTableFields" :items="environmentMotives">
+                  <b-table striped small bordered :fields="motiveTableFields" :items="environmentMotives">
                     <template slot="HEAD_motiveactions" slot-scope="data"> 
                       <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addMotive(data)"/> 
                     </template>
@@ -94,7 +94,7 @@ Authors: Shamal Faily
                   </b-table>
                 </b-col>
                 <b-col sm="4">
-                  <b-table striped bordered :fields="capabilityTableFields" :items="environmentCapabilities">
+                  <b-table striped small bordered :fields="capabilityTableFields" :items="environmentCapabilities">
                     <template slot="HEAD_capabilityactions" slot-scope="data"> 
                       <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addCapability(data)"/> 
                     </template>

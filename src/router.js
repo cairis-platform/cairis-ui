@@ -39,6 +39,7 @@ import SecurityPatterns from './views/SecurityPatterns.vue';
 import Threats from './views/Threats.vue';
 import UseCases from './views/UseCases.vue';
 import Vulnerabilities from './views/Vulnerabilities.vue';
+import VulnerabilityView from './views/VulnerabilityView.vue';
 import NotFound from './components/NotFound.vue';
 
 Vue.use(Router);
@@ -160,6 +161,12 @@ export default new Router({
       path: '/vulnerabilities',
       name: 'vulnerabilities',
       component: Vulnerabilities
+    },
+    {
+      path: '/vulnerabilities/:objectName',
+      name: 'vulnerability',
+      component: VulnerabilityView,
+      props: true
     },
     {
       path: '*',
