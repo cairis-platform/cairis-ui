@@ -7,67 +7,63 @@ regarding copyright ownership.  The ASF licenses this file
 to you under the Apache License, Version 2.0 (the
 "License"); you may not use this file except in compliance
 with the License.  You may obtain a copy of the License at
+
 http://www.apache.org/licenses/LICENSE-2.0
+
 Unless required by applicable law or agreed to in writing,
 software distributed under the License is distributed on an
 "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
 KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
+
 Authors: Shamal Faily 
 -->
 
-  <div class="assetmodel">
+  <div class="dataflowdiagram">
     <asset-modal ref="assetDialog" :environment="this.theEnvironmentName" :asset="this.theSelectedObject"/> 
-    <persona-modal ref="personaDialog" :environment="this.theEnvironmentName" :persona="this.theSelectedObject"/> 
+    <use-case-modal ref="ucDialog" :environment="this.theEnvironmentName" :usecase="this.theSelectedObject"/> 
     <b-card no-body>
     <b-container fluid>
       <b-row>
         <b-col>
-          <b-form-group label="Environment" label-for="assetModelEnvironment" :label-cols="4" horizontal>
-            <dimension-select id="assetModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
+          <b-form-group label="Environment" label-for="dfdEnvironment" :label-cols="4" horizontal>
+            <dimension-select id="dfdEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
-          <b-form-group label="Asset" label-for="assetModelAsset" :label-cols="2" horizontal>
-            <dimension-select id="assetModelAsset" dimension="asset" :environment="theEnvironmentName" :includeall="true" v-on:dimension-select-change="assetSelected" />
-          </b-form-group>
-        </b-col>
-        <b-col v-if="theEnvironmentName != ''">
-          <b-form-group label="Hide Concerns" label-form="assetModelHideConcerns" :label-cols="4" horizontal>
-            <b-form-checkbox id="assetModelHideConcerns" v-model="theConcernsHidden" />
+          <b-form-group label="Filter" label-for="dfdFilter" :label-cols="2" horizontal>
+            <dimension-select id="dfdFilter" dimension="dfd_filter" :environment="theEnvironmentName" initial="None" :includeall="true" v-on:dimension-select-change="filterSelected" />
           </b-form-group>
         </b-col>
       </b-row>
     </b-container>
     </b-card>
     <b-container fluid>
-      <graphical-model v-if="theEnvironmentName != ''" :api="assetModelURI" :parameters="concernsParameter" v-on:graphical-model-url="nodeClicked"/>
+      <graphical-model v-if="theEnvironmentName != ''" :api="dfdURI" v-on:graphical-model-url="nodeClicked"/>
     </b-container>
   </div>
 </template>
 
 <script>
+
 import axios from 'axios';
 import GraphicalModel from '@/components/GraphicalModel.vue'
 import DimensionSelect from '@/components/DimensionSelect.vue'
 import AssetModal from '@/components/AssetModal.vue'
-import PersonaModal from '@/components/PersonaModal.vue'
+import UseCaseModal from '@/components/UseCaseModal.vue'
 import EventBus from '../utils/event-bus';
+
 export default {
   computed : {
-    assetModelURI() {
-      return "/api/assets/model/environment/" + this.theEnvironmentName + "/asset/" + this.theAssetName ;
-    },
-    concernsParameter() {
-      return this.theConcernsHidden == true ? '' : '&hide_concerns=0'
+    dfdURI() {
+      return "/api/dataflows/diagram/environment/" + this.theEnvironmentName + "/filter/" + this.theFilterName ;
     }
   },
   data() {
     return {
       theEnvironmentName : '',
-      theAssetName : 'all',
-      theConcernsHidden : true,
+      theFilterName : 'None',
       theSelectedObject: null
     }
   },
@@ -75,12 +71,12 @@ export default {
     GraphicalModel,
     DimensionSelect,
     AssetModal,
-    PersonaModal
+    UseCaseModal
   },
   methods : {
     nodeClicked(url) {
       const dimName = url.slice(5).substring(0, url.slice(5).indexOf('/'))
-      if (['assets','personas'].indexOf(dimName) == -1) {
+      if (['assets','usecases'].indexOf(dimName) == -1) {
         return;
       }
       axios.get(url,{
@@ -92,8 +88,8 @@ export default {
         if (dimName == 'assets') {
           this.$refs.assetDialog.show();  
         }
-        else if (dimName == 'personas') {
-          this.$refs.personaDialog.show();  
+        else if (dimName == 'usecases') {
+          this.$refs.ucDialog.show();  
         }
       })
       .catch((error) => {
@@ -102,11 +98,11 @@ export default {
     },
     environmentSelected(envName) {
       this.theEnvironmentName = envName
-      this.theAssetName = 'all'
-      this.$refs.assetModelAsset.$emit('dimension-select-change',this.theAssetName);
+      this.theFilterName = 'None'
+      this.$refs.dfdFilter.$emit('dimension-select-change',this.theFilterName);
     },
-    assetSelected(assetName) {
-      this.theAssetName = assetName
+    filterSelected(filterName) {
+      this.theFilterName = filterName
     }
   }
 }

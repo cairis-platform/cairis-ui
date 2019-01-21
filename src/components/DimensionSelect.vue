@@ -95,7 +95,12 @@ export default {
           ref.$emit('dimension-select-change',ref.items[0]);
         } 
         if (ref.includeall) {
-          ref.items.unshift('all')
+          if (ref.dimension == 'dfd_filter') {
+            ref.items.unshift('None')
+          }
+          else {
+            ref.items.unshift('all')
+          }
         }
         this.selected = this.initial
       })

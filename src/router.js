@@ -25,6 +25,7 @@ import AssetModelView from './views/AssetModelView.vue';
 import AttackerView from './views/AttackerView.vue';
 import Attackers from './views/Attackers.vue';
 import Countermeasures from './views/Countermeasures.vue';
+import DataFlowDiagramView from './views/DataFlowDiagramView.vue';
 import Dependencies from './views/Dependencies.vue';
 import GoalModelView from './views/GoalModelView.vue';
 import Goals from './views/Goals.vue';
@@ -94,6 +95,11 @@ export default new Router({
       path: '/dependencies',
       name: 'dependencies',
       component: Dependencies
+    },
+    {
+      path: '/dataflowdiagram',
+      name: 'dataflowdiagram',
+      component: DataFlowDiagramView
     },
     {
       path: '/goalmodel',

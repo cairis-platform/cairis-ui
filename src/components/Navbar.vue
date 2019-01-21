@@ -78,7 +78,7 @@ Authors: Shamal Faily
         <b-dropdown-divider></b-dropdown-divider>
         <b-dropdown-item href="#">Architectural Pattern</b-dropdown-item>
         <b-dropdown-item :to="{name: 'assetmodel'}">Asset</b-dropdown-item>
-        <b-dropdown-item href="#">Data Flow</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'dataflowdiagram'}">Data Flow</b-dropdown-item>
         <b-dropdown-item :to="{name: 'goalmodel'}">Goal</b-dropdown-item>
         <b-dropdown-item href="#">Locations</b-dropdown-item>
         <b-dropdown-item href="#">Misusability</b-dropdown-item>
