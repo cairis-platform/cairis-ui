@@ -22,8 +22,9 @@ Authors: Shamal Faily
 
   <div class="objects">
     <b-breadcrumb :items="bcItems" />
+    <object-dependency-modal ref="depDialog" :dependencies="objectDependencies" v-on:object-dependency-ok="commitDelete" />
     <b-card no-body>
-    <b-table b-table striped hover :fields="objectsFields" :items="items" @row-clicked="objectClicked" >
+    <b-table b-table striped small hover :fields="objectsFields" :items="items" @row-clicked="objectClicked" >
       <template slot="HEAD_objectsactions" slot-scope="data">
         <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addObject"/> 
       </template>
@@ -39,6 +40,7 @@ Authors: Shamal Faily
 
 import axios from 'axios';
 import EventBus from '../utils/event-bus';
+import ObjectDependencyModal from '@/components/ObjectDependencyModal.vue'
 
 export default {
   props : {
@@ -48,13 +50,19 @@ export default {
     delUrl: String,
     dimName : String
   },
+  components : {
+    ObjectDependencyModal
+  },
   data() {
     return {
       bcItems : this.breadCrumbItems,
       items: [],
       objectsFields : this.fieldList,
+      objectDependencies : [],
+      selectedObject : '',
+      selectedIndex : -1
     }
-  },
+  }, 
   methods : {
     objectClicked(row) {
       if (this.dimName != 'vulnerability') {
@@ -68,20 +76,40 @@ export default {
       this.$router.push({ name: this.dimName, params : {objectName: 'New ' + this.dimName}});
     },
     deleteObject(index) {
-      var itemName = '';
       if (this.dimName != 'vulnerability') {
-        var itemName = this.items[index].theName;
+        this.selectedObject = this.items[index].theName;
       }
       else {
-        var itemName = this.items[index].theVulnerabilityName;
+        this.selectedObject = this.items[index].theVulnerabilityName;
       }
-      var objtName = JSON.parse(JSON.stringify(itemName));
+      this.selectedIndex = index;
+      var that = this;
+      const odUrl = '/api/object_dependency/dimension/' + this.dimName + '/object/' + this.selectedObject;
+      axios.get(odUrl,{
+        baseURL : this.$store.state.url,
+        params : {'session_id' : this.$store.state.session}
+       })
+      .then(response => {
+        if (response.data.theDependencies.length > 0) {
+          that.objectDependencies = response.data.theDependencies;
+          that.$refs.depDialog.show();
+        }
+        else {
+          that.commitDelete();
+        }
+       })
+      .catch((error) => {
+        EventBus.$emit('operation-failure',error)
+      })
+    },
+    commitDelete() {
+      var objtName = JSON.parse(JSON.stringify(this.selectedObject));
       axios.delete(this.delUrl + objtName,{
         baseURL : this.$store.state.url,
         params : {'session_id' : this.$store.state.session}
        })
       .then(response => {
-        this.items.splice(index,1);
+        this.items.splice(this.selectedIndex,1);
         EventBus.$emit('operation-success',response.data.message)
        })
       .catch((error) => {
