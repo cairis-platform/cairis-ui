@@ -22,7 +22,7 @@ Authors: Shamal Faily
 
   <div class="objects">
     <b-breadcrumb :items="bcItems" />
-    <object-dependency-modal ref="depDialog" :dependencies="objectDependencies" v-on:object-dependency-ok="commitDelete" />
+    <object-dependency-modal ref="depDialog" :dependencies="objectDependencies" v-on:object-dependency-ok="deleteDependencies" />
     <b-card no-body>
     <b-table b-table striped small hover :fields="objectsFields" :items="items" @row-clicked="objectClicked" >
       <template slot="HEAD_objectsactions" slot-scope="data">
@@ -111,6 +111,20 @@ export default {
       .then(response => {
         this.items.splice(this.selectedIndex,1);
         EventBus.$emit('operation-success',response.data.message)
+       })
+      .catch((error) => {
+        EventBus.$emit('operation-failure',error)
+      })
+    },
+    deleteDependencies() {
+      const odUrl = '/api/object_dependency/dimension/' + this.dimName + '/object/' + this.selectedObject;
+      var that = this;
+      axios.delete(odUrl,{
+        baseURL : this.$store.state.url,
+        params : {'session_id' : this.$store.state.session}
+       })
+      .then(response => {
+        that.commitDelete();
        })
       .catch((error) => {
         EventBus.$emit('operation-failure',error)
