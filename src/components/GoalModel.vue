@@ -21,6 +21,8 @@ Authors: Shamal Faily
 -->
 
   <div class="goalmodel">
+    <goal-modal ref="goalDialog" :environment="this.theEnvironmentName" :goal="this.theSelectedObject"/> 
+    <use-case-modal ref="ucDialog" :environment="this.theEnvironmentName" :usecase="this.theSelectedObject"/> 
     <b-card no-body>
     <b-container fluid>
       <b-row>
@@ -31,12 +33,12 @@ Authors: Shamal Faily
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
           <b-form-group label="Goal" label-for="goalModelGoal" :label-cols="2" horizontal>
-            <dimension-select id="goalModelGoal" dimension="goal" :environment="theEnvironmentName" all="true" v-on:dimension-select-change="goalSelected" />
+            <dimension-select id="goalModelGoal" dimension="goal" :environment="theEnvironmentName" includeall="true" v-on:dimension-select-change="goalSelected" />
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
           <b-form-group label="Use Case" label-form="goaModelUseCase" :label-cols="4" horizontal>
-            <dimension-select id="goalModelUseCase" dimension="usecase" :environment="theEnvironmentName" all="true" v-on:dimension-select-change="useCaseSelected" />
+            <dimension-select id="goalModelUseCase" dimension="usecase" :environment="theEnvironmentName" includeall="true" v-on:dimension-select-change="useCaseSelected" />
           </b-form-group>
         </b-col>
       </b-row>
@@ -48,8 +50,12 @@ Authors: Shamal Faily
 
 <script>
 
+import axios from 'axios';
 import GraphicalModel from '@/components/GraphicalModel.vue'
 import DimensionSelect from '@/components/DimensionSelect.vue'
+import GoalModal from '@/components/GoalModal.vue'
+import UseCaseModal from '@/components/UseCaseModal.vue'
+import EventBus from '../utils/event-bus';
 
 export default {
   computed : {
@@ -61,37 +67,39 @@ export default {
     return {
       theEnvironmentName : '',
       theGoalName : 'all',
-      theUseCaseName : 'all'
+      theUseCaseName : 'all',
+      theSelectedObject: null
     }
   },
   components : {
     GraphicalModel,
-    DimensionSelect
+    DimensionSelect,
+    UseCaseModal,
+    GoalModal
   },
   methods : {
     nodeClicked(url) {
       const dimName = url.slice(5).substring(0, url.slice(5).indexOf('/'))
-      if (dimName == 'goals') {
-        alert('goal modal')
+      if (['goals'].indexOf(dimName) == -1) {
+        return;
       }
-      else if (dimName == 'requirements') {
-        alert('requirement modal')
-      }
-      else if (dimName == 'requirements') {
-        alert('requirement modal')
-      }
-      else if (dimName == 'obstacles') {
-        alert('obstacle modal')
-      }
-      else if (dimName == 'roles') {
-        alert('role modal')
-      }
-      else if (dimName == 'tasks') {
-        alert('task modal')
-      }
-      else if (dimName == 'domainproperties') {
-        alert('domain property modal')
-      }
+      axios.get(url,{
+        baseURL : this.$store.state.url,
+        params : {'session_id' : this.$store.state.session}
+      })
+      .then(response => {
+        this.theSelectedObject = response.data;
+        if (dimName == 'goals') {
+          this.$refs.goalDialog.show();  
+        }
+        else if (dimName == 'usecases') {
+          this.$refs.ucDialog.show();  
+        }
+        // TO DO: requirements, obstacles, roles, tasks, domainproperties
+      })
+      .catch((error) => {
+        EventBus.$emit('operation-failure',error)
+      })
     },
     environmentSelected(envName) {
       this.theEnvironmentName = envName
