@@ -22,6 +22,7 @@ Authors: Shamal Faily
 
   <div class="goalmodel">
     <goal-modal ref="goalDialog" :environment="this.theEnvironmentName" :goal="this.theSelectedObject"/> 
+    <obstacle-modal ref="obsDialog" :environment="this.theEnvironmentName" :obstacle="this.theSelectedObject"/> 
     <use-case-modal ref="ucDialog" :environment="this.theEnvironmentName" :usecase="this.theSelectedObject"/> 
     <b-card no-body>
     <b-container fluid>
@@ -54,6 +55,7 @@ import axios from 'axios';
 import GraphicalModel from '@/components/GraphicalModel.vue'
 import DimensionSelect from '@/components/DimensionSelect.vue'
 import GoalModal from '@/components/GoalModal.vue'
+import ObstacleModal from '@/components/ObstacleModal.vue'
 import UseCaseModal from '@/components/UseCaseModal.vue'
 import EventBus from '../utils/event-bus';
 
@@ -75,12 +77,13 @@ export default {
     GraphicalModel,
     DimensionSelect,
     UseCaseModal,
-    GoalModal
+    GoalModal,
+    ObstacleModal
   },
   methods : {
     nodeClicked(url) {
       const dimName = url.slice(5).substring(0, url.slice(5).indexOf('/'))
-      if (['goals'].indexOf(dimName) == -1) {
+      if (['goals','obstacles'].indexOf(dimName) == -1) {
         return;
       }
       axios.get(url,{
@@ -94,6 +97,9 @@ export default {
         }
         else if (dimName == 'usecases') {
           this.$refs.ucDialog.show();  
+        }
+        else if (dimName == 'obstacles') {
+          this.$refs.obsDialog.show();  
         }
         // TO DO: requirements, obstacles, roles, tasks, domainproperties
       })
