@@ -20,35 +20,33 @@ under the License.
 Authors: Shamal Faily 
 -->
 
-  <div class="goalmodel">
-    <goal-modal ref="goalDialog" :environment="this.theEnvironmentName" :goal="this.theSelectedObject"/> 
+  <div class="riskmodel">
     <obstacle-modal ref="obsDialog" :environment="this.theEnvironmentName" :obstacle="this.theSelectedObject"/> 
-    <domain-property-modal ref="dpDialog" :environment="this.theEnvironmentName" :domainproperty="this.theSelectedObject"/> 
-    <use-case-modal ref="ucDialog" :environment="this.theEnvironmentName" :usecase="this.theSelectedObject"/> 
     <role-modal ref="roleDialog" :environment="this.theEnvironmentName" :role="this.theSelectedObject"/> 
     <task-modal ref="taskDialog" :environment="this.theEnvironmentName" :task="this.theSelectedObject"/> 
     <b-card no-body>
     <b-container fluid>
       <b-row>
         <b-col>
-          <b-form-group label="Environment" label-for="goalModelEnvironment" :label-cols="4" horizontal>
-            <dimension-select id="goalModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
+          <b-form-group label="Environment" label-for="riskModelEnvironment" :label-cols="4" horizontal>
+            <dimension-select id="riskModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
-          <b-form-group label="Goal" label-for="goalModelGoal" :label-cols="2" horizontal>
-            <dimension-select id="goalModelGoal" dimension="goal" :environment="theEnvironmentName" includeall="true" v-on:dimension-select-change="goalSelected" />
+          <b-form-group label="Type" label-for="riskModelType" :label-cols="2" horizontal>
+            <b-form-select id="riskModelType" ref="riskModelType" v-model="filterParameters.dimension_name" :options="dimensionTypes" class="mb-3" v-on:change="typeSelected" required>
+            </b-form-select>
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
-          <b-form-group label="Use Case" label-form="goaModelUseCase" :label-cols="4" horizontal>
-            <dimension-select id="goalModelUseCase" dimension="usecase" :environment="theEnvironmentName" includeall="true" v-on:dimension-select-change="useCaseSelected" />
+          <b-form-group label="Name" label-form="riskModelName" :label-cols="4" horizontal>
+            <dimension-select id="riskModelName" ref="riskModelName" :environment="theEnvironmentName" :dimensionUrl="nameURI" includeall="true" v-on:dimension-select-change="nameSelected" />
           </b-form-group>
         </b-col>
       </b-row>
     </b-container>
     </b-card>
-    <graphical-model v-if="theEnvironmentName != ''" :api="goalModelURI" v-on:graphical-model-url="nodeClicked"/>
+    <graphical-model v-if="theEnvironmentName != ''" :api="riskModelURI" :jsonParameters="this.filterParameters" v-on:graphical-model-url="nodeClicked"/>
   </div>
 </template>
 
@@ -57,42 +55,44 @@ Authors: Shamal Faily
 import axios from 'axios';
 import GraphicalModel from '@/components/GraphicalModel.vue'
 import DimensionSelect from '@/components/DimensionSelect.vue'
-import GoalModal from '@/components/GoalModal.vue'
 import ObstacleModal from '@/components/ObstacleModal.vue'
-import UseCaseModal from '@/components/UseCaseModal.vue'
 import TaskModal from '@/components/TaskModal.vue'
-import DomainPropertyModal from '@/components/DomainPropertyModal.vue'
 import RoleModal from '@/components/RoleModal.vue'
 import EventBus from '../utils/event-bus';
 
 export default {
   computed : {
-    goalModelURI() {
-      return "/api/goals/model/environment/" + this.theEnvironmentName + "/goal/" + this.theGoalName + "/usecase/" + this.theUseCaseName;
+    riskModelURI() {
+      return "/api/risks/model/environment/" + this.theEnvironmentName;
+    },
+    nameURI() {
+      return "api/risks/model/environment/" + this.theEnvironmentName + "/names"
     }
   },
   data() {
     return {
       theEnvironmentName : '',
-      theGoalName : 'all',
-      theUseCaseName : 'all',
+      theType : 'all',
+      filterParameters : {
+        dimension_name : 'all',
+        object_name : 'all',
+        layout : 'Hierarchical'
+      },
+      dimensionTypes : ['all','asset','attacker','countermeasure','misusecase','obstacle','requirement','response','risk','role','task','threat','vulnerability'],
       theSelectedObject: null
     }
   },
   components : {
     GraphicalModel,
     DimensionSelect,
-    UseCaseModal,
-    GoalModal,
     ObstacleModal,
-    DomainPropertyModal,
     RoleModal,
     TaskModal
   },
   methods : {
     nodeClicked(url) {
       const dimName = url.slice(5).substring(0, url.slice(5).indexOf('/'))
-      if (['goals','obstacles','usecases','domainproperties','roles','tasks'].indexOf(dimName) == -1) {
+      if (['roles','tasks'].indexOf(dimName) == -1) {
         return;
       }
       axios.get(url,{
@@ -101,25 +101,13 @@ export default {
       })
       .then(response => {
         this.theSelectedObject = response.data;
-        if (dimName == 'goals') {
-          this.$refs.goalDialog.show();  
-        }
-        else if (dimName == 'usecases') {
-          this.$refs.ucDialog.show();  
-        }
-        else if (dimName == 'obstacles') {
-          this.$refs.obsDialog.show();  
-        }
-        else if (dimName == 'domainproperties') {
-          this.$refs.dpDialog.show();  
-        }
-        else if (dimName == 'roles') {
+        if (dimName == 'roles') {
           this.$refs.roleDialog.show();  
         }
         else if (dimName == 'tasks') {
           this.$refs.taskDialog.show();  
         }
-        // TO DO: requirements, countermeasures
+        // TO DO: assets, attackers, countermeasures, misusecases, obstacles, requirements, responses, risks, threats, vulnerabilities
       })
       .catch((error) => {
         EventBus.$emit('operation-failure',error)
@@ -127,16 +115,16 @@ export default {
     },
     environmentSelected(envName) {
       this.theEnvironmentName = envName
-      this.theGoalName = 'all'
-      this.theUseCaseName = 'all'
-      this.$refs.goalModelGoal.$emit('dimension-select-change',this.theGoalName);
-      this.$refs.goalModelUseCase.$emit('dimension-select-change',this.theUseCaseName);
+      this.filterParameters.dimension_name = 'all'
+      this.$refs.riskModelType.$emit('dimension-select-change','all');
+      this.$refs.riskModelName.$emit('dimension-select-change','all');
     },
-    goalSelected(goalName) {
-      this.theGoalName = goalName
-    },
-    useCaseSelected(ucName) {
-      this.theUseCaseName = ucName
+    typeSelected() {
+      this.$refs.riskModelName.$emit('dimension-select-change','all');
+    }, 
+    nameSelected(objtName) {
+      this.filterParameters.object_name = objtName
+      this.$refs.riskModelName.$emit('dimension-select-change',objtName);
     }
   }
 }

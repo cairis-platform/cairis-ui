@@ -86,7 +86,7 @@ Authors: Shamal Faily
         <b-dropdown-item href="#">Persona</b-dropdown-item>
         <b-dropdown-item href="#">Requirement</b-dropdown-item>
         <b-dropdown-item href="#">Responsibility</b-dropdown-item>
-        <b-dropdown-item href="#">Risk</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'riskmodel'}">Risk</b-dropdown-item>
         <b-dropdown-item href="#">Task</b-dropdown-item>
       </b-nav-item-dropdown>
       <b-nav-item-dropdown text="Options">

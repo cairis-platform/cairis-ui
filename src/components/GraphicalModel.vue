@@ -35,6 +35,12 @@ Authors: Shamal Faily
       parameters : {
         type : String,
         default : ''
+      },
+      jsonParameters : {
+        type : Object,
+        default : function() {
+          return {}
+        }
       }
     },
     data() {
@@ -51,11 +57,16 @@ Authors: Shamal Faily
         }
       },
       loadModel() {
-        var url = this.$store.state.url +  this.api + "?session_id=" + this.$store.state.session
+        var url = this.api + "?session_id=" + this.$store.state.session
         if (this.parameters != '') {
           url += this.parameters;
         }
-        axios.get(url)
+        var getParameters = {'session_id' : this.$store.state.session}
+        Object.assign(getParameters,this.jsonParameters)
+        axios.get(url,{
+          baseURL : this.$store.state.url,
+          params : getParameters
+        })
         .then(response => {
           this.theSvgData = response.data.substring(0,5) + `id="svg-id" ` + response.data.slice(5);
          })
@@ -66,7 +77,11 @@ Authors: Shamal Faily
     },
     watch : {
       api : 'loadModel',
-      parameters : 'loadModel'
+      parameters : 'loadModel',
+      jsonParameters : {
+        handler : 'loadModel',
+        deep : true
+      }
     },
     mounted() {
       this.loadModel(); 

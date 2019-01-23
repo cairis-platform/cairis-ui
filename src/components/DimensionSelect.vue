@@ -32,7 +32,15 @@ import EventBus from '../utils/event-bus';
 export default {
   name: 'dimension-select',
   props: {
-    dimension: String,
+    dimension: {
+      type: String
+    },
+    dimensionUrl : {
+      type: String,
+      default : function() {
+        return ''
+      }
+    },
     existing : {
       type: Array,
       default: function() {
@@ -79,14 +87,17 @@ export default {
       this.$emit('dimension-select-change',item);
     },
     updateSelector() {
-      var url = "/api/dimensions/table/" + this.dimension
-      if (this.environment != '') {
-        url += '/environment/' + this.environment;
+      var url = this.dimensionUrl;
+      if (this.dimensionUrl.length == 0) {
+        url = "/api/dimensions/table/" + this.dimension
+        if (this.environment != '') {
+          url += '/environment/' + this.environment;
+        }
       }
       var ref = this;
       axios.get(url,{
         baseURL : this.$store.state.url,
-        params : {'session_id' : this.$store.state.session},
+        params : {'session_id' : this.$store.state.session}
       })
       .then(response => {
         ref.items = response.data

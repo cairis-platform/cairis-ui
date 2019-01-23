@@ -20,21 +20,21 @@ under the License.
 Authors: Shamal Faily 
 -->
 
-  <b-modal ref="assetDialog" ok-only :title="dialogTitle">
+  <b-modal ref="roleDialog" ok-only :title="dialogTitle">
     <b-container v-if="objt != undefined">
+      <b-form-group label="<b>Name</b>" label-class="text-sm-left" label-cols="3" label-for="theName" >
+        <b-form-input readonly id="theName" v-model="objt.theName"></b-form-input>
+      </b-form-group>
       <b-form-group label="<b>Type</b>" label-class="text-sm-left" label-cols="3" label-for="theType" >
         <b-form-input readonly id="theType" v-model="objt.theType"></b-form-input>
+      </b-form-group>
+      <b-form-group label="<b>Short Code</b>" label-class="text-sm-left" label-cols="3" label-for="theShortCode" >
+        <b-form-input readonly id="theShortCode" v-model="objt.theShortCode"></b-form-input>
       </b-form-group>
       <b-form-group label="<b>Description</b>" label-class="text-sm-left" label-cols="3" label-for="theDescription" >
         <b-form-textarea id="theDescription" v-model="objt.theDescription" type="text" :rows=2 :max-rows="4" readonly>
         </b-form-textarea>
       </b-form-group>
-      <b-form-group label="<b>Significance</b>" label-class="text-sm-left" label-cols="3" label-for="theSignificance" >
-        <b-form-textarea id="theSignificance" v-model="objt.theSignificance" type="text" :rows=2 :max-rows="4" readonly>
-        </b-form-textarea>
-      </b-form-group>
-      <b-table bordered small :items="notNone" :fields="propTableFields">
-      </b-table>
     </b-container>
   </b-modal>
 </template>
@@ -42,39 +42,31 @@ Authors: Shamal Faily
 <script>
 
   export default {
-    name: 'asset-modal',
+    name: 'role-modal',
     props : {
       environment : String,
-      asset : Object
+      role : Object
     },
     data() {
       return {
         theEnvironmentName : this.environment,
-        objt : this.asset,
-        propTableFields : {
-          name : {label : 'Property'},
-          value : {label : 'Value'},
-          rationale : {label : 'Rationale'} 
-        }
+        objt : this.role
       }
     },
     watch : {
-      asset: 'updateData'
+      role : 'updateData'
     },
     computed : {
       dialogTitle() {
-        return (this.objt != undefined ? this.objt.theName : '') + ' Asset';
-      },
-      notNone() {
-        return this.objt != undefined && this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.theEnvironmentName)[0].theProperties.filter(prop => prop.value != 'None') : [];
+        return (this.objt != undefined ? this.objt.theName : '') + ' Role';
       }
     },
     methods : {
       show() {
-        this.$refs.assetDialog.show();
+        this.$refs.roleDialog.show();
       },
       updateData() {
-        this.objt = this.asset
+        this.objt = this.role
         this.theEnvironmentName = this.environment
       }
     }

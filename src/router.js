@@ -33,6 +33,7 @@ import Obstacles from './views/Obstacles.vue';
 import Personas from './views/Personas.vue';
 import PersonaView from './views/PersonaView.vue';
 import Responses from './views/Responses.vue';
+import RiskModelView from './views/RiskModelView.vue';
 import Risks from './views/Risks.vue';
 import Roles from './views/Roles.vue';
 import RoleView from './views/RoleView.vue';
@@ -131,6 +132,11 @@ export default new Router({
       path: '/responses',
       name: 'responses',
       component: Responses
+    },
+    {
+      path: '/riskmodel',
+      name: 'riskmodel',
+      component: RiskModelView
     },
     {
       path: '/risks',
