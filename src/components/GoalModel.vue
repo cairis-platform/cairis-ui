@@ -23,6 +23,7 @@ Authors: Shamal Faily
   <div class="goalmodel">
     <goal-modal ref="goalDialog" :environment="this.theEnvironmentName" :goal="this.theSelectedObject"/> 
     <obstacle-modal ref="obsDialog" :environment="this.theEnvironmentName" :obstacle="this.theSelectedObject"/> 
+    <countermeasure-modal ref="cmDialog" :environment="this.theEnvironmentName" :countermeasure="this.theSelectedObject"/> 
     <domain-property-modal ref="dpDialog" :environment="this.theEnvironmentName" :domainproperty="this.theSelectedObject"/> 
     <use-case-modal ref="ucDialog" :environment="this.theEnvironmentName" :usecase="this.theSelectedObject"/> 
     <requirement-modal ref="reqDialog" :requirement="this.theSelectedObject"/> 
@@ -59,6 +60,7 @@ import axios from 'axios';
 import GraphicalModel from '@/components/GraphicalModel.vue'
 import DimensionSelect from '@/components/DimensionSelect.vue'
 import GoalModal from '@/components/GoalModal.vue'
+import CountermeasureModal from '@/components/CountermeasureModal.vue'
 import ObstacleModal from '@/components/ObstacleModal.vue'
 import UseCaseModal from '@/components/UseCaseModal.vue'
 import TaskModal from '@/components/TaskModal.vue'
@@ -82,6 +84,7 @@ export default {
     }
   },
   components : {
+    CountermeasureModal,
     DimensionSelect,
     DomainPropertyModal,
     GoalModal,
@@ -95,7 +98,7 @@ export default {
   methods : {
     nodeClicked(url) {
       const dimName = url.slice(5).substring(0, url.slice(5).indexOf('/'))
-      if (['goals','obstacles','usecases','domainproperties','requirements','roles','tasks'].indexOf(dimName) == -1) {
+      if (['goals','countermeasures','obstacles','usecases','domainproperties','requirements','roles','tasks'].indexOf(dimName) == -1) {
         return;
       }
       axios.get(url,{
@@ -106,6 +109,9 @@ export default {
         this.theSelectedObject = response.data;
         if (dimName == 'goals') {
           this.$refs.goalDialog.show();  
+        }
+        else if (dimName == 'countermeasures') {
+          this.$refs.cmDialog.show();  
         }
         else if (dimName == 'usecases') {
           this.$refs.ucDialog.show();  
@@ -125,7 +131,6 @@ export default {
         else if (dimName == 'tasks') {
           this.$refs.taskDialog.show();  
         }
-        // TO DO: countermeasures
       })
       .catch((error) => {
         EventBus.$emit('operation-failure',error)
