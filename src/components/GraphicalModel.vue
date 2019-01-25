@@ -27,6 +27,7 @@ Authors: Shamal Faily
   import axios from 'axios';
   import EventBus from '../utils/event-bus';
   import svg_pan_zoom from 'svg-pan-zoom';
+  import requirementsMixin from '../mixins/requirementsMixin'
 
   export default {
     name: 'graphical-model',
@@ -73,6 +74,16 @@ Authors: Shamal Faily
         .catch((error) => {
           EventBus.$emit('operation-failure',error)
         })
+      },
+      displayModel() {
+        if (this.theSvgData != null) {
+          svg_pan_zoom('#svg-id', {
+            zoomEnabled: true,
+            controlIconsEnabled: true,
+            fit: true,
+            center: true,
+            minZoom: 0.2});
+        }
       }
     },
     watch : {
@@ -83,19 +94,19 @@ Authors: Shamal Faily
         deep : true
       }
     },
+    mixins : [
+      requirementsMixin
+    ],
     mounted() {
       this.loadModel(); 
     },
     updated() {
-      if (this.theSvgData != null) {
-        svg_pan_zoom('#svg-id', {
-          zoomEnabled: true,
-          controlIconsEnabled: true,
-          fit: true,
-          center: true,
-          minZoom: 0.2});
+      if (this.api.indexOf('api/risks/model')) {
+        this.updateRequirementsNodes();
       }
-
+      else {
+        this.displayModel();
+      }
     }
   };
 </script>

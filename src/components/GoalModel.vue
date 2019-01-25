@@ -25,6 +25,7 @@ Authors: Shamal Faily
     <obstacle-modal ref="obsDialog" :environment="this.theEnvironmentName" :obstacle="this.theSelectedObject"/> 
     <domain-property-modal ref="dpDialog" :environment="this.theEnvironmentName" :domainproperty="this.theSelectedObject"/> 
     <use-case-modal ref="ucDialog" :environment="this.theEnvironmentName" :usecase="this.theSelectedObject"/> 
+    <requirement-modal ref="reqDialog" :requirement="this.theSelectedObject"/> 
     <role-modal ref="roleDialog" :environment="this.theEnvironmentName" :role="this.theSelectedObject"/> 
     <task-modal ref="taskDialog" :environment="this.theEnvironmentName" :task="this.theSelectedObject"/> 
     <b-card no-body>
@@ -62,6 +63,7 @@ import ObstacleModal from '@/components/ObstacleModal.vue'
 import UseCaseModal from '@/components/UseCaseModal.vue'
 import TaskModal from '@/components/TaskModal.vue'
 import DomainPropertyModal from '@/components/DomainPropertyModal.vue'
+import RequirementModal from '@/components/RequirementModal.vue'
 import RoleModal from '@/components/RoleModal.vue'
 import EventBus from '../utils/event-bus';
 
@@ -80,19 +82,20 @@ export default {
     }
   },
   components : {
-    GraphicalModel,
     DimensionSelect,
-    UseCaseModal,
-    GoalModal,
-    ObstacleModal,
     DomainPropertyModal,
+    GoalModal,
+    GraphicalModel,
+    ObstacleModal,
+    RequirementModal,
     RoleModal,
-    TaskModal
+    TaskModal,
+    UseCaseModal
   },
   methods : {
     nodeClicked(url) {
       const dimName = url.slice(5).substring(0, url.slice(5).indexOf('/'))
-      if (['goals','obstacles','usecases','domainproperties','roles','tasks'].indexOf(dimName) == -1) {
+      if (['goals','obstacles','usecases','domainproperties','requirements','roles','tasks'].indexOf(dimName) == -1) {
         return;
       }
       axios.get(url,{
@@ -113,13 +116,16 @@ export default {
         else if (dimName == 'domainproperties') {
           this.$refs.dpDialog.show();  
         }
+        else if (dimName == 'requirements') {
+          this.$refs.reqDialog.show();  
+        }
         else if (dimName == 'roles') {
           this.$refs.roleDialog.show();  
         }
         else if (dimName == 'tasks') {
           this.$refs.taskDialog.show();  
         }
-        // TO DO: requirements, countermeasures
+        // TO DO: countermeasures
       })
       .catch((error) => {
         EventBus.$emit('operation-failure',error)

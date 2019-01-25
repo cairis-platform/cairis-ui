@@ -21,9 +21,16 @@ Authors: Shamal Faily
 -->
 
   <div class="riskmodel">
+    <asset-modal ref="assetDialog" :environment="this.theEnvironmentName" :asset="this.theSelectedObject"/> 
+    <attacker-modal ref="attackerDialog" :environment="this.theEnvironmentName" :attacker="this.theSelectedObject"/> 
     <obstacle-modal ref="obsDialog" :environment="this.theEnvironmentName" :obstacle="this.theSelectedObject"/> 
+    <misuse-case-modal ref="mcDialog" :environment="this.theEnvironmentName" :misusecase="this.theSelectedObject"/> 
+    <requirement-modal ref="reqDialog" :requirement="this.theSelectedObject"/> 
+    <risk-modal ref="riskDialog" :environment="this.theEnvironmentName" :risk="this.theSelectedObject" :responseList="this.theResponseList"/> 
     <role-modal ref="roleDialog" :environment="this.theEnvironmentName" :role="this.theSelectedObject"/> 
     <task-modal ref="taskDialog" :environment="this.theEnvironmentName" :task="this.theSelectedObject"/> 
+    <threat-modal ref="threatDialog" :environment="this.theEnvironmentName" :threat="this.theSelectedObject"/> 
+    <vulnerability-modal ref="vulDialog" :environment="this.theEnvironmentName" :vulnerability="this.theSelectedObject"/> 
     <b-card no-body>
     <b-container fluid>
       <b-row>
@@ -53,11 +60,18 @@ Authors: Shamal Faily
 <script>
 
 import axios from 'axios';
-import GraphicalModel from '@/components/GraphicalModel.vue'
+import AssetModal from '@/components/AssetModal.vue'
+import AttackerModal from '@/components/AttackerModal.vue'
 import DimensionSelect from '@/components/DimensionSelect.vue'
+import GraphicalModel from '@/components/GraphicalModel.vue'
+import MisuseCaseModal from '@/components/MisuseCaseModal.vue'
 import ObstacleModal from '@/components/ObstacleModal.vue'
-import TaskModal from '@/components/TaskModal.vue'
+import RequirementModal from '@/components/RequirementModal.vue'
+import RiskModal from '@/components/RiskModal.vue'
 import RoleModal from '@/components/RoleModal.vue'
+import TaskModal from '@/components/TaskModal.vue'
+import ThreatModal from '@/components/ThreatModal.vue'
+import VulnerabilityModal from '@/components/VulnerabilityModal.vue'
 import EventBus from '../utils/event-bus';
 
 export default {
@@ -73,6 +87,7 @@ export default {
     return {
       theEnvironmentName : '',
       theType : 'all',
+      theResponseList : [],
       filterParameters : {
         dimension_name : 'all',
         object_name : 'all',
@@ -85,14 +100,21 @@ export default {
   components : {
     GraphicalModel,
     DimensionSelect,
+    AssetModal,
+    AttackerModal,
+    MisuseCaseModal,
     ObstacleModal,
+    RequirementModal,
+    RiskModal,
     RoleModal,
-    TaskModal
+    TaskModal,
+    ThreatModal,
+    VulnerabilityModal
   },
   methods : {
     nodeClicked(url) {
       const dimName = url.slice(5).substring(0, url.slice(5).indexOf('/'))
-      if (['roles','tasks'].indexOf(dimName) == -1) {
+      if (['assets','attackers','misusecases','obstacles','requirements','risks','roles','tasks','threats','vulnerabilities'].indexOf(dimName) == -1) {
         return;
       }
       axios.get(url,{
@@ -101,13 +123,50 @@ export default {
       })
       .then(response => {
         this.theSelectedObject = response.data;
-        if (dimName == 'roles') {
+        if (dimName == 'assets') {
+          this.$refs.assetDialog.show();  
+        }
+        else if (dimName == 'attackers') {
+          this.$refs.attackerDialog.show();  
+        }
+        else if (dimName == 'misusecases') {
+          this.theSelectedObject = {}
+          this.theSelectedObject.theName = response.data.theName
+          this.theSelectedObject.theDescription = response.data.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.theEnvironmentName)[0].theDescription
+          this.$refs.mcDialog.show();  
+        }
+        else if (dimName == 'obstacles') {
+          this.$refs.obsDialog.show();  
+        }
+        else if (dimName == 'requirements') {
+          this.$refs.reqDialog.show();  
+        }
+        else if (dimName == 'risks') {
+          axios.get('/api/risks/name/' + this.theSelectedObject.theName + '/threat/' + this.theSelectedObject.theThreatName + '/vulnerability/' + this.theSelectedObject.theVulnerabilityName + '/environment/' + this.theEnvironmentName,{
+            baseURL : this.$store.state.url,
+            params : {'session_id' : this.$store.state.session}
+          })
+          .then(response => {
+            this.theResponseList = response.data;
+            this.$refs.riskDialog.show();  
+          })
+          .catch((error) => {
+            EventBus.$emit('operation-failure',error)
+          })
+        }
+        else if (dimName == 'roles') {
           this.$refs.roleDialog.show();  
         }
         else if (dimName == 'tasks') {
           this.$refs.taskDialog.show();  
         }
-        // TO DO: assets, attackers, countermeasures, misusecases, obstacles, requirements, responses, risks, threats, vulnerabilities
+        else if (dimName == 'threats') {
+          this.$refs.threatDialog.show();  
+        }
+        else if (dimName == 'vulnerabilities') {
+          this.$refs.vulDialog.show();  
+        }
+        // TO DO: countermeasures, responses
       })
       .catch((error) => {
         EventBus.$emit('operation-failure',error)
