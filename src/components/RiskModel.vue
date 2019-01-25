@@ -23,9 +23,11 @@ Authors: Shamal Faily
   <div class="riskmodel">
     <asset-modal ref="assetDialog" :environment="this.theEnvironmentName" :asset="this.theSelectedObject"/> 
     <attacker-modal ref="attackerDialog" :environment="this.theEnvironmentName" :attacker="this.theSelectedObject"/> 
+    <countermeasure-modal ref="cmDialog" :environment="this.theEnvironmentName" :countermeasure="this.theSelectedObject"/> 
     <obstacle-modal ref="obsDialog" :environment="this.theEnvironmentName" :obstacle="this.theSelectedObject"/> 
     <misuse-case-modal ref="mcDialog" :environment="this.theEnvironmentName" :misusecase="this.theSelectedObject"/> 
     <requirement-modal ref="reqDialog" :requirement="this.theSelectedObject"/> 
+    <response-modal ref="responseDialog" :environment="this.theEnvironmentName" :response="this.theSelectedObject"/> 
     <risk-modal ref="riskDialog" :environment="this.theEnvironmentName" :risk="this.theSelectedObject" :responseList="this.theResponseList"/> 
     <role-modal ref="roleDialog" :environment="this.theEnvironmentName" :role="this.theSelectedObject"/> 
     <task-modal ref="taskDialog" :environment="this.theEnvironmentName" :task="this.theSelectedObject"/> 
@@ -62,11 +64,13 @@ Authors: Shamal Faily
 import axios from 'axios';
 import AssetModal from '@/components/AssetModal.vue'
 import AttackerModal from '@/components/AttackerModal.vue'
+import CountermeasureModal from '@/components/CountermeasureModal.vue'
 import DimensionSelect from '@/components/DimensionSelect.vue'
 import GraphicalModel from '@/components/GraphicalModel.vue'
 import MisuseCaseModal from '@/components/MisuseCaseModal.vue'
 import ObstacleModal from '@/components/ObstacleModal.vue'
 import RequirementModal from '@/components/RequirementModal.vue'
+import ResponseModal from '@/components/ResponseModal.vue'
 import RiskModal from '@/components/RiskModal.vue'
 import RoleModal from '@/components/RoleModal.vue'
 import TaskModal from '@/components/TaskModal.vue'
@@ -102,9 +106,11 @@ export default {
     DimensionSelect,
     AssetModal,
     AttackerModal,
+    CountermeasureModal,
     MisuseCaseModal,
     ObstacleModal,
     RequirementModal,
+    ResponseModal,
     RiskModal,
     RoleModal,
     TaskModal,
@@ -114,7 +120,7 @@ export default {
   methods : {
     nodeClicked(url) {
       const dimName = url.slice(5).substring(0, url.slice(5).indexOf('/'))
-      if (['assets','attackers','misusecases','obstacles','requirements','risks','roles','tasks','threats','vulnerabilities'].indexOf(dimName) == -1) {
+      if (['assets','attackers','countermeasures','misusecases','obstacles','requirements','responses','risks','roles','tasks','threats','vulnerabilities'].indexOf(dimName) == -1) {
         return;
       }
       axios.get(url,{
@@ -129,6 +135,9 @@ export default {
         else if (dimName == 'attackers') {
           this.$refs.attackerDialog.show();  
         }
+        else if (dimName == 'countermeasures') {
+          this.$refs.cmDialog.show();  
+        }
         else if (dimName == 'misusecases') {
           this.theSelectedObject = {}
           this.theSelectedObject.theName = response.data.theName
@@ -140,6 +149,9 @@ export default {
         }
         else if (dimName == 'requirements') {
           this.$refs.reqDialog.show();  
+        }
+        else if (dimName == 'responses') {
+          this.$refs.responseDialog.show();  
         }
         else if (dimName == 'risks') {
           axios.get('/api/risks/name/' + this.theSelectedObject.theName + '/threat/' + this.theSelectedObject.theThreatName + '/vulnerability/' + this.theSelectedObject.theVulnerabilityName + '/environment/' + this.theEnvironmentName,{
@@ -166,7 +178,6 @@ export default {
         else if (dimName == 'vulnerabilities') {
           this.$refs.vulDialog.show();  
         }
-        // TO DO: countermeasures, responses
       })
       .catch((error) => {
         EventBus.$emit('operation-failure',error)
