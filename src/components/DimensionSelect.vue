@@ -78,6 +78,7 @@ export default {
     }
   },
   watch : {
+    dimension: 'updateSelector',
     existing : 'updateSelector',
     environment : 'updateSelector',
     initial: 'updateSelector'

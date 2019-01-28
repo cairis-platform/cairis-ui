@@ -40,7 +40,7 @@ Authors: Shamal Faily
         <b-dropdown-item href="#">Properties</b-dropdown-item>
       </b-nav-item-dropdown>
       <b-nav-item-dropdown text="Requirements">
-        <b-dropdown-item href="#">Requirements</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'requirements'}">Requirements</b-dropdown-item>
         <b-dropdown-item href="#">Domain Properties</b-dropdown-item>
         <b-dropdown-item :to="{name: 'goals'}">Goals</b-dropdown-item>
         <b-dropdown-item :to="{name: 'obstacles'}">Obstacles</b-dropdown-item>

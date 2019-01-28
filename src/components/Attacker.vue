@@ -32,7 +32,7 @@ Authors: Shamal Faily
     </p>
     <b-form>
       <b-container fluid>
-      <b-card no body>
+      <b-card bg-variant="light" no body> 
         <b-row>
           <b-col md=2>
             <b-img :src="attackerImage" rounded center fluid-grow @click="imageClicked" /> 
@@ -63,7 +63,7 @@ Authors: Shamal Faily
               </template> 
               <b-row>
                 <b-col sm="12">
-                  <b-tabs v-model="envPropIndex">
+                  <b-tabs pills v-model="envPropIndex">
                     <b-tab v-for="envProp in objt.theEnvironmentProperties" :key="envProp.theEnvironmentName" :title=envProp.theName>
                       <template slot="title">
                         <font-awesome-icon icon="minus" :style="{color: 'red'}" @click="deleteEnvironment(envProp.theEnvironmentName)"/>  {{envProp.theEnvironmentName}}
@@ -107,7 +107,7 @@ Authors: Shamal Faily
             </b-card>
           </b-container>
         </b-row>
-      </b-card>
+      </b-card> 
       </b-container>
       <b-container fluid>
         <b-form-row>

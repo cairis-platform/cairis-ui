@@ -186,11 +186,11 @@ export default {
     environmentSelected(envName) {
       this.theEnvironmentName = envName
       this.filterParameters.dimension_name = 'all'
-      this.$refs.riskModelType.$emit('dimension-select-change','all');
-      this.$refs.riskModelName.$emit('dimension-select-change','all');
+      this.$refs.riskModelType.selected = 'all';
+      this.$refs.riskModelName.selected = 'all';
     },
     typeSelected() {
-      this.$refs.riskModelName.$emit('dimension-select-change','all');
+      this.$refs.riskModelName.selected = 'all';
     }, 
     nameSelected(objtName) {
       this.filterParameters.object_name = objtName

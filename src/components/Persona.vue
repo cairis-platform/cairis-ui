@@ -37,17 +37,24 @@ Authors: Shamal Faily
             <p><input type="file" ref="personaimageupload" style="display: none" @change="imageSelected"></p>
           </b-col>
           <b-col md=10>
+            <b-card bg-variant="light" no-body>
             <b-tabs card>
               <b-tab title="Summary" active>
                 <b-card bg-variant="light">
-                  <b-form-group label="<b>Persona</b>" label-class="text-md-left" label-for="thePersonaInput">
-                    <b-form-input id="thePersonaInput" v-model="objt.theName" type="text" required>
-                    </b-form-input>
-                  </b-form-group>
-                  <b-form-group label="<b>Type</b>" label-class="text-md-left" label-for="theTypeInput">
-                   <b-form-select id="theTypeInput" v-model="objt.thePersonaType" :options="personaTypes" class="mb-3" required>
-                   </b-form-select>
-                  </b-form-group>
+                  <b-row>
+                    <b-col md="6">
+                      <b-form-group label="<b>Persona</b>" label-class="text-md-left" label-for="thePersonaInput">
+                        <b-form-input id="thePersonaInput" v-model="objt.theName" type="text" required>
+                        </b-form-input>
+                      </b-form-group>
+                    </b-col>
+                    <b-col md="6">
+                      <b-form-group label="<b>Type</b>" label-class="text-md-left" label-for="theTypeInput">
+                        <b-form-select id="theTypeInput" v-model="objt.thePersonaType" :options="personaTypes" class="mb-3" required>
+                        </b-form-select>
+                      </b-form-group>
+                    </b-col>
+                  </b-row>
                   <b-form-group label="<b>Tags</b>" label-class="text-md-left" label-for="theTagsInput">
                     <b-form-input id="theTagsInput" v-model="objt.theTags" type="text">
                     </b-form-input>
@@ -55,34 +62,35 @@ Authors: Shamal Faily
                 </b-card>
               </b-tab>
               <b-tab title="Activities">
-                <b-form-textarea id="theActivities" v-model="objt.theActivities" type="text" :rows=4 :max-rows=4 required>
+                <b-form-textarea id="theActivities" v-model="objt.theActivities" type="text" :rows=10 :max-rows=12 required>
                 </b-form-textarea>
               </b-tab>
               <b-tab title="Attitudes">
-                <b-form-textarea id="theAttitudes" v-model="objt.theAttitudes" type="text" :rows=4 :max-rows=4 required>
+                <b-form-textarea id="theAttitudes" v-model="objt.theAttitudes" type="text" :rows=10 :max-rows=12 required>
                 </b-form-textarea>
               </b-tab>
               <b-tab title="Aptitudes">
-                <b-form-textarea id="theAptitudes" v-model="objt.theAptitudes" type="text" :rows=4 :max-rows=4 required>
+                <b-form-textarea id="theAptitudes" v-model="objt.theAptitudes" type="text" :rows=10 :max-rows=12 required>
                 </b-form-textarea>
               </b-tab>
               <b-tab title="Motivations">
-                <b-form-textarea id="theMotivations" v-model="objt.theMotivations" type="text" :rows=4 :max-rows=4 required>
+                <b-form-textarea id="theMotivations" v-model="objt.theMotivations" type="text" :rows=10 :max-rows=12 required>
                 </b-form-textarea>
               </b-tab>
               <b-tab title="Skills">
-                <b-form-textarea id="theSkills" v-model="objt.theSkills" type="text" :rows=4 :max-rows=4 required>
+                <b-form-textarea id="theSkills" v-model="objt.theSkills" type="text" :rows=10 :max-rows=12 required>
                 </b-form-textarea>
               </b-tab>
               <b-tab title="Contextual Trust">
-                <b-form-textarea id="theContextual" v-model="objt.theContextual" type="text" :rows=4 :max-rows=4 required>
+                <b-form-textarea id="theContextual" v-model="objt.theContextual" type="text" :rows=10 :max-rows=12 required>
                 </b-form-textarea>
               </b-tab>
               <b-tab title="Intrinsic Trust">
-                <b-form-textarea id="theIntrinsic" v-model="objt.theIntrinsic" type="text" :rows=4 :max-rows=4 required>
+                <b-form-textarea id="theIntrinsic" v-model="objt.theIntrinsic" type="text" :rows=10 :max-rows=12 required>
                 </b-form-textarea>
               </b-tab>
             </b-tabs>
+            </b-card>
           </b-col>
         </b-row>
         <b-row><b-container fluid>
@@ -92,7 +100,7 @@ Authors: Shamal Faily
             </template> 
             <b-row>
               <b-col sm="12">
-                <b-tabs v-model="envPropIndex">
+                <b-tabs pills v-model="envPropIndex">
                   <b-tab v-for="envProp in this.objt.theEnvironmentProperties" :key="envProp.theEnvironmentName" :title=envProp.theName>
                     <template slot="title">
                       <font-awesome-icon icon="minus" :style="{color: 'red'}" @click="deleteEnvironment(envProp.theEnvironmentName)"/>  {{envProp.theEnvironmentName}}
@@ -103,7 +111,7 @@ Authors: Shamal Faily
              </b-row>
              <b-row v-if="this.objt.theEnvironmentProperties.length">
                <b-col sm="12">
-                 <b-tabs >
+                 <b-tabs>
                    <b-tab title="Roles" active>
                      <b-row>
                        <b-col sm="2">
@@ -112,7 +120,7 @@ Authors: Shamal Faily
                      </b-row>
                      <b-row>
                        <b-col>
-                         <b-table striped bordered :fields="roleTableFields" :items="environmentRoles">
+                         <b-table striped small bordered :fields="roleTableFields" :items="environmentRoles">
                            <template slot="HEAD_roleactions" slot-scope="data"> 
                              <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addRole(data)"/> 
                            </template>

@@ -103,7 +103,7 @@ Authors: Shamal Faily
             </template> 
             <b-row>
               <b-col sm="12">
-                <b-tabs v-model="envPropIndex">
+                <b-tabs pills v-model="envPropIndex">
                   <b-tab v-for="envProp in this.objt.theEnvironmentProperties" :key="envProp.theEnvironmentName" :title=envProp.theName>
                     <template slot="title">
                       <font-awesome-icon icon="minus" :style="{color: 'red'}" @click="deleteEnvironment(envProp.theEnvironmentName)"/>  {{envProp.theEnvironmentName}}

@@ -24,14 +24,28 @@ Authors: Shamal Faily
     <b-breadcrumb :items="bcItems" />
     <object-dependency-modal ref="depDialog" :dependencies="objectDependencies" v-on:object-dependency-ok="deleteDependencies" />
     <b-card no-body>
-    <b-table b-table striped small hover :fields="objectsFields" :items="items" @row-clicked="objectClicked" >
-      <template slot="HEAD_objectsactions" slot-scope="data">
-        <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addObject"/> 
-      </template>
-      <template slot="objectsactions" slot-scope="row">
-        <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteObject(row.index)"/>
-      </template>
-    </b-table>
+      <b-container v-if="dimension == 'requirement'" fluid>
+        <b-row>
+          <b-col>
+            <b-form-group label="Asset" label-for="reqAsset" :label-cols="5" horizontal>
+              <dimension-select ref="assetFilter" id="assetEnvironment" dimension="asset" v-on:dimension-select-change="assetSelected" />
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group label="Environment" label-for="reqEnvironment" :label-cols="5" horizontal>
+              <dimension-select ref="envFilter" id="reqEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
+            </b-form-group>
+          </b-col>
+        </b-row>
+      </b-container>
+      <b-table b-table striped small hover :fields="objectsFields" :items="items" @row-clicked="objectClicked" >
+        <template slot="HEAD_objectsactions" slot-scope="data">
+          <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addObject"/> 
+        </template>
+        <template slot="objectsactions" slot-scope="row">
+          <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteObject(row.index)"/>
+        </template>
+      </b-table>
     </b-card>
   </div>
 </template>
@@ -40,6 +54,7 @@ Authors: Shamal Faily
 
 import axios from 'axios';
 import EventBus from '../utils/event-bus';
+import DimensionSelect from '@/components/DimensionSelect.vue'
 import ObjectDependencyModal from '@/components/ObjectDependencyModal.vue'
 
 export default {
@@ -51,29 +66,38 @@ export default {
     dimName : String
   },
   components : {
+    DimensionSelect,
     ObjectDependencyModal
   },
   data() {
     return {
       bcItems : this.breadCrumbItems,
+      dimension : this.dimName,
       items: [],
+      theGetUrl : this.getUrl,
       objectsFields : this.fieldList,
       objectDependencies : [],
       selectedObject : '',
-      selectedIndex : -1
+      selectedIndex : -1,
     }
   }, 
+  watch : {
+    theGetUrl : 'loadObjects'
+  },
   methods : {
     objectClicked(row) {
-      if (this.dimName != 'vulnerability') {
-        this.$router.push({ name: this.dimName, params : {objectName: row.theName}});
+      if (this.dimName == 'requirement') {
+        this.$router.push({ name: this.dimName, params : {objectName: row.theName, domain: this.$refs.assetFilter.selected.length > 0 ? {type: 'asset', name: this.$refs.assetFilter.selected} : {type: 'environment', name: this.$refs.envFilter.selected}}});
+      }
+      else if (this.dimName == 'vulnerability') {
+        this.$router.push({ name: this.dimName, params : {objectName: row.theVulnerabilityName}});
       }
       else {
-        this.$router.push({ name: this.dimName, params : {objectName: row.theVulnerabilityName}});
+        this.$router.push({ name: this.dimName, params : {objectName: row.theName}});
       }
     },
     addObject() {
-      this.$router.push({ name: this.dimName, params : {objectName: 'New ' + this.dimName}});
+      this.$router.push({ name: this.dimName, params : {objectName: 'New ' + this.dimName, domain : {type : 'asset', name : ''}}});
     },
     deleteObject(index) {
       if (this.dimName != 'vulnerability') {
@@ -129,17 +153,36 @@ export default {
       .catch((error) => {
         EventBus.$emit('operation-failure',error)
       })
+    },
+    loadObjects() {
+      if (this.theGetUrl != '') {
+        axios.get(this.theGetUrl,{
+          baseURL : this.$store.state.url,
+          params : {'session_id' : this.$store.state.session}
+         })
+        .then(response => {
+          this.items = response.data;
+         })
+        .catch((error) => {
+          EventBus.$emit('operation-failure',error)
+        })
+      }
+    },
+    assetSelected(assetName) {
+      if (assetName != null) {
+        this.theGetUrl = '/api/requirements/asset/' + assetName
+        this.$refs.envFilter.selected = '';
+      }
+    },
+    environmentSelected(envName) {
+      if (envName != null) {
+        this.theGetUrl = '/api/requirements/environment/' + envName
+        this.$refs.assetFilter.selected = '';
+      }
     }
   },
   mounted() {
-    axios.get(this.getUrl,{
-      baseURL : this.$store.state.url,
-      params : {'session_id' : this.$store.state.session}
-     })
-    .then(response => {
-      this.items = response.data;
-     })
-    .catch((error) => console.log(error))
+    this.loadObjects();
   }
 }
 </script>
