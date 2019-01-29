@@ -55,7 +55,7 @@ export default {
     return {
       objt : {
         theName : '',
-        theLabel : '',
+        theLabel : '-1',
         theDescription : '',
         thePriority : '1',
         theOriginator : '',
@@ -84,7 +84,7 @@ export default {
           objt['theDomain'] = to.params.domain.name;
           vm.objt = objt;
           vm.selectedDomain = to.params.domain.type;
-        })
+        });
       })
       .catch((error) => {
         EventBus.$emit('operation-failure',error)
@@ -92,11 +92,11 @@ export default {
     }
   },
   methods : {
-    commitRequirement(objt) {
-      this.objt = objt
+    commitRequirement(commitObjt) {
+      this.objt = commitObjt.object
       var updateUrl = this.$store.state.url + "/api/requirements/name/" + this.objectName + "?session_id=" + this.$store.state.session;
       var createUrl = this.$store.state.url + "/api/requirements";
-      this.commitObject(updateUrl,createUrl,'requirements');
+      this.commitObject(updateUrl,createUrl,'requirements',commitObjt.parameters);
     }
   }
 }

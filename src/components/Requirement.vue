@@ -142,6 +142,10 @@ export default {
       errors : [],
       reqPriorities: ['1','2','3'],
       reqTypes: ['Functional','Data','Look and Feel','Usability','Performance','Operational','Maintainability','Portability','Security','Cultural and Political','Legal','Privacy'],
+      axiosParameters : {
+        post : {},
+        put : {}
+      }
     }
   }, 
   methods: {
@@ -167,7 +171,7 @@ export default {
     onCommit(evt) {
       evt.preventDefault();
       if (this.checkForm()) {
-        this.$emit('requirement-commit',this.objt);
+        this.$emit('requirement-commit',{object: this.objt,parameters: this.axiosParameters});
       }
     },
     onCancel(evt) {
@@ -176,6 +180,12 @@ export default {
     },
     domainSelected(domainName) {
       this.objt.theDomain = domainName
+      if (this.selectedDomain == 'asset') {
+        this.axiosParameters = {post : {'asset' : domainName}, put : {}}
+      }
+      else {
+        this.axiosParameters = {post : {'environment' : domainName}, put : {}}
+      }
     }
   }
 }
