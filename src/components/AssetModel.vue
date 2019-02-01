@@ -30,7 +30,7 @@ Authors: Shamal Faily
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
           <b-form-group label="Asset" label-for="assetModelAsset" :label-cols="2" horizontal>
-            <dimension-select id="assetModelAsset" dimension="asset" :environment="theEnvironmentName" :includeall="true" v-on:dimension-select-change="assetSelected" />
+            <dimension-select id="assetModelAsset" dimension="asset" :environment="theEnvironmentName" includeall v-on:dimension-select-change="assetSelected" />
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">

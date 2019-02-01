@@ -20,9 +20,9 @@ under the License.
 Authors: Shamal Faily 
 -->
 
-  <div class="vulnerabilityview">
+  <div class="goalview">
     <b-breadcrumb :items="bcItems" /> 
-    <vulnerability :object="this.objt" :label="this.commitLabel" v-on:vulnerability-commit="commitVulnerability" />
+    <goal :object="this.objt" :label="this.commitLabel" v-on:goal-commit="commitGoal" />
   </div>
 </template>
 
@@ -31,7 +31,7 @@ Authors: Shamal Faily
 
 import axios from 'axios';
 import axiosMixin from '../mixins/axiosMixin'
-import Vulnerability from '@/components/Vulnerability.vue'
+import Goal from '@/components/Goal.vue'
 import store from '../store'
 import EventBus from '../utils/event-bus';
 
@@ -44,18 +44,17 @@ export default {
   ],
   computed : {
     bcItems() {
-     return [{text: 'Home', to: {name: 'home'}},{text: 'Vulnerabilities', to: {name: 'vulnerabilities'}},{text: this.objt.theVulnerabilityName, to : {name: 'vulnerability'}}]
+     return [{text: 'Home', to: {name: 'home'}},{text: 'Goals', to: {name: 'goals'}},{text: this.objt.theName, to : {name: 'goal'}}]
     }
   },
   components : {
-    Vulnerability
+    Goal 
   },
   data() {
     return {
       objt : {
-        theVulnerabilityName : '',
-        theVulnerabilityType : '',
-        theVulnerabilityDescription : '',
+        theName : '',
+        theOriginator : '',
         theTags : '',
         theEnvironmentProperties : []
       },
@@ -63,11 +62,11 @@ export default {
     }
   },
   beforeRouteEnter (to, from, next) {
-    if (to.params.objectName == 'New vulnerability') {
+    if (to.params.objectName == 'New goal') {
       next();
     }
     else {
-      var url = "/api/vulnerabilities/name/" + to.params.objectName
+      var url = "/api/goals/name/" + to.params.objectName
       axios.get(url,{
         baseURL : store.state.url,
         params : {'session_id' : store.state.session}
@@ -84,12 +83,13 @@ export default {
     }
   },
   methods : {
-    commitVulnerability(objt) {
+    commitGoal(objt) {
       this.objt = objt
-      var updateUrl = this.$store.state.url + "/api/vulnerabilities/name/" + this.objectName + "?session_id=" + this.$store.state.session;
-      var createUrl = this.$store.state.url + "/api/vulnerabilities";
-      this.commitObject(updateUrl,createUrl,'vulnerabilities');
+      var updateUrl = this.$store.state.url + "/api/goals/name/" + this.objectName + "?session_id=" + this.$store.state.session;
+      var createUrl = this.$store.state.url + "/api/goals";
+      this.commitObject(updateUrl,createUrl,'goals');
     }
   }
+
 }
 </script>

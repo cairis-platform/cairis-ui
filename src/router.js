@@ -18,33 +18,6 @@
     Authors: Shamal Faily */
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home.vue';
-import AssetView from './views/AssetView.vue';
-import Assets from './views/Assets.vue';
-import AssetModelView from './views/AssetModelView.vue';
-import AttackerView from './views/AttackerView.vue';
-import Attackers from './views/Attackers.vue';
-import Countermeasures from './views/Countermeasures.vue';
-import DataFlowDiagramView from './views/DataFlowDiagramView.vue';
-import Dependencies from './views/Dependencies.vue';
-import GoalModelView from './views/GoalModelView.vue';
-import Goals from './views/Goals.vue';
-import Obstacles from './views/Obstacles.vue';
-import Personas from './views/Personas.vue';
-import PersonaView from './views/PersonaView.vue';
-import Requirements from './views/Requirements.vue';
-import RequirementView from './views/RequirementView.vue';
-import Responses from './views/Responses.vue';
-import RiskModelView from './views/RiskModelView.vue';
-import Risks from './views/Risks.vue';
-import Roles from './views/Roles.vue';
-import RoleView from './views/RoleView.vue';
-import SecurityPatterns from './views/SecurityPatterns.vue';
-import Threats from './views/Threats.vue';
-import UseCases from './views/UseCases.vue';
-import Vulnerabilities from './views/Vulnerabilities.vue';
-import VulnerabilityView from './views/VulnerabilityView.vue';
-import NotFound from './components/NotFound.vue';
 
 Vue.use(Router);
 
@@ -55,148 +28,154 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: () => import('./views/Home.vue')
     },
     {
       path: '/asset/:objectName',
       name: 'asset',
-      component: AssetView,
+      component: () => import('./views/AssetView.vue'),
       props: true
     },
     {
       path: '/assets',
       name: 'assets',
-      component: Assets
+      component: () => import('./views/Assets.vue')
     },
     {
       path: '/assetmodel',
       name: 'assetmodel',
-      component: AssetModelView
+      component: () => import('./views/AssetModelView.vue')
     },
     {
       path: '/attacker/:objectName',
       name: 'attacker',
-      component: AttackerView,
+      component: () => import('./views/AttackerView.vue'),
       props: true
     },
     {
       path: '/attackers',
       name: 'attackers',
-      component: Attackers
+      component: () => import('./views/Attackers.vue')
     },
     {
       path: '/about',
       name: 'about',
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      component: () => import('./views/About.vue')
     },
     {
       path: '/counteremeasures',
       name: 'countermeasures',
-      component: Countermeasures
+      component: () => import('./views/Countermeasures.vue')
     },
     {
       path: '/dependencies',
       name: 'dependencies',
-      component: Dependencies
+      component: () => import('./views/Dependencies.vue')
     },
     {
       path: '/dataflowdiagram',
       name: 'dataflowdiagram',
-      component: DataFlowDiagramView
+      component: () => import('./views/DataFlowDiagramView.vue')
     },
     {
       path: '/goalmodel',
       name: 'goalmodel',
-      component: GoalModelView
+      component: () => import('./views/GoalModelView.vue')
     },
     {
       path: '/goals',
       name: 'goals',
-      component: Goals
+      component: () => import('./views/Goals.vue')
+    },
+    {
+      path: '/goal/:objectName',
+      name: 'goal',
+      component: () => import('./views/GoalView.vue'),
+      props: true
     },
     {
       path: '/obstacles',
       name: 'obstacles',
-      component: Obstacles
+      component: () => import('./views/Obstacles.vue')
     },
     {
       path: '/personas',
       name: 'personas',
-      component: Personas
+      component: () => import('./views/Personas.vue')
     },
     {
       path: '/persona/:objectName',
       name: 'persona',
-      component: PersonaView,
+      component: () => import('./views/PersonaView.vue'),
       props: true
     },
     {
       path: '/requirements',
       name: 'requirements',
-      component: Requirements
+      component: () => import('./views/Requirements.vue')
     },
     {
       path: '/requirement/:objectName',
       name: 'requirement',
-      component: RequirementView,
+      component: () => import('./views/RequirementView.vue'),
       props: true
     },
     {
       path: '/responses',
       name: 'responses',
-      component: Responses
+      component: () => import('./views/Responses.vue')
     },
     {
       path: '/riskmodel',
       name: 'riskmodel',
-      component: RiskModelView
+      component: () => import('./views/RiskModelView.vue')
     },
     {
       path: '/risks',
       name: 'risks',
-      component: Risks
+      component: () => import('./views/Risks.vue')
     },
     {
       path: '/roles',
       name: 'roles',
-      component: Roles
+      component: () => import('./views/Roles.vue')
     },
     {
       path: '/roles/:objectName',
       name: 'role',
-      component: RoleView,
+      component: () => import('./views/RoleView.vue'),
       props: true
     },
     {
       path: '/securitypatterns',
       name: 'securitypatterns',
-      component: SecurityPatterns
+      component: () => import('./views/SecurityPatterns.vue')
     },
     {
       path: '/threats',
       name: 'threats',
-      component: Threats 
+      component: () => import('./views/Threats.vue')
     },
     {
       path: '/usecases',
       name: 'usecases',
-      component: UseCases
+      component: () => import('./views/UseCases.vue')
     },
     {
       path: '/vulnerabilities',
       name: 'vulnerabilities',
-      component: Vulnerabilities
+      component: () => import('./views/Vulnerabilities.vue')
     },
     {
       path: '/vulnerabilities/:objectName',
       name: 'vulnerability',
-      component: VulnerabilityView,
+      component: () => import('./views/VulnerabilityView.vue'),
       props: true
     },
     {
       path: '*',
       name: 'NotFound',
-      component: NotFound
+      component: () => import('./components/NotFound.vue')
     }
   ]
 })

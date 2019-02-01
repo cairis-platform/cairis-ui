@@ -156,6 +156,7 @@ Authors: Shamal Faily
 <script>
 
 import objectMixin from '../mixins/objectMixin'
+import propertiesMixin from '../mixins/propertiesMixin'
 import PropertyModal from './PropertyModal'
 import DimensionModal from './DimensionModal'
 import AssociationModal from './AssociationModal'
@@ -170,7 +171,8 @@ export default {
     object: 'setObject'
   },
   mixins : [
-    objectMixin
+    objectMixin,
+    propertiesMixin
   ],
   computed : {
     assetAssociations() {

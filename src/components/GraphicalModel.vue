@@ -82,6 +82,7 @@ Authors: Shamal Faily
             controlIconsEnabled: true,
             fit: true,
             center: true,
+            contain: true,
             minZoom: 0.2});
         }
       }
@@ -101,7 +102,7 @@ Authors: Shamal Faily
       this.loadModel(); 
     },
     updated() {
-      if (this.api.indexOf('api/risks/model')) {
+      if (this.api.indexOf('api/risks/model') >= 0) {
         this.updateRequirementsNodes();
       }
       else {

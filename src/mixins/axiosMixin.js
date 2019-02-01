@@ -24,6 +24,9 @@ export default {
 
   methods : {
     commitObject(updateUrl,createUrl,dimRoute,defaultParameters) {
+      if (typeof defaultParameters == 'undefined') {
+        defaultParameters = {post : {}, put: {}}
+      }
       if (this.commitLabel == 'Update') {
         axios.put(updateUrl,{
           session_id : this.$store.state.session,

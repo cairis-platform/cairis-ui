@@ -19,27 +19,28 @@
 
 import axios from 'axios';
 import EventBus from '../utils/event-bus';
+import Vue from 'vue';
 
 export default {
   computed : {
     environmentNames() {
       return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties.map(prop => prop.theEnvironmentName) : [];
     },
-    notNone() {
-      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theProperties.filter(prop => prop.value != 'None') : [];
-    }
+    environmentName() {
+      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theEnvironmentName : '' ;
+    },
   },
   methods : {
+    addEnvironmentProperty(envProp) {
+      this.objt.theEnvironmentProperties.push(envProp);
+      this.envPropIndex = this.objt.theEnvironmentProperties.length - 1;
+    },
     deleteEnvironment(envName) {
       this.objt.theEnvironmentProperties = this.objt.theEnvironmentProperties.filter(envProp => envProp.theEnvironmentName != envName);
     },
     addEnvironment(evt) {
       evt.preventDefault();
       this.$refs.environmentDialog.show();  
-    },
-    addEnvironmentProperty(envProp) {
-      this.objt.theEnvironmentProperties.push(envProp);
-      this.envPropIndex = this.objt.theEnvironmentProperties.length - 1;
     },
     commitObject(updateUrl,createUrl,dimRoute) {
       if (this.commitLabel == 'Update') {
@@ -68,55 +69,6 @@ export default {
           EventBus.$emit('operation-failure',error)
         })
       }
-    },
-    defaultProperties() {
-      return [
-        {name : "Confidentiality",
-         value : "None",
-         rationale : "None"},
-        {name : "Integrity",
-         value : "None",
-         rationale : "None"},
-        {name : "Availability",
-         value : "None",
-         rationale : "None"},
-        {name : "Accountability",
-         value : "None",
-         rationale : "None"},
-        {name : "Anonymity",
-         value : "None",
-         rationale : "None"},
-        {name : "Pseudonymity",
-         value : "None",
-         rationale : "None"},
-        {name : "Unlinkability",
-         value : "None",
-         rationale : "None"},
-        {name : "Unobservability",
-         value : "None",
-         rationale : "None"}
-      ]
-    },
-    updateProperty : function(updProp) {
-      this.objt.theEnvironmentProperties[this.envPropIndex].theProperties.map(prop => { 
-        if (prop.name == updProp.name) {
-          prop.value = updProp.value;
-          prop.rationale = updProp.rationale;
-        }
-      });
-    },
-    clearProperty(item) {
-      this.objt.theEnvironmentProperties[this.envPropIndex].theProperties.map(prop => { 
-        if (prop.name == item.name) {
-          prop.value = 'None';
-          prop.rationale = 'None';
-        }
-      });
-    },
-    viewProperty(data) {
-      this.selectedProperty = JSON.parse(JSON.stringify(data));
-      this.selectedProperty['update'] = true;
-      this.$refs.assetPropertyDialog.show();  
     }
   }
 }

@@ -38,7 +38,7 @@ Authors: Shamal Faily
       <b-row>
         <b-col>
           <b-form-group label="Environment" label-for="riskModelEnvironment" :label-cols="4" horizontal>
-            <dimension-select id="riskModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
+            <dimension-select ref="riskModelEnvironment" id="riskModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
@@ -49,7 +49,7 @@ Authors: Shamal Faily
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
           <b-form-group label="Name" label-form="riskModelName" :label-cols="4" horizontal>
-            <dimension-select id="riskModelName" ref="riskModelName" :environment="theEnvironmentName" :dimensionUrl="nameURI" includeall="true" v-on:dimension-select-change="nameSelected" />
+            <dimension-select id="riskModelName" ref="riskModelName" :environment="theEnvironmentName" :dimensionUrl="nameURI" includeall v-on:dimension-select-change="nameSelected" />
           </b-form-group>
         </b-col>
       </b-row>

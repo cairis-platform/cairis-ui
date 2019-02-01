@@ -34,17 +34,17 @@ Authors: Shamal Faily
       <b-row>
         <b-col>
           <b-form-group label="Environment" label-for="goalModelEnvironment" :label-cols="4" horizontal>
-            <dimension-select id="goalModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
+            <dimension-select id="goalModelEnvironment" ref="goalModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
           <b-form-group label="Goal" label-for="goalModelGoal" :label-cols="2" horizontal>
-            <dimension-select id="goalModelGoal" dimension="goal" :environment="theEnvironmentName" includeall="true" v-on:dimension-select-change="goalSelected" />
+            <dimension-select id="goalModelGoal" ref="goalModelGoal" dimension="goal" :environment="theEnvironmentName" initial="all" includeall v-on:dimension-select-change="goalSelected" />
           </b-form-group>
         </b-col>
-        <b-col v-if="theEnvironmentName != ''">
+        <b-col v-show="theEnvironmentName != ''">
           <b-form-group label="Use Case" label-form="goaModelUseCase" :label-cols="4" horizontal>
-            <dimension-select id="goalModelUseCase" dimension="usecase" :environment="theEnvironmentName" includeall="true" v-on:dimension-select-change="useCaseSelected" />
+            <dimension-select id="goalModelUseCase" ref="goalModelUseCase" dimension="usecase" :environment="theEnvironmentName" initial="all" includeall v-on:dimension-select-change="useCaseSelected" />
           </b-form-group>
         </b-col>
       </b-row>
@@ -138,10 +138,12 @@ export default {
     },
     environmentSelected(envName) {
       this.theEnvironmentName = envName
-      this.theGoalName = 'all'
-      this.theUseCaseName = 'all'
-      this.$refs.goalModelGoal.$emit('dimension-select-change',this.theGoalName);
-      this.$refs.goalModelUseCase.$emit('dimension-select-change',this.theUseCaseName);
+      if (this.$refs.goalModelGoal != undefined) {
+        this.theGoalName = 'all'
+        this.theUseCaseName = 'all'
+        this.$refs.goalModelGoal.selected = this.theGoalName;
+        this.$refs.goalModelUseCase.selected = this.theUseCaseName;
+      }
     },
     goalSelected(goalName) {
       this.theGoalName = goalName
