@@ -110,6 +110,12 @@ export default new Router({
       component: () => import('./views/Obstacles.vue')
     },
     {
+      path: '/obstacle/:objectName',
+      name: 'obstacle',
+      component: () => import('./views/ObstacleView.vue'),
+      props: true
+    },
+    {
       path: '/personas',
       name: 'personas',
       component: () => import('./views/Personas.vue')
