@@ -82,7 +82,7 @@ Authors: Shamal Faily
         <b-dropdown-item :to="{name: 'goalmodel'}">Goal</b-dropdown-item>
         <b-dropdown-item href="#">Locations</b-dropdown-item>
         <b-dropdown-item href="#">Misusability</b-dropdown-item>
-        <b-dropdown-item href="#">Obstacle</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'obstaclemodel'}">Obstacle</b-dropdown-item>
         <b-dropdown-item href="#">Persona</b-dropdown-item>
         <b-dropdown-item href="#">Requirement</b-dropdown-item>
         <b-dropdown-item href="#">Responsibility</b-dropdown-item>
