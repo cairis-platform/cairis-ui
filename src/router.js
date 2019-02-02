@@ -78,6 +78,17 @@ export default new Router({
       component: () => import('./views/DataFlowDiagramView.vue')
     },
     {
+      path: '/domainproperties',
+      name: 'domainproperties',
+      component: () => import('./views/DomainProperties.vue')
+    },
+    {
+      path: '/domainproperties/:objectName',
+      name: 'domainproperty',
+      component: () => import('./views/DomainPropertyView.vue'),
+      props: true
+    },
+    {
       path: '/goalmodel',
       name: 'goalmodel',
       component: () => import('./views/GoalModelView.vue')

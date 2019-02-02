@@ -197,6 +197,7 @@ Authors: Shamal Faily
 <script>
 
 import objectMixin from '../mixins/objectMixin'
+import environmentMixin from '../mixins/environmentMixin'
 
 export default {
   props : {
@@ -212,7 +213,8 @@ export default {
     ConcernAssociationModal : () => import('@/components/ConcernAssociationModal')
   },
   mixins : [
-    objectMixin
+    objectMixin,
+    environmentMixin
   ],
   computed : {
     concernNames() {

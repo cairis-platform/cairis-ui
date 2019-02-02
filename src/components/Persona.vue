@@ -158,6 +158,7 @@ Authors: Shamal Faily
 <script>
 
 import DimensionModal from '@/components/DimensionModal.vue'
+import environmentMixin from '../mixins/environmentMixin'
 import objectMixin from '../mixins/objectMixin'
 import axios from 'axios'
 import EventBus from '../utils/event-bus';
@@ -171,7 +172,8 @@ export default {
     object: 'setObject'
   },
   mixins : [
-    objectMixin
+    objectMixin,
+    environmentMixin
   ],
   computed : {
     personaImage() {

@@ -126,6 +126,7 @@ Authors: Shamal Faily
 
 import DimensionModal from '@/components/DimensionModal.vue'
 import CapabilityModal from '@/components/CapabilityModal.vue'
+import environmentMixin from '../mixins/environmentMixin'
 import objectMixin from '../mixins/objectMixin'
 import axios from 'axios'
 import EventBus from '../utils/event-bus';
@@ -139,6 +140,7 @@ export default {
     object: 'setObject'
   },
   mixins : [
+    environmentMixin,
     objectMixin
   ],
   computed : {

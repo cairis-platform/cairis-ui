@@ -155,6 +155,7 @@ Authors: Shamal Faily
 
 <script>
 
+import environmentMixin from '../mixins/environmentMixin'
 import objectMixin from '../mixins/objectMixin'
 import propertiesMixin from '../mixins/propertiesMixin'
 import PropertyModal from './PropertyModal'
@@ -171,6 +172,7 @@ export default {
     object: 'setObject'
   },
   mixins : [
+    environmentMixin,
     objectMixin,
     propertiesMixin
   ],
