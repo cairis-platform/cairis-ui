@@ -148,6 +148,11 @@ export default new Router({
       component: () => import('./views/Responses.vue')
     },
     {
+      path: '/responsibilitymodel',
+      name: 'responsibilitymodel',
+      component: () => import('./views/ResponsibilityModelView.vue')
+    },
+    {
       path: '/riskmodel',
       name: 'riskmodel',
       component: () => import('./views/RiskModelView.vue')
