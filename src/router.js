@@ -174,6 +174,11 @@ export default new Router({
       component: () => import('./views/SecurityPatterns.vue')
     },
     {
+      path: '/taskmodel',
+      name: 'taskmodel',
+      component: () => import('./views/TaskModelView.vue')
+    },
+    {
       path: '/threats',
       name: 'threats',
       component: () => import('./views/Threats.vue')
