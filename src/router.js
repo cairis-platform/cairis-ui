@@ -89,6 +89,17 @@ export default new Router({
       props: true
     },
     {
+      path: '/environments',
+      name: 'environments',
+      component: () => import('./views/Environments.vue')
+    },
+    {
+      path: '/environment/:objectName',
+      name: 'environment',
+      component: () => import('./views/EnvironmentView.vue'),
+      props: true
+    },
+    {
       path: '/goalmodel',
       name: 'goalmodel',
       component: () => import('./views/GoalModelView.vue')

@@ -61,7 +61,7 @@ Authors: Shamal Faily
         <b-dropdown-item :to="{name: 'securitypatterns'}">Security Patterns</b-dropdown-item>
       </b-nav-item-dropdown>
       <b-nav-item-dropdown text="UX">
-        <b-dropdown-item href="#">Environments</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'environments'}">Environments</b-dropdown-item>
         <b-dropdown-item :to="{name: 'personas'}">Personas</b-dropdown-item>
         <b-dropdown-item href="#">Tasks</b-dropdown-item>
         <b-dropdown-item href="#">Data Flows</b-dropdown-item>

@@ -36,20 +36,19 @@ function scale(v,f) {
 } 
 
 function d3_chernoff() {
-  var facef = 0, // 0 - 1
-      mouthf = 0, // -1 - 1
-      eyehf = 0.5, // 0 - 1
-      eyewf = 0.5, // 0 - 1
-      browf = 0, // -1 - 1
-      xf = 0,
-      yf = 0,
-      frf = 0,
+  var mouthf = 0; // -1 - 1
+  var eyehf = 0.5; // 0 - 1
+  var eyewf = 0.5; // 0 - 1
+  var browf = 0; // -1 - 1
+  var xf = 0;
+  var yf = 0;
+  var frf = 0;
 
-      line = d3.line()
+  var line = d3.line()
         .x(function(d) { return d.x; })
         .y(function(d) { return d.y; })
-        .curve(d3.curveCardinalClosed),
-      bline = d3.line()
+        .curve(d3.curveCardinalClosed);
+  var bline = d3.line()
         .x(function(d) { return d.x; })
         .y(function(d) { return d.y; })
         .curve(d3.curveBasisClosed);
