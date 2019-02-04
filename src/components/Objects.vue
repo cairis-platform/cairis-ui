@@ -38,7 +38,7 @@ Authors: Shamal Faily
           </b-col>
         </b-row>
       </b-container>
-      <b-table b-table striped small hover :fields="objectsFields" :items="items" @row-clicked="objectClicked" >
+      <b-table b-table striped small hover :fields="objectsFields" :items="items" @row-clicked="objectClicked">
         <template slot="HEAD_objectsactions" slot-scope="data">
           <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addObject"/> 
         </template>
