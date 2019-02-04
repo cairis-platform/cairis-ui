@@ -75,6 +75,7 @@ export default {
         next(vm => {
           vm.commitLabel = 'Update';
           vm.objt = response.data;
+          vm.objt.theTags = response.data.theTags.join(', ');
         })
       })
       .catch((error) => {

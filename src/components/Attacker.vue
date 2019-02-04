@@ -193,6 +193,9 @@ export default {
     onCommit(evt) {
       evt.preventDefault();
       if (this.checkForm()) {
+        if (this.objt.theTags != '') {
+          this.objt.theTags = this.objt.theTags.split(',').map(t => t.trim());
+        }
         this.$emit('attacker-commit',this.objt);
       }
     },
