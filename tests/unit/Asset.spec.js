@@ -2,8 +2,6 @@ import BootstrapVue from 'bootstrap-vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faMinus } from '@fortawesome/free-solid-svg-icons'
-//import { faCheck } from '@fortawesome/free-solid-svg-icons'
-//import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome' 
 import {mount, createLocalVue} from '@vue/test-utils'
 import 'bootstrap/dist/css/bootstrap.css'
@@ -14,8 +12,6 @@ import testData from '../testData'
 
 library.add(faPlus)
 library.add(faMinus)
-//library.add(faCheck)
-//library.add(faTimes)
 
 const localVue = createLocalVue();
 

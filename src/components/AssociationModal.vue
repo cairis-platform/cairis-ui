@@ -28,8 +28,8 @@ Authors: Shamal Faily
       </ul>
     </p> 
     <b-card>
-      <b-form-group label="Asset" label-class="text-sm-left" label-cols="3" horizontal label-for="theAssetInput" >
-        <b-form-input readonly id="theAssetInput" v-model="assetAssociation.asset"></b-form-input>
+      <b-form-group label="Asset" label-class="text-sm-left" label-cols="3" horizontal label-for="theHeadAssetInput" >
+        <b-form-input readonly id="theHeadAssetInput" v-model="assetAssociation.asset"></b-form-input>
       </b-form-group>
       <b-form-group label="Navigation" label-class="text-sm-left" label-cols="3" horizontal label-for="theHeadNavInput" >
         <b-form-select id="theHeadNavInput" v-model="association.association.theHeadNav" :options="navValues" class="mb-3" required></b-form-select>

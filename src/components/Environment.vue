@@ -163,7 +163,6 @@ export default {
     addSubEnvironment(data) {
       const oldEnvs = this.objt.theEnvironments.length;
       this.objt.theEnvironments.push(data);
-      const newEnvs = this.objt.theEnvironments.length;
       if (oldEnvs == 1) {
         this.objt.theDuplicateProperty = 'Maximise';
       }

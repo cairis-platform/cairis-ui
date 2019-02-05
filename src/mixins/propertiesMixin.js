@@ -84,7 +84,7 @@ export default {
       this.selectedProperty['update'] = true;
       this.$refs.propertyDialog.show();  
     },
-    addProperty(data) {
+    addProperty() {
       this.selectedProperty = {'name' : '','value' : '','rationale' : ''};
       this.selectedProperty['update'] = false;
       this.selectedProperty['propertyNames'] = this.objt.theEnvironmentProperties[this.envPropIndex].theProperties.filter(prop => (prop.value == 'None')).map(prop => prop.name);

@@ -106,7 +106,7 @@ Authors: Shamal Faily
             <b-col sm="4">
               <b-table striped bordered small hover :items="notNone" :fields=propTableFields @row-clicked="viewProperty">
                 <template slot="HEAD_propactions" slot-scope="data"> 
-                  <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addProperty(data)"/> 
+                  <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addProperty"/> 
                 </template> 
                 <template slot="propactions" slot-scope="row">
                   <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="clearProperty(row.item)"/>

@@ -118,7 +118,7 @@ Authors: Shamal Faily
                   <b-tab title="Definition" active>
                     <b-table striped small hover :items="notNone" :fields=propTableFields @row-clicked="viewProperty">
                       <template slot="HEAD_propactions" slot-scope="data"> 
-                        <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addProperty(data)"/> 
+                        <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addProperty"/> 
                       </template> 
                       <template slot="propactions" slot-scope="row">
                         <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="clearProperty(row.item)"/>
@@ -215,7 +215,7 @@ export default {
       },
       selectedInterface : {
         update : false,
-        interface : {
+        assetinterface : {
           theInterfaceName : '',
           theInterfaceType : '',
           theAccessRight : '',
@@ -304,7 +304,7 @@ export default {
       this.objt.theEnvironmentProperties[this.envPropIndex].theAssociations.splice(index,1);
     },
     addInterface(data) {
-      this.selectedInterface['interface'] = {theInterfaceName : '', theInterfaceType : '', theAccessRight : '', thePrivilege: ''};
+      this.selectedInterface['assetinterface'] = {theInterfaceName : '', theInterfaceType : '', theAccessRight : '', thePrivilege: ''};
       this.selectedInterface['update'] = false;
       this.$refs.assetInterfaceDialog.show();  
       console.log(data);
@@ -314,16 +314,16 @@ export default {
     },
     viewInterface(data,index) {
       this.selectedInterface['index'] = index
-      this.selectedInterface['interface'] = JSON.parse(JSON.stringify(data));
+      this.selectedInterface['assetinterface'] = JSON.parse(JSON.stringify(data));
       this.selectedInterface['update'] = true;
       this.$refs.assetInterfaceDialog.show();  
     },
     updateAssetInterface : function(updIf) {
       if (updIf.update) {
-        this.$set(this.objt.theInterfaces,updIf.index,updIf.interface);
+        this.$set(this.objt.theInterfaces,updIf.index,updIf.assetinterface);
       }
       else {
-        this.objt.theInterfaces.push(updIf.interface);
+        this.objt.theInterfaces.push(updIf.assetinterface);
       }
     },
     addEnvironment(evt) {
