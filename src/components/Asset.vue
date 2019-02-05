@@ -23,7 +23,7 @@ Authors: Shamal Faily
   <div class="asset">
     <dimension-modal ref="environmentDialog" dimension="environment" :existing="environmentNames" v-on:dimension-modal-update="addAssetEnvironmentProperty"/> 
     <association-modal ref="assetAssociationDialog" :assetAssociation="selectedAssociation" v-on:association-update="updateAssetAssociation"/> 
-    <property-modal ref="assetPropertyDialog" :securityProperty="selectedProperty" v-on:property-update="updateProperty"/> 
+    <property-modal ref="propertyDialog" :securityProperty="selectedProperty" v-on:property-update="updateProperty"/> 
     <asset-interface-modal ref="assetInterfaceDialog" :assetInterface="selectedInterface" v-on:interface-update="updateAssetInterface"/> 
     <p v-if="errors.length">
       <b>Please correct the following error(s):</b>
@@ -118,7 +118,7 @@ Authors: Shamal Faily
                   <b-tab title="Definition" active>
                     <b-table striped small hover :items="notNone" :fields=propTableFields @row-clicked="viewProperty">
                       <template slot="HEAD_propactions" slot-scope="data"> 
-                        <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addAssetProperty(data)"/> 
+                        <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addProperty(data)"/> 
                       </template> 
                       <template slot="propactions" slot-scope="row">
                         <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="clearProperty(row.item)"/>
@@ -196,7 +196,6 @@ export default {
       commitLabel : this.label,
       envPropIndex : 0,
       errors : [],
-      selectedProperty : {},
       selectedAssociation : {
         asset : '',
         environment : '',
@@ -227,12 +226,6 @@ export default {
       envFields : {
         envactions : {label : ''},
         theName : {label : 'Environment'}
-      },
-      propTableFields : {
-        propactions : {label : ''},
-        name : {label : 'Property'},
-        value : {label : 'Value'},
-        rationale : {label : 'Rationale'} 
       },
       interfaceTableFields : {
         intactions : {label : ''},
@@ -298,13 +291,6 @@ export default {
     onCancel(evt) {
       evt.preventDefault();
       this.$router.push({ name: 'assets'})
-    },
-    addAssetProperty(data) {
-      this.selectedProperty = {'name' : '','value' : '','rationale' : ''};
-      this.selectedProperty['update'] = false;
-      this.selectedProperty['propertyNames'] = this.objt.theEnvironmentProperties[this.envPropIndex].theProperties.filter(prop => (prop.value == 'None')).map(prop => prop.name);
-      this.$refs.assetPropertyDialog.show();  
-      console.log(data);
     },
     addAssetAssociation(data) {
       this.selectedAssociation['asset'] = this.objt.theName;

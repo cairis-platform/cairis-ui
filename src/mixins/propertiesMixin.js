@@ -18,6 +18,17 @@
     Authors: Shamal Faily */
 
 export default {
+  data() {
+    return {
+      propTableFields : {
+        propactions : {label : ''},
+        name : {label : 'Property'},
+        value : {label : 'Value'},
+        rationale : {label : 'Rationale'} 
+      },
+      selectedProperty : {}
+    }
+  },
   computed : {
     notNone() {
       return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theProperties.filter(prop => prop.value != 'None') : [];
@@ -71,7 +82,13 @@ export default {
     viewProperty(data) {
       this.selectedProperty = JSON.parse(JSON.stringify(data));
       this.selectedProperty['update'] = true;
-      this.$refs.assetPropertyDialog.show();  
-    }
+      this.$refs.propertyDialog.show();  
+    },
+    addProperty(data) {
+      this.selectedProperty = {'name' : '','value' : '','rationale' : ''};
+      this.selectedProperty['update'] = false;
+      this.selectedProperty['propertyNames'] = this.objt.theEnvironmentProperties[this.envPropIndex].theProperties.filter(prop => (prop.value == 'None')).map(prop => prop.name);
+      this.$refs.propertyDialog.show();  
+    },
   }
 }

@@ -200,6 +200,12 @@ export default new Router({
       component: () => import('./views/Threats.vue')
     },
     {
+      path: '/threat/:objectName',
+      name: 'threat',
+      component: () => import('./views/ThreatView.vue'),
+      props: true
+    },
+    {
       path: '/usecases',
       name: 'usecases',
       component: () => import('./views/UseCases.vue')

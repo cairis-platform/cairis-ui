@@ -100,11 +100,11 @@ export default {
       this.$router.push({ name: this.dimName, params : {objectName: 'New ' + this.dimName, domain : {type : 'asset', name : ''}}});
     },
     deleteObject(index) {
-      if (this.dimName != 'vulnerability') {
-        this.selectedObject = this.items[index].theName;
+      if (this.dimName == 'vulnerability') {
+        this.selectedObject = this.items[index].theVulnerabilityName;
       }
       else {
-        this.selectedObject = this.items[index].theVulnerabilityName;
+        this.selectedObject = this.items[index].theName;
       }
       this.selectedIndex = index;
       var that = this;
