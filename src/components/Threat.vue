@@ -85,6 +85,7 @@ Authors: Shamal Faily
           <b-row v-if="this.objt.theEnvironmentProperties.length">
             <b-col sm="4">
               <b-table striped bordered small :fields="attackerTableFields" :items="environmentAttackers">
+                <!-- eslint-disable-next-line -->
                 <template slot="HEAD_attackeractions" slot-scope="data"> 
                   <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addAttacker"/> 
                 </template>
@@ -95,6 +96,7 @@ Authors: Shamal Faily
             </b-col>
             <b-col sm="4">
               <b-table striped bordered small :fields="assetTableFields" :items="environmentAssets">
+                <!-- eslint-disable-next-line -->
                 <template slot="HEAD_assetactions" slot-scope="data"> 
                   <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addAsset"/> 
                 </template>
@@ -105,6 +107,7 @@ Authors: Shamal Faily
             </b-col>
             <b-col sm="4">
               <b-table striped bordered small hover :items="notNone" :fields=propTableFields @row-clicked="viewProperty">
+                <!-- eslint-disable-next-line -->
                 <template slot="HEAD_propactions" slot-scope="data"> 
                   <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addProperty"/> 
                 </template> 

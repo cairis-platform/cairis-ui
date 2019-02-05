@@ -117,6 +117,7 @@ Authors: Shamal Faily
                 <b-tabs >
                   <b-tab title="Definition" active>
                     <b-table striped small hover :items="notNone" :fields=propTableFields @row-clicked="viewProperty">
+                      <!-- eslint-disable-next-line -->
                       <template slot="HEAD_propactions" slot-scope="data"> 
                         <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addProperty"/> 
                       </template> 
