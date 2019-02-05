@@ -1,5 +1,7 @@
 # cairis-ui
 
+[![Build Status](https://secure.travis-ci.org/failys/cairis-ui.png?branch=master)](http://travis-ci.org/failys/cairis-ui)
+
 UI for CAIRIS.  
 
 The current design is based on the CAIRIS 1.x UI, but -- once complete -- this will replace the existing CAIRIS 1.x UI.  
