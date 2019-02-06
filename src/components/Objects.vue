@@ -39,6 +39,7 @@ Authors: Shamal Faily
         </b-row>
       </b-container>
       <b-table b-table striped small hover :fields="objectsFields" :items="items" @row-clicked="objectClicked">
+        <!-- eslint-disable-next-line -->
         <template slot="HEAD_objectsactions" slot-scope="data">
           <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addObject"/> 
         </template>

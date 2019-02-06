@@ -63,7 +63,7 @@ Authors: Shamal Faily
       <b-nav-item-dropdown text="UX">
         <b-dropdown-item :to="{name: 'environments'}">Environments</b-dropdown-item>
         <b-dropdown-item :to="{name: 'personas'}">Personas</b-dropdown-item>
-        <b-dropdown-item href="#">Tasks</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'tasks'}">Tasks</b-dropdown-item>
         <b-dropdown-item href="#">Data Flows</b-dropdown-item>
         <b-dropdown-item href="#">Trust Boundaries</b-dropdown-item>
         <b-dropdown-item href="#">External Documents</b-dropdown-item>

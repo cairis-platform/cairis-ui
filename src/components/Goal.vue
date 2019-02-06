@@ -119,6 +119,7 @@ Authors: Shamal Faily
                         <b-row>
                           <b-col md="12">
                             <b-table striped bordered small hover :items="goalRefinements" :fields=goalRefinementTableFields @row-clicked="viewGoalRefinement">
+                              <!-- eslint-disable-next-line -->
                               <template slot="HEAD_goalrefinementactions" slot-scope="data"> 
                                 <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addGoalRefinement"/> 
                               </template> 
@@ -135,6 +136,7 @@ Authors: Shamal Faily
                         <b-row>
                           <b-col md="12">
                             <b-table striped bordered small hover :items="subGoalRefinements" :fields=subGoalRefinementTableFields @row-clicked="viewSubGoalRefinement">
+                              <!-- eslint-disable-next-line -->
                               <template slot="HEAD_subgoalrefinementactions" slot-scope="data"> 
                                 <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addSubGoalRefinement"/> 
                               </template> 
@@ -151,8 +153,9 @@ Authors: Shamal Faily
                         <b-row>
                           <b-col md="4">
                             <b-table striped bordered small hover :items="concerns" :fields=concernTableFields>
+                              <!-- eslint-disable-next-line -->
                               <template slot="HEAD_concernactions" slot-scope="data"> 
-                                <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addConcern(data)"/> 
+                                <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addConcern"/> 
                               </template> 
                               <template slot="concernactions" slot-scope="row">
                                 <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteConcern(row.item)"/>
@@ -161,6 +164,7 @@ Authors: Shamal Faily
                           </b-col>
                           <b-col md="8">
                             <b-table striped bordered small hover :items="concernAssociations" :fields=concernAssociationTableFields @row-clicked="viewConcernAssociation">
+                              <!-- eslint-disable-next-line -->
                               <template slot="HEAD_concernassociationactions" slot-scope="data"> 
                                 <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addConcernAssociation"/> 
                               </template> 
@@ -198,6 +202,7 @@ Authors: Shamal Faily
 
 import objectMixin from '../mixins/objectMixin'
 import environmentMixin from '../mixins/environmentMixin'
+import concernMixin from '../mixins/concernMixin'
 
 export default {
   props : {
@@ -214,11 +219,15 @@ export default {
   },
   mixins : [
     objectMixin,
-    environmentMixin
+    environmentMixin,
+    concernMixin
   ],
   computed : {
     concernNames() {
       return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theConcerns : [] ;
+    },
+    concerns() {
+      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theConcerns.map(concern => ({name : concern})): []
     },
     category : {
       get : function() {
@@ -260,17 +269,11 @@ export default {
         this.objt.theEnvironmentProperties[this.envPropIndex].theFitCriterion = value;
       }
     },
-    concerns() {
-      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theConcerns.map(concern => ({name : concern})): []
-    },
     goalRefinements() {
       return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theGoalRefinements : [] 
     },
     subGoalRefinements() {
       return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theSubGoalRefinements : [] 
-    },
-    concernAssociations() {
-      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theConcernAssociations : [] 
     },
   },
   data() {
@@ -279,10 +282,6 @@ export default {
       objt : this.object,
       envPropIndex : 0,
       commitLabel : 'Create',
-      concernTableFields : {
-        concernactions : {label : ''},
-        name : {label : 'Concern'}
-      },
       goalRefinementTableFields : {
         goalrefinementactions : {label : ''},
         theEndType : {label : 'Type'},
@@ -299,14 +298,6 @@ export default {
         isAlternate : {label : 'Alternate'},
         theRationale : {label : 'Rationale'}
       },
-      concernAssociationTableFields : {
-        concernassociationactions : {label : ''},
-        theSource : {label : 'Source'},
-        theSourceNry : {label : 'n'},
-        theLinkVerb : {label : 'Link Verb'},
-        theTargetNry : {label : 'n'},
-        theTarget : {label : 'Target'}
-      },
       goalCategories : ['Maintain','Achieve','Avoid','Improve','Increase','Maximise','Minimise'],
       selectedAssociation : {
         environment : '',
@@ -318,16 +309,6 @@ export default {
           isAlternate: 'No', 
           theRationale : ''
          }
-      },
-      selectedConcernAssociation : {
-        update : false,
-        association : {
-          theSource : '',
-          theSourceNry : '1',
-          theLinkVerb : '',
-          theTargetNry : '1',
-          theTarget : ''
-        }
       }
     }
   },
@@ -410,37 +391,11 @@ export default {
     deleteSubGoalRefinement(index) {
       this.objt.theEnvironmentProperties[this.envPropIndex].theSubGoalRefinements.splice(index,1);
     },
-    addConcern() {
-      this.showAssetDialog = true;
-      this.$refs.assetDialog.show();  
-    },
     addGoalConcern(data) {
       this.objt.theEnvironmentProperties[this.envPropIndex].theConcerns.push(data);
     },
     deleteConcern(index) {
       this.objt.theEnvironmentProperties[this.envPropIndex].theConcerns.splice(index,1);
-    },
-    viewConcernAssociation(data,index) {
-      this.selectedConcernAssociation['index'] = index;
-      this.selectedConcernAssociation['association'] = JSON.parse(JSON.stringify(data));
-      this.selectedConcernAssociation['update'] = true;
-      this.$refs.concernAssociationDialog.show();  
-    },
-    addConcernAssociation() {
-      this.selectedConcernAssociation['association'] = {theSource : '', theSourceNry : '', theLinkVerb : '', theTargetNry: '', theTarget : ''};
-      this.selectedConcernAssociation['update'] = false;
-      this.$refs.concernAssociationDialog.show();  
-    },
-    updateConcernAssociation : function(updAssoc) {
-      if (updAssoc.update) {
-        this.$set(this.objt.theEnvironmentProperties[this.envPropIndex].theConcernAssociations,updAssoc.index,updAssoc.association);
-      }
-      else {
-        this.objt.theEnvironmentProperties[this.envPropIndex].theConcernAssociations.push(updAssoc.association);
-      }
-    },
-    deleteConcernAssociation(index) {
-      this.objt.theEnvironmentProperties[this.envPropIndex].theConcernAssociations.splice(index,1);
     },
     checkForm() {
       this.errors = []

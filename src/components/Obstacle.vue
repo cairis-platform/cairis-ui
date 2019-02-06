@@ -116,8 +116,9 @@ Authors: Shamal Faily
                       <b-row>
                         <b-col md="12">
                           <b-table striped bordered small hover :items="concerns" :fields=concernTableFields>
+                            <!-- eslint-disable-next-line -->
                             <template slot="HEAD_concernactions" slot-scope="data"> 
-                              <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addConcern(data)"/> 
+                              <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addConcern"/> 
                             </template> 
                             <template slot="concernactions" slot-scope="row">
                               <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteConcern(row.item)"/>
@@ -131,6 +132,7 @@ Authors: Shamal Faily
                         <b-row>
                           <b-col md="12">
                             <b-table striped bordered small hover :items="goalRefinements" :fields=goalRefinementTableFields @row-clicked="viewObstacleRefinement">
+                              <!-- eslint-disable-next-line -->
                               <template slot="HEAD_obstaclerefinementactions" slot-scope="data"> 
                                 <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addObstacleRefinement"/> 
                               </template> 
@@ -147,6 +149,7 @@ Authors: Shamal Faily
                         <b-row>
                           <b-col md="12">
                             <b-table striped bordered small hover :items="subGoalRefinements" :fields=subGoalRefinementTableFields @row-clicked="viewSubObstacleRefinement">
+                              <!-- eslint-disable-next-line -->
                               <template slot="HEAD_subobstaclerefinementactions" slot-scope="data"> 
                                 <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addSubObstacleRefinement"/> 
                               </template> 
@@ -194,7 +197,6 @@ export default {
     object: 'setObject'
   },
   components : {
-    DimensionModal : () => import('@/components/DimensionModal.vue'),
     KaosRefinementModal : () => import('@/components/KaosRefinementModal.vue'),
   },
   mixins : [
@@ -204,6 +206,9 @@ export default {
   computed : {
     concernNames() {
       return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theConcerns : [] ;
+    },
+    concerns() {
+      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theConcerns.map(concern => ({name : concern})): []
     },
     category : {
       get : function() {
@@ -236,9 +241,6 @@ export default {
       set : function(value) {
         this.objt.theEnvironmentProperties[this.envPropIndex].theProbabilityRationale = value;
       }
-    },
-    concerns() {
-      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theConcerns.map(concern => ({name : concern})): []
     },
     goalRefinements() {
       return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theGoalRefinements : [] 

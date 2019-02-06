@@ -128,8 +128,9 @@ Authors: Shamal Faily
                   </b-tab>
                   <b-tab title="Associations">
                     <b-table striped small hover :items="assetAssociations" :fields="assocTableFields" @row-clicked="viewAssetAssociation">
+                      <!-- eslint-disable-next-line -->
                       <template slot="HEAD_assocactions" slot-scope="data">
-                        <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addAssetAssociation(data)"/> 
+                        <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addAssetAssociation"/> 
                       </template>
                       <template slot="assocactions" slot-scope="row">
                         <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteAssetAssociation(row.index)"/>
@@ -293,13 +294,12 @@ export default {
       evt.preventDefault();
       this.$router.push({ name: 'assets'})
     },
-    addAssetAssociation(data) {
+    addAssetAssociation() {
       this.selectedAssociation['asset'] = this.objt.theName;
       this.selectedAssociation['environment'] = this.objt.theEnvironmentProperties[this.envPropIndex].theEnvironmentName;
       this.selectedAssociation['association'] = {theHeadNav : 0, theHeadType : 'Association', theHeadMultiplicity : '*', theHeadRole: '', theTailRole : '', theTailMultiplicity : '*', theTailNav : 0, theTailType : 'Association', theTailName : ''};
       this.selectedAssociation['update'] = false;
       this.$refs.assetAssociationDialog.show();  
-      console.log(data);
     },
     deleteAssetAssociation(index) {
       this.objt.theEnvironmentProperties[this.envPropIndex].theAssociations.splice(index,1);

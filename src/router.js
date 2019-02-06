@@ -195,6 +195,17 @@ export default new Router({
       component: () => import('./views/TaskModelView.vue')
     },
     {
+      path: '/tasks',
+      name: 'tasks',
+      component: () => import('./views/Tasks.vue')
+    },
+    {
+      path: '/task/:objectName',
+      name: 'task',
+      component: () => import('./views/TaskView.vue'),
+      props: true
+    },
+    {
       path: '/threats',
       name: 'threats',
       component: () => import('./views/Threats.vue')
