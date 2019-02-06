@@ -108,8 +108,9 @@ export default {
         this.selectedObject = this.items[index].theName;
       }
       this.selectedIndex = index;
-      var that = this;
-      const odUrl = '/api/object_dependency/dimension/' + this.dimName + '/object/' + this.selectedObject;
+      const that = this;
+
+      const odUrl = '/api/object_dependency/dimension/' + this.dimension + '/object/' + this.selectedObject;
       axios.get(odUrl,{
         baseURL : this.$store.state.url,
         params : {'session_id' : this.$store.state.session}
@@ -128,7 +129,7 @@ export default {
       })
     },
     commitDelete() {
-      var objtName = JSON.parse(JSON.stringify(this.selectedObject));
+      const objtName = JSON.parse(JSON.stringify(this.selectedObject));
       axios.delete(this.delUrl + objtName,{
         baseURL : this.$store.state.url,
         params : {'session_id' : this.$store.state.session}
@@ -142,8 +143,8 @@ export default {
       })
     },
     deleteDependencies() {
-      const odUrl = '/api/object_dependency/dimension/' + this.dimName + '/object/' + this.selectedObject;
-      var that = this;
+      const odUrl = '/api/object_dependency/dimension/' + this.dimension + '/object/' + this.selectedObject;
+      const that = this;
       axios.delete(odUrl,{
         baseURL : this.$store.state.url,
         params : {'session_id' : this.$store.state.session}
@@ -184,6 +185,12 @@ export default {
   },
   mounted() {
     this.loadObjects();
+    if (this.dimName == 'externaldocument') {
+      this.dimension = 'external_document';
+    }
+    else if (this.dimName == 'documentreference') {
+      this.dimension = 'document_reference';
+    }
   }
 }
 </script>

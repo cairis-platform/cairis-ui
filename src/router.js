@@ -78,6 +78,17 @@ export default new Router({
       component: () => import('./views/DataFlowDiagramView.vue')
     },
     {
+      path: '/documentreferences',
+      name: 'documentreferences',
+      component: () => import('./views/DocumentReferences.vue')
+    },
+    {
+      path: '/documentreference/:objectName',
+      name: 'documentreference',
+      component: () => import('./views/DocumentReferenceView.vue'),
+      props: true
+    },
+    {
       path: '/domainproperties',
       name: 'domainproperties',
       component: () => import('./views/DomainProperties.vue')
@@ -92,6 +103,17 @@ export default new Router({
       path: '/environments',
       name: 'environments',
       component: () => import('./views/Environments.vue')
+    },
+    {
+      path: '/externaldocuments',
+      name: 'externaldocuments',
+      component: () => import('./views/ExternalDocuments.vue')
+    },
+    {
+      path: '/externaldocument/:objectName',
+      name: 'externaldocument',
+      component: () => import('./views/ExternalDocumentView.vue'),
+      props: true
     },
     {
       path: '/environment/:objectName',
