@@ -30,7 +30,7 @@ Authors: Shamal Faily
         <b-dropdown-item href="#">Open Database</b-dropdown-item>
         <b-dropdown-item href="#">Delete Database</b-dropdown-item>
         <b-dropdown-item href="#">Clear Database</b-dropdown-item>
-        <b-dropdown-item href="#">Import Model</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'import'}">Import Model</b-dropdown-item>
         <b-dropdown-item href="#">Import from Trello</b-dropdown-item>
         <b-dropdown-item href="#">Export Model</b-dropdown-item>
         <b-dropdown-item href="#">Export Architectural Pattern</b-dropdown-item>
