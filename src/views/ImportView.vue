@@ -21,7 +21,8 @@ Authors: Shamal Faily
 -->
 
   <div class="importview">
-    <b-form>
+    <b-form class="vid-parent">
+      <loading :active.sync="isLoading" is-full-page></loading>
       <b-breadcrumb :items="bcItems" /> 
       <b-container fluid>
         <b-card bg-variant="light">
@@ -52,6 +53,8 @@ Authors: Shamal Faily
 <script>
 
 import axios from 'axios';
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 import store from '../store'
 import EventBus from '../utils/event-bus';
 
@@ -61,8 +64,12 @@ export default {
      return [{text: 'Home', to: {name: 'home'}},{text: 'Import', to: {name: 'import'}}]
     }
   },
+  components : {
+    Loading
+  },
   data() {
     return {
+      isLoading : false,
       theModelType : 'Model',
       modelTypes : ['Model','Project data','Requirements','Risk Analysis','Usability','Misusability','Associations','Threat and Vulnerability Types','Domain Values','Threat and Vulnerability Directory','Security Pattern','Architectural Pattern','Attack Pattern','Synopses','Assets','Processes','Locations','Dataflows','Attack Tree (Dot)'],
       theImportFile : '',
@@ -74,6 +81,7 @@ export default {
       evt.preventDefault();
       let reader = new FileReader();
       reader.onload = e => {
+        this.isLoading = true;
         this.theModelContent = e.target.result;
         const importObjt = {'urlenc_file_contents' : this.theModelContent,'overwrite' : 1, 'type': this.theModelType};
         const importUrl = this.$store.state.url + '/api/import/text'
@@ -83,9 +91,11 @@ export default {
         })
         .then(response => {
           EventBus.$emit('operation-success',response.data.message)
+          this.isLoading = false;
           this.$router.push({ name: 'home'})
         })
         .catch((error) => {
+          this.isLoading = false;
           EventBus.$emit('operation-failure',error)
         })
       }
@@ -93,6 +103,7 @@ export default {
     },
     onCancel(evt) {
       evt.preventDefault();
+      this.isLoading = false;
       this.$router.push({ name: 'home'})
     }
   }

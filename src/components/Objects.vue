@@ -148,7 +148,7 @@ export default {
         baseURL : this.$store.state.url,
         params : {'session_id' : this.$store.state.session}
        })
-      .then(response => {
+      .then( () => {
         that.commitDelete();
        })
       .catch((error) => {
