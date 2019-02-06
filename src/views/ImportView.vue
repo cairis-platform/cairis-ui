@@ -21,7 +21,7 @@ Authors: Shamal Faily
 -->
 
   <div class="importview">
-    <b-form class="vid-parent">
+    <b-form class="vld-parent">
       <loading :active.sync="isLoading" is-full-page></loading>
       <b-breadcrumb :items="bcItems" /> 
       <b-container fluid>

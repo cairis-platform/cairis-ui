@@ -19,8 +19,11 @@ under the License.
 
 Authors: Shamal Faily 
 -->
-  <div id="svgViewer" style="height: 100%; width: 100%;" v-html="theSvgData" v-on:click="onClick($event)">
-  </div> 
+  <div id="graphicalmodel" class="vld-parent">
+    <loading :active.sync="isLoading" is-full-page></loading>
+    <div id="svgViewer" style="height: 100%; width: 100%;" v-html="theSvgData" v-on:click="onClick($event)">
+    </div> 
+  </div>
 </template>
 
 <script>
@@ -28,6 +31,8 @@ Authors: Shamal Faily
   import EventBus from '../utils/event-bus';
   import svg_pan_zoom from 'svg-pan-zoom';
   import requirementsMixin from '../mixins/requirementsMixin'
+  import Loading from 'vue-loading-overlay';
+  import 'vue-loading-overlay/dist/vue-loading.css';
 
   export default {
     name: 'graphical-model',
@@ -44,8 +49,12 @@ Authors: Shamal Faily
         }
       }
     },
+    components : {
+      Loading
+    },
     data() {
       return {
+        isLoading : false,
         theSvgData : null
       }
     },
@@ -58,6 +67,7 @@ Authors: Shamal Faily
         }
       },
       loadModel() {
+        this.isLoading = true;
         var url = this.api + "?session_id=" + this.$store.state.session
         if (this.parameters != '') {
           url += this.parameters;
@@ -108,6 +118,7 @@ Authors: Shamal Faily
       else {
         this.displayModel();
       }
+      this.isLoading = false;
     }
   };
 </script>
