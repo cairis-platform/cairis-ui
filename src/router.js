@@ -78,6 +78,11 @@ export default new Router({
       component: () => import('./views/DataFlowDiagramView.vue')
     },
     {
+      path: '/documentation',
+      name: 'documentation',
+      component: () => import('./views/DocumentationView.vue')
+    },
+    {
       path: '/documentreferences',
       name: 'documentreferences',
       component: () => import('./views/DocumentReferences.vue')

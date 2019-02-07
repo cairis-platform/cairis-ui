@@ -20,7 +20,7 @@ under the License.
 Authors: Shamal Faily 
 -->
 
-  <div class="exportview">
+  <div class="documentationview">
     <b-form class="vld-parent">
       <loading :active.sync="isLoading" is-full-page></loading>
       <b-breadcrumb :items="bcItems" /> 
@@ -32,48 +32,44 @@ Authors: Shamal Faily
           </ul>
         </p>
         <b-card bg-variant="light">
-          <b-form-group label="Model" label-class="text-md-left" label-cols="3" horizontal label-for="theModelRadio">
-            <b-form-radio-group id="theModelRadio" v-model="theModelType">
-              <b-form-radio value="Model">Model</b-form-radio>
-              <b-form-radio value="GRL">GRL</b-form-radio>
-              <b-form-radio value="Architectural Pattern">Architectural Pattern</b-form-radio>
-            </b-form-radio-group>
-          </b-form-group>
-          <b-form-group v-if="theModelType == 'Architectural Pattern'" label="Architectural Pattern" label-class="text-md-left" label-cols="3" horizontal label-for="thePatternSelect">
-            <dimension-select ref="patternSelect" id="patternSelect" dimension="component_view" v-on:dimension-select-change="patternSelected" />
-          </b-form-group>
-          <b-container fluid v-if="theModelType == 'GRL'">
+          <b-container fluid>
             <b-row>
-              <b-col md="4">
-                <b-form-group label="Environment" label-class="text-md-left" label-cols="3" horizontal label-for="theEnvironmentSelect">
-                  <dimension-select ref="environmentSelect" id="environmentSelect" dimension="environment" v-on:dimension-select-change="environmentSelected" />
+              <b-col md="3">
+                <b-form-group label="Type" label-class="text-md-left" label-cols="3" horizontal label-for="theTypeRadio">
+                  <b-form-radio-group id="theTypeRadio" v-model="theDocType">
+                    <b-form-radio value="Requirements">Requirements</b-form-radio>
+                    <b-form-radio value="Personas">Personas</b-form-radio>
+                    <b-form-radio value="Data Protection Impact Assessment">Data Protection Impact Assessment</b-form-radio>
+                  </b-form-radio-group>
                 </b-form-group>
               </b-col>
-              <b-col md="4">
-                <b-form-group label="Task" label-class="text-md-left" label-cols="3" horizontal label-for="theTaskSelect">
-                  <dimension-select ref="taskSelect" id="taskSelect" dimension="task" v-on:dimension-select-change="taskSelected" />
+              <b-col md="6">
+                <b-form-group label="File name" label-class="text-md-left" label-cols="3" horizontal label-for="theFileName">
+                  <b-form-input id="theModelFile" v-model="theExportParameters.filename" type="text" required>
+                  </b-form-input>
+                 </b-form-group>
+              </b-col>
+              <b-col md="3">
+                <b-form-group label="Format" label-class="text-md-left" label-cols="3" horizontal label-for="theFormatRadio">
+                  <b-form-radio-group id="theFormatRadio" v-model="theDocFormat">
+                    <b-form-radio value="PDF">PDF</b-form-radio>
+                    <b-form-radio value="RTF">RTF</b-form-radio>
+                  </b-form-radio-group>
                 </b-form-group>
               </b-col>
-
             </b-row>
           </b-container>
-          <b-form-group label="File name" label-class="text-md-left" label-cols="3" horizontal label-for="theFileName">
-            <b-form-input id="theModelFile" v-model="theExportParameters.filename" type="text" required>
-            </b-form-input>
-          </b-form-group>
-
         </b-card>
       </b-container> 
       <b-container fluid>
         <b-form-row>
           <b-col md="4" offset-md="5" >
-            <b-button type="submit" variant="primary" @click="onExport">Export</b-button>
+            <b-button type="submit" variant="primary" @click="onGenerate">Generate</b-button>
             <b-button type="submit" variant="secondary" @click="onCancel">Cancel</b-button>
           </b-col>
         </b-form-row>
       </b-container> 
     </b-form>
-
   </div>
 </template>
 
@@ -84,7 +80,6 @@ import axios from 'axios';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import store from '../store'
-import DimensionSelect from '@/components/DimensionSelect.vue'
 import EventBus from '../utils/event-bus';
 
 export default {
@@ -92,29 +87,26 @@ export default {
     bcItems() {
      return [{text: 'Home', to: {name: 'home'}},{text: 'Export', to: {name: 'export'}}]
     },
-    exportURL() {
-      return this.theModelType == 'Model' ? '/api/export/file' : (this.theModelType == 'Architectural Pattern' ? '/api/export/file/architectural_pattern/' + this.theArchitecturalPatternName : '/api/export/file/grl/task/' + this.theTaskName + '/persona/' + this.thePersonaName + '/environment/' + this.theEnvironmentName);
+    docURL() {
+      return '/api/documentation/type/' + this.theDocType + '/format/' + this.theDocFormat;
+    },
+    exportHeaders() {
+      return {'Content-Type' : 'application/' + this.theDocFormat.toLowerCase()}
     }
   },
   components : {
-    Loading,
-    DimensionSelect
+    Loading
   },
   data() {
     return {
       errors : [],
       isLoading : false,
-      theModelType : 'Model',
-      theExportURL : '/api/export/file',
-      theArchitecturalPatternName : '',
-      theEnvironmentName : '',
-      theTaskName : '',
-      thePersonaName : '',
+      theDocType : 'Requirements',
+      theDocFormat : 'PDF',
       theExportParameters : {
         session_id : this.$store.state.session,
-        filename : 'model.xml'
-      },
-      theExportHeaders : {'Content-Type' : 'application/xml'}
+        filename : 'report'
+      }
     }
   },
   methods : {
@@ -124,23 +116,13 @@ export default {
       if (this.theExportParameters.filename.length == 0) {
         this.errors.push('File name is required');
       }
+      if (this.theDocType.length == 0) {
+        this.errors.push('Documentation type is required');
+      }
+      if (this.theDocFormat.length == 0) {
+        this.errors.push('File format is required');
+      }
 
-      if (this.theModelType == 'Architectural Pattern') {
-        if (this.theArchitecturalPatternName.length == 0) {
-          this.errors.push('Architectural pattern is required');
-        }
-      }
-      else if (this.theModelType == 'GRL') {
-        if (this.theEnvironmentName.length == 0) {
-          this.errors.push('Environment is required');
-        }
-        if (this.theTaskName.length == 0) {
-          this.errors.push('Task is required');
-        }
-        if (this.thePersonaName.length == 0) {
-          this.errors.push('Persona is required');
-        }
-      }
       if (!this.errors.length) {
         return true;
       }
@@ -148,18 +130,18 @@ export default {
         return false;
       }
     },
-    onExport(evt) {
+    onGenerate(evt) {
       evt.preventDefault();
       if (this.checkForm()) {
         this.isLoading = true;
-        axios.get(this.exportURL,{
+        axios.get(this.docURL,{
           responseType : 'arraybuffer',
-          headers : this.theExportHeaders,
+          headers : this.exportHeaders,
           baseURL : this.$store.state.url,
           params : this.theExportParameters
          })
         .then(response => {
-          let blob = new Blob([response.data],{type: 'application/xml' });
+          let blob = new Blob([response.data],{type: 'application/' + this.theDocFormat.toLowerCase() });
           let link = document.createElement('a');
           link.href = window.URL.createObjectURL(blob);
           link.download = this.theExportParameters.filename;
@@ -167,14 +149,13 @@ export default {
           this.isLoading = false;
         })
         .catch((error) => {
-          this.isLoading = false;
           EventBus.$emit('operation-failure',error)
+          this.isLoading = false;
         });
       }
     },
     onCancel(evt) {
       evt.preventDefault();
-      this.isLoading = false;
       this.$router.push({ name: 'home'})
     },
     patternSelected(patternName) {
