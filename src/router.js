@@ -105,6 +105,11 @@ export default new Router({
       component: () => import('./views/Environments.vue')
     },
     {
+      path: '/export',
+      name: 'export',
+      component: () => import('./views/ExportView.vue')
+    },
+    {
       path: '/externaldocuments',
       name: 'externaldocuments',
       component: () => import('./views/ExternalDocuments.vue')

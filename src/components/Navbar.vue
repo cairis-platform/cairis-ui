@@ -32,9 +32,9 @@ Authors: Shamal Faily
         <b-dropdown-item href="#">Clear Database</b-dropdown-item>
         <b-dropdown-item :to="{name: 'import'}">Import Model</b-dropdown-item>
         <b-dropdown-item href="#">Import from Trello</b-dropdown-item>
-        <b-dropdown-item href="#">Export Model</b-dropdown-item>
-        <b-dropdown-item href="#">Export Architectural Pattern</b-dropdown-item>
-        <b-dropdown-item href="#">Export GRL</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'export'}">Export</b-dropdown-item>
+<!--        <b-dropdown-item href="#">Export Architectural Pattern</b-dropdown-item>
+        <b-dropdown-item href="#">Export GRL</b-dropdown-item> -->
         <b-dropdown-item href="#">Export to Trello</b-dropdown-item>
         <b-dropdown-item href="#">Documentation</b-dropdown-item>
         <b-dropdown-item href="#">Properties</b-dropdown-item>
