@@ -211,6 +211,12 @@ export default new Router({
       component: () => import('./views/Risks.vue')
     },
     {
+      path: '/risk/:objectName',
+      name: 'risk',
+      component: () => import('./views/RiskView.vue'),
+      props: true
+    },
+    {
       path: '/roles',
       name: 'roles',
       component: () => import('./views/Roles.vue')
