@@ -19,7 +19,7 @@ under the License.
 
 Authors: Shamal Faily 
 -->
-  <div class="tasks">
+  <div class="kaosassociations">
     <objects :breadCrumbItems="bcItems" :fieldList="objectsFields" :getUrl="theGetUrl" :delUrl="theDelUrl" :dimName="dimension"/>
   </div>
 </template>
@@ -33,16 +33,20 @@ export default {
   },
   data() {
     return {
-      bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Tasks', to: {name: 'tasks'}}],
+      bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'KAOS Associations', to: {name: 'kaosassociations'}}],
       items: [],
       objectsFields : {
         objectsactions : {label : ''},
-        theName : {label : 'Name', sortable: true},
-        theObjective : {label : 'Objective'}
+        theEnvironmentName : {label : 'Environment', sortable: true},
+        theGoal : {label : 'Goal', sortable: true},
+        theGoalDimension : {label : 'Dimension'},
+        theAssociationType : {label : 'Association'},
+        theSubGoal : {label : 'Sub Goal', sortable: true},
+        theSubGoalDimension : {label : 'Dimension'}
       },
-      theGetUrl : '/api/tasks',
-      theDelUrl : '/api/tasks/name/',
-      dimension : 'task'
+      theGetUrl : '/api/goals/association',
+      theDelUrl : '/api/goals/association/environment/',
+      dimension : 'kaosassociation'
     }
   }
 }

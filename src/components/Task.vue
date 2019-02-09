@@ -124,7 +124,7 @@ Authors: Shamal Faily
                      <b-form-textarea id="theBenefits" v-model="objt.theEnvironmentProperties[envPropIndex].theBenefits" type="text" :rows=6 :max-rows=8 required>
                      </b-form-textarea>
                   </b-tab>
-                  <b-tab title="Concerns" active>
+                  <b-tab title="Concerns">
                     <b-container fluid>
                       <b-row>
                         <b-col md="4">

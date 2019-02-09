@@ -37,7 +37,7 @@ export default {
       items: [],
       objectsFields : {
         objectsactions : {label : ''},
-        theName : {label : 'Name', },
+        theName : {label : 'Name', sortable: true},
         theDescription : {label : 'Description'}
       },
       theGetUrl : '/api/external_documents',

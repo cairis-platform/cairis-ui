@@ -37,8 +37,8 @@ export default {
       items: [],
       objectsFields : {
         objectsactions : {label : ''},
-        theName : {label : 'Role'},
-        theType : {label : 'Type'},
+        theName : {label : 'Role', sortable: true},
+        theType : {label : 'Type', sortable: true},
         theDescription : {label : 'Description'}
       },
       theGetUrl : '/api/roles',

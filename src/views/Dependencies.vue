@@ -37,11 +37,11 @@ export default {
       items: [],
       objectsFields : {
         objectsactions : {label : ''},
-        theEnvironmentName : {label : 'Environment'},
-        theDepender : {label : 'Depender'},
-        theDependee : {label : 'Dependee'},
-        theDependencyType : {label : 'Type'},
-        theDependency : {label : 'Dependency'}
+        theEnvironmentName : {label : 'Environment', sortable: true},
+        theDepender : {label : 'Depender', sortable: true},
+        theDependee : {label : 'Dependee', sortable: true},
+        theDependencyType : {label : 'Type', sortable: true},
+        theDependency : {label : 'Dependency', sortable: true}
       },
       theGetUrl : '/api/dependencies',
       dimension : 'dependency'

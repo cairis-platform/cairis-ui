@@ -37,8 +37,8 @@ export default {
       items: [],
       objectsFields : {
         objectsactions : {label : ''},
-        theVulnerabilityName : {label : 'Name', },
-        theVulnerabilityType : {label : 'Type'}
+        theVulnerabilityName : {label : 'Name', sortable: true},
+        theVulnerabilityType : {label : 'Type', sortable: true}
       },
       theGetUrl : '/api/vulnerabilities',
       theDelUrl : '/api/vulnerabilities/name/',

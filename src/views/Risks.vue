@@ -37,9 +37,9 @@ export default {
       items: [],
       objectsFields : {
         objectsactions : {label : ''},
-        theName : {label : 'Name', },
-        theVulnerability : {label : 'Vulnerability'},
-        theThreat : {label : 'Threat'}
+        theName : {label : 'Name', sortable: true},
+        theVulnerability : {label : 'Vulnerability', sortable: true},
+        theThreat : {label : 'Threat', sortable: true}
       },
       theGetUrl : '/api/risks/summary',
       theDelUrl : '/api/risks/name/',

@@ -37,8 +37,8 @@ export default {
       items: [],
       objectsFields : {
         objectsactions : {label : ''},
-        theName : {label : 'Asset', },
-        theType : {label : 'Type'}
+        theName : {label : 'Asset', sortable: true },
+        theType : {label : 'Type', sortable: true}
       },
       theGetUrl : '/api/assets/summary',
       theDelUrl : '/api/assets/name/',

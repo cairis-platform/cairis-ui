@@ -37,8 +37,8 @@ export default {
       items: [],
       objectsFields : {
         objectsactions : {label : ''},
-        theName : {label : 'Name', },
-        theDocName : {label : 'Document'}
+        theName : {label : 'Name', sortable: true},
+        theDocName : {label : 'Document', sortable: true}
       },
       theGetUrl : '/api/document_references',
       theDelUrl : '/api/document_references/name/',

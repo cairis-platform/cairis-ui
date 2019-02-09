@@ -153,6 +153,17 @@ export default new Router({
       component: () => import('./views/ImportView.vue')
     },
     {
+      path: '/kaosassociations',
+      name: 'kaosassociations',
+      component: () => import('./views/KaosAssociations.vue')
+    },
+    {
+      path: '/kaosassociation/environment/:envName/goal/:goalName/subgoal/:subGoalName',
+      name: 'kaosassociation',
+      component: () => import('./views/KaosAssociationView.vue'),
+      props: true
+    },
+    {
       path: '/obstacles',
       name: 'obstacles',
       component: () => import('./views/Obstacles.vue')

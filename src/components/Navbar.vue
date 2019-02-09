@@ -44,6 +44,7 @@ Authors: Shamal Faily
         <b-dropdown-item :to="{name: 'obstacles'}">Obstacles</b-dropdown-item>
         <b-dropdown-item :to="{name: 'usecases'}">Use Cases</b-dropdown-item>
         <b-dropdown-item :to="{name: 'dependencies'}">Dependencies</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'kaosassociations'}">KAOS Associations</b-dropdown-item>
         <b-dropdown-item href="#">Architectural Patterns</b-dropdown-item>
       </b-nav-item-dropdown>
       <b-nav-item-dropdown text="Risk">

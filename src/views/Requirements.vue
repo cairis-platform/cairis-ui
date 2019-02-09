@@ -37,13 +37,13 @@ export default {
       items: [],
       objectsFields : {
         objectsactions : {label : ''},
-        theName : {label : 'Requirement', },
+        theName : {label : 'Requirement', sortable: true},
         theDescription : {label : 'Description'},
-        thePriority : {label : 'Priority'},
+        thePriority : {label : 'Priority', sortable: true},
         theRationale : {label : 'Rationale'},
         theFitCriterion : {label : 'Fit Criterion'},
-        theOriginator : {label : 'Originator'},
-        theType : {label : 'Type'}
+        theOriginator : {label : 'Originator', sortable: true},
+        theType : {label : 'Type', sortable: true}
       },
       theGetUrl : '',
       theDelUrl : '/api/requirements/name/',

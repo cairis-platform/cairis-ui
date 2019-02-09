@@ -93,16 +93,24 @@ export default {
       else if (this.dimName == 'vulnerability') {
         this.$router.push({ name: this.dimName, params : {objectName: row.theVulnerabilityName}});
       }
-      else {
+      else if (this.dimName != 'kaosassociation') {
         this.$router.push({ name: this.dimName, params : {objectName: row.theName}});
       }
     },
     addObject() {
-      this.$router.push({ name: this.dimName, params : {objectName: 'New ' + this.dimName, domain : {type : 'asset', name : ''}}});
+      if (this.dimension == 'kaosassociation') {
+        this.$router.push({ name: this.dimName, params : {envName: 'To set', goalName : 'To set', subGoalName : 'To set'}});
+      }
+      else {
+        this.$router.push({ name: this.dimName, params : {objectName: 'New ' + this.dimName, domain : {type : 'asset', name : ''}}});
+      }
     },
     deleteObject(index) {
       if (this.dimName == 'vulnerability') {
         this.selectedObject = this.items[index].theVulnerabilityName;
+      }
+      else if (this.dimName == 'kaosassociation') {
+        this.selectedObject = {'envName' : this.items[index].theEnvironmentName,'goal' : this.items[index].theGoal,'subGoal' : this.items[index].theSubGoal}
       }
       else {
         this.selectedObject = this.items[index].theName;
@@ -110,27 +118,38 @@ export default {
       this.selectedIndex = index;
       const that = this;
 
-      const odUrl = '/api/object_dependency/dimension/' + this.dimension + '/object/' + this.selectedObject;
-      axios.get(odUrl,{
-        baseURL : this.$store.state.url,
-        params : {'session_id' : this.$store.state.session}
-       })
-      .then(response => {
-        if (response.data.theDependencies.length > 0) {
-          that.objectDependencies = response.data.theDependencies;
-          that.$refs.depDialog.show();
-        }
-        else {
-          that.commitDelete();
-        }
-       })
-      .catch((error) => {
-        EventBus.$emit('operation-failure',error)
-      })
+      if (this.dimension != 'kaosassociation') {
+        const odUrl = '/api/object_dependency/dimension/' + this.dimension + '/object/' + this.selectedObject;
+        axios.get(odUrl,{
+          baseURL : this.$store.state.url,
+          params : {'session_id' : this.$store.state.session}
+         })
+        .then(response => {
+          if (response.data.theDependencies.length > 0) {
+            that.objectDependencies = response.data.theDependencies;
+            that.$refs.depDialog.show();
+          }
+          else {
+            that.commitDelete();
+          }
+         })
+        .catch((error) => {
+          EventBus.$emit('operation-failure',error)
+        })
+      }
+      else {
+        this.commitDelete();
+      }
     },
     commitDelete() {
-      const objtName = JSON.parse(JSON.stringify(this.selectedObject));
-      axios.delete(this.delUrl + objtName,{
+      let deleteUrl = this.delUrl;
+      if (this.dimension == 'kaosassociation') {
+        deleteUrl += this.selectedObject.envName + '/goal/' + this.selectedObject.goal + '/subgoal/' + this.selectedObject.subGoal;
+      }
+      else {
+        deleteUrl += JSON.parse(JSON.stringify(this.selectedObject));
+      }
+      axios.delete(deleteUrl,{
         baseURL : this.$store.state.url,
         params : {'session_id' : this.$store.state.session}
        })

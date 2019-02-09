@@ -39,7 +39,7 @@ export default {
       items: [],
       objectsFields : {
         objectsactions : {label : ''},
-        theName : {label : 'Attacker'},
+        theName : {label : 'Attacker', sortable: true},
         theDescription : {label : 'Description'}
       },
       theGetUrl : '/api/attackers/summary',

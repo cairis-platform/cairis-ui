@@ -37,8 +37,8 @@ export default {
       items: [],
       objectsFields : {
         objectsactions : {label : ''},
-        theName : {label : 'Name', },
-        theOriginator : {label : 'Originator'},
+        theName : {label : 'Name', sortable: true},
+        theOriginator : {label : 'Originator', sortable: true},
         theStatus : {label : 'Status'}
       },
       theGetUrl : '/api/goals/summary',

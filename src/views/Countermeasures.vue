@@ -37,8 +37,8 @@ export default {
       items: [],
       objectsFields : {
         objectsactions : {label : ''},
-        theName : {label : 'Name', },
-        theType : {label : 'Type'}
+        theName : {label : 'Name', sortable: true},
+        theType : {label : 'Type', sortable: true}
       },
       theGetUrl : '/api/countermeasures',
       theDelUrl : '/api/countermeasures/name/',
