@@ -20,7 +20,7 @@ under the License.
 Authors: Shamal Faily 
 -->
   <div class="dependencies">
-    <objects :breadCrumbItems="bcItems" :fieldList="objectsFields" :getUrl="theGetUrl" :dimName="dimension" />
+    <objects :breadCrumbItems="bcItems" :fieldList="objectsFields" :getUrl="theGetUrl" :delUrl="theDelUrl" :dimName="dimension" />
   </div>
 </template>
 
@@ -44,6 +44,7 @@ export default {
         theDependency : {label : 'Dependency', sortable: true}
       },
       theGetUrl : '/api/dependencies',
+      theDelUrl : '/api/dependencies/environment/',
       dimension : 'dependency'
     }
   }

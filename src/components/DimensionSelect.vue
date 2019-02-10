@@ -20,7 +20,7 @@ under the License.
 Authors: Shamal Faily 
 -->
 
-  <b-form-select v-model="selected" :size="display_size" :options = "filteredItems" @change="onChange($event)" />
+  <b-form-select ref="dimensionSelect" id="dimensionSelect" :disabled="is_disabled" v-model="selected" :size="display_size" :options = "filteredItems" @change="onChange($event)" />
 </template>
 
 
@@ -69,6 +69,12 @@ export default {
       type: String,
       default : function() {
         return 'md'
+      }
+    },
+    is_disabled : {
+      type: Boolean,
+      default : function () {
+        return false;
       }
     }
   },

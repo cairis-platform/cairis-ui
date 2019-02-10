@@ -93,13 +93,22 @@ export default {
       else if (this.dimName == 'vulnerability') {
         this.$router.push({ name: this.dimName, params : {objectName: row.theVulnerabilityName}});
       }
-      else if (this.dimName != 'kaosassociation') {
+      else if (this.dimName == 'kaosassociation') {
+        this.$router.push({ name: this.dimName, params : {envName: row.theEnvironmentName,goalName : row.theGoal, subGoalName: row.theSubGoal}});
+      }
+      else if (this.dimName == 'dependency') {
+        this.$router.push({ name: this.dimName, params : {envName: row.theEnvironmentName,depName : row.theDepender, deeName: row.theDependee, dpyName : row.theDependency}});
+      }
+      else {
         this.$router.push({ name: this.dimName, params : {objectName: row.theName}});
       }
     },
     addObject() {
       if (this.dimension == 'kaosassociation') {
         this.$router.push({ name: this.dimName, params : {envName: 'To set', goalName : 'To set', subGoalName : 'To set'}});
+      }
+      if (this.dimension == 'dependency') {
+        this.$router.push({ name: this.dimName, params : {envName: 'To set', depName : 'To set', deeName : 'To set', dpyName : 'To set'}});
       }
       else {
         this.$router.push({ name: this.dimName, params : {objectName: 'New ' + this.dimName, domain : {type : 'asset', name : ''}}});
@@ -110,7 +119,10 @@ export default {
         this.selectedObject = this.items[index].theVulnerabilityName;
       }
       else if (this.dimName == 'kaosassociation') {
-        this.selectedObject = {'envName' : this.items[index].theEnvironmentName,'goal' : this.items[index].theGoal,'subGoal' : this.items[index].theSubGoal}
+        this.selectedObject = {'envName' : this.items[index].theEnvironmentName,'goal' : this.items[index].theGoal,'subGoal' : this.items[index].theSubGoal};
+      }
+      else if (this.dimName == 'dependency') {
+        this.selectedObject = {'envName' : this.items[index].theEnvironmentName,'theDepender' : this.items[index].theDepender,'theDependee' : this.items[index].theDependee, 'theDependency' : this.items[index].theDependency };
       }
       else {
         this.selectedObject = this.items[index].theName;
@@ -118,7 +130,7 @@ export default {
       this.selectedIndex = index;
       const that = this;
 
-      if (this.dimension != 'kaosassociation') {
+      if (this.dimension != 'kaosassociation' && this.dimension != 'dependency') {
         const odUrl = '/api/object_dependency/dimension/' + this.dimension + '/object/' + this.selectedObject;
         axios.get(odUrl,{
           baseURL : this.$store.state.url,
@@ -145,6 +157,9 @@ export default {
       let deleteUrl = this.delUrl;
       if (this.dimension == 'kaosassociation') {
         deleteUrl += this.selectedObject.envName + '/goal/' + this.selectedObject.goal + '/subgoal/' + this.selectedObject.subGoal;
+      }
+      else if (this.dimension == 'dependency') {
+        deleteUrl += this.selectedObject.envName + '/depender/' + this.selectedObject.theDepender + '/dependee/' + this.selectedObject.theDependee + '/dependency/' + this.selectedObject.theDependency;
       }
       else {
         deleteUrl += JSON.parse(JSON.stringify(this.selectedObject));

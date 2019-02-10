@@ -20,9 +20,9 @@ under the License.
 Authors: Shamal Faily 
 -->
 
-  <div class="kaosassociationview">
+  <div class="dependencyview">
     <b-breadcrumb :items="bcItems" /> 
-    <kaos-association :object="this.objt" :label="this.commitLabel" v-on:kaos-association-commit="commitKaosAssociation" />
+    <dependency :object="this.objt" :label="this.commitLabel" v-on:dependency-commit="commitDependency" />
   </div>
 </template>
 
@@ -31,44 +31,43 @@ Authors: Shamal Faily
 
 import axios from 'axios';
 import axiosMixin from '../mixins/axiosMixin'
-import KaosAssociation from '@/components/KaosAssociation.vue'
+import Dependency from '@/components/Dependency.vue'
 import store from '../store'
 import EventBus from '../utils/event-bus';
 
 export default {
   props : {
     envName : String,
-    goalName : String,
-    subGoalName : String
+    depName : String,
+    deeName : String,
+    dpyName : String
   },
   mixins : [
     axiosMixin
   ],
   computed : {
     bcItems() {
-     return [{text: 'Home', to: {name: 'home'}},{text: 'KAOS Associations', to: {name: 'kaosassociations'}},{text: this.objt.theEnvironmentName + ' / ' + this.objt.theGoal + ' / ' + this.objt.theSubGoal, to : {name: 'kaosassociation'}}]
+     return [{text: 'Home', to: {name: 'home'}},{text: 'Dependency', to: {name: 'dependencies'}},{text: this.objt.theEnvironmentName + ' / ' + this.objt.theDepender + ' / ' + this.objt.theDependee + ' / ' + this.objt.theDependency, to : {name: 'dependency'}}]
     }
   },
   components : {
-    KaosAssociation 
+    Dependency 
   },
   data() {
     return {
       objt : {
         theEnvironmentName : '', 
-        theGoalDimension : 'goal', 
-        theAssociationType : 'and', 
-        theGoal : '', 
-        theRationale : 'None', 
-        theSubGoalDimension : 'goal', 
-        theAlternativeId : 0, 
-        theSubGoal : ''
+        theDependencyType : 'goal',
+        theDepender : '',
+        theDependee : '',
+        theDependency : '',    
+        theRationale : 'None'
       },
       commitLabel : 'Create'
     }
   },
   beforeRouteEnter (to, from, next) {
-    if (to.params.goalName == 'To set') {
+    if (to.params.depName == 'To set') {
       axios.get('/api/dimensions/table/environment',{
         baseURL : store.state.url,
         params : {'session_id' : store.state.session}
@@ -83,7 +82,7 @@ export default {
       });
     }
     else {
-      const url = "/api/goals/association/environment/" + to.params.envName + '/goal/' + to.params.goalName + '/subgoal/' + to.params.subGoalName;
+      const url = "/api/dependencies/environment/" + to.params.envName + '/depender/' + to.params.depName + '/dependee/' + to.params.deeName + '/dependency/' + to.params.dpyName;
       axios.get(url,{
         baseURL : store.state.url,
         params : {'session_id' : store.state.session}
@@ -100,11 +99,11 @@ export default {
     }
   },
   methods : {
-    commitKaosAssociation(objt) {
+    commitDependency(objt) {
       this.objt = objt
-      const updateUrl = this.$store.state.url + "/api/goals/association/environment/" + this.envName + '/goal/' + this.goalName + '/subgoal/' + this.subGoalName + "?session_id=" + this.$store.state.session;
-      const createUrl = this.$store.state.url + "/api/goals/association";
-      this.commitObject(updateUrl,createUrl,'kaosassociations');
+      const updateUrl = this.$store.state.url + "/api/dependencies/environment/" + this.envName + '/depender/' + this.depName + '/dependee/' + this.deeName + '/dependency/' + this.dpyName +  "?session_id=" + this.$store.state.session;
+      const createUrl = this.$store.state.url + "/api/dependencies";
+      this.commitObject(updateUrl,createUrl,'dependencies');
     }
   }
 

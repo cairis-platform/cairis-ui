@@ -35,30 +35,30 @@ Authors: Shamal Faily
               <b-row>
                 <b-col md="12">
                   <b-form-group label="<b>Environment<b>" label-class="text-sm-left" label-cols="2" label-for="theEnvironmentSelect" >
-                    <dimension-select id="theEnvironmentSelect" dimension='environment' :initial="objt.theEnvironmentName" v-on:dimension-select-change="environmentSelected" />
+                    <dimension-select id="theEnvironmentSelect" dimension='environment' :is_disabled="disable" :initial="objt.theEnvironmentName" v-on:dimension-select-change="environmentSelected" />
                   </b-form-group>
                 </b-col>
               </b-row>
               <b-row>
                 <b-col md="8">
                   <b-form-group label="<b>Head</b>" label-class="text-sm-left" label-cols="1" horizontal label-for="theGoalRadio" >
-                    <b-form-radio-group buttons button-variant="outline-primary" size="sm" id="theGoalRadio" v-model="theGoalType" :options="goalTypeOptions" class="mb-3" required name="theGoalRadio">
+                    <b-form-radio-group :disabled="disable" buttons button-variant="outline-primary" size="sm" id="theGoalRadio" v-model="theGoalType" :options="goalTypeOptions" class="mb-3" required name="theGoalRadio">
                     </b-form-radio-group>
                   </b-form-group>
                 </b-col>
                 <b-col md="4">
-                  <dimension-select id="theGoalSelect" display_size="sm" :environment='objt.theEnvironmentName' :dimension='theGoalType' :initial="objt.theGoal" v-on:dimension-select-change="goalSelected" />
+                  <dimension-select id="theGoalSelect" display_size="sm" :is_disabled="disable" :environment='objt.theEnvironmentName' :dimension='theGoalType' :initial="objt.theGoal" v-on:dimension-select-change="goalSelected" />
                 </b-col>
               </b-row>
               <b-row>
                 <b-col md="8">
                   <b-form-group label="<b>Tail</b>" label-class="text-sm-left" label-cols="1" horizontal label-for="theSubGoalRadio" >
-                    <b-form-radio-group buttons button-variant="outline-primary" size="sm" id="theSubGoalRadio" v-model="theSubGoalType" :options="subGoalTypeOptions" class="mb-3" required name="theSubGoalRadio">
+                    <b-form-radio-group :disabled="disable" buttons button-variant="outline-primary" size="sm" id="theSubGoalRadio" v-model="theSubGoalType" :options="subGoalTypeOptions" class="mb-3" required name="theSubGoalRadio">
                     </b-form-radio-group>
                   </b-form-group>
                 </b-col>
                 <b-col md="4">
-                  <dimension-select id="theSubGoalSelect" display_size="sm" :environment='objt.theEnvironmentName' :dimension='objt.theSubGoalDimension' :initial="objt.theSubGoal" v-on:dimension-select-change="subGoalSelected" />
+                  <dimension-select id="theSubGoalSelect" display_size="sm" :is_disabled="disable" :environment='objt.theEnvironmentName' :dimension='objt.theSubGoalDimension' :initial="objt.theSubGoal" v-on:dimension-select-change="subGoalSelected" />
                 </b-col>
               </b-row>
               <b-row>
@@ -109,7 +109,8 @@ export default {
   name : 'kaos-association',
   props : {
     object : Object,
-    label : String
+    label : String,
+    isUpdating : Boolean
   },
   watch : {
     object : 'setObject',
@@ -121,6 +122,11 @@ export default {
   ],
   components : {
     DimensionSelect
+  },
+  computed : {
+    disable() {
+      return this.isUpdating == true ? true : false;
+    }
   },
   data() {
     return {

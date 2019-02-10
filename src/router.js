@@ -68,14 +68,20 @@ export default new Router({
       component: () => import('./views/Countermeasures.vue')
     },
     {
+      path: '/dataflowdiagram',
+      name: 'dataflowdiagram',
+      component: () => import('./views/DataFlowDiagramView.vue')
+    },
+    {
       path: '/dependencies',
       name: 'dependencies',
       component: () => import('./views/Dependencies.vue')
     },
     {
-      path: '/dataflowdiagram',
-      name: 'dataflowdiagram',
-      component: () => import('./views/DataFlowDiagramView.vue')
+      path: '/dependency/environment/:envName/depender/:depName/dependee/:deeName/dependency/:dpyName',
+      name: 'dependency',
+      component: () => import('./views/DependencyView.vue'),
+      props: true
     },
     {
       path: '/documentation',
