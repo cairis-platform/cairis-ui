@@ -160,6 +160,8 @@ export default {
   methods : {
     setObject() {
       this.objt = this.object;
+      this.theGoalType = this.object.theGoalDimension;
+      this.theSubGoalType = this.object.theSubGoalDimension;
       this.commitLabel = this.label;
     },
     setSubGoalTypes() {
