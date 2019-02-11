@@ -162,16 +162,24 @@ export default {
       }
     },
     environmentSelected(item) {
-      this.objt.theEnvironmentName = item;
+      if (item != undefined) {
+        this.objt.theEnvironmentName = item;
+      }
     },
     dependerSelected(item) {
-      this.objt.theDepender = item;
+      if (item != undefined) {
+        this.objt.theDepender = item;
+      }
     },
     dependencySelected(item) {
-      this.objt.theDependency = item;
+      if (item != undefined) {
+        this.objt.theDependency = item;
+      }
     },
     dependeeSelected(item) {
-      this.objt.theDependee = item;
+      if (item != undefined) {
+        this.objt.theDependee = item;
+      }
     },
   }
 }

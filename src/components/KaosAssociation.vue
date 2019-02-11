@@ -402,14 +402,20 @@ export default {
       }
     },
     environmentSelected(item) {
-      this.objt.theEnvironmentName = item;
+      if (item != undefined) {
+        this.objt.theEnvironmentName = item;
+      }
     },
     goalSelected(item) {
-      this.objt.theGoal = item;
+      if (item != undefined) {
+        this.objt.theGoal = item;
+      }
     },
     subGoalSelected(item) {
-      this.objt.theSubGoal = item;
-    },
+      if (item != undefined) {
+        this.objt.theSubGoal = item;
+      }
+    }
   }
 }
 </script>
