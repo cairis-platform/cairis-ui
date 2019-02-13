@@ -26,7 +26,7 @@ export default {
   methods : {
     getRequirementLabels(data) {
       var lbls = [];
-      d3.select(data).selectAll('a').each(function(d) {
+      d3.select(data).selectAll('a').each(function() {
         if (((d3.select(this).attr('xlink:href').indexOf('/api/requirements/shortcode') >= 0) && (d3.select(this).attr('xlink:title') != null)) || ((d3.select(this).attr('xlink:href').indexOf('/api/requirements/name') >= 0) && (d3.select(this).attr('xlink:title') != null)))  {
           lbls.push(d3.select(this).attr('xlink:title'));
           d3.select(this).attr('class','requirement');
@@ -38,7 +38,7 @@ export default {
       return axios.get(url)
     },
     replaceRequirementNodes(data,reqDict) {
-      d3.select(data).selectAll('a').each(function(d) {
+      d3.select(data).selectAll('a').each(function() {
         if (((d3.select(this).attr('xlink:href').indexOf('/api/requirements/shortcode') >= 0) && (d3.select(this).attr('xlink:title') != null)) || ((d3.select(this).attr('xlink:href').indexOf('/api/requirements/name') >= 0) && (d3.select(this).attr('xlink:title') != null))) {
           var reqLabel = d3.select(this).attr('xlink:title');
 

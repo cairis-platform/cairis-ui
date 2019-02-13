@@ -60,7 +60,7 @@ Authors: Shamal Faily
           </b-container>
         </b-tab>
       </b-tabs>
-    </b-card>
+    </b-card> 
   </b-modal> 
 </template>
 
@@ -76,7 +76,12 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
       environment : String
     },
     watch : {
-      usecaseStep: 'updateData'
+      usecaseStep: {
+        handler() {
+          this.objt = this.usecaseStep.step;
+        },
+        deep: true
+      }
     },
     data () {
       return {
@@ -119,9 +124,6 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
         if (item != undefined) {
           this.objt.theActor = item;
         }
-      },
-      updateData() {
-        this.objt = this.usecaseStep.step;
       }
     }
   }

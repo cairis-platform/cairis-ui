@@ -27,48 +27,46 @@ Authors: Shamal Faily
         <li v-for="error in errors" :key="error">{{ error }}</li>
       </ul>
     </p> 
-    <b-card>
-      <b-container fluid>
-        <b-row>
-          <b-col md="12">
-            <b-form-group label="<b>Name</b>" label-class="text-md-left" label-cols="3" label-for="theExcNameInput">
-              <b-form-input id="theExcNameInput" v-model="objt.theName" type="text" required>
-              </b-form-input>
-            </b-form-group>
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col md="6">
-            <b-form-group label="<b>Type</b>" label-class="text-sm-left" label-cols="4" horizontal label-for="theDimensionTypeRadio" >
-              <b-form-radio-group id="theDimensionTypeRadio" v-model="objt.theDimensionType" stacked>
-                <b-form-radio value='none'>None</b-form-radio>
-                <b-form-radio value='goal'>Goal</b-form-radio>
-                <b-form-radio value='requirement'>Requirement</b-form-radio>
-              </b-form-radio-group>
-            </b-form-group>
-          </b-col>
-          <b-col md="6">
-            <dimension-select v-if="objt.theDimensionType != 'none'" id="theDimensionSelect" :environment='environment' :dimension='objtUrl' :initial="objt.theDimensionValue" v-on:dimension-select-change="dimensionSelected" />
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col md="12">
-            <b-form-group label="<b>Category</b>" label-class="text-sm-left" label-cols="4" horizontal label-for="theCategorySelect" >
-              <b-form-select id="theCategoryName" v-model="objt.theCategoryName" :options="categoryTypes" class="mb-3" required>
-              </b-form-select>
-            </b-form-group>
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col md="12">
-            <b-form-group label="<b>Description</b>" label-class="text-sm-left" label-cols="4" horizontal label-for="theExceptionDescription" >
-              <b-form-textarea id="theExceptionDescription" v-model="objt.theDescription" type="text" :rows=2 :max-rows=4 required>
-              </b-form-textarea>
-            </b-form-group>
-          </b-col>
-        </b-row>
-      </b-container>
-    </b-card>
+    <b-container fluid>
+      <b-row>
+        <b-col md="12">
+          <b-form-group label="<b>Name</b>" label-class="text-md-left" label-cols="3" label-for="theExcNameInput">
+            <b-form-input id="theExcNameInput" v-model="objt.theName" type="text" required>
+            </b-form-input>
+          </b-form-group>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col md="6">
+          <b-form-group label="<b>Type</b>" label-class="text-sm-left" label-cols="4" horizontal label-for="theDimensionTypeRadio" >
+            <b-form-radio-group id="theDimensionTypeRadio" v-model="objt.theDimensionType" stacked>
+              <b-form-radio value='none'>None</b-form-radio>
+              <b-form-radio value='goal'>Goal</b-form-radio>
+              <b-form-radio value='requirement'>Requirement</b-form-radio>
+            </b-form-radio-group>
+          </b-form-group>
+        </b-col>
+        <b-col md="6">
+          <dimension-select v-if="objt.theDimensionType != 'none'" id="theDimensionSelect" ref="dimensionSelect" :environment='environment' :dimensionUrl='objtUrl' :initial="objt.theDimensionValue" v-on:dimension-select-change="dimensionSelected" />
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col md="12">
+          <b-form-group label="<b>Category</b>" label-class="text-sm-left" label-cols="4" horizontal label-for="theCategorySelect" >
+            <b-form-select id="theCategoryName" v-model="objt.theCategoryName" :options="categoryTypes" class="mb-3" required>
+            </b-form-select>
+          </b-form-group>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col md="12">
+          <b-form-group label="<b>Description</b>" label-class="text-sm-left" label-cols="4" horizontal label-for="theExceptionDescription" >
+            <b-form-textarea id="theExceptionDescription" v-model="objt.theDescription" type="text" :rows=2 :max-rows=4 required>
+            </b-form-textarea>
+          </b-form-group>
+        </b-col>
+      </b-row>
+    </b-container>
   </b-modal> 
 </template>
 
@@ -84,7 +82,12 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
       usecase : String
     },
     watch : {
-      stepException: 'updateData'
+      stepException: {
+        handler() {
+          this.objt = this.stepException.exception;
+        },
+        deep: true
+      }
     },
     data () {
       return {
@@ -101,7 +104,7 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
         return (this.stepException.update ? "Update" : "Add") + " Exception";
       },
       objtUrl() {
-        return this.theDimensionType == 'goal' ? '/api/usecases/name/' + this.usecase + '/environment/' + this.environment + '/goals' : '/api/usecases/name/' + this.usecase + '/requirements' ;
+        return this.objt.theDimensionType == 'goal' ? '/api/usecases/name/' + this.usecase + '/environment/' + this.environment + '/goals' : '/api/usecases/name/' + this.usecase + '/requirements' ;
       }
     },
     methods : {
@@ -143,9 +146,6 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
         if (item != undefined) {
           this.objt.theDimensionValue = item;
         }
-      },
-      updateData() {
-        this.objt = this.stepException.exception;
       }
     }
   }

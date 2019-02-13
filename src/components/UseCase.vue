@@ -69,8 +69,8 @@ Authors: Shamal Faily
           </b-row>
           <b-row>
             <b-col md="12">
-              <b-form-group label="<b>Description</b>" label-class="text-md-left" label-cols="3" label-for="theDescriptionInput">
-                <b-form-textarea id="theDescriptionInput" v-model="objt.theDescription" type="text" :rows=4 :max-rows=4 required>
+              <b-form-group label="<b>Objective</b>" label-class="text-md-left" label-cols="3" label-for="theDescriptionInput">
+                <b-form-textarea id="theDescriptionInput" v-model="objt.theDescription" type="text" :rows=2 :max-rows=4 required>
                 </b-form-textarea>
               </b-form-group>
             </b-col>
