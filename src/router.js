@@ -282,6 +282,12 @@ export default new Router({
       component: () => import('./views/UseCases.vue')
     },
     {
+      path: '/usecase/:objectName',
+      name: 'usecase',
+      component: () => import('./views/UseCaseView.vue'),
+      props: true
+    },
+    {
       path: '/vulnerabilities',
       name: 'vulnerabilities',
       component: () => import('./views/Vulnerabilities.vue')

@@ -100,14 +100,14 @@ export default {
       this.$emit('dimension-select-change',item);
     },
     updateSelector() {
-      var url = this.dimensionUrl;
+      let url = this.dimensionUrl;
       if (this.dimensionUrl.length == 0) {
         url = "/api/dimensions/table/" + this.dimension
         if (this.environment != '') {
           url += '/environment/' + this.environment;
         }
       }
-      var ref = this;
+      let ref = this;
       axios.get(url,{
         baseURL : this.$store.state.url,
         params : {'session_id' : this.$store.state.session}

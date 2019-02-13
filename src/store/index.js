@@ -16,7 +16,7 @@
     under the License.
 
     Authors: Shamal Faily */
-import Vue from 'vue'
+import Vue from 'vue';
 import Vuex from 'vuex';
 
 Vue.use(Vuex)
@@ -24,6 +24,6 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state : {
     session: 'test',
-    url : 'http://192.168.161.138:7071'
+    url : 'http://192.168.161.143:7071'
   }
 });

@@ -22,8 +22,8 @@ Authors: Shamal Faily
 
   <div class="modelsummary">
     <b-card>
-      <b-form-group id="modelSummaryToolbar" horizontal :label-cols="2" label="Environments" label-for="modelSummaryEnvironments">
-        <dimension-select id="modelSummaryEnvironment" dimension= "environment" v-on:dimension-select-change="onEnvironmentSelected" />
+      <b-form-group id="modelSummaryToolbar" horizontal :label-cols="2" label="Environments" label-for="modelSummary">
+        <dimension-select ref="modelSummaryEnvironment" id="modelSummary" dimension= "environment" v-on:dimension-select-change="onEnvironmentSelected" />
       </b-form-group>
       <b-tabs pill card>
         <b-card no-body>
@@ -187,6 +187,21 @@ export default {
   },
   watch : {
     selectedEnvironment : 'reloadModels'
+  },
+  mounted() {
+    let that = this;
+    axios.get('/api/dimensions/table/environment',{
+      baseURL : this.$store.state.url,
+      params : {'session_id' : this.$store.state.session}
+    })
+    .then(response => {
+      const firstEnvName = response.data[0];
+      that.$refs.modelSummaryEnvironment.selected = firstEnvName;
+      this.selectedEnvironment = firstEnvName;
+    })
+    .catch((error) => {
+      console.log(error)
+    });
   },
   methods : {
     onEnvironmentSelected(item) {

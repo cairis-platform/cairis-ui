@@ -39,10 +39,10 @@ export default {
         objectsactions : {label : ''},
         theEnvironmentName : {label : 'Environment', sortable: true},
         theGoal : {label : 'Goal', sortable: true},
-        theGoalDimension : {label : 'Dimension'},
-        theAssociationType : {label : 'Association'},
+        theGoalDimension : {label : 'Dimension', sortable: true},
+        theAssociationType : {label : 'Association', sortable: true},
         theSubGoal : {label : 'Sub Goal', sortable: true},
-        theSubGoalDimension : {label : 'Dimension'}
+        theSubGoalDimension : {label : 'Dimension', sortable: true}
       },
       theGetUrl : '/api/goals/association',
       theDelUrl : '/api/goals/association/environment/',
