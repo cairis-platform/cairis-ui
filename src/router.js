@@ -186,6 +186,11 @@ export default new Router({
       component: () => import('./views/ObstacleModelView.vue')
     },
     {
+      path: '/personamodel',
+      name: 'personamodel',
+      component: () => import('./views/PersonaModelView.vue')
+    },
+    {
       path: '/personas',
       name: 'personas',
       component: () => import('./views/Personas.vue')

@@ -91,6 +91,7 @@ export default {
   },
   watch : {
     dimension: 'updateSelector',
+    dimensionUrl : 'updateSelector',
     existing : 'updateSelector',
     environment : 'updateSelector',
     initial: 'updateSelector'
@@ -121,6 +122,9 @@ export default {
         if (ref.includeall) {
           if (ref.dimension == 'dfd_filter') {
             ref.items.unshift('None')
+          }
+          else if (ref.dimension == 'persona_characteristic') {
+            ref.items.unshift('All')
           }
           else {
             ref.items.unshift('all')
