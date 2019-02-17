@@ -32,8 +32,8 @@ describe('Attacker.vue', () => {
   it('Render attacker', () => {
     const testAttacker = testData['attacker']; 
     const wrapper = mount(Attacker,{localVue, propsData : {object: testAttacker, label: 'Update'}});
-    expect(wrapper.find('#theAttackerInput').attributes('value')).to.equal('Carol')
-    expect(wrapper.find('#theTagsInput').attributes('value')).to.equal('')
+    expect(wrapper.find('#theAttackerInput').element.value).to.equal('Carol')
+    expect(wrapper.find('#theTagsInput').element.value).to.equal('')
     expect(wrapper.find('#theDescriptionInput').element.value).to.equal('Carol is a freelance journalist working in the South East of England.  Having heard stories about data theft, she is currently investigating a number of e-Science projects, including NeuroGrid, to see if she can find a story.')
   });
 })

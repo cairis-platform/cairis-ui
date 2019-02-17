@@ -73,6 +73,11 @@ export default new Router({
       component: () => import('./views/DataFlowDiagramView.vue')
     },
     {
+      path: '/dataflows',
+      name: 'dataflows',
+      component: () => import('./views/DataFlows.vue')
+    },
+    {
       path: '/dependencies',
       name: 'dependencies',
       component: () => import('./views/Dependencies.vue')
@@ -285,6 +290,11 @@ export default new Router({
       name: 'threat',
       component: () => import('./views/ThreatView.vue'),
       props: true
+    },
+    {
+      path: '/trustboundaries',
+      name: 'trustboundaries',
+      component: () => import('./views/TrustBoundaries.vue')
     },
     {
       path: '/usecases',

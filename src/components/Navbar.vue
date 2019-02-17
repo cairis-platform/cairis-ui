@@ -63,8 +63,8 @@ Authors: Shamal Faily
         <b-dropdown-item :to="{name: 'environments'}">Environments</b-dropdown-item>
         <b-dropdown-item :to="{name: 'personas'}">Personas</b-dropdown-item>
         <b-dropdown-item :to="{name: 'tasks'}">Tasks</b-dropdown-item>
-        <b-dropdown-item href="#">Data Flows</b-dropdown-item>
-        <b-dropdown-item href="#">Trust Boundaries</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'dataflows'}">Data Flows</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'trustboundaries'}">Trust Boundaries</b-dropdown-item>
         <b-dropdown-item :to="{name: 'externaldocuments'}">External Documents</b-dropdown-item>
         <b-dropdown-item :to="{name: 'documentreferences'}">Document References</b-dropdown-item>
         <b-dropdown-item href="#">Concept References</b-dropdown-item>

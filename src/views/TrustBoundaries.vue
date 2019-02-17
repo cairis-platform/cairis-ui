@@ -19,41 +19,31 @@ under the License.
 
 Authors: Shamal Faily 
 -->
-
-  <b-modal ref="objectDependencyDialog" title="Confirm object deletion"  @ok="onOk">
-    <b-card>
-      <p><b>Removing this object will also remove the following objects.</b></p>
-      <b-table striped bordered small :items="dependencies" :fields="odTableFields">
-      </b-table>
-      <p><b>Do you want to continue?</b></p>
-    </b-card>
-  </b-modal>
+  <div class="trustboundaries">
+    <objects :breadCrumbItems="bcItems" :fieldList="objectsFields" :getUrl="theGetUrl" :delUrl="theDelUrl" :dimName="dimension"/>
+  </div>
 </template>
 
 <script>
+import Objects from '@/components/Objects.vue'
 
-  export default {
-    name : 'object-dependency-modal',
-    props : {
-      dependencies : Array
-    },
-    data() {
-      return {
-        odTableFields : {
-          theDimensionName : {label: 'Dimension'},
-          theObjectName : {label: 'Name'}
-        }
-      }
-    },
-    methods : {
-      show() {
-        this.$refs.objectDependencyDialog.show();
+export default {
+  components : {
+    Objects
+  },
+  data() {
+    return {
+      bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Trust Boundaries', to: {name: 'trustboundaries'}}],
+      items: [],
+      objectsFields : {
+        objectsactions : {label : ''},
+        theName : {label : 'Name', sortable: true},
+        theDescription : {label : 'Description'}
       },
-      onOk() {
-        this.$emit('object-dependency-ok');
-        this.$refs.objectDependencyDialog.hide();
-      }
+      theGetUrl : '/api/trust_boundaries',
+      theDelUrl : '/api/trust_boundaries/name/',
+      dimension : 'trustboundary'
     }
   }
-
+}
 </script>
