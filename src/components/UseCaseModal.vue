@@ -22,22 +22,22 @@ Authors: Shamal Faily
 
   <b-modal ref="ucDialog" ok-only :title="dialogTitle">
     <b-container v-if="objt != undefined">
-      <b-form-group label="<b>Name</b>" label-class="text-sm-left" label-cols="3" label-for="theName" >
+      <b-form-group label="Name" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theName" >
         <b-form-input readonly id="theName" v-model="objt.theName"></b-form-input>
       </b-form-group>
-      <b-form-group label="<b>Description</b>" label-class="text-sm-left" label-cols="3" label-for="theDescription" >
+      <b-form-group label="Description" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theDescription" >
         <b-form-textarea id="theDescription" v-model="objt.theDescription" type="text" :rows=2 :max-rows="4" readonly>
         </b-form-textarea>
       </b-form-group>
       <b-table bordered small :items="actors" :fields="actorTableFields">
       </b-table>
-      <b-form-group label="<b>Preconditions</b>" label-class="text-sm-left" label-cols="3" label-for="thePreconditions" >
+      <b-form-group label="Preconditions" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="thePreconditions" >
         <b-form-textarea id="thePreconditions" v-model="preconditions" type="text" :rows=2 :max-rows="4" readonly>
         </b-form-textarea>
       </b-form-group>
       <b-table bordered small :items="steps" :fields="stepTableFields">
       </b-table> 
-      <b-form-group label="<b>Postconditions</b>" label-class="text-sm-left" label-cols="3" label-for="thePostconditions" >
+      <b-form-group label="Postconditions" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="thePostconditions" >
         <b-form-textarea id="thePostconditions" v-model="postconditions" type="text" :rows=2 :max-rows="4" readonly>
         </b-form-textarea>
       </b-form-group>

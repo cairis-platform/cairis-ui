@@ -30,7 +30,7 @@ Authors: Shamal Faily
     <b-container fluid>
       <b-row>
         <b-col md="12">
-          <b-form-group label="<b>Name</b>" label-class="text-md-left" label-cols="3" label-for="theExcNameInput">
+          <b-form-group label="Name" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theExcNameInput">
             <b-form-input id="theExcNameInput" v-model="objt.theName" type="text" required>
             </b-form-input>
           </b-form-group>
@@ -38,7 +38,7 @@ Authors: Shamal Faily
       </b-row>
       <b-row>
         <b-col md="6">
-          <b-form-group label="<b>Type</b>" label-class="text-sm-left" label-cols="4" horizontal label-for="theDimensionTypeRadio" >
+          <b-form-group label="Type" label-class="font-weight-bold text-sm-left" label-cols="4" label-for="theDimensionTypeRadio" >
             <b-form-radio-group id="theDimensionTypeRadio" v-model="objt.theDimensionType" stacked>
               <b-form-radio value='none'>None</b-form-radio>
               <b-form-radio value='goal'>Goal</b-form-radio>
@@ -52,7 +52,7 @@ Authors: Shamal Faily
       </b-row>
       <b-row>
         <b-col md="12">
-          <b-form-group label="<b>Category</b>" label-class="text-sm-left" label-cols="4" horizontal label-for="theCategorySelect" >
+          <b-form-group label="Category" label-class="font-weight-bold text-sm-left" label-cols="4" label-for="theCategorySelect" >
             <b-form-select id="theCategoryName" v-model="objt.theCategoryName" :options="categoryTypes" class="mb-3" required>
             </b-form-select>
           </b-form-group>
@@ -60,7 +60,7 @@ Authors: Shamal Faily
       </b-row>
       <b-row>
         <b-col md="12">
-          <b-form-group label="<b>Description</b>" label-class="text-sm-left" label-cols="4" horizontal label-for="theExceptionDescription" >
+          <b-form-group label="Description" label-class="font-weight-bold text-sm-left" label-cols="4" label-for="theExceptionDescription" >
             <b-form-textarea id="theExceptionDescription" v-model="objt.theDescription" type="text" :rows=2 :max-rows=4 required>
             </b-form-textarea>
           </b-form-group>
@@ -136,8 +136,10 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
         this.$refs.excDialog.show();
       },
       onOk(evt) {
-        evt.preventDefault();
-        if (this.checkForm()) {
+        if (!this.checkForm()) {
+          evt.preventDefault();
+        }
+        else {
           this.$emit('exception-update',{exception : this.objt , update : this.stepException.update,index: this.stepException.update ? this.stepException.index : -1});
           this.$refs.excDialog.hide();
         }

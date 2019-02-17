@@ -37,18 +37,18 @@ Authors: Shamal Faily
     <b-container fluid>
       <b-row>
         <b-col>
-          <b-form-group label="Environment" label-for="riskModelEnvironment" :label-cols="4" horizontal>
+          <b-form-group label="Environment" label-for="riskModelEnvironment" :label-cols="4" >
             <dimension-select ref="riskModelEnvironment" id="riskModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
-          <b-form-group label="Type" label-for="riskModelType" :label-cols="2" horizontal>
+          <b-form-group label="Type" label-for="riskModelType" :label-cols="2" >
             <b-form-select id="riskModelType" ref="riskModelType" v-model="filterParameters.dimension_name" :options="dimensionTypes" class="mb-3" v-on:change="typeSelected" required>
             </b-form-select>
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
-          <b-form-group label="Name" label-form="riskModelName" :label-cols="4" horizontal>
+          <b-form-group label="Name" label-form="riskModelName" :label-cols="4" >
             <dimension-select id="riskModelName" ref="riskModelName" :environment="theEnvironmentName" :dimensionUrl="nameURI" includeall v-on:dimension-select-change="nameSelected" />
           </b-form-group>
         </b-col>

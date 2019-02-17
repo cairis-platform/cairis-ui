@@ -26,11 +26,11 @@ Authors: Shamal Faily
       <b-breadcrumb :items="bcItems" /> 
       <b-container fluid>
         <b-card bg-variant="light">
-          <b-form-group label="Model" label-class="text-md-left" label-cols="3" horizontal label-for="theModelSelect">
+          <b-form-group label="Model" label-class="text-md-left" label-cols="3" label-for="theModelSelect">
             <b-form-select id="theModelSelect" v-model="theModelType" :options="modelTypes" class="mb-3" required>
             </b-form-select>
           </b-form-group>
-          <b-form-group label="File" label-class="text-md-left" label-cols="3" horizontal label-for="theImportFileInput">
+          <b-form-group label="File" label-class="text-md-left" label-cols="3" label-for="theImportFileInput">
             <b-form-file accept="text/xml+vnd.graphviz" v-model="theImportFile" class="mt-3" plain>
             </b-form-file>
           </b-form-group>

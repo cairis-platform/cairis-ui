@@ -50,7 +50,6 @@ Authors: Shamal Faily
         this.$refs.objectDependencyDialog.show();
       },
       onOk(evt) {
-        evt.preventDefault();
         this.$emit('object-dependency-ok');
         this.$refs.objectDependencyDialog.hide();
       }

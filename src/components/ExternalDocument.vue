@@ -32,23 +32,23 @@ Authors: Shamal Faily
         <b-row>
           <b-col md=12>
             <b-container fluid>
-              <b-form-group label="<b>Name</b>" label-class="text-md-left" label-for="theNameInput">
+              <b-form-group label="Name" label-class="font-weight-bold text-md-left" label-for="theNameInput">
                 <b-form-input id="theNameInput" v-model="objt.theName" type="text" required>
                 </b-form-input>
               </b-form-group>
-              <b-form-group label="<b>Authors</b>" label-class="text-md-left" label-for="theAuthorsInput">
+              <b-form-group label="Authors" label-class="font-weight-bold text-md-left" label-for="theAuthorsInput">
                 <b-form-input id="theAuthorsInput" v-model="objt.theAuthors" type="text" required>
                 </b-form-input>
               </b-form-group>
-              <b-form-group label="<b>Version</b>" label-class="text-md-left" label-for="theVersion">
+              <b-form-group label="Version" label-class="font-weight-bold text-md-left" label-for="theVersion">
                 <b-form-input id="theVersionInput" v-model="objt.theVersion" type="text" required>
                 </b-form-input>
               </b-form-group>
-              <b-form-group label="<b>Publication Date</b>" label-class="text-md-left" label-for="thePublicationDateInput">
+              <b-form-group label="Publication Date" label-class="font-weight-bold text-md-left" label-for="thePublicationDateInput">
                 <b-form-input id="thePublicationDateInput" v-model="objt.thePublicationDate" type="text" required>
                 </b-form-input>
               </b-form-group>
-              <b-form-group label="<b>Description</b>" label-class="text-md-left" label-for="theDescriptionInput">
+              <b-form-group label="Description" label-class="font-weight-bold text-md-left" label-for="theDescriptionInput">
                 <b-form-textarea id="theDescriptionInput" v-model="objt.theDescription" type="text" :rows=4 :max-rows=6 required>
                 </b-form-textarea>
               </b-form-group>

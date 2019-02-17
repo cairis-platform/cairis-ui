@@ -32,13 +32,13 @@ Authors: Shamal Faily
       <b-card bg-variant="light" no body> 
         <b-row>
             <b-col md="9">
-              <b-form-group label="<b>Environment</b>" label-class="text-md-left" label-col="3" label-for="theEnvironmentInput">
+              <b-form-group label="Environment" label-class="font-weight-bold text-md-left" label-col="3" label-for="theEnvironmentInput">
                 <b-form-input id="theEnvironmentInput" v-model="objt.theName" type="text" required>
                 </b-form-input>
               </b-form-group>
             </b-col>
             <b-col md="3">
-              <b-form-group label="<b>Short Code</b>" label-class="text-md-left" label-col="2" label-for="theShortCode">
+              <b-form-group label="Short Code" label-class="font-weight-bold text-md-left" label-col="2" label-for="theShortCode">
                 <b-form-input id="theShortCodeInput" v-model="objt.theShortCode" type="text" required>
                 </b-form-input>
               </b-form-group>
@@ -46,7 +46,7 @@ Authors: Shamal Faily
         </b-row>
         <b-row>
           <b-col md="12">
-            <b-form-group label="<b>Description</b>" label-class="text-md-left" label-cols="3" label-for="theDescriptionInput">
+            <b-form-group label="Description" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theDescriptionInput">
               <b-form-textarea id="theDescription" v-model="objt.theDescription" type="text" :rows=2 :max-rows=4 required>
               </b-form-textarea>
             </b-form-group>
@@ -64,7 +64,7 @@ Authors: Shamal Faily
             </b-table>
           </b-col>
           <b-col md="3" v-if="this.objt.theEnvironments.length > 1">
-            <b-form-group label="<b>Strategy</b>" label-class="text-md-left" label-cols="3" label-for="theCompositeStrategy">
+            <b-form-group label="Strategy" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theCompositeStrategy">
               <b-form-radio-group v-model="theCompositeStrategy">
                 <b-form-radio value="Maximise">Maximise</b-form-radio>
                 <b-form-radio value="Override">Override</b-form-radio>
@@ -72,7 +72,7 @@ Authors: Shamal Faily
             </b-form-group>
           </b-col>
           <b-col md="3" v-if="this.objt.theEnvironments.length > 1 && this.theCompositeStrategy == 'Override'">
-            <b-form-group label="<b>Environment</b>" label-class="text-md-left" label-cols="2" label-for="theEnvironmentSelect">
+            <b-form-group label="Environment" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theEnvironmentSelect">
               <b-form-select id="theEnvironmentSelect" v-model="objt.theOverridingEnvironment" :options="objt.theEnvironments" class="mb-3">
               </b-form-select>
             </b-form-group>

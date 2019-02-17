@@ -38,13 +38,13 @@ Authors: Shamal Faily
             <b-container fluid>
               <b-row>
                 <b-col md="6">
-                  <b-form-group label="<b>Obstacle</b>" label-class="text-md-left" label-for="theObstacleInput">
+                  <b-form-group label="Obstacle" label-class="font-weight-bold text-md-left" label-for="theObstacleInput">
                     <b-form-input id="theObstacleInput" v-model="objt.theName" type="text" required>
                     </b-form-input>
                   </b-form-group>
                 </b-col>
                 <b-col md="6">
-                  <b-form-group label="<b>Originator</b>" label-class="text-md-left" label-for="theOriginator">
+                  <b-form-group label="Originator" label-class="font-weight-bold text-md-left" label-for="theOriginator">
                     <b-form-input id="theOriginatorInput" v-model="objt.theOriginator" type="text" required>
                     </b-form-input>
                   </b-form-group>
@@ -52,7 +52,7 @@ Authors: Shamal Faily
               </b-row>
               <b-row>
                 <b-col md="12">
-                  <b-form-group label="<b>Tags</b>" label-class="text-md-left" label-for="theTagsInput">
+                  <b-form-group label="Tags" label-class="font-weight-bold text-md-left" label-for="theTagsInput">
                     <b-form-input id="theTagsInput" v-model="objt.theTags" type="text">
                     </b-form-input>
                   </b-form-group>
@@ -63,7 +63,7 @@ Authors: Shamal Faily
         </b-row>
         <b-row>
           <b-container fluid>
-            <b-card header="<b>Environments</b>" no-body class="text-left">
+            <b-card header="Environments" no-body class="font-weight-bold text-left">
               <template slot="header">
                 <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addEnvironment"/> Environment
               </template> 
@@ -85,7 +85,7 @@ Authors: Shamal Faily
                     <b-tab title="Definition" active>
                       <b-row>
                         <b-col md="12">
-                          <b-form-group label="<b>Category</b>" label-class="text-md-left" label-cols="2" label-for="theCategorySelect">
+                          <b-form-group label="Category" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theCategorySelect">
                             <b-form-select id="theCategorySelect" v-model="category" :options="obstacleCategories" class="mb-3" required>
                             </b-form-select>
                           </b-form-group>
@@ -93,7 +93,7 @@ Authors: Shamal Faily
                       </b-row>
                       <b-row>
                         <b-col md="12">
-                          <b-form-group label="<b>Definition</b>" label-class="text-md-left" label-cols="2" label-for="theDefinitionInput">
+                          <b-form-group label="Definition" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theDefinitionInput">
                             <b-form-textarea id="theDefinition" v-model="definition" type="text" :rows=2 :max-rows=4 required>
                             </b-form-textarea>
                           </b-form-group>
@@ -101,13 +101,13 @@ Authors: Shamal Faily
                       </b-row>
                       <b-row>
                         <b-col md="5">
-                          <b-form-group label="<b>Probability</b>" label-class="text-md-left" label-cols="3" horizontal label-for="theProbabilityInput">
+                          <b-form-group label="Probability" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theProbabilityInput">
                             <b-form-input id="theProbabilityInput" v-model="probability" type="number" required>
                             </b-form-input>
                           </b-form-group>
                         </b-col>
                         <b-col md="7">
-                          <b-form-group label="<b>Reason</b>" label-class="text-md-left" label-cols="2" horizontal label-for="theReasonInput">
+                          <b-form-group label="Reason" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theReasonInput">
                             <b-form-input id="theReasonInput" v-model="rationale" type="text" required>
                             </b-form-input>
                           </b-form-group>

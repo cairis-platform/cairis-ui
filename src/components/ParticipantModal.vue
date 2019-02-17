@@ -28,24 +28,24 @@ Authors: Shamal Faily
       </ul>
     </p> 
     <b-card>
-      <b-form-group label="Persona" label-class="text-sm-left" label-cols="3" horizontal label-for="thePersonaSelect" >
+      <b-form-group label="Persona" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="thePersonaSelect" >
         <dimension-select id="thePersonaSelect" dimension='persona' :environment=this.taskParticipant.environment :existing="taskParticipants" :initial="this.taskParticipant.participant.thePersona" v-on:dimension-select-change="personaSelected" />
       </b-form-group>
-      <b-form-group label="Duration" label-class="text-sm-left" label-cols="3" horizontal label-for="theDurationRadio" >
+      <b-form-group label="Duration" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theDurationRadio" >
         <b-form-radio-group id="theDurationRadio" v-model="participant.participant.theDuration">
           <b-form-radio value="Low">Seconds</b-form-radio>
           <b-form-radio value="Medium">Minutes</b-form-radio>
           <b-form-radio value="High">Hours or longer</b-form-radio>
         </b-form-radio-group>
       </b-form-group>
-      <b-form-group label="Frequency" label-class="text-sm-left" label-cols="3" horizontal label-for="theFrequencyRadio" >
+      <b-form-group label="Frequency" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theFrequencyRadio" >
         <b-form-radio-group id="theFrequencyRadio" v-model="participant.participant.theFrequency">
           <b-form-radio value="Low">Hours or more</b-form-radio>
           <b-form-radio value="Medium">Daily - Weekly</b-form-radio>
           <b-form-radio value="High">Monthly or less</b-form-radio>
         </b-form-radio-group>
       </b-form-group>
-      <b-form-group label="Demands" label-class="text-sm-left" label-cols="3" horizontal label-for="theDemandsRadio" >
+      <b-form-group label="Demands" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theDemandsRadio" >
         <b-form-radio-group id="theDemandsRadio" v-model="participant.participant.theDemands">
           <b-form-radio value="None">None</b-form-radio>
           <b-form-radio value="Low">Low</b-form-radio>
@@ -53,7 +53,7 @@ Authors: Shamal Faily
           <b-form-radio value="High">High</b-form-radio>
         </b-form-radio-group>
       </b-form-group>
-      <b-form-group label="Goal Conflict" label-class="text-sm-left" label-cols="3" horizontal label-for="theGoalConflictRadio" >
+      <b-form-group label="Goal Conflict" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theGoalConflictRadio" >
         <b-form-radio-group id="theGoalConflictRadio" v-model="participant.participant.theGoalConflict">
           <b-form-radio value="None">None</b-form-radio>
           <b-form-radio value="Low">Low</b-form-radio>
@@ -121,10 +121,11 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
         this.participant.participant.thePersona = item;
       },
       onOk(evt) {
-        evt.preventDefault();
-        if (this.checkForm()) {
+        if (!this.checkForm()) {
+          evt.preventDefault();
+        }
+        else {
           this.$emit('participant-update',{participant : this.participant.participant,update : this.taskParticipant.update,index: this.taskParticipant.update ? this.participant.index : -1});
-
           this.$refs.participantDialog.hide();
         }
       }

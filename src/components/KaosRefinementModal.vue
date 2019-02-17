@@ -28,22 +28,22 @@ Authors: Shamal Faily
       </ul>
     </p> 
     <b-card>
-      <b-form-group label="Type" label-class="text-sm-left" label-cols="3" horizontal label-for="theEndTypeSelect" >
+      <b-form-group label="Type" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theEndTypeSelect" >
         <b-form-select id="theEndTypeSelect" v-model="association.association.theEndType" :options="endTypeValues" class="mb-3" required></b-form-select>
       </b-form-group>
-      <b-form-group :label="theTargetType" label-class="text-sm-left" label-cols="3" horizontal label-for="theObjectSelect" >
+      <b-form-group :label="theTargetType" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theObjectSelect" >
         <dimension-select v-if="this.association.environment !=''" id="theObjectSelect" :dimension='association.association.theEndType' :environment="this.association.environment" :initial="association.association.theEndName" v-on:dimension-select-change="endSelected" />
       </b-form-group>
-      <b-form-group label="Refinement" label-class="text-sm-left" label-cols="3" horizontal label-for="theRefinementSelect" >
+      <b-form-group label="Refinement" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theRefinementSelect" >
         <b-form-select id="theRefinementSelect" v-model="association.association.theRefType" :options="refTypeValues" class="mb-3" required></b-form-select>
       </b-form-group>
-      <b-form-group label="Alternative" label-class="text-sm-left" label-cols="3" horizontal label-for="theHeadNryInput" >
-        <b-form-radio-group v-model="association.association.isAlternate">
+      <b-form-group label="Alternative" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theAlternativeRadio" >
+        <b-form-radio-group id="theAlternativeRadio" v-model="association.association.isAlternate">
           <b-form-radio value="Yes">Yes</b-form-radio>
           <b-form-radio value="No">No</b-form-radio>
         </b-form-radio-group>
       </b-form-group>
-      <b-form-group label="Rationale" label-class="text-sm-left" label-cols="3" horizontal label-for="theRationaleInput" >
+      <b-form-group label="Rationale" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theRationaleInput" >
         <b-form-input id="theRationaleInput" v-model="association.association.theRationale"></b-form-input>
       </b-form-group>
     </b-card>
@@ -107,10 +107,11 @@ Authors: Shamal Faily
         this.association.association.theEndName = item;
       },
       onOk(evt) {
-        evt.preventDefault();
-        if (this.checkForm()) {
+        if (!this.checkForm()) {
+          evt.preventDefault();
+        }
+        else {
           this.$emit('kaos-refinement-update',{association : this.association.association,update : this.goalAssociation.update,index: this.goalAssociation.update ? this.association.index : -1});
-
           this.$refs.refinementDialog.hide();
         }
       }

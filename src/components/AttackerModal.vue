@@ -22,7 +22,7 @@ Authors: Shamal Faily
 
   <b-modal ref="attackerDialog" ok-only :title="dialogTitle">
     <b-container v-if="objt != undefined">
-      <b-form-group label="<b>Description</b>" label-class="text-sm-left" label-cols="3" label-for="theDescription" >
+      <b-form-group label="Description" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theDescription" >
         <b-form-textarea id="theDescription" v-model="objt.theDescription" type="text" :rows=4 :max-rows="6" readonly>
         </b-form-textarea>
       </b-form-group>

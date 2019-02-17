@@ -75,7 +75,7 @@ export default {
       next();
     }
     else {
-      var url = "/api/personas/name/" + to.params.objectName
+      const url = "/api/personas/name/" + to.params.objectName
       axios.get(url,{
         baseURL : store.state.url,
         params : {'session_id' : store.state.session}

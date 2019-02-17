@@ -28,34 +28,34 @@ Authors: Shamal Faily
       </ul>
     </p> 
     <b-card>
-      <b-form-group label="Asset" label-class="text-sm-left" label-cols="3" horizontal label-for="theHeadAssetInput" >
+      <b-form-group label="Asset" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theHeadAssetInput" >
         <b-form-input readonly id="theHeadAssetInput" v-model="assetAssociation.asset"></b-form-input>
       </b-form-group>
-      <b-form-group label="Navigation" label-class="text-sm-left" label-cols="3" horizontal label-for="theHeadNavInput" >
+      <b-form-group label="Navigation" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theHeadNavInput" >
         <b-form-select id="theHeadNavInput" v-model="association.association.theHeadNav" :options="navValues" class="mb-3" required></b-form-select>
       </b-form-group>
-      <b-form-group label="Adornment" label-class="text-sm-left" label-cols="3" horizontal label-for="theHeadAdornmentInput" >
+      <b-form-group label="Adornment" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theHeadAdornmentInput" >
         <b-form-select id="theHeadAdornmentInput" v-model="association.association.theHeadType" :options="typeValues" class="mb-3" required></b-form-select>
       </b-form-group>
-      <b-form-group label="nry" label-class="text-sm-left" label-cols="3" horizontal label-for="theHeadNryInput" >
+      <b-form-group label="nry" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theHeadNryInput" >
         <b-form-select id="theHeadNryInput" v-model="association.association.theHeadMultiplicity" :options="nryValues" class="mb-3" required></b-form-select>
       </b-form-group>
-      <b-form-group label="Role" label-class="text-sm-left" label-cols="3" horizontal label-for="theHeadRoleInput" >
+      <b-form-group label="Role" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theHeadRoleInput" >
         <b-form-input id="theHeadRoleInput" v-model="association.association.theHeadRole"></b-form-input>
       </b-form-group>
-      <b-form-group label="Role" label-class="text-sm-left" label-cols="3" horizontal label-for="theTailRoleInput" >
+      <b-form-group label="Role" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theTailRoleInput" >
         <b-form-input id="theTailRoleInput" v-model="association.association.theTailRole"></b-form-input>
       </b-form-group>
-      <b-form-group label="nry" label-class="text-sm-left" label-cols="3" horizontal label-for="theTailNryInput" >
+      <b-form-group label="nry" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theTailNryInput" >
         <b-form-select id="theTailNryInput" v-model="association.association.theTailMultiplicity" :options="nryValues" class="mb-3" required></b-form-select>
       </b-form-group>
-      <b-form-group label="Adornment" label-class="text-sm-left" label-cols="3" horizontal label-for="theTailAdornmentInput" >
+      <b-form-group label="Adornment" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theTailAdornmentInput" >
         <b-form-select id="theTailAdornmentInput" v-model="association.association.theTailType" :options="typeValues" class="mb-3" required></b-form-select>
       </b-form-group>
-      <b-form-group label="Navigation" label-class="text-sm-left" label-cols="3" horizontal label-for="theTailNavInput" >
+      <b-form-group label="Navigation" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theTailNavInput" >
         <b-form-select id="theTailNavInput" v-model="association.association.theTailNav" :options="navValues" class="mb-3" required></b-form-select>
       </b-form-group>
-      <b-form-group label="Tail" label-class="text-sm-left" label-cols="3" horizontal label-for="theTailAssetInput" >
+      <b-form-group label="Tail" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theTailAssetInput" >
         <dimension-select id="theTailAssetInput" dimension='asset' :environment=this.assetAssociation.environment :existing=[this.assetAssociation.asset] :initial="this.assetAssociation.initial" v-on:dimension-select-change="tailAssetSelected" />
       </b-form-group>
     </b-card>
@@ -120,10 +120,11 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
         this.association.association.theTailName = item;
       },
       onOk(evt) {
-        evt.preventDefault();
-        if (this.checkForm()) {
+        if (!this.checkForm()) {
+          evt.preventDefault();
+        }
+        else {
           this.$emit('association-update',{association : this.association.association,update : this.assetAssociation.update,index: this.assetAssociation.update ? this.association.index : -1});
-
           this.$refs.associationDialog.hide();
         }
       }

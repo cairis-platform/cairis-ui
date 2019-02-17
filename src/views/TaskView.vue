@@ -89,8 +89,8 @@ export default {
   methods : {
     commitTask(objt) {
       this.objt = objt
-      var updateUrl = this.$store.state.url + "/api/tasks/name/" + this.objectName + "?session_id=" + this.$store.state.session;
-      var createUrl = this.$store.state.url + "/api/tasks";
+      const updateUrl = this.$store.state.url + "/api/tasks/name/" + this.objectName + "?session_id=" + this.$store.state.session;
+      const createUrl = this.$store.state.url + "/api/tasks";
       this.commitObject(updateUrl,createUrl,'tasks');
     }
   }

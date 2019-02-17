@@ -40,12 +40,27 @@ Authors: Shamal Faily
 <script>
 import Navbar from './components/Navbar';
 import StatusFooter from './components/StatusFooter';
+import axios from 'axios';
 
 export default {
   name: 'App',
   components: {
     Navbar,
     StatusFooter
+  },
+  created() {
+    if (this.$store.state.session != 'test') {
+      let that = this;
+      const sessionUrl = this.$store.state.url + '/make_session';
+      axios.post(sessionUrl)
+      .then(response => {
+        that.$store.state.session = response.data['session_id'];
+        console.log('Session:' + response.data['session_id']);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }
   }
 }
 </script>

@@ -22,14 +22,14 @@ Authors: Shamal Faily
 
   <b-modal ref="threatDialog" ok-only :title="dialogTitle">
     <b-container v-if="objt != undefined">
-      <b-form-group label="<b>Type</b>" label-class="text-sm-left" label-cols="3" label-for="theType" >
+      <b-form-group label="Type" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theType" >
         <b-form-input readonly id="theType" v-model="objt.theType"></b-form-input>
       </b-form-group>
-      <b-form-group label="<b>Method</b>" label-class="text-sm-left" label-cols="3" label-for="theMethod" >
+      <b-form-group label="Method" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theMethod" >
         <b-form-textarea id="theDescription" v-model="objt.theMethod" type="text" :rows=2 :max-rows="4" readonly>
         </b-form-textarea>
       </b-form-group>
-      <b-form-group label="<b>Likelihood</b>" label-class="text-sm-left" label-cols="3" label-for="theLikelihood" >
+      <b-form-group label="Likelihood" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theLikelihood" >
         <b-form-input readonly id="theLikelihood" v-model="likelihood"></b-form-input>
       </b-form-group>
       <b-table bordered small :items="attackers" :fields="attackerTableFields">

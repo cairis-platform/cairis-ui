@@ -34,14 +34,14 @@ Authors: Shamal Faily
             <b-container v-if="objt != undefined" fluid>
               <b-row>
                 <b-col md="12">
-                  <b-form-group label="<b>Environment<b>" label-class="text-sm-left" label-cols="2" label-for="theEnvironmentSelect" >
+                  <b-form-group label="Environment" label-class="font-weight-bold text-sm-left" label-cols="2" label-for="theEnvironmentSelect" >
                     <dimension-select id="theEnvironmentSelect" dimension='environment' :is_disabled="disable" :initial="objt.theEnvironmentName" v-on:dimension-select-change="environmentSelected" />
                   </b-form-group>
                 </b-col>
               </b-row>
               <b-row>
                 <b-col md="8">
-                  <b-form-group label="<b>Head</b>" label-class="text-sm-left" label-cols="1" horizontal label-for="theGoalRadio" >
+                  <b-form-group label="Head" label-class="font-weight-bold text-sm-left" label-cols="1" label-for="theGoalRadio" >
                     <b-form-radio-group :disabled="disable" buttons button-variant="outline-primary" size="sm" id="theGoalRadio" v-model="theGoalType" :options="goalTypeOptions" class="mb-3" required name="theGoalRadio">
                     </b-form-radio-group>
                   </b-form-group>
@@ -52,7 +52,7 @@ Authors: Shamal Faily
               </b-row>
               <b-row>
                 <b-col md="8">
-                  <b-form-group label="<b>Tail</b>" label-class="text-sm-left" label-cols="1" horizontal label-for="theSubGoalRadio" >
+                  <b-form-group label="Tail" label-class="font-weight-bold text-sm-left" label-cols="1" label-for="theSubGoalRadio" >
                     <b-form-radio-group :disabled="disable" buttons button-variant="outline-primary" size="sm" id="theSubGoalRadio" v-model="theSubGoalType" :options="subGoalTypeOptions" class="mb-3" required name="theSubGoalRadio">
                     </b-form-radio-group>
                   </b-form-group>
@@ -63,13 +63,13 @@ Authors: Shamal Faily
               </b-row>
               <b-row>
                 <b-col md="1">
-                  <b-form-group label="<b>Association</b>" label-class="text-sm-left" label-cols="2" label-for="theAssociationRadio" >
+                  <b-form-group label="Association" label-class="font-weight-bold text-sm-left" label-cols="2" label-for="theAssociationRadio" >
                     <b-form-radio-group buttons button-variant="outline-primary" size="sm" id="theAssociationRadio" v-model="objt.theAssociationType" :options="refTypeOptions" class="mb-3" required name="theAssociationRadio">
                     </b-form-radio-group>
                   </b-form-group>
                 </b-col>
                 <b-col md="1">
-                  <b-form-group label="<b>Alternative</b>" label-class="text-sm-left" label-cols="2" label-for="theHeadNryInput" >
+                  <b-form-group label="Alternative" label-class="font-weight-bold text-sm-left" label-cols="2" label-for="theHeadNryInput" >
                     <b-form-radio-group buttons button-variant="outline-primary" size="sm" v-model="objt.theAlternativeId">
                       <b-form-radio value=0>No</b-form-radio>
                       <b-form-radio value=1>Yes</b-form-radio>
@@ -77,7 +77,7 @@ Authors: Shamal Faily
                   </b-form-group>
                 </b-col>
                 <b-col md="10">
-                  <b-form-group label="<b>Rationale<b>" label-class="text-sm-left" label-cols="3" label-for="theRationaleInput" >
+                  <b-form-group label="Rationale" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theRationaleInput" >
                     <b-form-input id="theRationaleInput" size="sm" v-model="objt.theRationale"></b-form-input>
                   </b-form-group>
                 </b-col>

@@ -32,13 +32,13 @@ Authors: Shamal Faily
         <b-card bg-variant="light">
           <b-row>
             <b-col md="8">
-              <b-form-group label="<b>Risk</b>" label-class="text-md-left" label-cols="1" horizontal label-for="theRiskInput">
+              <b-form-group label="Risk" label-class="font-weight-bold text-md-left" label-cols="1" label-for="theRiskInput">
                 <b-form-input id="theRiskInput" v-model="objt.theName" type="text">
                 </b-form-input>
               </b-form-group>
             </b-col>
             <b-col md="4">
-              <b-form-group label="<b>Tags</b>" label-class="text-md-left" label-cols="2" horizontal label-for="theTagsInput">
+              <b-form-group label="Tags" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theTagsInput">
                 <b-form-input id="theTagsInput" v-model="objt.theTags" type="text">
                 </b-form-input>
               </b-form-group>
@@ -46,12 +46,12 @@ Authors: Shamal Faily
           </b-row>
           <b-row>
             <b-col md="6">
-              <b-form-group label="<b>Threat</b>" label-class="text-md-left" label-cols="3" label-for="theThreatSelect">
+              <b-form-group label="Threat" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theThreatSelect">
                 <dimension-select id="theThreatSelect" dimension='threat' :initial="objt.theThreatName" v-on:dimension-select-change="threatSelected" />
               </b-form-group>
             </b-col>
             <b-col md="6">
-              <b-form-group label="<b>Vulnerability</b>" label-class="text-md-left" label-cols="3" label-for="theVulnerabilitySelect">
+              <b-form-group label="Vulnerability" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theVulnerabilitySelect">
                 <dimension-select id="theVulnerabilitySelect" dimension='vulnerability' :initial="objt.theVulnerabilityName" v-on:dimension-select-change="vulnerabilitySelected" />
               </b-form-group>
             </b-col>
@@ -77,7 +77,7 @@ Authors: Shamal Faily
                   <b-container fluid>
                     <b-row>
                       <b-col md="12">
-                        <b-form-group label="<b>Rating</b>" label-class="text-md-left" label-for="theRiskRating">
+                        <b-form-group label="Rating" label-class="font-weight-bold text-md-left" label-for="theRiskRating">
                           <b-form-input readonly id="theRiskRating" :value="riskrating"></b-form-input>
                         </b-form-group>
                       </b-col>
@@ -94,24 +94,24 @@ Authors: Shamal Faily
                   <b-container fluid>
                     <b-row>
                       <b-col md="6">
-                        <b-form-group label="<b>Attackers</b>" label-class="text-md-left" label-for="theAttackers">
+                        <b-form-group label="Attackers" label-class="font-weight-bold text-md-left" label-for="theAttackers">
                           <b-form-input readonly id="theAttackers" :value="attackers"></b-form-input>
                         </b-form-group>
-                        <b-form-group label="<b>Assets</b>" label-class="text-md-left" label-for="theAssets">
+                        <b-form-group label="Assets" label-class="font-weight-bold text-md-left" label-for="theAssets">
                           <b-form-input readonly id="theAssets" :value="assets"></b-form-input>
                         </b-form-group>
-                        <b-form-group label="<b>Objective</b>" label-class="text-md-left" label-for="theObjective">
+                        <b-form-group label="Objective" label-class="font-weight-bold text-md-left" label-for="theObjective">
                           <b-form-input readonly id="theObjective" :value="objective"></b-form-input>
                         </b-form-group>
-                        <b-form-group label="<b>Likelihood</b>" label-class="text-md-left" label-for="theLikelihood">
+                        <b-form-group label="Likelihood" label-class="font-weight-bold text-md-left" label-for="theLikelihood">
                           <b-form-input readonly id="theLikelihood" :value="likelihood"></b-form-input>
                         </b-form-group>
-                        <b-form-group label="<b>Severity</b>" label-class="text-md-left" label-for="theSeverity">
+                        <b-form-group label="Severity" label-class="font-weight-bold text-md-left" label-for="theSeverity">
                           <b-form-input readonly id="theSeverity" :value="severity"></b-form-input>
                         </b-form-group>
                       </b-col>
                       <b-col md="6">
-                        <b-form-group label="<b>Narrative</b>" label-class="text-md-left" label-for="theNarrativeInput">
+                        <b-form-group label="Narrative" label-class="font-weight-bold text-md-left" label-for="theNarrativeInput">
                           <b-form-textarea id="theNarrativeInput" v-model="objt.theMisuseCase.theEnvironmentProperties[envPropIndex].theDescription" type="text" :rows=16 :max-rows=20 required>
                          </b-form-textarea>
                         </b-form-group>

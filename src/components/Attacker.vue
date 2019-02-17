@@ -40,15 +40,15 @@ Authors: Shamal Faily
           </b-col>
           <b-col md=10>
             <b-container fluid>
-              <b-form-group label="<b>Attacker</b>" label-class="text-md-left" label-for="theAttackerInput">
+              <b-form-group label="Attacker" label-class="font-weight-bold text-md-left" label-for="theAttackerInput">
                 <b-form-input id="theAttackerInput" v-model="objt.theName" type="text" required>
                 </b-form-input>
               </b-form-group>
-              <b-form-group label="<b>Tags</b>" label-class="text-md-left" label-for="theTagsInput">
+              <b-form-group label="Tags" label-class="font-weight-bold text-md-left" label-for="theTagsInput">
                 <b-form-input id="theTagsInput" v-model="objt.theTags" type="text">
                 </b-form-input>
               </b-form-group>
-              <b-form-group label="<b>Description</b>" label-class="text-md-left" label-for="theDescription">
+              <b-form-group label="Description" label-class="font-weight-bold text-md-left" label-for="theDescription">
                 <b-form-textarea id="theDescriptionInput" v-model="objt.theDescription" type="text" :rows=5 :max-rows=7 required>
                 </b-form-textarea>
               </b-form-group>
@@ -57,7 +57,7 @@ Authors: Shamal Faily
         </b-row>
         <b-row>
           <b-container fluid>
-            <b-card header="<b>Environments</b>" no-body class="text-left">
+            <b-card header="Environments" no-body class="font-weight-bold text-left">
               <template slot="header">
                 <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addEnvironment"/> Environment
               </template> 

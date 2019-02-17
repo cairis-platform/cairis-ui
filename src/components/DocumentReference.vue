@@ -32,18 +32,18 @@ Authors: Shamal Faily
         <b-row>
           <b-col md=12>
             <b-container fluid>
-              <b-form-group label="<b>Name</b>" label-class="text-md-left" label-for="theNameInput">
+              <b-form-group label="Name" label-class="font-weight-bold text-md-left" label-for="theNameInput">
                 <b-form-input id="theDomainPropertyInput" v-model="objt.theName" type="text" required>
                 </b-form-input>
               </b-form-group>
-              <b-form-group label="<b>External Document</b>" label-class="text-md-left" label-for="theDocumentSelect">
+              <b-form-group label="External Document" label-class="font-weigh-bold text-md-left" label-for="theDocumentSelect">
                 <dimension-select id="theDocumentSelect" dimension='external_document' :initial="this.objt.theDocName" v-on:dimension-select-change="docNameSelected" />
               </b-form-group>
-              <b-form-group label="<b>Contributor</b>" label-class="text-md-left" label-for="theContributorInput">
+              <b-form-group label="Contributor" label-class="font-weight-bold text-md-left" label-for="theContributorInput">
                 <b-form-input id="theContributorInput" v-model="objt.theContributor" type="text" required>
                 </b-form-input>
               </b-form-group>
-              <b-form-group label="<b>Excerpt</b>" label-class="text-md-left" label-for="theExcerptInput">
+              <b-form-group label="Excerpt" label-class="font-weight-bold text-md-left" label-for="theExcerptInput">
                 <b-form-textarea id="theExcerptInput" v-model="objt.theExcerpt" type="text" :rows=4 :max-rows=6 required>
                 </b-form-textarea>
               </b-form-group>

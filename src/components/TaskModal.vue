@@ -22,19 +22,19 @@ Authors: Shamal Faily
 
   <b-modal ref="taskDialog" ok-only :title="dialogTitle">
     <b-container v-if="objt != undefined">
-      <b-form-group label="<b>Name</b>" label-class="text-sm-left" label-cols="3" label-for="theName" >
+      <b-form-group label="Name" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theName" >
         <b-form-input readonly id="theName" v-model="objt.theName"></b-form-input>
       </b-form-group>
       <b-tabs>
         <b-tab title="Summary" active>
-          <b-form-group label="<b>Author</b>" label-class="text-sm-left" label-cols="3" label-for="theAuthor" >
+          <b-form-group label="Author" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theAuthor" >
             <b-form-input readonly id="theAuthor" v-model="objt.theAuthor"></b-form-input>
           </b-form-group>
-          <b-form-group label="<b>Objective</b>" label-class="text-sm-left" label-cols="3" label-for="theObjective" >
+          <b-form-group label="Objective" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theObjective" >
             <b-form-textarea id="theObjective" v-model="objt.theObjective" type="text" :rows=2 :max-rows="4" readonly>
             </b-form-textarea>
           </b-form-group>
-          <b-form-group label="<b>Dependencies</b>" label-class="text-sm-left" label-cols="3" label-for="theDependencies" >
+          <b-form-group label="Dependencies" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theDependencies" >
             <b-form-textarea id="theDependencies" v-model="dependencies" type="text" :rows=2 :max-rows="4" readonly>
             </b-form-textarea>
           </b-form-group>

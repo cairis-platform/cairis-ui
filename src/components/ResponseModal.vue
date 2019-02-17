@@ -23,33 +23,33 @@ Authors: Shamal Faily
   <b-modal ref="responseDialog" ok-only :title="dialogTitle">
     <b-container v-if="objt != undefined">
       <b-container v-if="objt.theResponseType == 'Accept'">
-        <b-form-group label="<b>Risk</b>" label-class="text-sm-left" label-cols="3" label-for="theRisk" >
+        <b-form-group label="Risk" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theRisk" >
           <b-form-input readonly id="theRisk" v-model="objt.theRisk"></b-form-input>
         </b-form-group>
-        <b-form-group label="<b>Risk</b>" label-class="text-sm-left" label-cols="3" label-for="theRisk" >
+        <b-form-group label="Risk" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theRisk" >
           <b-form-input readonly id="theRisk" v-model="objt.theRisk"></b-form-input>
         </b-form-group>
-        <b-form-group label="<b>Cost</b>" label-class="text-sm-left" label-cols="3" label-for="theCost" >
+        <b-form-group label="Cost" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theCost" >
           <b-form-input readonly id="theCost" v-model="cost"></b-form-input>
         </b-form-group>
-        <b-form-group label="<b>Rationale</b>" label-class="text-sm-left" label-cols="3" label-for="theRationale" >
+        <b-form-group label="Rationale" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theRationale" >
           <b-form-textarea id="theRationale" v-model="acceptRationale" type="text" :rows=2 :max-rows="4" readonly>
           </b-form-textarea>
         </b-form-group>
       </b-container>
       <b-container v-if="objt.theResponseType == 'Transfer'">
-        <b-form-group label="<b>Risk</b>" label-class="text-sm-left" label-cols="3" label-for="theRisk" >
+        <b-form-group label="Risk" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theRisk" >
           <b-form-input readonly id="theRisk" v-model="objt.theRisk"></b-form-input>
         </b-form-group>
         <b-table bordered small :items="roles" :fields="roleTableFields">
         </b-table>
-        <b-form-group label="<b>Rationale</b>" label-class="text-sm-left" label-cols="3" label-for="theRationale" >
+        <b-form-group label="Rationale" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theRationale" >
           <b-form-textarea id="theRationale" v-model="transferRationale" type="text" :rows=2 :max-rows="4" readonly>
           </b-form-textarea>
         </b-form-group>
       </b-container>
       <b-container v-if="objt.theResponseType == 'Prevent'">
-        <b-form-group label="<b>Risk</b>" label-class="text-sm-left" label-cols="3" label-for="theRisk" >
+        <b-form-group label="Risk" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theRisk" >
           <b-form-input readonly id="theRisk" v-model="objt.theRisk"></b-form-input>
         </b-form-group>
       </b-container>

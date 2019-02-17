@@ -32,17 +32,17 @@ Authors: Shamal Faily
     <b-container fluid>
       <b-row>
         <b-col>
-          <b-form-group label="Environment" label-for="taskModelEnvironment" :label-cols="4" horizontal>
+          <b-form-group label="Environment" label-for="taskModelEnvironment" :label-cols="4">
             <dimension-select id="taskModelEnvironment" ref="taskModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
-          <b-form-group label="Task" label-for="taskModelTask" :label-cols="2" horizontal>
+          <b-form-group label="Task" label-for="taskModelTask" :label-cols="2" >
             <dimension-select id="taskModelTask" ref="taskModelTask" dimension="task" :environment="theEnvironmentName" initial="all" includeall v-on:dimension-select-change="taskSelected" />
           </b-form-group>
         </b-col>
         <b-col v-show="theEnvironmentName != ''">
-          <b-form-group label="Misuse Case" label-form="taskModelMisuseCase" :label-cols="4" horizontal>
+          <b-form-group label="Misuse Case" label-form="taskModelMisuseCase" :label-cols="4" >
             <dimension-select id="taskModelMisuseCase" ref="taskModelMisuseCase" dimension="misusecase" :environment="theEnvironmentName" initial="all" includeall v-on:dimension-select-change="misuseCaseSelected" />
           </b-form-group>
         </b-col>

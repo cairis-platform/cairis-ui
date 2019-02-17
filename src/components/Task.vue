@@ -36,13 +36,13 @@ Authors: Shamal Faily
         <b-card bg-variant="light">
           <b-row>
             <b-col md="9">
-              <b-form-group label="<b>Task</b>" label-class="text-md-left" label-cols="3" label-for="theTaskInput">
+              <b-form-group label="Task" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theTaskInput">
                 <b-form-input id="theTaskInput" v-model="objt.theName" type="text" required>
                 </b-form-input>
               </b-form-group>
             </b-col>
             <b-col md="3">
-              <b-form-group label="<b>Author</b>" label-class="text-md-left" label-cols="3" label-for="theAuthorInput">
+              <b-form-group label="Author" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theAuthorInput">
                 <b-form-input id="theAuthorInput" v-model="objt.theAuthor" type="text" required>
                 </b-form-input>
               </b-form-group>
@@ -50,7 +50,7 @@ Authors: Shamal Faily
           </b-row>
           <b-row>
             <b-col md="12">
-              <b-form-group label="<b>Short Code</b>" label-class="text-md-left" label-cols="3" label-for="theShortCodeInput">
+              <b-form-group label="Short Code" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theShortCodeInput">
                 <b-form-input id="theShortCodeInput" v-model="objt.theShortCode" type="text" required>
                 </b-form-input>
               </b-form-group>
@@ -58,7 +58,7 @@ Authors: Shamal Faily
           </b-row>
           <b-row>
             <b-col md="12">
-              <b-form-group label="<b>Objective</b>" label-class="text-md-left" label-cols="3" label-for="theObjectiveInput">
+              <b-form-group label="Objective" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theObjectiveInput">
                 <b-form-textarea id="theObjectiveInput" v-model="objt.theObjective" type="text" :rows=2 :max-rows=4 required>
                 </b-form-textarea>
               </b-form-group>
@@ -66,7 +66,7 @@ Authors: Shamal Faily
           </b-row>
           <b-row>
             <b-col md="12">
-              <b-form-group label="<b>Tags</b>" label-class="text-md-left" label-cols="1" horizontal label-for="theTagsInput">
+              <b-form-group label="Tags" label-class="font-weight-bold text-md-left" label-cols="1" label-for="theTagsInput">
                 <b-form-input id="theTagsInput" v-model="objt.theTags" type="text">
                 </b-form-input>
               </b-form-group>

@@ -35,7 +35,7 @@ Authors: Shamal Faily
         <b-dropdown-item :to="{name: 'export'}">Export</b-dropdown-item>
         <b-dropdown-item href="#">Export to Trello</b-dropdown-item>
         <b-dropdown-item :to="{name: 'documentation'}">Documentation</b-dropdown-item>
-        <b-dropdown-item href="#">Properties</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'properties'}">Properties</b-dropdown-item>
       </b-nav-item-dropdown>
       <b-nav-item-dropdown text="Requirements">
         <b-dropdown-item :to="{name: 'requirements'}">Requirements</b-dropdown-item>

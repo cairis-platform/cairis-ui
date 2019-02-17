@@ -35,7 +35,7 @@ Authors: Shamal Faily
           <b-container fluid>
             <b-row>
               <b-col md="3">
-                <b-form-group label="Type" label-class="text-md-left" label-cols="3" horizontal label-for="theTypeRadio">
+                <b-form-group label="Type" label-class="text-md-left" label-cols="3" label-for="theTypeRadio">
                   <b-form-radio-group id="theTypeRadio" v-model="theDocType">
                     <b-form-radio value="Requirements">Requirements</b-form-radio>
                     <b-form-radio value="Personas">Personas</b-form-radio>
@@ -44,13 +44,13 @@ Authors: Shamal Faily
                 </b-form-group>
               </b-col>
               <b-col md="6">
-                <b-form-group label="File name" label-class="text-md-left" label-cols="3" horizontal label-for="theFileName">
+                <b-form-group label="File name" label-class="text-md-left" label-cols="3" label-for="theFileName">
                   <b-form-input id="theModelFile" v-model="theExportParameters.filename" type="text" required>
                   </b-form-input>
                  </b-form-group>
               </b-col>
               <b-col md="3">
-                <b-form-group label="Format" label-class="text-md-left" label-cols="3" horizontal label-for="theFormatRadio">
+                <b-form-group label="Format" label-class="text-md-left" label-cols="3" label-for="theFormatRadio">
                   <b-form-radio-group id="theFormatRadio" v-model="theDocFormat">
                     <b-form-radio value="PDF">PDF</b-form-radio>
                     <b-form-radio value="RTF">RTF</b-form-radio>

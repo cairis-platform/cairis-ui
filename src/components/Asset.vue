@@ -36,19 +36,19 @@ Authors: Shamal Faily
         <b-tabs card>
           <b-tab title="Summary" active>
             <b-card bg-variant="light">
-              <b-form-group label="Asset" label-class="text-md-left" label-cols="1" horizontal label-for="theAssetInput">
+              <b-form-group label="Asset" label-class="text-md-left" label-cols="1" label-for="theAssetInput">
                 <b-form-input id="theAssetInput" v-model="objt.theName" type="text" required>
                 </b-form-input>
               </b-form-group>
-              <b-form-group label="Tags" label-class="text-md-left" label-cols="1" horizontal label-for="theTagsInput">
+              <b-form-group label="Tags" label-class="text-md-left" label-cols="1" label-for="theTagsInput">
                 <b-form-input id="theTagsInput" v-model="objt.theTags" type="text">
                 </b-form-input>
               </b-form-group>
-              <b-form-group label="Shortcode" label-class="text-md-left" label-cols="1" horizontal label-for="theShortCodeInput">
+              <b-form-group label="Shortcode" label-class="text-md-left" label-cols="1" label-for="theShortCodeInput">
                 <b-form-input id="theShortCodeInput" v-model="objt.theShortCode" type="text" required>
                 </b-form-input>
               </b-form-group>
-              <b-form-group label="Type" label-class="text-md-left" label-cols="1" horizontal label-for="theTypeInput">
+              <b-form-group label="Type" label-class="text-md-left" label-cols="1" label-for="theTypeInput">
                 <b-form-select id="theTypeInput" v-model="objt.theType" :options="assetTypes" class="mb-3" required>
                 </b-form-select>
               </b-form-group>

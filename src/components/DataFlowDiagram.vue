@@ -27,12 +27,12 @@ Authors: Shamal Faily
     <b-container fluid>
       <b-row>
         <b-col>
-          <b-form-group label="Environment" label-for="dfdEnvironment" :label-cols="4" horizontal>
+          <b-form-group label="Environment" label-for="dfdEnvironment" :label-cols="4" >
             <dimension-select id="dfdEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
-          <b-form-group label="Filter" label-for="dfdFilter" :label-cols="2" horizontal>
+          <b-form-group label="Filter" label-for="dfdFilter" :label-cols="2" >
             <dimension-select id="dfdFilter" dimension="dfd_filter" :environment="theEnvironmentName" initial="None" :includeall="true" v-on:dimension-select-change="filterSelected" />
           </b-form-group>
         </b-col>

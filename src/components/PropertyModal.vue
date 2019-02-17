@@ -23,21 +23,21 @@ Authors: Shamal Faily
   <b-modal ref="propertyDialog" :title="this.dialogTitle"  @ok="onOk">
     <b-card>
       <div v-if="securityProperty.update == true">
-        <b-form-group label="Property" label-class="text-sm-left" label-cols="3" horizontal label-for="thePropertyInput" >
+        <b-form-group label="Property" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="thePropertyInput" >
           <b-form-input readonly id="thePropertyInput" v-model="securityProperty.name"></b-form-input>
         </b-form-group>
       </div>
       <div v-if="securityProperty.update == false">
-      <b-form-group label="Property" label-class="text-sm-left" label-cols="3" horizontal label-for="thePropertyInput" >
+      <b-form-group label="Property" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="thePropertyInput" >
         <b-form-select id="theValueInput" v-model="securityProperty.name" :options="securityProperty.propertyNames" required>
         </b-form-select>
       </b-form-group>
       </div>
-      <b-form-group label="Value" label-class="text-sm-left" label-cols="3" horizontal label-for="theValueInput" >
+      <b-form-group label="Value" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theValueInput" >
         <b-form-select id="theValueInput" v-model="securityProperty.value" :options="propertyValues" required>
         </b-form-select>
       </b-form-group>
-      <b-form-group label="Rationale" label-class="text-sm-left" label-cols="3" horizontal label-for="theRationaleInput" v-if="valueNotNone" >
+      <b-form-group label="Rationale" label-class="font-weight-bold text-sm-left" label-for="theRationaleInput" v-if="valueNotNone" >
         <b-form-textarea id="theRationaleInput" v-model="securityProperty.rationale" type="text" :rows=2 :max-rows=4 required>
         </b-form-textarea>
       </b-form-group>
@@ -70,8 +70,8 @@ Authors: Shamal Faily
         this.$refs.propertyDialog.show();
       },
       onOk(evt) {
-        evt.preventDefault();
         if (!this.securityProperty.rationale.length && this.securityProperty.name != 'None') {
+          evt.preventDefault();
           alert('Please enter rationale');
         }
         else {

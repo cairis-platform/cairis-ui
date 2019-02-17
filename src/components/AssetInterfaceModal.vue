@@ -28,16 +28,16 @@ Authors: Shamal Faily
       </ul>
     </p> 
     <b-card>
-      <b-form-group label="Interface" label-class="text-sm-left" label-cols="3" horizontal label-for="theInterface" >
+      <b-form-group label="Interface" label-class="text-sm-left" label-cols="3" label-for="theInterface" >
         <dimension-select id="theInterface" dimension='interface' :initial="this.assetinterface.assetinterface.theInterfaceName" v-on:dimension-select-change="interfaceSelected" required />
       </b-form-group>
-      <b-form-group label="Type" label-class="text-sm-left" label-cols="3" horizontal label-for="theType" >
+      <b-form-group label="Type" label-class="text-sm-left" label-cols="3" label-for="theType" >
         <b-form-select id="theType" v-model="assetinterface.assetinterface.theInterfaceType" :options="typeValues" class="mb-3" required></b-form-select>
       </b-form-group>
-      <b-form-group label="Access Right" label-class="text-sm-left" label-cols="3" horizontal label-for="theAccessRight" >
+      <b-form-group label="Access Right" label-class="text-sm-left" label-cols="3" label-for="theAccessRight" >
         <dimension-select id="theAccessRight" dimension='access_right' :initial="this.assetinterface.assetinterface.theAccessRight" v-on:dimension-select-change="accessRightSelected" required />
       </b-form-group>
-      <b-form-group label="Privilege" label-class="text-sm-left" label-cols="3" horizontal label-for="thePrivilege" >
+      <b-form-group label="Privilege" label-class="text-sm-left" label-cols="3" label-for="thePrivilege" >
         <dimension-select id="thePrivilege" dimension='privilege' :initial="this.assetinterface.assetinterface.thePrivilege" v-on:dimension-select-change="privilegeSelected" required />
       </b-form-group>
     </b-card>
@@ -103,8 +103,10 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
         this.assetinterface.assetinterface.thePrivilege = item;
       },
       onOk(evt) {
-        evt.preventDefault();
-        if (this.checkForm()) {
+        if (!this.checkForm()) {
+          evt.preventDefault();
+        }
+        else {
           this.$emit('interface-update',{interface : this.assetinterface.assetinterface, update : this.assetInterface.update,index: this.assetInterface.update ? this.assetinterface.index : -1});
           this.$refs.interfaceDialog.hide();
         }

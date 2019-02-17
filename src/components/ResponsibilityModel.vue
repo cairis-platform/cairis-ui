@@ -32,12 +32,12 @@ Authors: Shamal Faily
     <b-container fluid>
       <b-row>
         <b-col>
-          <b-form-group label="Environment" label-for="responsibilityModelEnvironment" :label-cols="4" horizontal>
+          <b-form-group label="Environment" label-for="responsibilityModelEnvironment" :label-cols="4" >
             <dimension-select id="responsibilityModelEnvironment" ref="responsibilityModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
-          <b-form-group label="Role" label-for="responsibilityModelRole" :label-cols="2" horizontal>
+          <b-form-group label="Role" label-for="responsibilityModelRole" :label-cols="2" >
             <dimension-select id="responsibilityModelRole" ref="responsibilityModelRole" dimension="role" :environment="theEnvironmentName" initial="all" includeall v-on:dimension-select-change="roleSelected" />
           </b-form-group>
         </b-col>

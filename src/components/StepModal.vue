@@ -37,7 +37,7 @@ Authors: Shamal Faily
           <b-container fluid>
             <b-row>
               <b-col md="12">
-                <b-form-group label="<b>Intention</b>" label-class="text-md-left" label-cols="3" label-for="theIntentionInput">
+                <b-form-group label="Intention" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theIntentionInput">
                   <b-form-input id="theIntentionInput" v-model="objt.theSynopsis" type="text" required>
                   </b-form-input>
                 </b-form-group>
@@ -45,7 +45,7 @@ Authors: Shamal Faily
             </b-row>
             <b-row>
               <b-col md="6">
-                <b-form-group label="<b>Actor</b>" label-class="text-sm-left" label-cols="4" horizontal label-for="theActorTypeRadio" >
+                <b-form-group label="Actor" label-class="font-weight-bold text-sm-left" label-cols="4" label-for="theActorTypeRadio" >
                   <b-form-radio-group id="theActorTypeRadio" v-model="objt.theActorType" stacked>
                     <b-form-radio value='asset'>Asset</b-form-radio>
                     <b-form-radio value='role'>Role</b-form-radio>
@@ -114,8 +114,10 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
         this.$refs.stepDialog.show();
       },
       onOk(evt) {
-        evt.preventDefault();
-        if (this.checkForm()) {
+        if (!this.checkForm()) {
+          evt.preventDefault();
+        }
+        else {
           this.$emit('step-update',{step : this.objt , update : this.usecaseStep.update,index: this.usecaseStep.update ? this.usecaseStep.index : -1});
           this.$refs.stepDialog.hide();
         }

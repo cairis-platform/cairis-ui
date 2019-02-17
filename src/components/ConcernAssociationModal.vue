@@ -28,28 +28,28 @@ Authors: Shamal Faily
       </ul>
     </p> 
     <b-card>
-      <b-form-group label="Source" label-class="text-sm-left" label-cols="3" horizontal label-for="theSourceSelect" >
+      <b-form-group label="Source" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theSourceSelect" >
         <b-form-select id="theSourceSelect" v-model="association.association.theSource" :options="concerns" class="mb-3" required></b-form-select>
       </b-form-group>
-      <b-form-group label="n" label-class="text-sm-left" label-cols="3" horizontal label-for="theSourceNryRadio" >
+      <b-form-group label="n" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theSourceNryRadio" >
         <b-form-radio-group v-model="association.association.theSourceNry">
           <b-form-radio value="1">1</b-form-radio>
           <b-form-radio value="*">*</b-form-radio>
           <b-form-radio value="1..*">1..*</b-form-radio>
         </b-form-radio-group>
       </b-form-group>
-      <b-form-group label="<b>Link</b>" label-class="text-md-left" label-for="theLinkVerbInput">
+      <b-form-group label="Link" label-class="font-weight-bold text-md-left" label-for="theLinkVerbInput">
         <b-form-input id="theLinkVerbInput" v-model="association.association.theLinkVerb" type="text" required>
         </b-form-input>
       </b-form-group>
-      <b-form-group label="n" label-class="text-sm-left" label-cols="3" horizontal label-for="theTargetNryRadio" >
+      <b-form-group label="n" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theTargetNryRadio" >
         <b-form-radio-group v-model="association.association.theTargetNry">
           <b-form-radio value="1">1</b-form-radio>
           <b-form-radio value="*">*</b-form-radio>
           <b-form-radio value="1..*">1..*</b-form-radio>
         </b-form-radio-group>
       </b-form-group>
-      <b-form-group label="Target" label-class="text-sm-left" label-cols="3" horizontal label-for="theTargetSelect" >
+      <b-form-group label="Target" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theTargetSelect" >
         <b-form-select id="theTargetSelect" v-model="association.association.theTarget" :options="concerns" class="mb-3" required></b-form-select>
       </b-form-group>
     </b-card>
@@ -101,10 +101,11 @@ Authors: Shamal Faily
         this.$refs.concernAssocDialog.show();
       },
       onOk(evt) {
-        evt.preventDefault();
-        if (this.checkForm()) {
+        if (!this.checkForm()) {
+          evt.preventDefault();
+        }
+        else {
           this.$emit('concern-association-update',{association : this.association.association,update : this.concernAssociation.update,index: this.concernAssociation.update ? this.association.index : -1});
-
           this.$refs.concernAssocDialog.hide();
         }
       }

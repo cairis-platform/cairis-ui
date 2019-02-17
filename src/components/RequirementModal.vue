@@ -22,24 +22,24 @@ Authors: Shamal Faily
 
   <b-modal ref="reqDialog" ok-only :title="dialogTitle">
     <b-container v-if="objt != undefined">
-      <b-form-group label="<b>Description</b>" label-class="text-sm-left" label-cols="3" label-for="theDescription" >
+      <b-form-group label="Description" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theDescription" >
         <b-form-textarea id="theDescription" v-model="objt.theDescription" type="text" :rows=2 :max-rows="4" readonly>
         </b-form-textarea>
       </b-form-group>
-      <b-form-group label="<b>Priority</b>" label-class="text-sm-left" label-cols="3" label-for="thePriority" >
+      <b-form-group label="Priority" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="thePriority" >
         <b-form-input readonly id="thePriority" v-model="objt.thePriority"></b-form-input>
       </b-form-group>
-      <b-form-group label="<b>Type</b>" label-class="text-sm-left" label-cols="3" label-for="theType" >
+      <b-form-group label="Type" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theType" >
         <b-form-input readonly id="theType" v-model="objt.theType"></b-form-input>
       </b-form-group>
-      <b-form-group label="<b>Originator</b>" label-class="text-sm-left" label-cols="3" label-for="theOriginator" >
+      <b-form-group label="Originator" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theOriginator" >
         <b-form-input readonly id="theOriginator" v-model="objt.theOriginator"></b-form-input>
       </b-form-group>
-      <b-form-group label="<b>Rationale</b>" label-class="text-sm-left" label-cols="3" label-for="theRationale" >
+      <b-form-group label="Rationale" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theRationale" >
         <b-form-textarea id="theRationale" v-model="objt.theRationale" type="text" :rows=2 :max-rows="4" readonly>
         </b-form-textarea>
       </b-form-group>
-      <b-form-group label="<b>Fit Criterion</b>" label-class="text-sm-left" label-cols="3" label-for="theFitCriterion" >
+      <b-form-group label="Fit Criterion" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theFitCriterion" >
         <b-form-textarea id="theFitCriterion" v-model="objt.theFitCriterion" type="text" :rows=2 :max-rows="4" readonly>
         </b-form-textarea>
       </b-form-group>

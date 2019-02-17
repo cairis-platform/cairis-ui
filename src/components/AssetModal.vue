@@ -22,14 +22,14 @@ Authors: Shamal Faily
 
   <b-modal ref="assetDialog" ok-only :title="dialogTitle">
     <b-container v-if="objt != undefined">
-      <b-form-group label="<b>Type</b>" label-class="text-sm-left" label-cols="3" label-for="theType" >
+      <b-form-group label="Type" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theType" >
         <b-form-input readonly id="theType" v-model="objt.theType"></b-form-input>
       </b-form-group>
-      <b-form-group label="<b>Description</b>" label-class="text-sm-left" label-cols="3" label-for="theDescription" >
+      <b-form-group label="Description" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theDescription" >
         <b-form-textarea id="theDescription" v-model="objt.theDescription" type="text" :rows=2 :max-rows="4" readonly>
         </b-form-textarea>
       </b-form-group>
-      <b-form-group label="<b>Significance</b>" label-class="text-sm-left" label-cols="3" label-for="theSignificance" >
+      <b-form-group label="Significance" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theSignificance" >
         <b-form-textarea id="theSignificance" v-model="objt.theSignificance" type="text" :rows=2 :max-rows="4" readonly>
         </b-form-textarea>
       </b-form-group>

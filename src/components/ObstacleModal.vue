@@ -22,23 +22,23 @@ Authors: Shamal Faily
 
   <b-modal ref="obstacleDialog" ok-only :title="dialogTitle">
     <b-container v-if="objt != undefined">
-      <b-form-group label="<b>Name</b>" label-class="text-sm-left" label-cols="3" label-for="theName" >
+      <b-form-group label="Name" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theName" >
         <b-form-input readonly id="theName" v-model="objt.theName"></b-form-input>
       </b-form-group>
-      <b-form-group label="<b>Originator</b>" label-class="text-sm-left" label-cols="3" label-for="theOriginator" >
+      <b-form-group label="Originator" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theOriginator" >
         <b-form-input readonly id="theOriginator" v-model="objt.theOriginator"></b-form-input>
       </b-form-group>
-      <b-form-group label="<b>Category</b>" label-class="text-sm-left" label-cols="3" label-for="theCategory" >
+      <b-form-group label="Category" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theCategory" >
         <b-form-input readonly id="theCategory" v-model="category"></b-form-input>
       </b-form-group>
-      <b-form-group label="<b>Definition</b>" label-class="text-sm-left" label-cols="3" label-for="theDefinition" >
+      <b-form-group label="Definition" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theDefinition" >
         <b-form-textarea id="theDefinition" v-model="definition" type="text" :rows=2 :max-rows="4" readonly>
         </b-form-textarea>
       </b-form-group>
-      <b-form-group label="<b>Probability</b>" label-class="text-sm-left" label-cols="3" label-for="theProbability" >
+      <b-form-group label="Probability" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theProbability" >
         <b-form-input readonly id="theProbability" v-model="probability"></b-form-input>
       </b-form-group>
-      <b-form-group label="<b>Rationale</b>" label-class="text-sm-left" label-cols="3" label-for="theProbabilityRationale" >
+      <b-form-group label="Rationale" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theProbabilityRationale" >
         <b-form-textarea id="theProbabilityRationale" v-model="rationale" type="text" :rows=2 :max-rows="4" readonly>
         </b-form-textarea>
       </b-form-group>

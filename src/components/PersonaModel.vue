@@ -25,18 +25,18 @@ Authors: Shamal Faily
     <b-container fluid>
       <b-row>
         <b-col>
-          <b-form-group label="Persona" label-for="personaModelPersona" :label-cols="3" horizontal>
+          <b-form-group label="Persona" label-for="personaModelPersona" :label-cols="3" >
             <dimension-select id="personaModelPersona" ref="personaModelPersona" dimension="persona" v-on:dimension-select-change="personaSelected" />
           </b-form-group>
         </b-col>
         <b-col v-if="thePersonaName != ''">
-          <b-form-group label="Behaviour Type" label-for="personaModelBehaviourType" :label-cols="4" horizontal>
+          <b-form-group label="Behaviour Type" label-for="personaModelBehaviourType" :label-cols="4" >
             <b-form-select id="personaModelBehaviourType" ref="personaModelBehaviourType" v-model="theBehaviourType" :options="behaviourTypes" class="mb-3" required>
             </b-form-select>
           </b-form-group>
         </b-col>
         <b-col v-if="thePersonaName != ''">
-          <b-form-group label="Characteristic" label-form="personaModelCharacteristic" :label-cols="4" horizontal>
+          <b-form-group label="Characteristic" label-form="personaModelCharacteristic" :label-cols="4" >
             <dimension-select id="personaModelCharacteristic" ref="personaModelCharacteristic" :dimensionUrl="pcUrl" initial="all" includeall v-on:dimension-select-change="characteristicSelected" />
           </b-form-group>
         </b-col>

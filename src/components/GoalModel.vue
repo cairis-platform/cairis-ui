@@ -33,17 +33,17 @@ Authors: Shamal Faily
     <b-container fluid>
       <b-row>
         <b-col>
-          <b-form-group label="Environment" label-for="goalModelEnvironment" :label-cols="4" horizontal>
+          <b-form-group label="Environment" label-for="goalModelEnvironment" :label-cols="4" >
             <dimension-select id="goalModelEnvironment" ref="goalModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
-          <b-form-group label="Goal" label-for="goalModelGoal" :label-cols="2" horizontal>
+          <b-form-group label="Goal" label-for="goalModelGoal" :label-cols="2" >
             <dimension-select id="goalModelGoal" ref="goalModelGoal" dimension="goal" :environment="theEnvironmentName" initial="all" includeall v-on:dimension-select-change="goalSelected" />
           </b-form-group>
         </b-col>
         <b-col v-show="theEnvironmentName != ''">
-          <b-form-group label="Use Case" label-form="goaModelUseCase" :label-cols="4" horizontal>
+          <b-form-group label="Use Case" label-form="goaModelUseCase" :label-cols="4" >
             <dimension-select id="goalModelUseCase" ref="goalModelUseCase" dimension="usecase" :environment="theEnvironmentName" initial="all" includeall v-on:dimension-select-change="useCaseSelected" />
           </b-form-group>
         </b-col>

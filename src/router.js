@@ -202,6 +202,11 @@ export default new Router({
       props: true
     },
     {
+      path: '/properties',
+      name: 'properties',
+      component: () => import('./views/PropertiesView.vue')
+    },
+    {
       path: '/requirements',
       name: 'requirements',
       component: () => import('./views/Requirements.vue')

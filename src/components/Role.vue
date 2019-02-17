@@ -29,18 +29,18 @@ Authors: Shamal Faily
     <b-form>
       <b-container fluid>
       <b-card no body>
-        <b-form-group label="<b>Role</b>" label-class="text-md-left" label-for="theRoleInput">
+        <b-form-group label="Role" label-class="font-weight-bold text-md-left" label-for="theRoleInput">
           <b-form-input id="theRoleInput" v-model="objt.theName" type="text" required>
           </b-form-input>
         </b-form-group>
-        <b-form-group label="<b>Short Code</b>" label-class="text-md-left" label-for="theShortCodeInput">
+        <b-form-group label="Short Code" label-class="font-weight-bold text-md-left" label-for="theShortCodeInput">
           <b-form-input id="theShortCodeInput" v-model="objt.theShortCode" type="text" required>
           </b-form-input>
         </b-form-group>
-        <b-form-group label="<b>Type</b>" label-class="text-md-left" label-for="theTypeInput">
+        <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-for="theTypeInput">
           <dimension-select id="theTypeInput" dimension='role_type' :initial="objt.theType" v-on:dimension-select-change="roleTypeSelected" />
         </b-form-group>
-        <b-form-group label="<b>Description</b>" label-class="text-md-left" label-for="theDescription">
+        <b-form-group label="Description" label-class="font-weight-bold text-md-left" label-for="theDescription">
           <b-form-textarea id="theDescriptionInput" v-model="objt.theDescription" type="text" :rows=5 :max-rows=7 required>
           </b-form-textarea>
         </b-form-group>

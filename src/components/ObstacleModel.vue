@@ -33,12 +33,12 @@ Authors: Shamal Faily
     <b-container fluid>
       <b-row>
         <b-col>
-          <b-form-group label="Environment" label-for="obstacleModelEnvironment" :label-cols="4" horizontal>
+          <b-form-group label="Environment" label-for="obstacleModelEnvironment" :label-cols="4" >
             <dimension-select id="obstacleModelEnvironment" ref="obstacleModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
-          <b-form-group label="Obstacle" label-for="obstacleModelObstacle" :label-cols="2" horizontal>
+          <b-form-group label="Obstacle" label-for="obstacleModelObstacle" :label-cols="2" >
             <dimension-select id="obstacleModelObstacle" ref="obstacleModelObstacle" dimension="obstacle" :environment="theEnvironmentName" initial="all" includeall v-on:dimension-select-change="obstacleSelected" />
           </b-form-group>
         </b-col>

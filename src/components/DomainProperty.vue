@@ -32,20 +32,20 @@ Authors: Shamal Faily
         <b-row>
           <b-col md=12>
             <b-container fluid>
-              <b-form-group label="<b>Domain Property</b>" label-class="text-md-left" label-for="theDomainPropertyInput">
+              <b-form-group label="Domain Property" label-class="font-weight-bold text-md-left" label-for="theDomainPropertyInput">
                 <b-form-input id="theDomainPropertyInput" v-model="objt.theName" type="text" required>
                 </b-form-input>
               </b-form-group>
-              <b-form-group label="<b>Type</b>" label-class="text-md-left" label-for="theType">
+              <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-for="theType">
                 <b-form-select id="theTypeInput" v-model="objt.theType" :options="dpTypes" class="mb-3" required>
                 </b-form-select>
               </b-form-group>
 
-              <b-form-group label="<b>Originator</b>" label-class="text-md-left" label-for="theOriginator">
+              <b-form-group label="Originator" label-class="font-weight-bold text-md-left" label-for="theOriginator">
                 <b-form-input id="theOriginatorInput" v-model="objt.theOriginator" type="text" required>
                 </b-form-input>
               </b-form-group>
-              <b-form-group label="<b>Tags</b>" label-class="text-md-left" label-for="theTagsInput">
+              <b-form-group label="Tags" label-class="font-weight-bold text-md-left" label-for="theTagsInput">
                 <b-form-input id="theTagsInput" v-model="objt.theTags" type="text">
                 </b-form-input>
               </b-form-group>

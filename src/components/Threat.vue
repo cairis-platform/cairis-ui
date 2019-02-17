@@ -36,24 +36,24 @@ Authors: Shamal Faily
         <b-card bg-variant="light">
           <b-row>
             <b-col md="6">
-              <b-form-group label="<b>Threat</b>" label-class="text-md-left" label-cols="3" label-for="theThreatInput">
+              <b-form-group label="Threat" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theThreatInput">
                 <b-form-input id="theThreatInput" v-model="objt.theThreatName" type="text" required>
                 </b-form-input>
               </b-form-group>
             </b-col>
             <b-col md="6">
-              <b-form-group label="<b>Type</b>" label-class="text-md-left" label-cols="3" label-for="theThreatType">
+              <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theThreatType">
                 <dimension-select id="theThreatType" dimension='threat_type' :initial="this.objt.theType" v-on:dimension-select-change="threatTypeSelected" />
               </b-form-group>
             </b-col>
           </b-row>
-        <b-form-group label="<b>Tags</b>" label-class="text-md-left" label-cols="1" horizontal label-for="theTagsInput">
-          <b-form-input id="theTagsInput" v-model="objt.theTags" type="text">
-          </b-form-input>
-        </b-form-group>
-        <b-form-group label="<b>Method</b>" label-class="text-md-left" label-cols="3" label-for="theMethodInput">
+        <b-form-group label="Method" label-class="font-weight-bold text-md-left" label-for="theMethodInput">
           <b-form-textarea id="theMethodInput" v-model="objt.theMethod" type="text" :rows=2 :max-rows=4 required>
           </b-form-textarea>
+        </b-form-group>
+        <b-form-group label="Tags" label-class="font-weight-bold text-md-left" label-cols="1" label-for="theTagsInput">
+          <b-form-input id="theTagsInput" v-model="objt.theTags" type="text">
+          </b-form-input>
         </b-form-group>
         </b-card>
       </b-container>
@@ -76,7 +76,7 @@ Authors: Shamal Faily
           </b-row>
           <b-row v-if="this.objt.theEnvironmentProperties.length">
             <b-col sm="12">
-              <b-form-group label="<b>Type</b>" label-class="text-md-left" label-for="theLikelihood">
+              <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-cols="1" label-for="theLikelihood">
                 <b-form-select id="theLikelihood" v-model="objt.theEnvironmentProperties[envPropIndex].theLikelihood" :options="likelihoodTypes" class="mb-3" required>
                 </b-form-select>
               </b-form-group>
@@ -90,7 +90,7 @@ Authors: Shamal Faily
                   <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addAttacker"/> 
                 </template>
                 <template slot="attackeractions" slot-scope="row">
-                  <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteAttacker(row.item)"/>
+                  <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteAttacker(row.index)"/>
                 </template>
               </b-table>
             </b-col>
@@ -101,7 +101,7 @@ Authors: Shamal Faily
                   <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addAsset"/> 
                 </template>
                 <template slot="assetactions" slot-scope="row">
-                  <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteAsset(row.item)"/>
+                  <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteAsset(row.index)"/>
                 </template>
               </b-table>
             </b-col>

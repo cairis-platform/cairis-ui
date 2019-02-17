@@ -35,20 +35,20 @@ Authors: Shamal Faily
       <b-container fluid>
         <b-card bg-variant="light">
           <b-row>
-            <b-col md="6">
-              <b-form-group label="<b>Use Case</b>" label-class="text-md-left" label-cols="3" label-for="theUseCaseInput">
+            <b-col md="5">
+              <b-form-group label="Use Case" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theUseCaseInput">
                 <b-form-input id="theUseCaseInput" v-model="objt.theName" type="text" required>
                 </b-form-input>
               </b-form-group>
             </b-col>
-            <b-col md="3">
-              <b-form-group label="<b>Short Code</b>" label-class="text-md-left" label-cols="3" label-for="theShortCodeInput">
+            <b-col md="4">
+              <b-form-group label="Short Code" label-class="font-weight-bold text-md-left" label-cols="4" label-for="theShortCodeInput">
                 <b-form-input id="theShortCodeInput" v-model="objt.theCode" type="text" required>
                 </b-form-input>
               </b-form-group>
             </b-col>
             <b-col md="3">
-              <b-form-group label="<b>Author</b>" label-class="text-md-left" label-cols="3" label-for="theAuthorInput">
+              <b-form-group label="Author" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theAuthorInput">
                 <b-form-input id="theAuthorInput" v-model="objt.theAuthor" type="text" required>
                 </b-form-input>
               </b-form-group>
@@ -69,7 +69,7 @@ Authors: Shamal Faily
           </b-row>
           <b-row>
             <b-col md="12">
-              <b-form-group label="<b>Objective</b>" label-class="text-md-left" label-cols="3" label-for="theDescriptionInput">
+              <b-form-group label="Objective" label-class="font-weight-bold text-md-left" label-for="theDescriptionInput">
                 <b-form-textarea id="theDescriptionInput" v-model="objt.theDescription" type="text" :rows=2 :max-rows=4 required>
                 </b-form-textarea>
               </b-form-group>
@@ -77,7 +77,7 @@ Authors: Shamal Faily
           </b-row>
           <b-row>
             <b-col md="12">
-              <b-form-group label="<b>Tags</b>" label-class="text-md-left" label-cols="1" horizontal label-for="theTagsInput">
+              <b-form-group label="Tags" label-class="font-weight-bold text-md-left" label-cols="1" label-for="theTagsInput">
                 <b-form-input id="theTagsInput" v-model="objt.theTags" type="text">
                 </b-form-input>
               </b-form-group>
@@ -86,7 +86,7 @@ Authors: Shamal Faily
         </b-card>
       </b-container>
       <b-container fluid>
-        <b-card header="Environments" class="text-left">
+        <b-card header="Environments" class="font-weight-bold text-left">
           <template slot="header">
             <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addEnvironment"/> Environment
           </template> 

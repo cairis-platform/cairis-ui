@@ -24,17 +24,17 @@ Authors: Shamal Faily
     <b-container fluid>
       <b-row>
         <b-col>
-          <b-form-group label="Environment" label-for="assetModelEnvironment" :label-cols="4" horizontal>
+          <b-form-group label="Environment" label-for="assetModelEnvironment" :label-cols="4" >
             <dimension-select id="assetModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
-          <b-form-group label="Asset" label-for="assetModelAsset" :label-cols="2" horizontal>
+          <b-form-group label="Asset" label-for="assetModelAsset" :label-cols="2" >
             <dimension-select id="assetModelAsset" dimension="asset" :environment="theEnvironmentName" includeall v-on:dimension-select-change="assetSelected" />
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
-          <b-form-group label="Hide Concerns" label-form="assetModelHideConcerns" :label-cols="4" horizontal>
+          <b-form-group label="Hide Concerns" label-form="assetModelHideConcerns" :label-cols="4">
             <b-form-checkbox id="assetModelHideConcerns" v-model="theConcernsHidden" />
           </b-form-group>
         </b-col>

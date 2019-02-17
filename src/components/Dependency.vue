@@ -34,21 +34,21 @@ Authors: Shamal Faily
             <b-container v-if="objt != undefined" fluid>
               <b-row>
                 <b-col md="12">
-                  <b-form-group label="<b>Environment<b>" label-class="text-sm-left" label-cols="2" label-for="theEnvironmentSelect" >
+                  <b-form-group label="Environment" label-class="font-weight-bold text-sm-left" label-cols="2" label-for="theEnvironmentSelect" >
                     <dimension-select id="theEnvironmentSelect" dimension='environment' :initial="objt.theEnvironmentName" v-on:dimension-select-change="environmentSelected" />
                   </b-form-group>
                 </b-col>
               </b-row>
               <b-row>
                 <b-col md="12">
-                  <b-form-group label="<b>Depender<b>" label-class="text-sm-left" label-cols="2" label-for="theDependerSelect" >
+                  <b-form-group label="Depender" label-class="font-weight-bold text-sm-left" label-cols="2" label-for="theDependerSelect" >
                     <dimension-select id="theDependerSelect" dimension='role' :initial="objt.theDepender" v-on:dimension-select-change="dependerSelected" />
                   </b-form-group>
                 </b-col>
               </b-row>
               <b-row>
-                <b-col md="4">
-                  <b-form-group label="<b>Dependency</b>" label-class="text-sm-left" label-cols="4" horizontal label-for="theDependencyTypeRadio" >
+                <b-col md="6">
+                  <b-form-group label="Dependency" label-class="font-weight-bold text-sm-left" label-cols="4" label-for="theDependencyTypeRadio" >
                     <b-form-radio-group buttons button-variant="outline-primary" size="sm" id="theDependencyRadio" v-model="objt.theDependencyType" class="mb-3" required name="theDependencyTypeRadio">
                       <b-form-radio value='asset'>Asset</b-form-radio>
                       <b-form-radio value='goal'>Goal</b-form-radio>
@@ -56,20 +56,20 @@ Authors: Shamal Faily
                     </b-form-radio-group>
                   </b-form-group>
                 </b-col>
-                <b-col md="8">
+                <b-col md="6">
                   <dimension-select id="theDependencySelect" :environment='objt.theEnvironmentName' :dimension='objt.theDependencyType' :initial="objt.theDependency" v-on:dimension-select-change="dependencySelected" />
                 </b-col>
               </b-row>
               <b-row>
                 <b-col md="12">
-                  <b-form-group label="<b>Dependee<b>" label-class="text-sm-left" label-cols="2" label-for="theDependeeSelect" >
+                  <b-form-group label="Dependee" label-class="font-weight-bold text-sm-left" label-cols="2" label-for="theDependeeSelect" >
                     <dimension-select id="theDependeeSelect" dimension='role' :initial="objt.theDependee" v-on:dimension-select-change="dependeeSelected" />
                   </b-form-group>
                 </b-col>
               </b-row>
               <b-row>
                 <b-col md="12">
-                  <b-form-group label="<b>Rationale<b>" label-class="text-sm-left" label-cols="3" label-for="theRationaleInput" >
+                  <b-form-group label="Rationale" label-class="font-weight-bold text-sm-left" label-cols="2" label-for="theRationaleInput" >
                     <b-form-input id="theRationaleInput" v-model="objt.theRationale"></b-form-input>
                   </b-form-group>
                 </b-col>

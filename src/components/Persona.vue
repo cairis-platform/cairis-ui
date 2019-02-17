@@ -43,19 +43,19 @@ Authors: Shamal Faily
                 <b-card bg-variant="light">
                   <b-row>
                     <b-col md="6">
-                      <b-form-group label="<b>Persona</b>" label-class="text-md-left" label-for="thePersonaInput">
+                      <b-form-group label="Persona" label-class="font-weight-bold text-md-left" label-for="thePersonaInput">
                         <b-form-input id="thePersonaInput" v-model="objt.theName" type="text" required>
                         </b-form-input>
                       </b-form-group>
                     </b-col>
                     <b-col md="6">
-                      <b-form-group label="<b>Type</b>" label-class="text-md-left" label-for="theTypeInput">
+                      <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-for="theTypeInput">
                         <b-form-select id="theTypeInput" v-model="objt.thePersonaType" :options="personaTypes" class="mb-3" required>
                         </b-form-select>
                       </b-form-group>
                     </b-col>
                   </b-row>
-                  <b-form-group label="<b>Tags</b>" label-class="text-md-left" label-for="theTagsInput">
+                  <b-form-group label="Tags" label-class="font-weight-bold text-md-left" label-for="theTagsInput">
                     <b-form-input id="theTagsInput" v-model="objt.theTags" type="text">
                     </b-form-input>
                   </b-form-group>
@@ -94,7 +94,7 @@ Authors: Shamal Faily
           </b-col>
         </b-row>
         <b-row><b-container fluid>
-          <b-card header="Environments" no-body class="text-left">
+          <b-card header="Environments" no-body class="font-weight-bold text-left">
             <template slot="header">
               <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addEnvironment"/> Environment
             </template> 

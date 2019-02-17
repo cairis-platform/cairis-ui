@@ -76,8 +76,8 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
         this.selected = item;
       },
       onOk(evt) {
-        evt.preventDefault();
         if (this.selected.length == 0) {
+          evt.preventDefault();
           alert("Please select a value");
         }
         else {

@@ -42,6 +42,7 @@ library.add(faBolt);
 Vue.component('font-awesome-icon',FontAwesomeIcon);
 Vue.use(BootstrapVue);
 Vue.use(VueAxios,axios);
+
 Vue.config.productionTip = false
 
 new Vue({
