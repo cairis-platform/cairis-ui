@@ -78,6 +78,12 @@ export default new Router({
       component: () => import('./views/DataFlows.vue')
     },
     {
+      path: '/dataflow/:objectName/environment/:envName',
+      name: 'dataflow',
+      component: () => import('./views/DataFlowView.vue'),
+      props: true
+    },
+    {
       path: '/dependencies',
       name: 'dependencies',
       component: () => import('./views/Dependencies.vue')

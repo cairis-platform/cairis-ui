@@ -99,6 +99,9 @@ export default {
       else if (this.dimName == 'dependency') {
         this.$router.push({ name: this.dimName, params : {envName: row.theEnvironmentName,depName : row.theDepender, deeName: row.theDependee, dpyName : row.theDependency}});
       }
+      else if (this.dimName == 'dataflow') {
+        this.$router.push({ name: this.dimName, params : {objectName: row.theName, envName: row.theEnvironmentName}});
+      }
       else {
         this.$router.push({ name: this.dimName, params : {objectName: row.theName}});
       }
@@ -109,6 +112,9 @@ export default {
       }
       if (this.dimension == 'dependency') {
         this.$router.push({ name: this.dimName, params : {envName: 'To set', depName : 'To set', deeName : 'To set', dpyName : 'To set'}});
+      }
+      if (this.dimension == 'dataflow') {
+        this.$router.push({ name: this.dimName, params : {objectName: 'New ' + this.dimName, envName : 'To set'}});
       }
       else {
         this.$router.push({ name: this.dimName, params : {objectName: 'New ' + this.dimName, domain : {type : 'asset', name : ''}}});
@@ -130,7 +136,7 @@ export default {
       this.selectedIndex = index;
       const that = this;
 
-      if (this.dimension != 'kaosassociation' && this.dimension != 'dependency') {
+      if (this.dimension != 'kaosassociation' && this.dimension != 'dependency' && this.dimension != 'dataflow') {
         const odUrl = '/api/object_dependency/dimension/' + this.dimension + '/object/' + this.selectedObject;
         axios.get(odUrl,{
           baseURL : this.$store.state.url,
@@ -160,6 +166,9 @@ export default {
       }
       else if (this.dimension == 'dependency') {
         deleteUrl += this.selectedObject.envName + '/depender/' + this.selectedObject.theDepender + '/dependee/' + this.selectedObject.theDependee + '/dependency/' + this.selectedObject.theDependency;
+      }
+      else if (this.dimension == 'dataflow') {
+        deleteUrl += this.selectedObject.objectName + '/environment/' + this.selectedObject.envName;
       }
       else {
         deleteUrl += JSON.parse(JSON.stringify(this.selectedObject));
