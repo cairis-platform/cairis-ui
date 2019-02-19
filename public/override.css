@@ -1,0 +1,17 @@
+.b-nav-dropdown>.dropdown-menu {
+    background-color: #343a40;
+    border-color: rgba(0, 0, 0, 0);
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.b-nav-dropdown>.dropdown-menu>.dropdown-item {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.b-nav-dropdown>.dropdown-menu>.dropdown-item:hover {
+    background-color: rgba(248, 249, 250, 0.1);
+}
+
+.b-nav-dropdown>.dropdown-menu>.dropdown-divider {
+    border-top: 1px solid rgba(186, 188, 191, 0.5);
+}
