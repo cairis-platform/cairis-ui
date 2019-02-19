@@ -21,6 +21,8 @@ Authors: Shamal Faily
 -->
 
   <div class="personamodel">
+    <external-document-modal v-if="thePersonaName != ''" ref="edDialog" :external_document="this.theSelectedObject"/> 
+    <document-reference-modal v-if="thePersonaName != ''" ref="drDialog" :document_reference="this.theSelectedObject"/> 
     <b-card no-body>
     <b-container fluid>
       <b-row>
@@ -43,14 +45,18 @@ Authors: Shamal Faily
       </b-row>
     </b-container>
     </b-card>
-    <graphical-model v-if="thePersonaName != ''" :api="personaModelURI" />
+    <graphical-model v-if="thePersonaName != ''" :api="personaModelURI" v-on:graphical-model-url="nodeClicked" />
   </div>
 </template>
 
 <script>
 
+import axios from 'axios';
 import GraphicalModel from '@/components/GraphicalModel.vue'
 import DimensionSelect from '@/components/DimensionSelect.vue'
+import ExternalDocumentModal from '@/components/ExternalDocumentModal.vue'
+import DocumentReferenceModal from '@/components/DocumentReferenceModal.vue'
+import EventBus from '../utils/event-bus';
 
 export default {
   computed : {
@@ -67,6 +73,7 @@ export default {
       theBehaviourType : 'all',
       theCharacteristic : 'all',
       behaviourTypes : ['all','Activities','Aptitudes','Attitudes','Motivations','Skills','Environment Narrative','Intrinsic','Contextual'],
+      theSelectedObject: null
     }
   },
   watch : {
@@ -78,9 +85,43 @@ export default {
   },
   components : {
     DimensionSelect,
+    ExternalDocumentModal,
+    DocumentReferenceModal,
     GraphicalModel
   },
   methods : {
+    nodeClicked(url) {
+      const dimName = url.slice(5).substring(0, url.slice(5).indexOf('/'))
+      if (['grounds','warrants','backings','rebuttals'].indexOf(dimName) == -1) {
+        return;
+      }
+      let objtUrl = '/api/document_references' + url.slice(12);
+      if (dimName == 'backings') {
+        objtUrl = '/api/external_documents' + url.slice(13);
+      }
+      else if (dimName == 'warrants') {
+        objtUrl = '/api/document_references' + url.slice(13);
+      }
+      else if (dimName == 'rebuttals') {
+        objtUrl = '/api/document_references' + url.slice(14);
+      }
+      axios.get(objtUrl,{
+        baseURL : this.$store.state.url,
+        params : {'session_id' : this.$store.state.session}
+      })
+      .then(response => {
+        this.theSelectedObject = response.data;
+        if (dimName == 'backings') {
+          this.$refs.edDialog.show();  
+        }
+        else {
+          this.$refs.drDialog.show();  
+        }
+      })
+      .catch((error) => {
+        EventBus.$emit('operation-failure',error)
+      })
+    },
     personaSelected(personaName) {
       this.thePersonaName = personaName
       if (this.$refs.personaModelBehaviourType != undefined) {
