@@ -29,7 +29,8 @@ Authors: Nathan Jenkins
     color: rgba(255, 255, 255, 0.5);
 }
 
-.b-nav-dropdown>.dropdown-menu>.dropdown-item:hover {
+.b-nav-dropdown>.dropdown-menu>.dropdown-item:hover,
+.b-nav-dropdown>.dropdown-menu>.dropdown-item:focus {
     background-color: rgba(248, 249, 250, 0.1);
 }
 
