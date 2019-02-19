@@ -62,22 +62,22 @@ Authors: Shamal Faily
                 </b-col>
               </b-row>
               <b-row>
-                <b-col md="1">
-                  <b-form-group label="Association" label-class="font-weight-bold text-sm-left" label-cols="2" label-for="theAssociationRadio" >
+                <b-col md="2">
+                  <b-form-group label="Association" label-class="font-weight-bold text-sm-left" label-for="theAssociationRadio" >
                     <b-form-radio-group buttons button-variant="outline-primary" size="sm" id="theAssociationRadio" v-model="objt.theAssociationType" :options="refTypeOptions" class="mb-3" required name="theAssociationRadio">
                     </b-form-radio-group>
                   </b-form-group>
                 </b-col>
-                <b-col md="1">
-                  <b-form-group label="Alternative" label-class="font-weight-bold text-sm-left" label-cols="2" label-for="theHeadNryInput" >
+                <b-col md="2">
+                  <b-form-group label="Alternative" label-class="font-weight-bold text-sm-left" label-for="theHeadNryInput" >
                     <b-form-radio-group buttons button-variant="outline-primary" size="sm" v-model="objt.theAlternativeId">
                       <b-form-radio value=0>No</b-form-radio>
                       <b-form-radio value=1>Yes</b-form-radio>
                     </b-form-radio-group>
                   </b-form-group>
                 </b-col>
-                <b-col md="10">
-                  <b-form-group label="Rationale" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theRationaleInput" >
+                <b-col md="8">
+                  <b-form-group label="Rationale" label-class="font-weight-bold text-sm-left" label-for="theRationaleInput" >
                     <b-form-input id="theRationaleInput" size="sm" v-model="objt.theRationale"></b-form-input>
                   </b-form-group>
                 </b-col>

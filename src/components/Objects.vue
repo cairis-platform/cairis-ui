@@ -234,6 +234,9 @@ export default {
     else if (this.dimName == 'documentreference') {
       this.dimension = 'document_reference';
     }
+    else if (this.dimName == 'trustboundary') {
+      this.dimension = 'trust_boundary';
+    }
   }
 }
 </script>

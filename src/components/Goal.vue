@@ -76,13 +76,13 @@ Authors: Shamal Faily
                     <b-tab title="Definition" active>
                       <b-row>
                         <b-col md="6">
-                          <b-form-group label="Category" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theCategorySelect">
+                          <b-form-group label="Category" label-class="text-md-left" label-for="theCategorySelect">
                             <b-form-select id="theCategorySelect" v-model="category" :options="goalCategories" class="mb-3" required>
                             </b-form-select>
                           </b-form-group>
                         </b-col>
                         <b-col md="6">
-                          <b-form-group label="Priority" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theType">
+                          <b-form-group label="Priority" label-class="text-md-left" label-for="theType">
                             <b-form-radio-group v-model="priority">
                               <b-form-radio value="Low">Low</b-form-radio>
                               <b-form-radio value="Medium">Medium</b-form-radio>
@@ -93,13 +93,13 @@ Authors: Shamal Faily
                       </b-row>
                       <b-row>
                         <b-col md="6">
-                          <b-form-group label="Definition" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theDefinitionInput">
+                          <b-form-group label="Definition" label-class="text-md-left" label-for="theDefinitionInput">
                             <b-form-textarea id="theDefinition" v-model="definition" type="text" :rows=2 :max-rows=4 required>
                             </b-form-textarea>
                           </b-form-group>
                         </b-col>
                         <b-col md="6">
-                          <b-form-group label="Fit Criterion" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theFitCriterionInput">
+                          <b-form-group label="Fit Criterion" label-class="text-md-left" label-for="theFitCriterionInput">
                             <b-form-textarea id="theFitCriterionInput" v-model="fitCriterion" type="text" :rows=2 :max-rows=4 required>
                             </b-form-textarea>
                           </b-form-group>
@@ -107,7 +107,7 @@ Authors: Shamal Faily
                       </b-row>
                       <b-row>
                         <b-col md="12">
-                          <b-form-group label="Issue" label-class="font-weight-bold text-md-left" label-cols="1" label-for="theIssueInput">
+                          <b-form-group label="Issue" label-class="text-md-left" label-for="theIssueInput">
                             <b-form-textarea id="theIssueInput" v-model="issue" type="text" :rows=2 :max-rows=4 required>
                             </b-form-textarea>
                           </b-form-group>

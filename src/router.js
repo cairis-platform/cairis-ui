@@ -303,6 +303,12 @@ export default new Router({
       component: () => import('./views/TrustBoundaries.vue')
     },
     {
+      path: '/trustboundary/:objectName',
+      name: 'trustboundary',
+      component: () => import('./views/TrustBoundaryView.vue'),
+      props: true
+    },
+    {
       path: '/usecases',
       name: 'usecases',
       component: () => import('./views/UseCases.vue')

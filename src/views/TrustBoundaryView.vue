@@ -82,7 +82,7 @@ export default {
     }
   },
   methods : {
-    commitTrustBoundaries(objt) {
+    commitTrustBoundary(objt) {
       this.objt = objt
       var updateUrl = this.$store.state.url + "/api/trust_boundaries/name/" + this.objectName + "?session_id=" + this.$store.state.session;
       var createUrl = this.$store.state.url + "/api/trust_boundaries";
