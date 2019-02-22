@@ -181,6 +181,11 @@ export default new Router({
       props: true
     },
     {
+      path: '/locationsmodel',
+      name: 'locationsmodel',
+      component: () => import('./views/LocationsModelView.vue')
+    },
+    {
       path: '/obstacles',
       name: 'obstacles',
       component: () => import('./views/Obstacles.vue')

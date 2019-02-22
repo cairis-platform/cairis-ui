@@ -79,7 +79,7 @@ Authors: Shamal Faily
         <b-dropdown-item :to="{name: 'assetmodel'}">Asset</b-dropdown-item>
         <b-dropdown-item :to="{name: 'dataflowdiagram'}">Data Flow</b-dropdown-item>
         <b-dropdown-item :to="{name: 'goalmodel'}">Goal</b-dropdown-item>
-        <b-dropdown-item href="#">Locations</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'locationsmodel'}">Locations</b-dropdown-item>
         <b-dropdown-item href="#">Misusability</b-dropdown-item>
         <b-dropdown-item :to="{name: 'obstaclemodel'}">Obstacle</b-dropdown-item>
         <b-dropdown-item :to="{name: 'personamodel'}">Persona</b-dropdown-item>
