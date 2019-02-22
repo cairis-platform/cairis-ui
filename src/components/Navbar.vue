@@ -73,7 +73,7 @@ Authors: Shamal Faily
         <b-dropdown-item href="#">Locations</b-dropdown-item>
       </b-nav-item-dropdown>
       <b-nav-item-dropdown text="Models">
-        <b-dropdown-item href="#">Validate</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'validationmodel'}">Validate</b-dropdown-item>
         <b-dropdown-divider></b-dropdown-divider>
         <b-dropdown-item href="#">Architectural Pattern</b-dropdown-item>
         <b-dropdown-item :to="{name: 'assetmodel'}">Asset</b-dropdown-item>

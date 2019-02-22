@@ -341,6 +341,11 @@ export default new Router({
       props: true
     },
     {
+      path: '/validationmodel',
+      name: 'validationmodel',
+      component: () => import('./views/ValidationView.vue')
+    },
+    {
       path: '/vulnerabilities',
       name: 'vulnerabilities',
       component: () => import('./views/Vulnerabilities.vue')
