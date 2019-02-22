@@ -36,35 +36,49 @@ Authors: Shamal Faily
         <b-tabs card>
           <b-tab title="Summary" active>
             <b-card bg-variant="light">
-              <b-form-group label="Asset" label-class="text-md-left" label-cols="1" label-for="theAssetInput">
-                <b-form-input id="theAssetInput" v-model="objt.theName" type="text" required>
-                </b-form-input>
-              </b-form-group>
-              <b-form-group label="Tags" label-class="text-md-left" label-cols="1" label-for="theTagsInput">
-                <b-form-input id="theTagsInput" v-model="objt.theTags" type="text">
-                </b-form-input>
-              </b-form-group>
-              <b-form-group label="Shortcode" label-class="text-md-left" label-cols="1" label-for="theShortCodeInput">
-                <b-form-input id="theShortCodeInput" v-model="objt.theShortCode" type="text" required>
-                </b-form-input>
-              </b-form-group>
-              <b-form-group label="Type" label-class="text-md-left" label-cols="1" label-for="theTypeInput">
-                <b-form-select id="theTypeInput" v-model="objt.theType" :options="assetTypes" class="mb-3" required>
-                </b-form-select>
-              </b-form-group>
+              <b-row>
+                <b-col md="6">
+                  <b-form-group label="Asset" label-class="font-weight-bold text-md-left" label-for="theAssetInput">
+                    <b-form-input id="theAssetInput" v-model="objt.theName" type="text" required>
+                    </b-form-input>
+                  </b-form-group>
+                </b-col>
+                <b-col md="2">
+                  <b-form-group label="Shortcode" label-class="font-weight-bold text-md-left" label-for="theShortCodeInput">
+                    <b-form-input id="theShortCodeInput" v-model="objt.theShortCode" type="text" required>
+                    </b-form-input>
+                  </b-form-group>
+                </b-col>
+                <b-col md="4">
+                  <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-for="theTypeInput">
+                    <b-form-select id="theTypeInput" v-model="objt.theType" :options="assetTypes" class="mb-3" required>
+                    </b-form-select>
+                  </b-form-group>
+                </b-col>
+              </b-row>
+              <b-row>
+                <b-col md="6">
+                  <b-form-group label="Description" label-class="font-weight-bold text-md-left" label-for="theDescriptionInput">
+                    <b-form-textarea id="theDescription" v-model="objt.theDescription" type="text" :rows=4 :max-rows=4 required>
+                    </b-form-textarea>
+                  </b-form-group>
+                </b-col>
+                <b-col md="6">
+                  <b-form-group label="Significance" label-class="font-weight-bold text-md-left" label-for="theSignificanceInput">
+                    <b-form-textarea id="theSignificance" v-model="objt.theSignificance" type="text" :rows=4 :max-rows=4 required>
+                    </b-form-textarea>
+                  </b-form-group>
+                </b-col>
+              </b-row>
+              <b-row>
+                <b-col md="12">
+                  <b-form-group label="Tags" label-class="font-weight-bold text-md-left" label-cols="1" label-for="theTagsInput">
+                    <b-form-input id="theTagsInput" v-model="objt.theTags" type="text">
+                    </b-form-input>
+                  </b-form-group>
+                </b-col>
+              </b-row>
             </b-card> 
-          </b-tab>
-          <b-tab title="Description">
-            <b-card bg-variant="light">
-              <b-form-textarea id="theDescription" v-model="objt.theDescription" type="text" :rows=2 :max-rows=4 required>
-              </b-form-textarea>
-            </b-card>
-          </b-tab>
-          <b-tab title="Significance">
-            <b-card bg-variant="light">
-              <b-form-textarea id="theSignificance" v-model="objt.theSignificance" type="text" :rows=2 :max-rows=4 required>
-              </b-form-textarea>
-            </b-card>
           </b-tab>
           <b-tab title="Criticality">
             <b-card bg-variant="light">

@@ -93,6 +93,9 @@ export default {
       else if (this.dimName == 'vulnerability') {
         this.$router.push({ name: this.dimName, params : {objectName: row.theVulnerabilityName}});
       }
+      else if (this.dimName == 'personacharacteristic') {
+        this.$router.push({ name: this.dimName, params : {objectName: row.theCharacteristic}});
+      }
       else if (this.dimName == 'kaosassociation') {
         this.$router.push({ name: this.dimName, params : {envName: row.theEnvironmentName,goalName : row.theGoal, subGoalName: row.theSubGoal}});
       }
@@ -130,6 +133,9 @@ export default {
       else if (this.dimName == 'dependency') {
         this.selectedObject = {'envName' : this.items[index].theEnvironmentName,'theDepender' : this.items[index].theDepender,'theDependee' : this.items[index].theDependee, 'theDependency' : this.items[index].theDependency };
       }
+      else if (this.dimName == 'personacharacteristic') {
+        this.selectedObject = this.items[index].theCharacteristic;
+      }
       else {
         this.selectedObject = this.items[index].theName;
       }
@@ -137,7 +143,11 @@ export default {
       const that = this;
 
       if (this.dimension != 'kaosassociation' && this.dimension != 'dependency' && this.dimension != 'dataflow') {
-        const odUrl = '/api/object_dependency/dimension/' + this.dimension + '/object/' + this.selectedObject;
+        let objectDimension = this.dimension;
+        if (objectDimension == 'personacharacteristic') {
+          objectDimension = 'persona_characteristic';
+        }
+        const odUrl = '/api/object_dependency/dimension/' + objectDimension + '/object/' + this.selectedObject;
         axios.get(odUrl,{
           baseURL : this.$store.state.url,
           params : {'session_id' : this.$store.state.session}

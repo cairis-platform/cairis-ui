@@ -197,6 +197,17 @@ export default new Router({
       component: () => import('./views/ObstacleModelView.vue')
     },
     {
+      path: '/personacharacteristics',
+      name: 'personacharacteristics',
+      component: () => import('./views/PersonaCharacteristics.vue')
+    },
+    {
+      path: '/personacharacteristic/:objectName',
+      name: 'personacharacteristic',
+      component: () => import('./views/PersonaCharacteristicView.vue'),
+      props: true
+    },
+    {
       path: '/personamodel',
       name: 'personamodel',
       component: () => import('./views/PersonaModelView.vue')

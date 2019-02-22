@@ -112,7 +112,7 @@ Authors: Shamal Faily
                       </b-col>
                       <b-col md="6">
                         <b-form-group label="Narrative" label-class="font-weight-bold text-md-left" label-for="theNarrativeInput">
-                          <b-form-textarea id="theNarrativeInput" v-model="objt.theMisuseCase.theEnvironmentProperties[envPropIndex].theDescription" type="text" :rows=16 :max-rows=20 required>
+                          <b-form-textarea id="theNarrativeInput" v-model="misuseCaseNarrative" type="text" :rows=16 required>
                          </b-form-textarea>
                         </b-form-group>
                       </b-col>
@@ -162,41 +162,49 @@ export default {
       }
     },
     responses() {
-      return this.theRiskImpact[this.environmentName] != undefined ? this.theRiskImpact[this.environmentName] : [];
+      return this.theRiskImpact[this.environmentName] != undefined && this.envPropIndex != -1 ? this.theRiskImpact[this.environmentName] : [];
     },
     riskrating : {
       get : function() {
-        return this.objt.theMisuseCase.theEnvironmentProperties.length > 0 ? this.objt.theMisuseCase.theEnvironmentProperties[this.envPropIndex].theRiskRating.rating : ''
+        return this.objt.theMisuseCase.theEnvironmentProperties.length > 0 && this.envPropIndex != -1 ? this.objt.theMisuseCase.theEnvironmentProperties[this.envPropIndex].theRiskRating.rating : ''
       }
     },
     attackers : {
       get : function() {
-        return this.objt.theMisuseCase.theEnvironmentProperties.length > 0 ? this.objt.theMisuseCase.theEnvironmentProperties[this.envPropIndex].theAttackers.join(',') : ''
+        return this.objt.theMisuseCase.theEnvironmentProperties.length > 0 && this.envPropIndex != -1 ? this.objt.theMisuseCase.theEnvironmentProperties[this.envPropIndex].theAttackers.join(',') : ''
       }
     },
     assets : {
       get : function() {
-        return this.objt.theMisuseCase.theEnvironmentProperties.length > 0 ? this.objt.theMisuseCase.theEnvironmentProperties[this.envPropIndex].theAssets.join(',') : ''
+        return this.objt.theMisuseCase.theEnvironmentProperties.length > 0 && this.envPropIndex != -1 ? this.objt.theMisuseCase.theEnvironmentProperties[this.envPropIndex].theAssets.join(',') : ''
       }
     },
     objective : {
       get : function() {
-        return this.objt.theMisuseCase.theEnvironmentProperties.length > 0 ? this.objt.theMisuseCase.theEnvironmentProperties[this.envPropIndex].theObjective : ''
+        return this.objt.theMisuseCase.theEnvironmentProperties.length > 0 && this.envPropIndex != -1 ? this.objt.theMisuseCase.theEnvironmentProperties[this.envPropIndex].theObjective : ''
       }
     },
     likelihood : {
       get : function() {
-        return this.objt.theMisuseCase.theEnvironmentProperties.length > 0 ? this.objt.theMisuseCase.theEnvironmentProperties[this.envPropIndex].theLikelihood : ''
+        return this.objt.theMisuseCase.theEnvironmentProperties.length > 0 && this.envPropIndex != -1 ? this.objt.theMisuseCase.theEnvironmentProperties[this.envPropIndex].theLikelihood : ''
       }
     },
     severity : {
       get : function() {
-        return this.objt.theMisuseCase.theEnvironmentProperties.length > 0 ? this.objt.theMisuseCase.theEnvironmentProperties[this.envPropIndex].theSeverity : ''
+        return this.objt.theMisuseCase.theEnvironmentProperties.length > 0 && this.envPropIndex != -1 ? this.objt.theMisuseCase.theEnvironmentProperties[this.envPropIndex].theSeverity : ''
       }
     },
     environmentName : {
       get : function() {
-        return this.objt.theMisuseCase.theEnvironmentProperties.length > 0 ? this.objt.theMisuseCase.theEnvironmentProperties[this.envPropIndex].theEnvironmentName : ''
+        return this.objt.theMisuseCase.theEnvironmentProperties.length > 0 && this.envPropIndex != -1 ? this.objt.theMisuseCase.theEnvironmentProperties[this.envPropIndex].theEnvironmentName : ''
+      }
+    },
+    misuseCaseNarrative : {
+      get : function() {
+        return this.objt.theMisuseCase.theEnvironmentProperties.length > 0 && this.envPropIndex != -1 ? this.objt.theMisuseCase.theEnvironmentProperties[this.envPropIndex].theDescription : '';
+      },
+      set : function(v) {
+        this.objt.theMisuseCase.theEnvironmentProperties[this.envPropIndex].theDescription = v;
       }
     }
   },

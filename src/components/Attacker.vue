@@ -57,7 +57,7 @@ Authors: Shamal Faily
         </b-row>
         <b-row>
           <b-container fluid>
-            <b-card header="Environments" no-body class="font-weight-bold text-left">
+            <b-card header="Environments" no-body class="text-left">
               <template slot="header">
                 <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addEnvironment"/> Environment
               </template> 

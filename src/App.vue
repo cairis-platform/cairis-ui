@@ -41,6 +41,7 @@ Authors: Shamal Faily
 import Navbar from './components/Navbar';
 import StatusFooter from './components/StatusFooter';
 import axios from 'axios';
+import EventBus from '@/utils/event-bus';
 
 export default {
   name: 'App',
@@ -55,10 +56,9 @@ export default {
       axios.post(sessionUrl)
       .then(response => {
         that.$store.state.session = response.data['session_id'];
-        console.log('Session:' + response.data['session_id']);
       })
       .catch((error) => {
-        console.log(error);
+        EventBus.$emit('operation-failure',error)
       });
     }
   }

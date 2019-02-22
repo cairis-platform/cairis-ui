@@ -68,7 +68,7 @@ Authors: Shamal Faily
         <b-dropdown-item :to="{name: 'externaldocuments'}">External Documents</b-dropdown-item>
         <b-dropdown-item :to="{name: 'documentreferences'}">Document References</b-dropdown-item>
         <b-dropdown-item href="#">Concept References</b-dropdown-item>
-        <b-dropdown-item href="#">Persona Characteristics</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'personacharacteristics'}">Persona Characteristics</b-dropdown-item>
         <b-dropdown-item href="#">Task Characteristics</b-dropdown-item>
         <b-dropdown-item href="#">Locations</b-dropdown-item>
       </b-nav-item-dropdown>
