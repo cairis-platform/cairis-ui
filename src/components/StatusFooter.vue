@@ -20,10 +20,10 @@ under the License.
 Authors: Shamal Faily 
 -->
 
-  <b-container class="footer bg-dark" fluid>
+  <b-container class="footer" fluid>
     <transition name="fade">
-      <div v-if="isSuccess == 1"><font-awesome-icon icon="check" :style="{color: 'green'}" />  {{theStatusMessage}}</div>
-      <div v-if="isSuccess == -1"><font-awesome-icon icon="times" :style="{color: 'red'}" />  {{theStatusMessage}}</div>
+      <div v-if="isSuccess == 1" style="background-color: green;"><font-awesome-icon icon="check" :style="{color: 'black'}" />  {{theStatusMessage}}</div>
+      <div v-if="isSuccess == -1" style="background-color: red;"><font-awesome-icon icon="times" :style="{color: 'black'}" />  {{theStatusMessage}}</div>
     </transition>
   </b-container>
 
@@ -55,7 +55,7 @@ Authors: Shamal Faily
         ref.theStatusMessage = msg;
         setTimeout(function() {
           ref.isSuccess = 0;
-        },3000);
+        },6000);
       });
     }
   };
@@ -70,7 +70,7 @@ Authors: Shamal Faily
   right: 5;
   width: 100%;
   background-color: black;
-  text-align: right;
+  text-align: center;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

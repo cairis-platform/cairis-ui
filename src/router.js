@@ -229,6 +229,11 @@ export default new Router({
       component: () => import('./views/PropertiesView.vue')
     },
     {
+      path: '/requirementmodel',
+      name: 'requirementmodel',
+      component: () => import('./views/RequirementModelView.vue')
+    },
+    {
       path: '/requirements',
       name: 'requirements',
       component: () => import('./views/Requirements.vue')

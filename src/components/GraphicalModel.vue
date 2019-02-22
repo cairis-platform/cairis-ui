@@ -112,7 +112,7 @@ Authors: Shamal Faily
       this.loadModel(); 
     },
     updated() {
-      if (this.api.indexOf('api/risks/model') >= 0) {
+      if ((this.api.indexOf('api/risks/model') >= 0) || (this.api.indexOf('api/requirements/model'))) {
         this.updateRequirementsNodes();
       }
       else {
