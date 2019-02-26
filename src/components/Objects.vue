@@ -46,6 +46,9 @@ Authors: Shamal Faily
         <template slot="objectsactions" slot-scope="row">
           <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteObject(row.index)"/>
         </template>
+        <template slot="generategoalaction" slot-scope="row">
+          <font-awesome-icon icon="angle-down" :style="{color: 'green'}" @click.stop="generateGoal(row.index)"/>
+        </template>
       </b-table>
     </b-card>
   </div>
@@ -234,6 +237,20 @@ export default {
         this.theGetUrl = '/api/requirements/environment/' + envName
         this.$refs.assetFilter.selected = '';
       }
+    },
+    generateGoal(index) {
+      const ggUrl = this.$store.state.url + '/api/responses/name/' + this.items[index].theName + '/generate_goal';
+      axios.post(ggUrl,{
+        session_id : this.$store.state.session,
+        object : this.objt
+      })
+      .then(response => {
+        EventBus.$emit('operation-success',response.data.message)
+      })
+      .catch((error) => {
+        EventBus.$emit('operation-failure',error)
+      });
+
     }
   },
   mounted() {

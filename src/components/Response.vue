@@ -163,7 +163,7 @@ Authors: Shamal Faily
             <b-row v-if="detectResponse && this.objt.theEnvironmentProperties.mitigate.length > 0">
               <b-col md="12">
                 <b-form-group label="Detection Point" label-class="font-weight-bold text-sm-left" label-for="theDetectionPointRadio" >
-                  <b-form-radio-group id="theDetectionPointRadio" v-model="mitigateType">
+                  <b-form-radio-group id="theDetectionPointRadio" v-model="detectionPoint">
                     <b-form-radio value="Before">Before</b-form-radio>
                     <b-form-radio value="At">At</b-form-radio>
                     <b-form-radio value="After">After</b-form-radio>
@@ -206,7 +206,8 @@ export default {
     label : String
   },
   watch : {
-    object: 'setObject'
+    object: 'setObject',
+    mitigateType : 'updateResponseName',
   },
   mixins : [
     objectMixin
@@ -262,7 +263,7 @@ export default {
     },
     mitigateType : {
       get : function() {
-        return this.objt.theEnvironmentProperties.mitigate != undefined && this.objt.theEnvironmentProperties.mitigate.length > 0 ? this.objt.theEnvironmentProperties.mitigate[this.envPropIndex].theType : '';
+        return this.objt.theEnvironmentProperties.mitigate != undefined && this.objt.theEnvironmentProperties.mitigate.length > 0 ? this.objt.theEnvironmentProperties.mitigate[this.envPropIndex].theType : 'Mitigate';
       },
       set : function(v) {
         if (this.objt.theEnvironmentProperties.mitigate != undefined && this.objt.theEnvironmentProperties.mitigate.length > 0) {
@@ -270,17 +271,27 @@ export default {
         }
       }
     },
+    detectionPoint : {
+      get : function() {
+        return this.objt.theEnvironmentProperties.mitigate != undefined && this.objt.theEnvironmentProperties.mitigate.length > 0 ? this.objt.theEnvironmentProperties.mitigate[this.envPropIndex].theDetectionPoint : '';
+      },
+      set : function(v) {
+        if (this.objt.theEnvironmentProperties.mitigate != undefined && this.objt.theEnvironmentProperties.mitigate.length > 0) {
+          this.objt.theEnvironmentProperties.mitigate[this.envPropIndex].theDetectionPoint = v;
+        }
+      }
+    },
     preventResponse() {
-      return this.objt.theEnvironmentProperties.mitigate != undefined && this.objt.theEnvironmentProperties.mitigate[this.envPropIndex].theType == 'Prevent' ? true: false;
+      return this.objt.theEnvironmentProperties.mitigate != undefined && this.objt.theEnvironmentProperties.mitigate.length > 0 && this.objt.theEnvironmentProperties.mitigate[this.envPropIndex].theType == 'Prevent' ? true: false;
     },
     detectResponse() {
-      return this.objt.theEnvironmentProperties.mitigate != undefined && this.objt.theEnvironmentProperties.mitigate[this.envPropIndex].theType == 'Detect' ? true : false;
+      return this.objt.theEnvironmentProperties.mitigate != undefined && this.objt.theEnvironmentProperties.mitigate.length > 0 && this.objt.theEnvironmentProperties.mitigate[this.envPropIndex].theType == 'Detect' ? true : false;
     },
     deterResponse() {
-      return this.objt.theEnvironmentProperties.mitigate != undefined && this.objt.theEnvironmentProperties.mitigate[this.envPropIndex].theType == 'Deter' ? true : false;
+      return this.objt.theEnvironmentProperties.mitigate != undefined && this.objt.theEnvironmentProperties.mitigate.length > 0 && this.objt.theEnvironmentProperties.mitigate[this.envPropIndex].theType == 'Deter' ? true : false;
     },
     reactResponse() {
-      return this.objt.theEnvironmentProperties.mitigate != undefined && this.objt.theEnvironmentProperties.mitigate[this.envPropIndex].theType == 'React' ? true : false;
+      return this.objt.theEnvironmentProperties.mitigate != undefined && this.objt.theEnvironmentProperties.mitigate.length > 0 && this.objt.theEnvironmentProperties.mitigate[this.envPropIndex].theType == 'React' ? true : false;
     },
     mitigateTypeResponse() {
       return  this.preventResponse || this.detectResponse || this.deterResponse || this.reactResponse ? true : false;
@@ -341,6 +352,11 @@ export default {
       this.objt = this.object;
       this.commitLabel = this.label;
     },
+    updateResponseName() {
+      if (this.objt.theResponseType.length > 0 && this.objt.theRisk.length > 0) {
+        this.objt.theName = (this.objt.theResponseType == 'Mitigate' ? this.mitigateType : this.objt.theResponseType) + ' ' + this.objt.theRisk;
+      }
+    },
     onCommit(evt) {
       evt.preventDefault();
       if (this.checkForm()) {
@@ -375,10 +391,11 @@ export default {
     riskSelected(rName) {
       if (rName != undefined) {
         this.objt.theRisk = rName;
-        if (this.objt.theResponseType.length > 0 && this.objt.theRisk.length > 0) {
-          this.objt.theName = this.objt.theResponseType + ' ' + this.objt.theRisk;
-        }
+        this.updateResponseName();
       }
+    },
+    detectionMechanismSelected(dmName) {
+      this.objt.theEnvironmentProperties.mitigate[this.envPropIndex].theDetectionMechanisms = [dmName];
     },
     deleteEnvironment(idx) {
       if (this.theResponseType == 'Accept') {

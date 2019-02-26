@@ -38,7 +38,8 @@ export default {
       objectsFields : {
         objectsactions : {label : ''},
         theName : {label : 'Name', sortable: true},
-        theResponseType : {label : 'Type', sortable: true}
+        theResponseType : {label : 'Type', sortable: true},
+        generategoalaction : {label : ''}
       },
       theGetUrl : '/api/responses',
       theDelUrl : '/api/responses/name/',
