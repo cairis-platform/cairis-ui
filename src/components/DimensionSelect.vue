@@ -101,44 +101,51 @@ export default {
       this.$emit('dimension-select-change',item);
     },
     updateSelector() {
-      let url = this.dimensionUrl;
-      if (this.dimensionUrl.length == 0) {
-        url = "/api/dimensions/table/" + this.dimension
-        if (this.environment != '') {
-          url += '/environment/' + this.environment;
-        }
+      if (this.dimension == undefined && this.dimensionUrl == "") {
+        return;
       }
-      let ref = this;
-      axios.get(url,{
-        baseURL : this.$store.state.url,
-        params : {'session_id' : this.$store.state.session}
-      })
-      .then(response => {
-        ref.items = response.data
-        ref.items = ref.items.length > 0 ? ref.items.filter((item) => {if (!ref.existing.includes(item)) return item; }) : []
-        if (ref.items.length == 1) {
-          ref.$emit('dimension-select-change',ref.items[0]);
-        } 
-        if (ref.includeall) {
-          if (ref.dimension == 'dfd_filter') {
-            ref.items.unshift('None')
-          }
-          else if (ref.dimension == 'persona_characteristic') {
-            ref.items.unshift('All')
-          }
-          else {
-            ref.items.unshift('all')
+      else {
+        let url = this.dimensionUrl;
+        if (this.dimensionUrl.length == 0) {
+          url = "/api/dimensions/table/" + this.dimension
+          if (this.environment != '') {
+            url += '/environment/' + this.environment;
           }
         }
-        this.selected = this.initial
-      })
-      .catch((error) => {
-        EventBus.$emit('operation-failure','Error updating selector:' + error)
-      })
+        let ref = this;
+        axios.get(url,{
+          baseURL : this.$store.state.url,
+          params : {'session_id' : this.$store.state.session}
+        })
+        .then(response => {
+          ref.items = response.data
+          ref.items = ref.items.length > 0 ? ref.items.filter((item) => {if (!ref.existing.includes(item)) return item; }) : []
+          if (ref.items.length == 1) {
+            ref.$emit('dimension-select-change',ref.items[0]);
+          } 
+          if (ref.includeall) {
+            if (ref.dimension == 'dfd_filter') {
+              ref.items.unshift('None')
+            }
+            else if (ref.dimension == 'persona_characteristic') {
+              ref.items.unshift('All')
+            }
+            else {
+              ref.items.unshift('all')
+            }
+          }
+          this.selected = this.initial
+        })
+        .catch((error) => {
+          EventBus.$emit('operation-failure','Error updating selector:' + error)
+        });
+      }
     }
   },
   mounted : function() {
-    this.updateSelector();
+    if (this.dimension != undefined || this.dimensionUrl != "") {
+      this.updateSelector();
+    }
   }
 }
 

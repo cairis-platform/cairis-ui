@@ -255,6 +255,12 @@ export default new Router({
       component: () => import('./views/Responses.vue')
     },
     {
+      path: '/response/:objectName',
+      name: 'response',
+      component: () => import('./views/ResponseView.vue'),
+      props: true
+    },
+    {
       path: '/responsibilitymodel',
       name: 'responsibilitymodel',
       component: () => import('./views/ResponsibilityModelView.vue')

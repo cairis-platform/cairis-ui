@@ -22,8 +22,8 @@ Authors: Shamal Faily
 
   <b-modal ref="dimensionDialog" :title="this.dialogTitle"  @ok="onOk">
     <b-card>
-      <dimension-select v-if="environment == ''" :dimension=this.dimension :existing=this.existing :initial=this.initial v-on:dimension-select-change="dimensionSelected" />
-      <dimension-select v-if="environment != ''" :environment=this.environment :dimension=this.dimension :existing=this.existing :initial=this.initial v-on:dimension-select-change="dimensionSelected" />
+      <dimension-select v-if="environment == ''" :dimensionUrl=this.dimensionUrl :dimension=this.dimension :existing=this.existing :initial=this.initial v-on:dimension-select-change="dimensionSelected" />
+      <dimension-select v-if="environment != ''" :dimensionUrl=this.dimensionUrl :environment=this.environment :dimension=this.dimension :existing=this.existing :initial=this.initial v-on:dimension-select-change="dimensionSelected" />
     </b-card>
   </b-modal>
 </template>
@@ -53,6 +53,18 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
         default : function() {
           return '';
         }
+      },
+      dimensionUrl : {
+        type: String,
+        default : function() {
+          return '';
+        }
+      },
+      label : {
+        type: String,
+        default : function() {
+          return '';
+        }
       }
     },
     data () {
@@ -65,7 +77,7 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
     },
     computed : {
       dialogTitle() {
-        return 'Select ' + this.dimension;
+        return 'Select ' + (this.label.length > 0 ? this.label : (this.dimension != undefined ? this.dimension : 'Object' ) );
       }
     },
     methods : {
