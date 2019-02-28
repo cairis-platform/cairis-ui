@@ -101,7 +101,7 @@ export default {
       this.$emit('dimension-select-change',item);
     },
     updateSelector() {
-      if (this.dimension == undefined && this.dimensionUrl == "") || (this.$store.state.session == '') {
+      if ((this.dimension == undefined && this.dimensionUrl == "") || (this.$store.state.session == '')) {
         return;
       }
       else {

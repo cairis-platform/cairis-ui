@@ -22,7 +22,7 @@ Authors: Shamal Faily
 
   <div class="home">
     <b-breadcrumb :items="bcItems" />
-    <ModelSummary />
+    <ModelSummary v-if="this.$store.state.session != ''" />
   </div>
 </template>
 

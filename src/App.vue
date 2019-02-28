@@ -56,7 +56,6 @@ export default {
       axios.post(sessionUrl)
       .then(response => {
         that.$store.state.session = response.data['session_id'];
-        that.$router.push({ name: 'home'});
       })
       .catch((error) => {
         EventBus.$emit('operation-failure',error)

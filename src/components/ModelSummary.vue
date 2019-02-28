@@ -190,6 +190,11 @@ export default {
   },
   mounted() {
     if (this.$store.state.session != '') {
+      this.loadEnvironments();
+    }
+  },
+  methods : {
+    loadEnvironments() {
       let that = this;
       axios.get('/api/dimensions/table/environment',{
         baseURL : this.$store.state.url,
@@ -198,14 +203,12 @@ export default {
       .then(response => {
         const firstEnvName = response.data[0];
         that.$refs.modelSummaryEnvironment.selected = firstEnvName;
-        this.selectedEnvironment = firstEnvName;
+        that.selectedEnvironment = firstEnvName;
       })
       .catch((error) => {
         console.log(error)
       });
-    }
-  },
-  methods : {
+    },
     onEnvironmentSelected(item) {
       this.selectedEnvironment = item;
     },
