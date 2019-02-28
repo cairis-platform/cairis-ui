@@ -34,11 +34,11 @@ Authors: Shamal Faily
       <b-form-group label="Priority" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="thePriority" >
         <b-form-input readonly id="thePriority" v-model="priority"></b-form-input>
       </b-form-group>
-      <b-form-group label="Definition" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theDefinition" >
+      <b-form-group label="Definition" label-class="font-weight-bold text-sm-left" label-for="theDefinition" >
         <b-form-textarea id="theDefinition" v-model="definition" type="text" :rows=2 :max-rows="4" readonly>
         </b-form-textarea>
       </b-form-group>
-      <b-form-group label="Fit Criterion" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theFitCriterion" >
+      <b-form-group label="Fit Criterion" label-class="font-weight-bold text-sm-left" label-for="theFitCriterion" >
         <b-form-textarea id="theFitCriterion" v-model="fitCriterion" type="text" :rows=2 :max-rows="4" readonly>
         </b-form-textarea>
       </b-form-group>

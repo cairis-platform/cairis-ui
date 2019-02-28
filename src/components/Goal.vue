@@ -54,7 +54,7 @@ Authors: Shamal Faily
         </b-row>
         <b-row>
           <b-container fluid>
-            <b-card header="Environments" no-body class="font-weight-bold text-left">
+            <b-card header="Environments" no-body class="text-left">
               <template slot="header">
                 <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addEnvironment"/> Environment
               </template> 
@@ -114,7 +114,7 @@ Authors: Shamal Faily
                         </b-col>
                       </b-row>
                     </b-tab>
-                    <b-tab title="Goals" active>
+                    <b-tab title="Goals">
                       <b-container fluid>
                         <b-row>
                           <b-col md="12">
@@ -131,7 +131,7 @@ Authors: Shamal Faily
                         </b-row>
                       </b-container>
                     </b-tab>
-                    <b-tab title="Sub-Goals" active>
+                    <b-tab title="Sub-Goals">
                       <b-container fluid>
                         <b-row>
                           <b-col md="12">
@@ -148,7 +148,7 @@ Authors: Shamal Faily
                         </b-row>
                       </b-container>
                     </b-tab>
-                    <b-tab title="Concerns" active>
+                    <b-tab title="Concerns">
                       <b-container fluid>
                         <b-row>
                           <b-col md="4">

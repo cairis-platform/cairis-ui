@@ -189,19 +189,21 @@ export default {
     selectedEnvironment : 'reloadModels'
   },
   mounted() {
-    let that = this;
-    axios.get('/api/dimensions/table/environment',{
-      baseURL : this.$store.state.url,
-      params : {'session_id' : this.$store.state.session}
-    })
-    .then(response => {
-      const firstEnvName = response.data[0];
-      that.$refs.modelSummaryEnvironment.selected = firstEnvName;
-      this.selectedEnvironment = firstEnvName;
-    })
-    .catch((error) => {
-      console.log(error)
-    });
+    if (this.$store.state.session != '') {
+      let that = this;
+      axios.get('/api/dimensions/table/environment',{
+        baseURL : this.$store.state.url,
+        params : {'session_id' : this.$store.state.session}
+      })
+      .then(response => {
+        const firstEnvName = response.data[0];
+        that.$refs.modelSummaryEnvironment.selected = firstEnvName;
+        this.selectedEnvironment = firstEnvName;
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+    }
   },
   methods : {
     onEnvironmentSelected(item) {

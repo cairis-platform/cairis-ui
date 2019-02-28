@@ -86,7 +86,7 @@ Authors: Shamal Faily
         </b-card>
       </b-container>
       <b-container fluid>
-        <b-card header="Environments" class="font-weight-bold text-left">
+        <b-card header="Environments" class="text-left">
           <template slot="header">
             <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addEnvironment"/> Environment
           </template> 

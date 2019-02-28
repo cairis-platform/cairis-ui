@@ -21,7 +21,7 @@ Authors: Shamal Faily
 -->
   <div class="attacker">
     <dimension-modal ref="environmentDialog" dimension="environment" :existing="environmentNames" v-on:dimension-modal-update="addAttackerEnvironmentProperty"/> 
-    <dimension-modal ref="roleDialog" dimension="role" :existing="environmentRoles" v-on:dimension-modal-update="addAttackerRole"/> 
+    <dimension-modal ref="roleDialog" dimension="role" :existing="environmentRoleNames" v-on:dimension-modal-update="addAttackerRole"/> 
     <dimension-modal ref="motiveDialog" dimension="motivation" :existing="environmentMotives" v-on:dimension-modal-update="addAttackerMotive"/> 
     <capability-modal ref="capabilityDialog" :existing="capabilityNames" v-on:capability-modal-update="addAttackerCapability"/> 
     <p v-if="errors.length">
@@ -148,6 +148,9 @@ export default {
       return this.objt.theImage != '' ? this.$store.state.url + '/images/' + this.objt.theImage : this.$store.state.url + '/assets/default-avatar.png'
     },
     environmentRoles() {
+      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theRoles.map(r => ({name: r})) : []
+    },
+    environmentRoleNames() {
       return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theRoles : []
     },
     environmentMotives() {

@@ -31,16 +31,14 @@ Authors: Shamal Faily
       <b-form-group label="Category" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theCategory" >
         <b-form-input readonly id="theCategory" v-model="category"></b-form-input>
       </b-form-group>
-      <b-form-group label="Definition" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theDefinition" >
-        <b-form-textarea id="theDefinition" v-model="definition" type="text" :rows=2 :max-rows="4" readonly>
-        </b-form-textarea>
+      <b-form-group label="Definition" label-class="font-weight-bold text-sm-left" label-for="theDefinition" >
+        <b-form-textarea id="theDefinition" v-model="definition" type="text" rows="2" max-rows="4" readonly />
       </b-form-group>
       <b-form-group label="Probability" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theProbability" >
-        <b-form-input readonly id="theProbability" v-model="probability"></b-form-input>
+        <b-form-input readonly id="theProbability" v-model="probability" />
       </b-form-group>
-      <b-form-group label="Rationale" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theProbabilityRationale" >
-        <b-form-textarea id="theProbabilityRationale" v-model="rationale" type="text" :rows=2 :max-rows="4" readonly>
-        </b-form-textarea>
+      <b-form-group label="Rationale" label-class="font-weight-bold text-sm-left" label-for="theProbabilityRationale" >
+        <b-form-textarea id="theProbabilityRationale" v-model="rationale" type="text" rows="2" max-rows="4" readonly />
       </b-form-group>
       <b-table bordered small :items="concerns" :fields="concernTableFields">
       </b-table> 
