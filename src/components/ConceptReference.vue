@@ -19,7 +19,7 @@ under the License.
 
 Authors: Shamal Faily 
 -->
-  <div class="documentreference">
+  <div class="conceptreference">
     <p v-if="errors.length">
       <b>Please correct the following error(s):</b>
       <ul>
@@ -36,16 +36,19 @@ Authors: Shamal Faily
                 <b-form-input id="theNameInput" v-model="objt.theName" type="text" required>
                 </b-form-input>
               </b-form-group>
-              <b-form-group label="External Document" label-class="font-weigh-bold text-md-left" label-for="theDocumentSelect">
-                <dimension-select id="theDocumentSelect" dimension='external_document' :initial="this.objt.theDocName" v-on:dimension-select-change="docNameSelected" />
+              <b-form-group label="Dimension" label-class="font-weigh-bold text-md-left" label-for="theDimensionRadio">
+                <b-form-radio-group id="theDimensionRadio" v-model="objt.theDimName">
+                  <b-form-radio value="persona">Persona</b-form-radio>
+                  <b-form-radio value="requirement">Requirement</b-form-radio>
+                  <b-form-radio value="task">Task</b-form-radio>
+                  <b-form-radio value="usecase">Use Case</b-form-radio>
+                </b-form-radio-group>
               </b-form-group>
-              <b-form-group label="Contributor" label-class="font-weight-bold text-md-left" label-for="theContributorInput">
-                <b-form-input id="theContributorInput" v-model="objt.theContributor" type="text" required>
-                </b-form-input>
+              <b-form-group label="Object" label-class="font-weigh-bold text-md-left" label-for="theObjectSelect">
+                <dimension-select id="theObjectSelect" ref="theObjectSelect" :dimension='objt.theDimName' :initial="objt.theObjtName" v-on:dimension-select-change="objectNameSelected" />
               </b-form-group>
-              <b-form-group label="Excerpt" label-class="font-weight-bold text-md-left" label-for="theExcerptInput">
-                <b-form-textarea id="theExcerptInput" v-model="objt.theExcerpt" type="text" :rows=4 :max-rows=6 required>
-                </b-form-textarea>
+              <b-form-group label="Description" label-class="font-weight-bold text-md-left" label-for="theDescriptionText">
+                <b-form-textarea id="theDescriptionText" v-model="objt.theDescription" type="text" rows="4" max-rows="6" required />
               </b-form-group>
             </b-container>
           </b-col>
@@ -71,7 +74,7 @@ import objectMixin from '../mixins/objectMixin'
 import DimensionSelect from '@/components/DimensionSelect.vue'
 
 export default {
-  name : 'document-reference',
+  name : 'concept-reference',
   props : {
     object : Object,
     label : String
@@ -95,31 +98,32 @@ export default {
   methods : {
     setObject() {
       this.objt = this.object;
+      this.$refs.theObjectSelect.selected = this.objt.theObjtName;
       this.commitLabel = this.label;
     },
     onCommit(evt) {
       evt.preventDefault();
       if (this.checkForm()) {
-        this.$emit('documentreference-commit',this.objt);
+        this.$emit('conceptreference-commit',this.objt);
       }
     },
     onCancel(evt) {
       evt.preventDefault();
-      this.$router.push({ name: 'documentreferences'})
+      this.$router.push({ name: 'conceptreferences'})
     },
     checkForm() {
       this.errors = []
       if (this.objt.theName.length == 0) {
-        this.errors.push('Document Reference name is required');
+        this.errors.push('Concept Reference name is required');
       }
-      if (this.objt.theDocName.length == 0) {
-        this.errors.push('External Document is required');
+      if (this.objt.theDimName.length == 0) {
+        this.errors.push('Dimenstion is required');
       }
-      if (this.objt.theContributor.length == 0) {
-        this.errors.push('Contributor is required');
+      if (this.objt.theObjtName.length == 0) {
+        this.errors.push('Object is required');
       }
-      if (this.objt.theExcerpt.length == 0) {
-        this.errors.push('Excerpt is required');
+      if (this.objt.theDescription.length == 0) {
+        this.errors.push('Description is required');
       }
       if (!this.errors.length) {
         return true;
@@ -128,8 +132,8 @@ export default {
         return false;
       }
     },
-    docNameSelected(item) {
-      this.objt.theDocName = item;
+    objectNameSelected(item) {
+      this.objt.theObjtName = item;
     }
   }
 }

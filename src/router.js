@@ -63,6 +63,17 @@ export default new Router({
       component: () => import('./views/About.vue')
     },
     {
+      path: '/conceptreferences',
+      name: 'conceptreferences',
+      component: () => import('./views/ConceptReferences.vue')
+    },
+    {
+      path: '/conceptreference/:objectName',
+      name: 'conceptreference',
+      component: () => import('./views/ConceptReferenceView.vue'),
+      props: true
+    },
+    {
       path: '/counteremeasures',
       name: 'countermeasures',
       component: () => import('./views/Countermeasures.vue')
