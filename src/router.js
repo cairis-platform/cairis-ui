@@ -68,6 +68,12 @@ export default new Router({
       component: () => import('./views/Countermeasures.vue')
     },
     {
+      path: '/countermeasure/:objectName',
+      name: 'countermeasure',
+      component: () => import('./views/CountermeasureView.vue'),
+      props: true
+    },
+    {
       path: '/dataflowdiagram',
       name: 'dataflowdiagram',
       component: () => import('./views/DataFlowDiagramView.vue')

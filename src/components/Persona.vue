@@ -62,39 +62,32 @@ Authors: Shamal Faily
                 </b-card>
               </b-tab>
               <b-tab title="Activities">
-                <b-form-textarea id="theActivities" v-model="objt.theActivities" type="text" :rows=10 :max-rows=12 required>
-                </b-form-textarea>
+                <b-form-textarea id="theActivities" v-model="objt.theActivities" type="text" rows="10" max-rows="10" required />
               </b-tab>
               <b-tab title="Attitudes">
-                <b-form-textarea id="theAttitudes" v-model="objt.theAttitudes" type="text" :rows=10 :max-rows=12 required>
-                </b-form-textarea>
+                <b-form-textarea id="theAttitudes" v-model="objt.theAttitudes" type="text" rows="10" max-rows="10" required />
               </b-tab>
               <b-tab title="Aptitudes">
-                <b-form-textarea id="theAptitudes" v-model="objt.theAptitudes" type="text" :rows=10 :max-rows=12 required>
-                </b-form-textarea>
+                <b-form-textarea id="theAptitudes" v-model="objt.theAptitudes" type="text" rows="10" max-rows="10" required />
               </b-tab>
               <b-tab title="Motivations">
-                <b-form-textarea id="theMotivations" v-model="objt.theMotivations" type="text" :rows=10 :max-rows=12 required>
-                </b-form-textarea>
+                <b-form-textarea id="theMotivations" v-model="objt.theMotivations" type="text" rows="10" max-rows="10" required />
               </b-tab>
               <b-tab title="Skills">
-                <b-form-textarea id="theSkills" v-model="objt.theSkills" type="text" :rows=10 :max-rows=12 required>
-                </b-form-textarea>
+                <b-form-textarea id="theSkills" v-model="objt.theSkills" type="text" rows="10" max-rows="10" required />
               </b-tab>
               <b-tab title="Contextual Trust">
-                <b-form-textarea id="theContextual" v-model="objt.theContextual" type="text" :rows=10 :max-rows=12 required>
-                </b-form-textarea>
+                <b-form-textarea id="theContextual" v-model="objt.theContextual" type="text" rows="10" max-rows="10" required />
               </b-tab>
               <b-tab title="Intrinsic Trust">
-                <b-form-textarea id="theIntrinsic" v-model="objt.theIntrinsic" type="text" :rows=10 :max-rows=12 required>
-                </b-form-textarea>
+                <b-form-textarea id="theIntrinsic" v-model="objt.theIntrinsic" type="text" rows="10" max-rows="10" required />
               </b-tab>
             </b-tabs>
             </b-card>
           </b-col>
         </b-row>
         <b-row><b-container fluid>
-          <b-card header="Environments" no-body class="font-weight-bold text-left">
+          <b-card header="Environments" no-body class="text-left">
             <template slot="header">
               <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addEnvironment"/> Environment
             </template> 
@@ -132,8 +125,7 @@ Authors: Shamal Faily
                      </b-row>
                    </b-tab>
                    <b-tab title="Narrative">
-                     <b-form-textarea id="theNarrative" v-model="objt.theEnvironmentProperties[envPropIndex].theNarrative" type="text" :rows=2 :max-rows=4 required>
-                     </b-form-textarea>
+                     <b-form-textarea id="theNarrative" v-model="objt.theEnvironmentProperties[envPropIndex].theNarrative" type="text" rows="4" max-rows="4" required />
                    </b-tab>
                  </b-tabs>
                </b-col>

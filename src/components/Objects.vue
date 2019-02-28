@@ -223,7 +223,7 @@ export default {
          })
         .catch((error) => {
           EventBus.$emit('operation-failure',error)
-        })
+        });
       }
     },
     assetSelected(assetName) {

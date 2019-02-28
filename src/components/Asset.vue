@@ -51,22 +51,19 @@ Authors: Shamal Faily
                 </b-col>
                 <b-col md="4">
                   <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-for="theTypeInput">
-                    <b-form-select id="theTypeInput" v-model="objt.theType" :options="assetTypes" class="mb-3" required>
-                    </b-form-select>
+                    <b-form-select id="theTypeInput" v-model="objt.theType" :options="assetTypes" class="mb-3" required />
                   </b-form-group>
                 </b-col>
               </b-row>
               <b-row>
                 <b-col md="6">
                   <b-form-group label="Description" label-class="font-weight-bold text-md-left" label-for="theDescriptionInput">
-                    <b-form-textarea id="theDescription" v-model="objt.theDescription" type="text" :rows=4 :max-rows=4 required>
-                    </b-form-textarea>
+                    <b-form-textarea id="theDescription" v-model="objt.theDescription" type="text" :rows=4 :max-rows=4 required />
                   </b-form-group>
                 </b-col>
                 <b-col md="6">
                   <b-form-group label="Significance" label-class="font-weight-bold text-md-left" label-for="theSignificanceInput">
-                    <b-form-textarea id="theSignificance" v-model="objt.theSignificance" type="text" :rows=4 :max-rows=4 required>
-                    </b-form-textarea>
+                    <b-form-textarea id="theSignificance" v-model="objt.theSignificance" type="text" :rows=4 :max-rows=4 required />
                   </b-form-group>
                 </b-col>
               </b-row>
