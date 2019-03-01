@@ -36,7 +36,16 @@ npm run lint
 npm run test:unit
 ```
 
-### Working with CAIRIS
+### Installing into CAIRIS
 
-You will need a CAIRIS server to get/post/put/delete objects.  For the time being, the IP address of your CAIRIS server needs to be manually set in store/index.js.
-You will also need to import a CAIRIS model into the cairis_test_default database, which is associated with the `test` session that is also hardcoded into store/index.js.  To do this, just use the cimport.py script without setting a user or database.
+To deploy the CAIRIS 2 UI:
+
+1.  Run ```npm run build``` to create a deployable dist directory.  Copy this to the cairis/cairis directory on your server.
+2.  Set the web_static_dir and web_asset_dir entries in your cairis.cnf to point to this dist directory.
+
+### Development and unit testing support
+
+If you're developing for CAIRIS, you can use the cairis_test_default database to avoid authentication.  To do this:
+
+1.  Manually set the IP address of your CAIRIS server in store/index.js.
+2.  Set the session in store/index.js to 'test'.
