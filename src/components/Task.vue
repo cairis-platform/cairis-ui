@@ -35,31 +35,26 @@ Authors: Shamal Faily
       <b-container fluid>
         <b-card bg-variant="light">
           <b-row>
-            <b-col md="9">
-              <b-form-group label="Task" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theTaskInput">
-                <b-form-input id="theTaskInput" v-model="objt.theName" type="text" required>
-                </b-form-input>
+            <b-col md="6">
+              <b-form-group label="Task" label-class="font-weight-bold text-md-left" label-for="theTaskInput">
+                <b-form-input id="theTaskInput" v-model="objt.theName" type="text" required />
               </b-form-group>
             </b-col>
-            <b-col md="3">
-              <b-form-group label="Author" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theAuthorInput">
-                <b-form-input id="theAuthorInput" v-model="objt.theAuthor" type="text" required>
-                </b-form-input>
+            <b-col md="2">
+              <b-form-group label="Short Code" label-class="font-weight-bold text-md-left" label-for="theShortCodeInput">
+                <b-form-input id="theShortCodeInput" v-model="objt.theShortCode" type="text" required />
               </b-form-group>
             </b-col>
-          </b-row>
-          <b-row>
-            <b-col md="12">
-              <b-form-group label="Short Code" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theShortCodeInput">
-                <b-form-input id="theShortCodeInput" v-model="objt.theShortCode" type="text" required>
-                </b-form-input>
+            <b-col md="4">
+              <b-form-group label="Author" label-class="font-weight-bold text-md-left" label-for="theAuthorInput">
+                <b-form-input id="theAuthorInput" v-model="objt.theAuthor" type="text" required />
               </b-form-group>
             </b-col>
           </b-row>
           <b-row>
             <b-col md="12">
-              <b-form-group label="Objective" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theObjectiveInput">
-                <b-form-textarea id="theObjectiveInput" v-model="objt.theObjective" type="text" :rows=2 :max-rows=4 required>
+              <b-form-group label="Objective" label-class="font-weight-bold text-md-left" label-for="theObjectiveInput">
+                <b-form-textarea id="theObjectiveInput" v-model="objt.theObjective" type="text" rows="2" max-rows="4" required>
                 </b-form-textarea>
               </b-form-group>
             </b-col>
