@@ -20,27 +20,28 @@ under the License.
 Authors: Shamal Faily 
 -->
 
-  <div class="home">
+  <div class="findview">
     <b-breadcrumb :items="bcItems" />
-    <ModelSummary v-if="this.$store.state.session != ''" /> 
+    <find-model :searchString="this.findTxt"/>
   </div>
 </template>
 
+
 <script>
-// @ is an alias to /src
-import ModelSummary from '@/components/ModelSummary.vue'
+
+import FindModel from '@/components/FindModel.vue'
 
 export default {
-  components: {
-    ModelSummary
+  props : {
+    findTxt : String
   },
-  data() {
-    return {
-      bcItems : [{text: 'Home', to: {name: 'home'}}]
+  computed : {
+    bcItems() {
+      return [{text: 'Home', to: {name: 'home'}},{text: 'Find Model', to: {name: 'findmodel'}}]
     }
+  },
+  components : {
+    FindModel
   }
 }
 </script>
-
-<style>
-</style>

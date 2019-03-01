@@ -25,9 +25,10 @@ Authors: Shamal Faily
       <b-form-group id="modelSummaryToolbar" :label-cols="2" label="Environments" label-for="modelSummary">
         <dimension-select ref="modelSummaryEnvironment" id="modelSummary" dimension= "environment" v-on:dimension-select-change="onEnvironmentSelected" />
       </b-form-group>
-      <b-tabs pill card>
-        <b-card no-body>
+      <b-card bg-variant="light">
+      <b-tabs card pill>
         <b-tab title="Summary" active>
+          <b-container fluid> 
           <b-row>
             <b-col sm="4">
               <div v-if="selectedEnvironment != ''">
@@ -47,38 +48,39 @@ Authors: Shamal Faily
                 <p><b>Risk Summary</b></p>
               </div>
             </b-col>
-          </b-row>
+          </b-row> 
+          </b-container>
         </b-tab>
-        </b-card>
-        <b-card no-body>
         <b-tab title="Threat Model">
+          <b-container fluid> 
           <b-row>
-            <b-col sm="12">
+            <b-col md="12">
               <b-table b-table striped bordered :items="this.entityTable">
               </b-table>
             </b-col>
           </b-row>
           <b-row>
-            <b-col sm="12">
+            <b-col md="12">
               <b-table b-table striped bordered :items="this.processTable">
               </b-table>
             </b-col>
           </b-row>
           <b-row>
-            <b-col sm="12">
+            <b-col md="12">
               <b-table b-table striped bordered :items="this.datastoreTable">
               </b-table>
             </b-col>
           </b-row>
           <b-row>
-            <b-col sm="12">
+            <b-col md="12">
               <b-table b-table striped bordered :items="this.dataflowTable">
               </b-table>
             </b-col>
           </b-row>
+          </b-container> 
         </b-tab>
-        </b-card>
       </b-tabs>
+      </b-card>
     </b-card>
   </div>
 </template>

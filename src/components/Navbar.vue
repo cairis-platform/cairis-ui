@@ -115,8 +115,8 @@ Authors: Shamal Faily
     </b-navbar-nav>
     <b-navbar-nav class="ml-auto">
       <b-nav-form>
-        <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search"/>
-        <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+        <b-form-input size="sm" class="mr-sm-2" type="text" v-model="theSearchString" placeholder="Search"/>
+        <b-button size="sm" class="my-2 my-sm-0" type="submit" @click="onFind">Search</b-button>
       </b-nav-form>
       <b-nav-item href="#" right>Logout</b-nav-item>
     </b-navbar-nav>
@@ -126,6 +126,17 @@ Authors: Shamal Faily
 
 <script>
   export default {
-    name: 'Navbar'
+    name: 'Navbar',
+    data() {
+      return {
+        theSearchString : ''
+      }
+    },
+    methods : {
+      onFind(evt) {
+        evt.preventDefault();
+        this.$router.push({ name: 'findview', params : {findTxt: this.theSearchString}});
+      }
+    }
   };
 </script>

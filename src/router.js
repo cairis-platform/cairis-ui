@@ -166,6 +166,12 @@ export default new Router({
       props: true
     },
     {
+      path: '/find/:findTxt',
+      name: 'findview',
+      component: () => import('./views/FindView.vue'),
+      props: true
+    },
+    {
       path: '/goalmodel',
       name: 'goalmodel',
       component: () => import('./views/GoalModelView.vue')
