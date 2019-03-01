@@ -102,6 +102,9 @@ export default {
       else if (this.dimName == 'kaosassociation') {
         this.$router.push({ name: this.dimName, params : {envName: row.theEnvironmentName,goalName : row.theGoal, subGoalName: row.theSubGoal}});
       }
+      else if (this.dimName == 'assetassociation') {
+        this.$router.push({ name: this.dimName, params : {envName: row.theEnvironmentName,headName : row.theHeadAsset, tailName: row.theTailAsset}});
+      }
       else if (this.dimName == 'dependency') {
         this.$router.push({ name: this.dimName, params : {envName: row.theEnvironmentName,depName : row.theDepender, deeName: row.theDependee, dpyName : row.theDependency}});
       }
@@ -116,10 +119,13 @@ export default {
       if (this.dimension == 'kaosassociation') {
         this.$router.push({ name: this.dimName, params : {envName: 'To set', goalName : 'To set', subGoalName : 'To set'}});
       }
-      if (this.dimension == 'dependency') {
+      else if (this.dimension == 'assetassociation') {
+        this.$router.push({ name: this.dimName, params : {envName: 'To set', headName : 'To set', tailName : 'To set'}});
+      }
+      else if (this.dimension == 'dependency') {
         this.$router.push({ name: this.dimName, params : {envName: 'To set', depName : 'To set', deeName : 'To set', dpyName : 'To set'}});
       }
-      if (this.dimension == 'dataflow') {
+      else if (this.dimension == 'dataflow') {
         this.$router.push({ name: this.dimName, params : {objectName: 'New ' + this.dimName, envName : 'To set'}});
       }
       else {
@@ -133,6 +139,9 @@ export default {
       else if (this.dimName == 'kaosassociation') {
         this.selectedObject = {'envName' : this.items[index].theEnvironmentName,'goal' : this.items[index].theGoal,'subGoal' : this.items[index].theSubGoal};
       }
+      else if (this.dimName == 'assetassociation') {
+        this.selectedObject = {'envName' : this.items[index].theEnvironmentName,'headName' : this.items[index].theHeadAsset,'tailName' : this.items[index].theTailAsset};
+      }
       else if (this.dimName == 'dependency') {
         this.selectedObject = {'envName' : this.items[index].theEnvironmentName,'theDepender' : this.items[index].theDepender,'theDependee' : this.items[index].theDependee, 'theDependency' : this.items[index].theDependency };
       }
@@ -145,7 +154,7 @@ export default {
       this.selectedIndex = index;
       const that = this;
 
-      if (this.dimension != 'kaosassociation' && this.dimension != 'dependency' && this.dimension != 'dataflow') {
+      if (this.dimension != 'kaosassociation' && this.dimension != 'assetassociation' && this.dimension != 'dependency' && this.dimension != 'dataflow') {
         let objectDimension = this.dimension;
         if (objectDimension == 'personacharacteristic') {
           objectDimension = 'persona_characteristic';
@@ -176,6 +185,9 @@ export default {
       let deleteUrl = this.delUrl;
       if (this.dimension == 'kaosassociation') {
         deleteUrl += this.selectedObject.envName + '/goal/' + this.selectedObject.goal + '/subgoal/' + this.selectedObject.subGoal;
+      }
+      if (this.dimension == 'assetassociation') {
+        deleteUrl += this.selectedObject.envName + '/head/' + this.selectedObject.headName + '/tail/' + this.selectedObject.tailName;
       }
       else if (this.dimension == 'dependency') {
         deleteUrl += this.selectedObject.envName + '/depender/' + this.selectedObject.theDepender + '/dependee/' + this.selectedObject.theDependee + '/dependency/' + this.selectedObject.theDependency;

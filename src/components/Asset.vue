@@ -39,14 +39,12 @@ Authors: Shamal Faily
               <b-row>
                 <b-col md="6">
                   <b-form-group label="Asset" label-class="font-weight-bold text-md-left" label-for="theAssetInput">
-                    <b-form-input id="theAssetInput" v-model="objt.theName" type="text" required>
-                    </b-form-input>
+                    <b-form-input id="theAssetInput" v-model="objt.theName" type="text" required />
                   </b-form-group>
                 </b-col>
                 <b-col md="2">
                   <b-form-group label="Shortcode" label-class="font-weight-bold text-md-left" label-for="theShortCodeInput">
-                    <b-form-input id="theShortCodeInput" v-model="objt.theShortCode" type="text" required>
-                    </b-form-input>
+                    <b-form-input id="theShortCodeInput" v-model="objt.theShortCode" type="text" required />
                   </b-form-group>
                 </b-col>
                 <b-col md="4">

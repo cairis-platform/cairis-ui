@@ -26,10 +26,7 @@ Authors: Shamal Faily
       <b-nav-item :to="{name: 'home'}">Home</b-nav-item>
       <b-nav-item-dropdown text="System">
         <b-dropdown-item :to="{name: 'about'}">About</b-dropdown-item>
-        <b-dropdown-item href="#">New Database</b-dropdown-item>
-        <b-dropdown-item href="#">Open Database</b-dropdown-item>
-        <b-dropdown-item href="#">Delete Database</b-dropdown-item>
-        <b-dropdown-item href="#">Clear Database</b-dropdown-item>
+        <b-dropdown-item href="#">Databases</b-dropdown-item>
         <b-dropdown-item :to="{name: 'import'}">Import Model</b-dropdown-item>
         <b-dropdown-item href="#">Import from Trello</b-dropdown-item>
         <b-dropdown-item :to="{name: 'export'}">Export</b-dropdown-item>
@@ -50,7 +47,7 @@ Authors: Shamal Faily
       <b-nav-item-dropdown text="Risk">
         <b-dropdown-item :to="{name: 'roles'}">Roles</b-dropdown-item>
         <b-dropdown-item :to="{name: 'assets'}">Assets</b-dropdown-item>
-        <b-dropdown-item href="#">Asset Associations</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'assetassociations'}">Asset Associations</b-dropdown-item>
         <b-dropdown-item :to="{name: 'attackers'}">Attackers</b-dropdown-item>
         <b-dropdown-item :to="{name: 'threats'}">Threats</b-dropdown-item>
         <b-dropdown-item :to="{name: 'vulnerabilities'}">Vulnerabilities</b-dropdown-item>

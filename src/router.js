@@ -42,6 +42,17 @@ export default new Router({
       component: () => import('./views/Assets.vue')
     },
     {
+      path: '/assetassociations',
+      name: 'assetassociations',
+      component: () => import('./views/AssetAssociations.vue')
+    },
+    {
+      path: '/assetassociation/environment/:envName/head/:headName/tail/:tailName',
+      name: 'assetassociation',
+      component: () => import('./views/AssetAssociationView.vue'),
+      props: true
+    },
+    {
       path: '/assetmodel',
       name: 'assetmodel',
       component: () => import('./views/AssetModelView.vue')
