@@ -111,6 +111,11 @@ export default new Router({
       component: () => import('./views/DataFlowDiagramView.vue')
     },
     {
+      path: '/databases',
+      name: 'databases',
+      component: () => import('./views/DatabaseView.vue')
+    },
+    {
       path: '/dataflows',
       name: 'dataflows',
       component: () => import('./views/DataFlows.vue')

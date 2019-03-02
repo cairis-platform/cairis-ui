@@ -27,33 +27,39 @@ Authors: Shamal Faily
       </ul>
     </p>
     <b-form>
-      <b-container fluid>
       <b-card bg-variant="light" no body> 
         <b-row>
-          <b-col md=12>
-            <b-container fluid>
-              <b-form-group label="Domain Property" label-class="font-weight-bold text-md-left" label-for="theDomainPropertyInput">
-                <b-form-input id="theDomainPropertyInput" v-model="objt.theName" type="text" required>
-                </b-form-input>
-              </b-form-group>
-              <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-for="theType">
-                <b-form-select id="theTypeInput" v-model="objt.theType" :options="dpTypes" class="mb-3" required>
-                </b-form-select>
-              </b-form-group>
-
-              <b-form-group label="Originator" label-class="font-weight-bold text-md-left" label-for="theOriginator">
-                <b-form-input id="theOriginatorInput" v-model="objt.theOriginator" type="text" required>
-                </b-form-input>
-              </b-form-group>
-              <b-form-group label="Tags" label-class="font-weight-bold text-md-left" label-for="theTagsInput">
-                <b-form-input id="theTagsInput" v-model="objt.theTags" type="text">
-                </b-form-input>
-              </b-form-group>
-            </b-container>
+          <b-col md="4">
+            <b-form-group label="Domain Property" label-class="font-weight-bold text-md-left" label-for="theDomainPropertyInput">
+              <b-form-input id="theDomainPropertyInput" v-model="objt.theName" type="text" required />
+            </b-form-group>
+          </b-col>
+          <b-col md="4">
+            <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-for="theType">
+              <b-form-select id="theTypeInput" v-model="objt.theType" :options="dpTypes" class="mb-3" required />
+            </b-form-group>
+          </b-col>
+          <b-col md="4">
+            <b-form-group label="Originator" label-class="font-weight-bold text-md-left" label-for="theOriginator">
+              <b-form-input id="theOriginatorInput" v-model="objt.theOriginator" type="text" required />
+            </b-form-group>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="12">
+            <b-form-group label="Description" label-class="font-weight-bold text-md-left" label-for="theDescriptionInput">
+              <b-form-textarea id="theDescription" v-model="objt.theDescription" type="text" rows="4" max-rows="4" required />
+            </b-form-group>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col md="12">
+            <b-form-group label="Tags" label-class="font-weight-bold text-md-left" label-cols="1" label-for="theTagsInput">
+              <b-form-input id="theTagsInput" v-model="objt.theTags" type="text" />
+            </b-form-group>
           </b-col>
         </b-row>
       </b-card> 
-      </b-container>
       <b-container fluid>
         <b-form-row>
           <b-col md="4" offset-md="5" >
@@ -112,13 +118,16 @@ export default {
     checkForm() {
       this.errors = []
       if (this.objt.theName.length == 0) {
-        this.errors.push('Domain Property name is required');
+        this.errors.push('Name is required');
       }
       if (this.objt.theType.length == 0) {
         this.errors.push('Type is required');
       }
       if (this.objt.theOriginator.length == 0) {
         this.errors.push('Originator is required');
+      }
+      if (this.objt.theDescription.length == 0) {
+        this.errors.push('Description is required');
       }
       if (!this.errors.length) {
         return true;

@@ -31,145 +31,126 @@ Authors: Shamal Faily
       </ul>
     </p>
     <b-form>
-      <b-container fluid>
       <b-card bg-variant="light" no body> 
         <b-row>
-          <b-col md=12>
-            <b-container fluid>
-              <b-row>
-                <b-col md="6">
-                  <b-form-group label="Obstacle" label-class="font-weight-bold text-md-left" label-for="theObstacleInput">
-                    <b-form-input id="theObstacleInput" v-model="objt.theName" type="text" required>
-                    </b-form-input>
-                  </b-form-group>
-                </b-col>
-                <b-col md="6">
-                  <b-form-group label="Originator" label-class="font-weight-bold text-md-left" label-for="theOriginator">
-                    <b-form-input id="theOriginatorInput" v-model="objt.theOriginator" type="text" required>
-                    </b-form-input>
-                  </b-form-group>
-                </b-col>
-              </b-row>
-              <b-row>
-                <b-col md="12">
-                  <b-form-group label="Tags" label-class="font-weight-bold text-md-left" label-for="theTagsInput">
-                    <b-form-input id="theTagsInput" v-model="objt.theTags" type="text">
-                    </b-form-input>
-                  </b-form-group>
-                </b-col>
-              </b-row>
-            </b-container>
+          <b-col md="6">
+            <b-form-group label="Obstacle" label-class="font-weight-bold text-md-left" label-for="theObstacleInput">
+              <b-form-input id="theObstacleInput" v-model="objt.theName" type="text" required />
+            </b-form-group>
+          </b-col>
+          <b-col md="3">
+            <b-form-group label="Originator" label-class="font-weight-bold text-md-left" label-for="theOriginator">
+              <b-form-input id="theOriginatorInput" v-model="objt.theOriginator" type="text" required />
+            </b-form-group>
+          </b-col>
+          <b-col md="3">
+            <b-form-group label="Tags" label-class="font-weight-bold text-md-left" label-for="theTagsInput">
+              <b-form-input id="theTagsInput" v-model="objt.theTags" type="text" />
+            </b-form-group>
           </b-col>
         </b-row>
+      </b-card>
+      <b-card header="Environments" no-body class="text-left">
+        <template slot="header">
+          <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addEnvironment"/> Environment
+        </template> 
         <b-row>
-          <b-container fluid>
-            <b-card header="Environments" no-body class="text-left">
-              <template slot="header">
-                <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addEnvironment"/> Environment
-              </template> 
-              <b-row>
-                <b-col sm="12">
-                  <b-tabs pills v-model="envPropIndex">
-                    <b-tab v-for="envProp in objt.theEnvironmentProperties" :key="envProp.theEnvironmentName" :title=envProp.theName>
-                      <template slot="title">
-                        <font-awesome-icon icon="minus" :style="{color: 'red'}" @click="deleteEnvironment(envProp.theEnvironmentName)"/>  {{envProp.theEnvironmentName}}
-                      </template> 
-                    </b-tab>
-                  </b-tabs>
-                </b-col>
-              </b-row>
-              <b-row v-show="this.objt.theEnvironmentProperties.length">
-                <b-col sm="12">
-                  <b-card no-body bg-variant="light">
-                  <b-tabs tab>
-                    <b-tab title="Definition" active>
-                      <b-row>
-                        <b-col md="12">
-                          <b-form-group label="Category" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theCategorySelect">
-                            <b-form-select id="theCategorySelect" v-model="category" :options="obstacleCategories" class="mb-3" required>
-                            </b-form-select>
-                          </b-form-group>
-                        </b-col>
-                      </b-row>
-                      <b-row>
-                        <b-col md="12">
-                          <b-form-group label="Definition" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theDefinitionInput">
-                            <b-form-textarea id="theDefinition" v-model="definition" type="text" :rows=2 :max-rows=4 required>
-                            </b-form-textarea>
-                          </b-form-group>
-                        </b-col>
-                      </b-row>
-                      <b-row>
-                        <b-col md="5">
-                          <b-form-group label="Probability" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theProbabilityInput">
-                            <b-form-input id="theProbabilityInput" v-model="probability" type="number" required>
-                            </b-form-input>
-                          </b-form-group>
-                        </b-col>
-                        <b-col md="7">
-                          <b-form-group label="Reason" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theReasonInput">
-                            <b-form-input id="theReasonInput" v-model="rationale" type="text" required>
-                            </b-form-input>
-                          </b-form-group>
-                        </b-col>
-                      </b-row>
-                      <b-row>
-                        <b-col md="12">
-                          <b-table striped bordered small hover :items="concerns" :fields=concernTableFields>
-                            <!-- eslint-disable-next-line -->
-                            <template slot="HEAD_concernactions" slot-scope="data"> 
-                              <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addConcern"/> 
-                            </template> 
-                            <template slot="concernactions" slot-scope="row">
-                              <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteConcern(row.item)"/>
-                            </template> 
-                          </b-table>
-                        </b-col>
-                      </b-row>
-                    </b-tab>
-                    <b-tab title="Obstacles">
-                      <b-container fluid>
-                        <b-row>
-                          <b-col md="12">
-                            <b-table striped bordered small hover :items="goalRefinements" :fields=goalRefinementTableFields @row-clicked="viewObstacleRefinement">
-                              <!-- eslint-disable-next-line -->
-                              <template slot="HEAD_obstaclerefinementactions" slot-scope="data"> 
-                                <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addObstacleRefinement"/> 
-                              </template> 
-                              <template slot="obstaclerefinementactions" slot-scope="row">
-                                <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteObstacleRefinement(row.item)"/>
-                              </template> 
-                            </b-table>
-                          </b-col>
-                        </b-row>
-                      </b-container>
-                    </b-tab>
-                    <b-tab title="Sub-Obstacles">
-                      <b-container fluid>
-                        <b-row>
-                          <b-col md="12">
-                            <b-table striped bordered small hover :items="subGoalRefinements" :fields=subGoalRefinementTableFields @row-clicked="viewSubObstacleRefinement">
-                              <!-- eslint-disable-next-line -->
-                              <template slot="HEAD_subobstaclerefinementactions" slot-scope="data"> 
-                                <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addSubObstacleRefinement"/> 
-                              </template> 
-                              <template slot="subobstaclerefinementactions" slot-scope="row">
-                                <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteSubObstacleRefinement(row.item)"/>
-                              </template> 
-                            </b-table>
-                          </b-col>
-                        </b-row>
-                      </b-container>
-                    </b-tab>
-                  </b-tabs>
-                  </b-card>
-                </b-col>
-              </b-row>
+          <b-col md="12">
+            <b-tabs pills v-model="envPropIndex">
+              <b-tab v-for="envProp in objt.theEnvironmentProperties" :key="envProp.theEnvironmentName" :title=envProp.theName>
+                <template slot="title">
+                  <font-awesome-icon icon="minus" :style="{color: 'red'}" @click="deleteEnvironment(envProp.theEnvironmentName)"/>  {{envProp.theEnvironmentName}}
+                </template> 
+              </b-tab>
+            </b-tabs>
+          </b-col>
+        </b-row>
+        <b-row v-show="this.objt.theEnvironmentProperties.length">
+          <b-col md="12">
+            <b-card no-body bg-variant="light">
+              <b-tabs tab>
+                <b-tab title="Definition" active>
+                  <b-container fluid>
+                    <b-row>
+                      <b-col md="12">
+                        <b-form-group label="Category" label-class="font-weight-bold text-md-left" label-cols="1" label-for="theCategorySelect">
+                          <b-form-select id="theCategorySelect" v-model="category" :options="obstacleCategories" class="mb-3" required />
+                        </b-form-group>
+                      </b-col>
+                    </b-row>
+                    <b-row>
+                      <b-col md="12">
+                        <b-form-group label="Definition" label-class="font-weight-bold text-md-left" label-for="theDefinitionInput">
+                          <b-form-textarea id="theDefinition" v-model="definition" type="text" rows="2" max-rows="4" required />
+                        </b-form-group>
+                      </b-col>
+                    </b-row>
+                    <b-row>
+                      <b-col md="6">
+                        <b-form-group label="Probability" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theProbabilityInput">
+                          <b-form-input id="theProbabilityInput" v-model="probability" type="number" required />
+                        </b-form-group>
+                      </b-col>
+                      <b-col md="6">
+                        <b-form-group label="Reason" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theReasonInput">
+                          <b-form-input id="theReasonInput" v-model="rationale" type="text" required />
+                        </b-form-group>
+                      </b-col>
+                    </b-row>
+                    <b-row>
+                      <b-col md="12">
+                        <b-table striped bordered small hover :items="concerns" :fields=concernTableFields>
+                          <!-- eslint-disable-next-line -->
+                          <template slot="HEAD_concernactions" slot-scope="data"> 
+                            <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addConcern"/> 
+                          </template> 
+                          <template slot="concernactions" slot-scope="row">
+                            <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteConcern(row.item)"/>
+                          </template> 
+                        </b-table>
+                      </b-col>
+                    </b-row>
+                  </b-container>
+                </b-tab>
+                <b-tab title="Obstacles">
+                  <b-container fluid>
+                    <b-row>
+                      <b-col md="12">
+                        <b-table striped bordered small hover :items="goalRefinements" :fields=goalRefinementTableFields @row-clicked="viewObstacleRefinement">
+                          <!-- eslint-disable-next-line -->
+                          <template slot="HEAD_obstaclerefinementactions" slot-scope="data"> 
+                            <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addObstacleRefinement"/> 
+                          </template> 
+                          <template slot="obstaclerefinementactions" slot-scope="row">
+                            <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteObstacleRefinement(row.item)"/>
+                          </template> 
+                        </b-table>
+                      </b-col>
+                    </b-row>
+                  </b-container>
+                </b-tab>
+                <b-tab title="Sub-Obstacles">
+                  <b-container fluid>
+                    <b-row>
+                      <b-col md="12">
+                        <b-table striped bordered small hover :items="subGoalRefinements" :fields=subGoalRefinementTableFields @row-clicked="viewSubObstacleRefinement">
+                          <!-- eslint-disable-next-line -->
+                          <template slot="HEAD_subobstaclerefinementactions" slot-scope="data"> 
+                            <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addSubObstacleRefinement"/> 
+                          </template> 
+                          <template slot="subobstaclerefinementactions" slot-scope="row">
+                            <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteSubObstacleRefinement(row.item)"/>
+                          </template> 
+                        </b-table>
+                      </b-col>
+                    </b-row>
+                  </b-container>
+                </b-tab>
+              </b-tabs>
             </b-card>
-          </b-container>
+          </b-col>
         </b-row>
       </b-card> 
-      </b-container>
       <b-container fluid>
         <b-form-row>
           <b-col md="4" offset-md="5" >

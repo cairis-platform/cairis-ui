@@ -57,7 +57,7 @@ export default {
         theType : '',
         theDescription : '',
         theOriginator : '',
-        theTags : ''
+        theTags : '' 
       },
       commitLabel : 'Create',
     }
@@ -86,7 +86,7 @@ export default {
   },
   methods : {
     commitDomainProperty(objt) {
-      this.objt = objt
+      this.objt = objt;
       var updateUrl = this.$store.state.url + "/api/domainproperties/name/" + this.objectName + "?session_id=" + this.$store.state.session;
       var createUrl = this.$store.state.url + "/api/domainproperties";
       this.commitObject(updateUrl,createUrl,'domainproperties');

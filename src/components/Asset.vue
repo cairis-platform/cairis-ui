@@ -68,8 +68,7 @@ Authors: Shamal Faily
               <b-row>
                 <b-col md="12">
                   <b-form-group label="Tags" label-class="font-weight-bold text-md-left" label-cols="1" label-for="theTagsInput">
-                    <b-form-input id="theTagsInput" v-model="objt.theTags" type="text">
-                    </b-form-input>
+                    <b-form-input id="theTagsInput" v-model="objt.theTags" type="text" />
                   </b-form-group>
                 </b-col>
               </b-row>

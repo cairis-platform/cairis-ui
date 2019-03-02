@@ -91,7 +91,7 @@ export default {
   },
   methods: {
     commitAsset(objt) {
-      this.objt = objt
+      this.objt = objt;
       var updateUrl = this.$store.state.url + "/api/assets/name/" + this.objectName + "?session_id=" + this.$store.state.session;
       var createUrl = this.$store.state.url + "/api/assets";
       this.commitObject(updateUrl,createUrl,'assets');

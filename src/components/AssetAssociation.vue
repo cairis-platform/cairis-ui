@@ -34,21 +34,21 @@ Authors: Shamal Faily
             <b-container v-if="objt != undefined" fluid>
               <b-row>
                 <b-col md="12">
-                  <b-form-group label="Environment" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theEnvironmentSelect" >
+                  <b-form-group label="Environment" label-class="font-weight-bold text-md-left" label-for="theEnvironmentSelect" >
                     <dimension-select id="theEnvironmentSelect" dimension='environment' :initial="objt.theEnvironmentName" v-on:dimension-select-change="environmentSelected" />
                   </b-form-group>
                 </b-col>
               </b-row>
               <b-row>
                 <b-col md="12">
-                  <b-form-group label="Head" label-class="font-weight-bold text-sm-left" label-cols="2" label-for="theHeadAssetSelect" >
+                  <b-form-group label="Head" label-class="font-weight-bold text-sm-left" label-for="theHeadAssetSelect" >
                     <dimension-select id="theHeadAssetSelect" dimension='asset' :environment="objt.theEnvironmentName" :initial="objt.theHeadAsset" v-on:dimension-select-change="headAssetSelected" />
                   </b-form-group>
                 </b-col>
               </b-row>
               <b-row>
                 <b-col md="12">
-                  <b-form-group label="Navigation" label-class="font-weight-bold text-sm-left" label-cols="2" label-for="theHeadNavRadio" >
+                  <b-form-group label="Navigation" label-class="font-weight-bold text-sm-left" label-for="theHeadNavRadio" >
                     <b-form-radio-group id="theHeadNavRadio" v-model="objt.theHeadNavigation">
                       <b-form-radio value=1>1</b-form-radio>
                       <b-form-radio value=0>0</b-form-radio>
@@ -58,20 +58,19 @@ Authors: Shamal Faily
               </b-row>
               <b-row>
                 <b-col md="12">
-                  <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theHeadTypeRadio" >
+                  <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-for="theHeadTypeRadio" >
                     <b-form-radio-group id="theHeadTypeRadio" v-model="objt.theHeadType" required >
                       <b-form-radio value="Inheritence">Inheritence</b-form-radio>
                       <b-form-radio value="Association">Association</b-form-radio>
                       <b-form-radio value="Aggregation">Aggregation</b-form-radio>
                       <b-form-radio value="Composition">Composition</b-form-radio>
-                      <b-form-radio value="Dependency">Dependency</b-form-radio>
                     </b-form-radio-group>
                   </b-form-group>
                 </b-col>
               </b-row>
               <b-row>
                 <b-col md="12">
-                  <b-form-group label="Multiplicity" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theHeadMultRadio" >
+                  <b-form-group label="Multiplicity" label-class="font-weight-bold text-md-left" label-for="theHeadMultRadio" >
                     <b-form-radio-group id="theHeadMultRadio" v-model="objt.theHeadMultiplicity" required >
                       <b-form-radio value="1">1</b-form-radio>
                       <b-form-radio value="*">*</b-form-radio>
@@ -82,21 +81,21 @@ Authors: Shamal Faily
               </b-row>
               <b-row>
                 <b-col md="12">
-                  <b-form-group label="Role" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theHeadRoleInput" >
+                  <b-form-group label="Role" label-class="font-weight-bold text-md-left" label-for="theHeadRoleInput" >
                     <b-form-input id="theHeadRoleInput" v-model="objt.theHeadRole" type="text" />
                   </b-form-group>
                 </b-col>
               </b-row>
               <b-row>
                 <b-col md="12">
-                  <b-form-group label="Role" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theTailRoleInput" >
+                  <b-form-group label="Role" label-class="font-weight-bold text-md-left" label-for="theTailRoleInput" >
                     <b-form-input id="theTailRoleInput" v-model="objt.theTailRole" type="text" />
                   </b-form-group>
                 </b-col>
               </b-row>
               <b-row>
                 <b-col md="12">
-                  <b-form-group label="Multiplicity" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theTailMultRadio" >
+                  <b-form-group label="Multiplicity" label-class="font-weight-bold text-md-left" label-for="theTailMultRadio" >
                     <b-form-radio-group id="theTailMultRadio" v-model="objt.theTailMultiplicity" required >
                       <b-form-radio value="1">1</b-form-radio>
                       <b-form-radio value="*">*</b-form-radio>
@@ -107,20 +106,19 @@ Authors: Shamal Faily
               </b-row>
               <b-row>
                 <b-col md="12">
-                  <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theTailTypeRadio" >
+                  <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-for="theTailTypeRadio" >
                     <b-form-radio-group id="theTailTypeRadio" v-model="objt.theTailType" required >
                       <b-form-radio value="Inheritence">Inheritence</b-form-radio>
                       <b-form-radio value="Association">Association</b-form-radio>
                       <b-form-radio value="Aggregation">Aggregation</b-form-radio>
                       <b-form-radio value="Composition">Composition</b-form-radio>
-                      <b-form-radio value="Dependency">Dependency</b-form-radio>
                     </b-form-radio-group>
                   </b-form-group>
                 </b-col>
               </b-row>
               <b-row>
                 <b-col md="12">
-                  <b-form-group label="Navigation" label-class="font-weight-bold text-sm-left" label-cols="2" label-for="theTailNavRadio" >
+                  <b-form-group label="Navigation" label-class="font-weight-bold text-sm-left" label-for="theTailNavRadio" >
                     <b-form-radio-group id="theTailNavRadio" v-model="objt.theTailNavigation">
                       <b-form-radio value=1>1</b-form-radio>
                       <b-form-radio value=0>0</b-form-radio>
@@ -130,7 +128,7 @@ Authors: Shamal Faily
               </b-row>
               <b-row>
                 <b-col md="12">
-                  <b-form-group label="Tail" label-class="font-weight-bold text-sm-left" label-cols="2" label-for="theTailAssetSelect" >
+                  <b-form-group label="Tail" label-class="font-weight-bold text-sm-left" label-for="theTailAssetSelect" >
                     <dimension-select id="theTailAssetSelect" dimension='asset' :environment="objt.theEnvironmentName" :initial="objt.theTailAsset" v-on:dimension-select-change="tailAssetSelected" />
                   </b-form-group>
                 </b-col>

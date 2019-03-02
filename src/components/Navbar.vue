@@ -26,7 +26,7 @@ Authors: Shamal Faily
       <b-nav-item :to="{name: 'home'}">Home</b-nav-item>
       <b-nav-item-dropdown text="System">
         <b-dropdown-item :to="{name: 'about'}">About</b-dropdown-item>
-        <b-dropdown-item href="#">Databases</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'databases'}">Databases</b-dropdown-item>
         <b-dropdown-item :to="{name: 'import'}">Import Model</b-dropdown-item>
         <b-dropdown-item href="#">Import from Trello</b-dropdown-item>
         <b-dropdown-item :to="{name: 'export'}">Export</b-dropdown-item>
