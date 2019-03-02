@@ -31,6 +31,16 @@ export default new Router({
       component: () => import('./views/Home.vue')
     },
     {
+      path: '/architecturalpatternmodel',
+      name: 'architecturalpatternmodel',
+      component: () => import('./views/ArchitecturalPatternModelView.vue')
+    },
+    {
+      path: '/architecturalpatterns',
+      name: 'architecturalpatterns',
+      component: () => import('./views/ArchitecturalPatterns.vue')
+    },
+    {
       path: '/asset/:objectName',
       name: 'asset',
       component: () => import('./views/AssetView.vue'),
@@ -215,9 +225,19 @@ export default new Router({
       props: true
     },
     {
+      path: '/locations',
+      name: 'locations',
+      component: () => import('./views/Locations.vue')
+    },
+    {
       path: '/locationsmodel',
       name: 'locationsmodel',
       component: () => import('./views/LocationsModelView.vue')
+    },
+    {
+      path: '/misusabilitymodel',
+      name: 'misusabilitymodel',
+      component: () => import('./views/MisusabilityModelView.vue')
     },
     {
       path: '/obstacles',
@@ -330,6 +350,11 @@ export default new Router({
       path: '/securitypatterns',
       name: 'securitypatterns',
       component: () => import('./views/SecurityPatterns.vue')
+    },
+    {
+      path: '/taskcharacteristics',
+      name: 'taskcharacteristics',
+      component: () => import('./views/TaskCharacteristics.vue')
     },
     {
       path: '/taskmodel',

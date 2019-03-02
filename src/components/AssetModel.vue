@@ -18,8 +18,8 @@ Authors: Shamal Faily
 -->
 
   <div class="assetmodel">
-    <asset-modal ref="assetDialog" :environment="this.theEnvironmentName" :asset="this.theSelectedObject"/> 
-    <persona-modal ref="personaDialog" :environment="this.theEnvironmentName" :persona="this.theSelectedObject"/> 
+    <asset-modal v-if="theEnvironmentName != ''" ref="assetDialog" :environment="this.theEnvironmentName" :asset="this.theSelectedObject"/> 
+    <persona-modal v-if="theEnvironmentName != ''" ref="personaDialog" :environment="this.theEnvironmentName" :persona="this.theSelectedObject"/> 
     <b-card no-body>
     <b-container fluid>
       <b-row>
@@ -30,7 +30,7 @@ Authors: Shamal Faily
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
           <b-form-group label="Asset" label-for="assetModelAsset" :label-cols="2" >
-            <dimension-select id="assetModelAsset" dimension="asset" :environment="theEnvironmentName" includeall v-on:dimension-select-change="assetSelected" />
+            <dimension-select id="assetModelAsset" ref="assetModelAsset" dimension="asset" :environment="theEnvironmentName" includeall v-on:dimension-select-change="assetSelected" />
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
@@ -102,8 +102,10 @@ export default {
     },
     environmentSelected(envName) {
       this.theEnvironmentName = envName
-      this.theAssetName = 'all'
-      this.$refs.assetModelAsset.$emit('dimension-select-change',this.theAssetName);
+      if (this.$refs.assetModelAsset != undefined) {
+        this.theAssetName = 'all'
+        this.$refs.assetModelAsset.selected = this.theAssetName;
+      }
     },
     assetSelected(assetName) {
       this.theAssetName = assetName

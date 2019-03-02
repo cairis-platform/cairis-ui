@@ -19,30 +19,26 @@ under the License.
 
 Authors: Shamal Faily 
 -->
-  <div class="securitypatterns">
-    <objects :breadCrumbItems="bcItems" :fieldList="objectsFields" :getUrl="theGetUrl" :delUrl="theDelUrl" :dimName="dimension"/>
+
+  <div class="architecturalpatternmodelview">
+    <b-breadcrumb :items="bcItems" />
+    <architectural-pattern-model />
   </div>
 </template>
 
+
 <script>
-import Objects from '@/components/Objects.vue'
+
+import ArchitecturalPatternModel from '@/components/ArchitecturalPatternModel.vue'
 
 export default {
-  components : {
-    Objects
-  },
-  data() {
-    return {
-      bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Security Patterns', to: {name: 'securitypatterns'}}],
-      items: [],
-      objectsFields : {
-        objectsactions : {label : ''},
-        theName : {label : 'Name', }
-      },
-      theGetUrl : '/api/security_patterns',
-      theDelUrl : '/api/security_patterns/name/',
-      dimension : 'securitypattern'
+  computed : {
+    bcItems() {
+      return [{text: 'Home', to: {name: 'home'}},{text: 'Architectural Pattern', to: {name: 'architecturalpatternmodel'}}]
     }
+  },
+  components : {
+    ArchitecturalPatternModel
   }
 }
 </script>

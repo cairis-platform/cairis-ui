@@ -20,7 +20,7 @@ under the License.
 Authors: Shamal Faily 
 -->
 
-  <div class="locationsmodelview">
+  <div class="locationmodelview">
     <b-breadcrumb :items="bcItems" />
     <locations-model />
   </div>

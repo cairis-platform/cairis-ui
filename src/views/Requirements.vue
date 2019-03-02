@@ -43,7 +43,9 @@ export default {
         theRationale : {label : 'Rationale'},
         theFitCriterion : {label : 'Fit Criterion'},
         theOriginator : {label : 'Originator', sortable: true},
-        theType : {label : 'Type', sortable: true}
+        theType : {label : 'Type', sortable: true},
+        pretaction : {label: ''},
+        postaction : {label : ''}
       },
       theGetUrl : '',
       theDelUrl : '/api/requirements/name/',

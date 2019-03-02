@@ -19,7 +19,7 @@ under the License.
 
 Authors: Shamal Faily 
 -->
-  <div class="threats">
+  <div class="personacharacteristics">
     <objects :breadCrumbItems="bcItems" :fieldList="objectsFields" :getUrl="theGetUrl" :delUrl="theDelUrl" :dimName="dimension"/>
   </div>
 </template>

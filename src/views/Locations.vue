@@ -19,7 +19,7 @@ under the License.
 
 Authors: Shamal Faily 
 -->
-  <div class="securitypatterns">
+  <div class="locations">
     <objects :breadCrumbItems="bcItems" :fieldList="objectsFields" :getUrl="theGetUrl" :delUrl="theDelUrl" :dimName="dimension"/>
   </div>
 </template>
@@ -33,15 +33,15 @@ export default {
   },
   data() {
     return {
-      bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Security Patterns', to: {name: 'securitypatterns'}}],
+      bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Locations', to: {name: 'locations'}}],
       items: [],
       objectsFields : {
         objectsactions : {label : ''},
-        theName : {label : 'Name', }
+        theName : {label : 'Name', sortable: true}
       },
-      theGetUrl : '/api/security_patterns',
-      theDelUrl : '/api/security_patterns/name/',
-      dimension : 'securitypattern'
+      theGetUrl : '/api/locations',
+      theDelUrl : '/api/locations/name/',
+      dimension : 'locations'
     }
   }
 }

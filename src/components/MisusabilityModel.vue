@@ -20,31 +20,26 @@ under the License.
 Authors: Shamal Faily 
 -->
 
-  <div class="personamodel">
-    <external-document-modal v-if="thePersonaName != ''" ref="edDialog" :external_document="this.theSelectedObject"/> 
-    <document-reference-modal v-if="thePersonaName != ''" ref="drDialog" :document_reference="this.theSelectedObject"/> 
+  <div class="misusabilitymodel">
+    <external-document-modal v-if="theMisusabilityCase != ''" ref="edDialog" :external_document="this.theSelectedObject"/> 
+<!--    <document-reference-modal v-if="thePersonaName != ''" ref="drDialog" :document_reference="this.theSelectedObject"/>  -->
     <b-card no-body>
     <b-container fluid>
       <b-row>
         <b-col>
-          <b-form-group label="Persona" label-for="personaModelPersona" :label-cols="3" >
-            <dimension-select id="personaModelPersona" ref="personaModelPersona" dimension="persona" v-on:dimension-select-change="personaSelected" />
+          <b-form-group label="Misusability Case" label-for="misusabilityModelMisusabilityCase" :label-cols="3" >
+            <dimension-select id="misusabilityModelMisusabilityCase" ref="misusabilityModelMisusabilityCase" dimension="misusability_case" v-on:dimension-select-change="misusabilityCaseSelected" />
           </b-form-group>
         </b-col>
-        <b-col v-if="thePersonaName != ''">
-          <b-form-group label="Behaviour Type" label-for="personaModelBehaviourType" :label-cols="4" >
-            <b-form-select id="personaModelBehaviourType" ref="personaModelBehaviourType" v-model="theBehaviourType" :options="behaviourTypes" class="mb-3" required />
-          </b-form-group>
-        </b-col>
-        <b-col v-if="thePersonaName != ''">
-          <b-form-group label="Characteristic" label-form="personaModelCharacteristic" :label-cols="4" >
-            <dimension-select id="personaModelCharacteristic" ref="personaModelCharacteristic" :dimensionUrl="pcUrl" initial="all" includeall v-on:dimension-select-change="characteristicSelected" />
+        <b-col v-if="theMisusabilityCase != ''">
+          <b-form-group label="Characteristic" label-form="misusabilityModelCharacteristic" :label-cols="4" >
+            <dimension-select id="misusabilityModelCharacteristic" ref="misusabilityModelCharacteristic" :dimensionUrl="tcUrl" initial="all" includeall v-on:dimension-select-change="characteristicSelected" />
           </b-form-group>
         </b-col>
       </b-row>
     </b-container>
     </b-card>
-    <graphical-model v-if="thePersonaName != ''" :api="personaModelURI" v-on:graphical-model-url="nodeClicked" />
+    <graphical-model v-if="theMisusabilityCase != ''" :api="misusabilityModelURI" v-on:graphical-model-url="nodeClicked" />
   </div>
 </template>
 
@@ -59,33 +54,23 @@ import EventBus from '../utils/event-bus';
 
 export default {
   computed : {
-    personaModelURI() {
-      return this.thePersonaName != '' ? '/api/personas/model/name/' + this.thePersonaName + '/variable/' + this.theBehaviourType + '/characteristic/' + this.theCharacteristic : '';
+    misusabilityModelURI() {
+      return this.theMisusabilityCase != '' ? '/api/tasks/model/misusability/' + this.theMisusabilityCase + '/characteristic/' + this.theCharacteristic : '';
     },
-    pcUrl() {
-      return this.thePersonaName != '' ? '/api/personas/characteristics/name/' + this.thePersonaName + '/variable/' + this.theBehaviourType + '/characteristic/' + this.theCharacteristic : '';
+    tcUrl() {
+      return this.theMisusabilityCase != '' ? '/api/dimensions/table/task_characteristic/environment/' + this.theMisusabilityCase : '';
     }
   },
   data() {
     return {
-      thePersonaName : '',
-      theBehaviourType : 'all',
+      theMisusabilityCase : '',
       theCharacteristic : 'all',
-      behaviourTypes : ['all','Activities','Aptitudes','Attitudes','Motivations','Skills','Environment Narrative','Intrinsic','Contextual'],
       theSelectedObject: null
-    }
-  },
-  watch : {
-    theBehaviourType : {
-      handler() {
-        this.theCharacteristic = 'all';
-      }
     }
   },
   components : {
     DimensionSelect,
     ExternalDocumentModal,
-    DocumentReferenceModal,
     GraphicalModel
   },
   methods : {
@@ -94,15 +79,15 @@ export default {
       if (['grounds','warrants','backings','rebuttals'].indexOf(dimName) == -1) {
         return;
       }
-      let objtUrl = '/api/document_references' + url.slice(12);
+      let objtUrl = '/api/concept_references' + url.slice(12);
       if (dimName == 'backings') {
         objtUrl = '/api/external_documents' + url.slice(13);
       }
       else if (dimName == 'warrants') {
-        objtUrl = '/api/document_references' + url.slice(13);
+        objtUrl = '/api/concept_references' + url.slice(13);
       }
       else if (dimName == 'rebuttals') {
-        objtUrl = '/api/document_references' + url.slice(14);
+        objtUrl = '/api/concept_references' + url.slice(14);
       }
       axios.get(objtUrl,{
         baseURL : this.$store.state.url,
@@ -113,20 +98,19 @@ export default {
         if (dimName == 'backings') {
           this.$refs.edDialog.show();  
         }
-        else {
-          this.$refs.drDialog.show();  
-        }
+//        else {
+//          this.$refs.crDialog.show();  
+//        }
       })
       .catch((error) => {
         EventBus.$emit('operation-failure',error)
       })
     },
-    personaSelected(personaName) {
-      this.thePersonaName = personaName
-      if (this.$refs.personaModelBehaviourType != undefined) {
-        this.theBehaviourType = 'all'
+    misusabilityCaseSelected(mucName) {
+      this.theMisusabilityCase = mucName
+      if (this.$refs.misusabilityModelCharacteristic != undefined) {
         this.theCharacteristic = 'all'
-        this.$refs.personaModelCharacteristic.selected = this.theCharacteristic;
+        this.$refs.misusabilityModelCharacteristic.selected = this.theCharacteristic;
       }
     },
     characteristicSelected(charName) {

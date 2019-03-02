@@ -46,8 +46,14 @@ Authors: Shamal Faily
         <template slot="objectsactions" slot-scope="row">
           <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteObject(row.index)"/>
         </template>
+        <template slot="pretaction" slot-scope="row">
+          <font-awesome-icon icon="arrow-left" :style="{color: 'green'}" @click.stop="addPreTraceabilityLink(row.index)"/>
+        </template>
         <template slot="generategoalaction" slot-scope="row">
           <font-awesome-icon icon="angle-down" :style="{color: 'green'}" @click.stop="generateGoal(row.index)"/>
+        </template>
+        <template slot="postaction" slot-scope="row">
+          <font-awesome-icon icon="arrow-right" :style="{color: 'green'}" @click.stop="addPostTraceabilityLink(row.index)"/>
         </template>
       </b-table>
     </b-card>
@@ -262,7 +268,12 @@ export default {
       .catch((error) => {
         EventBus.$emit('operation-failure',error)
       });
-
+    },
+    addPreTraceabilityLink(index) {
+      console.log(index);
+    },
+    addPostTraceabilityLink(index) {
+      console.log(index);
     }
   },
   mounted() {
@@ -278,6 +289,9 @@ export default {
     }
     else if (this.dimName == 'trustboundary') {
       this.dimension = 'trust_boundary';
+    }
+    else if (this.dimName == 'securitypattern') {
+      this.dimension = 'security_pattern';
     }
   }
 }

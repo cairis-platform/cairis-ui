@@ -19,30 +19,26 @@ under the License.
 
 Authors: Shamal Faily 
 -->
-  <div class="securitypatterns">
-    <objects :breadCrumbItems="bcItems" :fieldList="objectsFields" :getUrl="theGetUrl" :delUrl="theDelUrl" :dimName="dimension"/>
+
+  <div class="misusabilitymodelview">
+    <b-breadcrumb :items="bcItems" />
+    <misusability-model />
   </div>
 </template>
 
+
 <script>
-import Objects from '@/components/Objects.vue'
+
+import MisusabilityModel from '@/components/MisusabilityModel.vue'
 
 export default {
-  components : {
-    Objects
-  },
-  data() {
-    return {
-      bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Security Patterns', to: {name: 'securitypatterns'}}],
-      items: [],
-      objectsFields : {
-        objectsactions : {label : ''},
-        theName : {label : 'Name', }
-      },
-      theGetUrl : '/api/security_patterns',
-      theDelUrl : '/api/security_patterns/name/',
-      dimension : 'securitypattern'
+  computed : {
+    bcItems() {
+      return [{text: 'Home', to: {name: 'home'}},{text: 'Misusability Model', to: {name: 'misusabilitymodel'}}]
     }
+  },
+  components : {
+    MisusabilityModel
   }
 }
 </script>

@@ -42,7 +42,7 @@ Authors: Shamal Faily
         <b-dropdown-item :to="{name: 'usecases'}">Use Cases</b-dropdown-item>
         <b-dropdown-item :to="{name: 'dependencies'}">Dependencies</b-dropdown-item>
         <b-dropdown-item :to="{name: 'kaosassociations'}">KAOS Associations</b-dropdown-item>
-        <b-dropdown-item href="#">Architectural Patterns</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'architecturalpatterns'}">Architectural Patterns</b-dropdown-item>
       </b-nav-item-dropdown>
       <b-nav-item-dropdown text="Risk">
         <b-dropdown-item :to="{name: 'roles'}">Roles</b-dropdown-item>
@@ -66,18 +66,18 @@ Authors: Shamal Faily
         <b-dropdown-item :to="{name: 'documentreferences'}">Document References</b-dropdown-item>
         <b-dropdown-item :to="{name: 'conceptreferences'}">Concept References</b-dropdown-item>
         <b-dropdown-item :to="{name: 'personacharacteristics'}">Persona Characteristics</b-dropdown-item>
-        <b-dropdown-item href="#">Task Characteristics</b-dropdown-item>
-        <b-dropdown-item href="#">Locations</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'taskcharacteristics'}">Task Characteristics</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'locations'}">Locations</b-dropdown-item>
       </b-nav-item-dropdown>
       <b-nav-item-dropdown text="Models">
         <b-dropdown-item :to="{name: 'validationmodel'}">Validate</b-dropdown-item>
         <b-dropdown-divider></b-dropdown-divider>
-        <b-dropdown-item href="#">Architectural Pattern</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'architecturalpatternmodel'}">Architectural Pattern</b-dropdown-item>
         <b-dropdown-item :to="{name: 'assetmodel'}">Asset</b-dropdown-item>
         <b-dropdown-item :to="{name: 'dataflowdiagram'}">Data Flow</b-dropdown-item>
         <b-dropdown-item :to="{name: 'goalmodel'}">Goal</b-dropdown-item>
         <b-dropdown-item :to="{name: 'locationsmodel'}">Locations</b-dropdown-item>
-        <b-dropdown-item href="#">Misusability</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'misusabilitymodel'}">Misusability</b-dropdown-item>
         <b-dropdown-item :to="{name: 'obstaclemodel'}">Obstacle</b-dropdown-item>
         <b-dropdown-item :to="{name: 'personamodel'}">Persona</b-dropdown-item>
         <b-dropdown-item :to="{name: 'requirementmodel'}">Requirement</b-dropdown-item>
