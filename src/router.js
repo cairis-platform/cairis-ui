@@ -235,6 +235,11 @@ export default new Router({
       component: () => import('./views/LocationsModelView.vue')
     },
     {
+      path: '/logout',
+      name: 'logout',
+      component: () => import('./views/Logout.vue')
+    },
+    {
       path: '/misusabilitymodel',
       name: 'misusabilitymodel',
       component: () => import('./views/MisusabilityModelView.vue')

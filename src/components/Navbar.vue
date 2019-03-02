@@ -115,7 +115,7 @@ Authors: Shamal Faily
         <b-form-input size="sm" class="mr-sm-2" type="text" v-model="theSearchString" placeholder="Search"/>
         <b-button size="sm" class="my-2 my-sm-0" type="submit" @click="onFind">Search</b-button>
       </b-nav-form>
-      <b-nav-item href="#" right>Logout</b-nav-item>
+      <b-nav-item :to="{name: 'logout'}" right>Logout</b-nav-item>
     </b-navbar-nav>
   </b-navbar>
 </template>
