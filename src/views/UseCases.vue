@@ -38,7 +38,9 @@ export default {
       objectsFields : {
         objectsactions : {label : ''},
         theName : {label : 'Name', sortable: true},
-        theDescription : {label : 'Description'}
+        theDescription : {label : 'Description'},
+        pretaction : {label: ''},
+        postaction : {label : ''}
       },
       theGetUrl : '/api/usecases/summary',
       theDelUrl : '/api/usecases/name/',

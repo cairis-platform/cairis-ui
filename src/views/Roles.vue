@@ -39,7 +39,8 @@ export default {
         objectsactions : {label : ''},
         theName : {label : 'Role', sortable: true},
         theType : {label : 'Type', sortable: true},
-        theDescription : {label : 'Description'}
+        theDescription : {label : 'Description'},
+        pretaction : {label: ''}
       },
       theGetUrl : '/api/roles',
       theDelUrl : '/api/roles/name/',

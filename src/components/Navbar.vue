@@ -107,7 +107,7 @@ Authors: Shamal Faily
         <b-dropdown-item href="#">Template Goals</b-dropdown-item>
         <b-dropdown-item href="#">Countermeasure Values</b-dropdown-item>
         <b-dropdown-divider></b-dropdown-divider>
-        <b-dropdown-item href="#">Traceability</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'traces'}">Traceability</b-dropdown-item>
       </b-nav-item-dropdown>
     </b-navbar-nav>
     <b-navbar-nav class="ml-auto">

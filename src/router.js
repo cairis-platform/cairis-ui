@@ -394,6 +394,11 @@ export default new Router({
       props: true
     },
     {
+      path: '/traces',
+      name: 'traces',
+      component: () => import('./views/Traces.vue')
+    },
+    {
       path: '/trustboundaries',
       name: 'trustboundaries',
       component: () => import('./views/TrustBoundaries.vue')

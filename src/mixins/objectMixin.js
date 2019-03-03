@@ -34,7 +34,7 @@ export default {
         })
         .catch((error) => {
           EventBus.$emit('operation-failure',error)
-        })
+        });
       }
       else {
         axios.post(createUrl,{
@@ -47,7 +47,7 @@ export default {
         })
         .catch((error) => {
           EventBus.$emit('operation-failure',error)
-        })
+        });
       }
     }
   }

@@ -38,7 +38,9 @@ export default {
       objectsFields : {
         objectsactions : {label : ''},
         theName : {label : 'Name', sortable: true},
-        theObjective : {label : 'Objective'}
+        theObjective : {label : 'Objective'},
+        pretaction : {label: ''},
+        postaction : {label : ''}
       },
       theGetUrl : '/api/tasks',
       theDelUrl : '/api/tasks/name/',

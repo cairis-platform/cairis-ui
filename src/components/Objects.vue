@@ -23,6 +23,7 @@ Authors: Shamal Faily
   <div class="objects">
     <b-breadcrumb :items="bcItems" />
     <object-dependency-modal ref="depDialog" :dependencies="objectDependencies" v-on:object-dependency-ok="deleteDependencies" />
+    <add-trace-modal v-if="selectedTraceabilityObject != ''" ref="traceDialog" :dimension="dimension" :tobject="selectedTraceabilityObject" :isFrom="isPostTraceability" />
     <b-card no-body>
       <b-container v-if="dimension == 'requirement'" fluid>
         <b-row>
@@ -66,6 +67,7 @@ import axios from 'axios';
 import EventBus from '../utils/event-bus';
 import DimensionSelect from '@/components/DimensionSelect.vue'
 import ObjectDependencyModal from '@/components/ObjectDependencyModal.vue'
+import AddTraceModal from '@/components/AddTraceModal.vue'
 
 export default {
   props : {
@@ -77,7 +79,8 @@ export default {
   },
   components : {
     DimensionSelect,
-    ObjectDependencyModal
+    ObjectDependencyModal,
+    AddTraceModal
   },
   data() {
     return {
@@ -89,6 +92,8 @@ export default {
       objectDependencies : [],
       selectedObject : '',
       selectedIndex : -1,
+      selectedTraceabilityObject : '',
+      isPostTraceability : 1
     }
   }, 
   watch : {
@@ -214,7 +219,7 @@ export default {
        })
       .catch((error) => {
         EventBus.$emit('operation-failure',error)
-      })
+      });
     },
     deleteDependencies() {
       const odUrl = '/api/object_dependency/dimension/' + this.dimension + '/object/' + this.selectedObject;
@@ -270,10 +275,14 @@ export default {
       });
     },
     addPreTraceabilityLink(index) {
-      console.log(index);
+      this.selectedTraceabilityObject = (this.dimension == 'vulnerability' ? this.items[index].theVulnerabilityName : this.items[index].theName);
+      this.isPostTraceability = 0;
+      this.$refs.traceDialog.show();
     },
     addPostTraceabilityLink(index) {
-      console.log(index);
+      this.selectedTraceabilityObject = (this.dimension == 'vulnerability' ? this.items[index].theVulnerabilityName : this.items[index].theName);
+      this.isPostTraceability = 1;
+      this.$refs.traceDialog.show();
     }
   },
   mounted() {

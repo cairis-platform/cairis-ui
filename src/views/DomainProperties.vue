@@ -38,7 +38,8 @@ export default {
       objectsFields : {
         objectsactions : {label : ''},
         theName : {label : 'Name', sortable: true },
-        theType : {label : 'Type', sortable: true}
+        theType : {label : 'Type', sortable: true},
+        postaction : {label : ''}
       },
       theGetUrl : '/api/domainproperties',
       theDelUrl : '/api/domainproperties/name/',
