@@ -23,7 +23,7 @@ import EventBus from '../utils/event-bus';
 export default {
 
   methods : {
-    commitObject(updateUrl,createUrl,dimRoute,defaultParameters) {
+    commitObject(updateUrl,createUrl,dimRoute,defaultParameters,dimParameter) {
       if (typeof defaultParameters == 'undefined') {
         defaultParameters = {post : {}, put: {}}
       }
@@ -33,8 +33,13 @@ export default {
           object : this.objt
         })
         .then(response => {
-          EventBus.$emit('operation-success',response.data.message)
-          this.$router.push({ name: dimRoute})
+          EventBus.$emit('operation-success',response.data.message);
+          if (dimParameter != undefined) {
+            this.$router.push({ name: dimRoute,params : {dimension : dimParameter}});
+          }
+          else {
+            this.$router.push({ name: dimRoute});
+          }
         })
         .catch((error) => {
           EventBus.$emit('operation-failure',error)
@@ -49,8 +54,13 @@ export default {
           params : defaultParameters['post']
         })
         .then(response => {
-          EventBus.$emit('operation-success',response.data.message)
-          this.$router.push({ name: dimRoute})
+          EventBus.$emit('operation-success',response.data.message);
+          if (dimParameter != undefined) {
+            this.$router.push({ name: dimRoute,params : {dimension : dimParameter}});
+          }
+          else {
+            this.$router.push({ name: dimRoute});
+          }
         })
         .catch((error) => {
           EventBus.$emit('operation-failure',error)

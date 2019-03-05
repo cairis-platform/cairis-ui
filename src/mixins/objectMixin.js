@@ -22,7 +22,7 @@ import EventBus from '../utils/event-bus';
 
 export default {
   methods : {
-    commitObject(updateUrl,createUrl,dimRoute) {
+    commitObject(updateUrl,createUrl,dimRoute,dimParameter) {
       if (this.commitLabel == 'Update') {
         axios.put(updateUrl,{
           session_id : this.$store.state.session,
@@ -30,7 +30,12 @@ export default {
         })
         .then(response => {
           EventBus.$emit('operation-success',response.data.message)
-          this.$router.push({ name: dimRoute})
+          if (dimParameter != undefined) {
+            this.$router.push({ name: dimRoute,params : {dimension : dimParameter}});
+          }
+          else {
+            this.$router.push({ name: dimRoute});
+          }
         })
         .catch((error) => {
           EventBus.$emit('operation-failure',error)
@@ -43,7 +48,12 @@ export default {
         })
         .then(response => {
           EventBus.$emit('operation-success',response.data.message)
-          this.$router.push({ name: dimRoute})
+          if (dimParameter != undefined) {
+            this.$router.push({ name: dimRoute,params : {dimension : dimParameter}});
+          }
+          else {
+            this.$router.push({ name: dimRoute});
+          }
         })
         .catch((error) => {
           EventBus.$emit('operation-failure',error)

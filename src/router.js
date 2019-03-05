@@ -426,6 +426,18 @@ export default new Router({
       component: () => import('./views/ValidationView.vue')
     },
     {
+      path: '/valuetypes/:dimension',
+      name: 'valuetypes',
+      component: () => import('./views/ValueTypes.vue'),
+      props: true
+    },
+    {
+      path: '/valuetype/:objectName',
+      name: 'valuetype',
+      component: () => import('./views/ValueTypeView.vue'),
+      props: true
+    },
+    {
       path: '/vulnerabilities',
       name: 'vulnerabilities',
       component: () => import('./views/Vulnerabilities.vue')

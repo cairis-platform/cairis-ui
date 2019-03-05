@@ -39,6 +39,15 @@ Authors: Shamal Faily
           </b-col>
         </b-row>
       </b-container>
+      <b-container v-if="environmentSpecificValueType" fluid>
+        <b-row>
+          <b-col>
+            <b-form-group label="Environment" label-for="reqEnvironment" :label-cols="5" >
+              <dimension-select ref="envFilter" id="vtEnvironment" dimension="environment" v-on:dimension-select-change="vtEnvironmentSelected" />
+            </b-form-group>
+          </b-col>
+        </b-row>
+      </b-container>
       <b-table b-table striped small hover :fields="objectsFields" :items="items" @row-clicked="objectClicked">
         <!-- eslint-disable-next-line -->
         <template slot="HEAD_objectsactions" slot-scope="data">
@@ -93,11 +102,17 @@ export default {
       selectedObject : '',
       selectedIndex : -1,
       selectedTraceabilityObject : '',
-      isPostTraceability : 1
+      isPostTraceability : 1,
+      theEnvironmentName : 'all'
     }
   }, 
   watch : {
-    theGetUrl : 'loadObjects'
+    getUrl : 'reloadObjects'
+  },
+  computed : {
+    environmentSpecificValueType() {
+      return this.dimension == 'asset_value' ? true : false;
+    }
   },
   methods : {
     objectClicked(row) {
@@ -122,6 +137,9 @@ export default {
       else if (this.dimName == 'dataflow') {
         this.$router.push({ name: this.dimName, params : {objectName: row.theName, envName: row.theEnvironmentName}});
       }
+      else if (this.dimName == 'asset_value' || this.dimName == 'asset_type' || this.dimName == 'access_right' || this.dimName == 'protocol' || this.dimName == 'privilege' || this.dimName == 'surface_type' || this.dimName == 'vulnerability_type' || this.dimName == 'severity' || this.dimName == 'capability' || this.dimName == 'motivation' || this.dimName == 'threat_type' || this.dimName == 'likelihood' || this.dimName == 'threat_value') {
+        this.$router.push({ name: 'valuetype', params : {objectName: row.theName, dimName : this.dimName, envName : this.theEnvironmentName}});
+      }
       else {
         this.$router.push({ name: this.dimName, params : {objectName: row.theName}});
       }
@@ -139,6 +157,10 @@ export default {
       else if (this.dimension == 'dataflow') {
         this.$router.push({ name: this.dimName, params : {objectName: 'New ' + this.dimName, envName : 'To set'}});
       }
+      else if (this.dimName == 'asset_value' || this.dimName == 'asset_type' || this.dimName == 'access_right' || this.dimName == 'protocol' || this.dimName == 'privilege' || this.dimName == 'surface_type' || this.dimName == 'vulnerability_type' || this.dimName == 'severity' || this.dimName == 'capability' || this.dimName == 'motivation' || this.dimName == 'threat_type' || this.dimName == 'likelihood' || this.dimName == 'threat_value') {
+        this.$router.push({ name: 'valuetype', params : {objectName: 'New value type', dimName : this.dimName, envName : this.theEnvironmentName}});
+      }
+
       else {
         this.$router.push({ name: this.dimName, params : {objectName: 'New ' + this.dimName, domain : {type : 'asset', name : ''}}});
       }
@@ -165,7 +187,7 @@ export default {
       this.selectedIndex = index;
       const that = this;
 
-      if (this.dimension != 'kaosassociation' && this.dimension != 'assetassociation' && this.dimension != 'dependency' && this.dimension != 'dataflow') {
+      if (this.dimension != 'kaosassociation' && this.dimension != 'assetassociation' && this.dimension != 'dependency' && this.dimension != 'dataflow' && this.dimension != 'valuetype') {
         let objectDimension = this.dimension;
         if (objectDimension == 'personacharacteristic') {
           objectDimension = 'persona_characteristic';
@@ -206,6 +228,9 @@ export default {
       else if (this.dimension == 'dataflow') {
         deleteUrl += this.selectedObject.objectName + '/environment/' + this.selectedObject.envName;
       }
+      else if (this.dimension == 'asset_value' || this.dimension == 'asset_type' || this.dimension == 'access_right' || this.dimension == 'protocol' || this.dimension == 'privilege' || this.dimension == 'surface_type' || this.dimension == 'vulnerability_type' || this.dimension == 'severity' || this.dimension == 'capability' || this.dimension == 'motivation' || this.dimension == 'threat_type' || this.dimension == 'likelihood' || this.dimension == 'threat_value') {
+        deleteUrl += this.theEnvironmentName + '/name/' + this.selectedObject;
+      }
       else {
         deleteUrl += JSON.parse(JSON.stringify(this.selectedObject));
       }
@@ -235,6 +260,12 @@ export default {
         EventBus.$emit('operation-failure',error)
       })
     },
+    reloadObjects() {
+      this.theGetUrl = this.getUrl;
+      this.dimension = this.dimName;
+      this.bcItems = this.breadCrumbItems;
+      this.loadObjects();
+    },
     loadObjects() {
       if (this.theGetUrl != '') {
         axios.get(this.theGetUrl,{
@@ -259,6 +290,13 @@ export default {
       if (envName != null) {
         this.theGetUrl = '/api/requirements/environment/' + envName
         this.$refs.assetFilter.selected = '';
+      }
+    },
+    vtEnvironmentSelected(envName) {
+      if (envName != null) {
+        this.theEnvironmentName = envName;
+        this.theGetUrl = '/api/value_types/type/' + this.dimension + '/environment/' + this.theEnvironmentName;
+        this.loadObjects();
       }
     },
     generateGoal(index) {

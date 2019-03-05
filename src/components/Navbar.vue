@@ -86,21 +86,21 @@ Authors: Shamal Faily
         <b-dropdown-item :to="{name: 'taskmodel'}">Task</b-dropdown-item>
       </b-nav-item-dropdown>
       <b-nav-item-dropdown text="Options">
-        <b-dropdown-item href="#">Asset Values</b-dropdown-item>
-        <b-dropdown-item href="#">Asset Types</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'valuetypes', params: {dimension: 'asset_value'}}">Asset Values</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'valuetypes', params: {dimension: 'asset_type'}}">Asset Types</b-dropdown-item>
         <b-dropdown-divider></b-dropdown-divider>
-        <b-dropdown-item href="#">Access Rights</b-dropdown-item>
-        <b-dropdown-item href="#">Protocols</b-dropdown-item>
-        <b-dropdown-item href="#">Privileges</b-dropdown-item>
-        <b-dropdown-item href="#">Surface Types</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'valuetypes', params: {dimension: 'access_right'}}">Access Rights</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'valuetypes', params: {dimension: 'protocol'}}">Protocols</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'valuetypes', params: {dimension: 'privilege'}}">Privileges</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'valuetypes', params: {dimension: 'surface_type'}}">Surface Types</b-dropdown-item>
         <b-dropdown-divider></b-dropdown-divider>
-        <b-dropdown-item href="#">Vulnerability Types</b-dropdown-item>
-        <b-dropdown-item href="#">Vulnerability Severities</b-dropdown-item>
-        <b-dropdown-item href="#">Capabilities</b-dropdown-item>
-        <b-dropdown-item href="#">Motivations</b-dropdown-item>
-        <b-dropdown-item href="#">Threat Types</b-dropdown-item>
-        <b-dropdown-item href="#">Threat Likelihoods</b-dropdown-item>
-        <b-dropdown-item href="#">Threat Values</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'valuetypes', params: {dimension: 'vulnerability_type'}}">Vulnerability Types</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'valuetypes', params: {dimension: 'severity'}}">Vulnerability Severities</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'valuetypes', params: {dimension: 'capability'}}">Capabilities</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'valuetypes', params: {dimension: 'motivation'}}">Motivations</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'valuetypes', params: {dimension: 'threat_type'}}">Threat Types</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'valuetypes', params: {dimension: 'likelihood'}}">Threat Likelihoods</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'valuetypes', params: {dimension: 'threat_value'}}">Threat Values</b-dropdown-item>
         <b-dropdown-divider></b-dropdown-divider>
         <b-dropdown-item href="#">Template Assets</b-dropdown-item>
         <b-dropdown-item href="#">Template Requirements</b-dropdown-item>
