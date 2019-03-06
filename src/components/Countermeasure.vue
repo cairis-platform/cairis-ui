@@ -313,7 +313,7 @@ export default {
     },
     onCancel(evt) {
       evt.preventDefault();
-      this.$router.push({ name: 'countermeasures'});
+      this.$router.push({ name: 'objectsview', params: {dimension: 'countermeasure'}});
     },
     addCountermeasureEnvironmentProperty : function(envName) {
       this.addEnvironmentProperty({

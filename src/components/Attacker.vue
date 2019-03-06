@@ -204,7 +204,7 @@ export default {
     },
     onCancel(evt) {
       evt.preventDefault();
-      this.$router.push({ name: 'attackers'})
+      this.$router.push({ name: 'objectsview', params: {dimension: 'attacker'}});
     },
     addAttackerEnvironmentProperty : function(envName) {
       this.addEnvironmentProperty({

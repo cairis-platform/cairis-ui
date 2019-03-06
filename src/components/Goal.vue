@@ -319,7 +319,7 @@ export default {
     },
     onCancel(evt) {
       evt.preventDefault();
-      this.$router.push({ name: 'goals'})
+      this.$router.push({ name: 'objectsview', params: {dimension: 'goal'}});
     },
     addGoalEnvironmentProperty : function(envName) {
       this.addEnvironmentProperty({

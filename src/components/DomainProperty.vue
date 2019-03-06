@@ -113,7 +113,7 @@ export default {
     },
     onCancel(evt) {
       evt.preventDefault();
-      this.$router.push({ name: 'domainproperties'})
+      this.$router.push({ name: 'objectsview', params: {dimension: 'domainproperty'}});
     },
     checkForm() {
       this.errors = []

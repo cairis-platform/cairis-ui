@@ -368,7 +368,7 @@ export default {
     },
     onCancel(evt) {
       evt.preventDefault();
-      this.$router.push({ name: 'responses'})
+      this.$router.push({ name: 'objectsview', params: {dimension: 'response'}});
     },
     addEnvironment(evt) {
       evt.preventDefault();

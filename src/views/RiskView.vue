@@ -44,7 +44,7 @@ export default {
   ],
   computed : {
     bcItems() {
-     return [{text: 'Home', to: {name: 'home'}},{text: 'Risks', to: {name: 'risks'}},{text: this.objt.theRiskName, to : {name: 'risk'}}]
+     return [{text: 'Home', to: {name: 'home'}},{text: 'Risks', to: {name: 'objectsview', params: {dimension: 'risk'}}},{text: this.objt.theName, to : {name: 'risk'}}]
     }
   },
   components : {
@@ -89,7 +89,7 @@ export default {
       this.objt = objt
       var updateUrl = this.$store.state.url + "/api/risks/name/" + this.objectName + "?session_id=" + this.$store.state.session;
       var createUrl = this.$store.state.url + "/api/risks";
-      this.commitObject(updateUrl,createUrl,'risks');
+      this.commitObject(updateUrl,createUrl,'objectsview',undefined,'risk');
     }
   }
 }

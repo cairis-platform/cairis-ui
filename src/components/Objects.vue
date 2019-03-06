@@ -21,7 +21,7 @@ Authors: Shamal Faily
 -->
 
   <div class="objects">
-    <b-breadcrumb :items="bcItems" />
+    <b-breadcrumb :items="breadCrumbItems" />
     <object-dependency-modal ref="depDialog" :dependencies="objectDependencies" v-on:object-dependency-ok="deleteDependencies" />
     <add-trace-modal v-if="selectedTraceabilityObject != ''" ref="traceDialog" :dimension="dimension" :tobject="selectedTraceabilityObject" :isFrom="isPostTraceability" />
     <b-card no-body>
@@ -48,7 +48,7 @@ Authors: Shamal Faily
           </b-col>
         </b-row>
       </b-container>
-      <b-table b-table striped small hover :fields="objectsFields" :items="items" @row-clicked="objectClicked">
+      <b-table b-table striped small hover :fields="fieldList" :items="items" @row-clicked="objectClicked">
         <!-- eslint-disable-next-line -->
         <template slot="HEAD_objectsactions" slot-scope="data">
           <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addObject"/> 
@@ -93,11 +93,9 @@ export default {
   },
   data() {
     return {
-      bcItems : this.breadCrumbItems,
       dimension : this.dimName,
       items: [],
       theGetUrl : this.getUrl,
-      objectsFields : this.fieldList,
       objectDependencies : [],
       selectedObject : '',
       selectedIndex : -1,
@@ -118,9 +116,6 @@ export default {
     objectClicked(row) {
       if (this.dimName == 'requirement') {
         this.$router.push({ name: this.dimName, params : {objectName: row.theName, domain: this.$refs.assetFilter.selected.length > 0 ? {type: 'asset', name: this.$refs.assetFilter.selected} : {type: 'environment', name: this.$refs.envFilter.selected}}});
-      }
-      else if (this.dimName == 'vulnerability') {
-        this.$router.push({ name: this.dimName, params : {objectName: row.theVulnerabilityName}});
       }
       else if (this.dimName == 'personacharacteristic') {
         this.$router.push({ name: this.dimName, params : {objectName: row.theCharacteristic}});
@@ -166,10 +161,7 @@ export default {
       }
     },
     deleteObject(index) {
-      if (this.dimName == 'vulnerability') {
-        this.selectedObject = this.items[index].theVulnerabilityName;
-      }
-      else if (this.dimName == 'kaosassociation') {
+      if (this.dimName == 'kaosassociation') {
         this.selectedObject = {'envName' : this.items[index].theEnvironmentName,'goal' : this.items[index].theGoal,'subGoal' : this.items[index].theSubGoal};
       }
       else if (this.dimName == 'assetassociation') {
@@ -263,7 +255,6 @@ export default {
     reloadObjects() {
       this.theGetUrl = this.getUrl;
       this.dimension = this.dimName;
-      this.bcItems = this.breadCrumbItems;
       this.loadObjects();
     },
     loadObjects() {

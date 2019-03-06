@@ -230,7 +230,7 @@ export default {
     },
     onCancel(evt) {
       evt.preventDefault();
-      this.$router.push({ name: 'threats'})
+      this.$router.push({ name: 'objectsview', params: {dimension: 'threat'}});
     },
     deleteAsset(index) {
       this.objt.theEnvironmentProperties[this.envPropIndex].theAssets.splice(index,1);

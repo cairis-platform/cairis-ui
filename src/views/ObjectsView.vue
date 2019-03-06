@@ -19,33 +19,45 @@ under the License.
 
 Authors: Shamal Faily 
 -->
-  <div class="roles">
+  <div class="objectsview">
     <objects :breadCrumbItems="bcItems" :fieldList="objectsFields" :getUrl="theGetUrl" :delUrl="theDelUrl" :dimName="dimension"/>
   </div>
 </template>
 
 <script>
 import Objects from '@/components/Objects.vue'
+import objectsViewData from '../utils/objectsViewData';
 
 export default {
+  props : {
+    dimension : String
+  },
+  watch : {
+    dimension : 'setData' 
+  },
   components : {
     Objects
   },
   data() {
     return {
-      bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Roles', to: {name: 'roles'}}],
+      bcItems : [],
       items: [],
-      objectsFields : {
-        objectsactions : {label : ''},
-        theName : {label : 'Role', sortable: true},
-        theType : {label : 'Type', sortable: true},
-        theDescription : {label : 'Description'},
-        pretaction : {label: ''}
-      },
-      theGetUrl : '/api/roles',
-      theDelUrl : '/api/roles/name/',
-      dimension : 'role'
+      objectsFields : {}, 
+      theGetUrl : '',
+      theDelUrl : ''
     }
+  },
+  methods : {
+    setData() {
+      const viewData = objectsViewData[this.dimension];
+      this.bcItems = viewData.bcItems;
+      this.objectsFields = viewData.objectsFields;
+      this.theGetUrl = viewData.theGetUrl;
+      this.theDelUrl = viewData.theDelUrl;
+    }
+  },
+  mounted() {
+    this.setData();
   }
 }
 </script>

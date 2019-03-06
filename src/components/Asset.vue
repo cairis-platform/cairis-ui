@@ -94,8 +94,9 @@ Authors: Shamal Faily
           <b-tab title="Interfaces">
             <b-card bg-variant="light">
               <b-table striped small hover :items="objt.theInterfaces" :fields=interfaceTableFields @row-clicked="viewInterface">
+                <!-- eslint-disable-next-line -->
                 <template slot="HEAD_intactions" slot-scope="data"> 
-                  <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addInterface(data)"/> 
+                  <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addInterface"/> 
                 </template>
                 <template slot="intactions" slot-scope="row">
                   <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteInterface(row.item)"/>
@@ -300,7 +301,7 @@ export default {
     },
     onCancel(evt) {
       evt.preventDefault();
-      this.$router.push({ name: 'assets'})
+      this.$router.push({ name: 'objectsview', params: {dimension: 'asset'}});
     },
     addAssetAssociation() {
       this.selectedAssociation['asset'] = this.objt.theName;
@@ -312,11 +313,10 @@ export default {
     deleteAssetAssociation(index) {
       this.objt.theEnvironmentProperties[this.envPropIndex].theAssociations.splice(index,1);
     },
-    addInterface(data) {
+    addInterface() {
       this.selectedInterface['assetinterface'] = {theInterfaceName : '', theInterfaceType : '', theAccessRight : '', thePrivilege: ''};
       this.selectedInterface['update'] = false;
       this.$refs.assetInterfaceDialog.show();  
-      console.log(data);
     },
     deleteInterface(index) {
       this.objt.theInterfaces.splice(index,1);

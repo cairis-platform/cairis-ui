@@ -286,7 +286,7 @@ export default {
     },
     onCancel(evt) {
       evt.preventDefault();
-      this.$router.push({ name: 'obstacles'})
+      this.$router.push({ name: 'objectsview', params: {dimension: 'obstacle'}});
     },
     addObstacleEnvironmentProperty : function(envName) {
       this.addEnvironmentProperty({

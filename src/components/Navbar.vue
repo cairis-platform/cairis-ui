@@ -36,24 +36,24 @@ Authors: Shamal Faily
       </b-nav-item-dropdown>
       <b-nav-item-dropdown text="Requirements">
         <b-dropdown-item :to="{name: 'requirements'}">Requirements</b-dropdown-item>
-        <b-dropdown-item :to="{name: 'domainproperties'}">Domain Properties</b-dropdown-item>
-        <b-dropdown-item :to="{name: 'goals'}">Goals</b-dropdown-item>
-        <b-dropdown-item :to="{name: 'obstacles'}">Obstacles</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'domainproperty'}}">Domain Properties</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'goal'}}">Goals</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'obstacle'}}">Obstacles</b-dropdown-item>
         <b-dropdown-item :to="{name: 'usecases'}">Use Cases</b-dropdown-item>
         <b-dropdown-item :to="{name: 'dependencies'}">Dependencies</b-dropdown-item>
         <b-dropdown-item :to="{name: 'kaosassociations'}">KAOS Associations</b-dropdown-item>
         <b-dropdown-item :to="{name: 'architecturalpatterns'}">Architectural Patterns</b-dropdown-item>
       </b-nav-item-dropdown>
       <b-nav-item-dropdown text="Risk">
-        <b-dropdown-item :to="{name: 'roles'}">Roles</b-dropdown-item>
-        <b-dropdown-item :to="{name: 'assets'}">Assets</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'role'}}">Roles</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'objectsview',params: {dimension: 'asset'}}">Assets</b-dropdown-item>
         <b-dropdown-item :to="{name: 'assetassociations'}">Asset Associations</b-dropdown-item>
-        <b-dropdown-item :to="{name: 'attackers'}">Attackers</b-dropdown-item>
-        <b-dropdown-item :to="{name: 'threats'}">Threats</b-dropdown-item>
-        <b-dropdown-item :to="{name: 'vulnerabilities'}">Vulnerabilities</b-dropdown-item>
-        <b-dropdown-item :to="{name: 'risks'}">Risks</b-dropdown-item>
-        <b-dropdown-item :to="{name: 'responses'}">Responses</b-dropdown-item>
-        <b-dropdown-item :to="{name: 'countermeasures'}">Countermeasures</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'attacker'}}">Attackers</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'threat'}}">Threats</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'vulnerability'}}">Vulnerabilities</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'risk'}}">Risks</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'response'}}">Responses</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'countermeasure'}}">Countermeasures</b-dropdown-item>
         <b-dropdown-item :to="{name: 'securitypatterns'}">Security Patterns</b-dropdown-item>
       </b-nav-item-dropdown>
       <b-nav-item-dropdown text="UX">

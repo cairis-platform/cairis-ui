@@ -93,7 +93,7 @@ export default {
     },
     onCancel(evt) {
       evt.preventDefault();
-      this.$router.push({ name: 'roles'})
+      this.$router.push({ name: 'objectsview', params: {dimension: 'role'}});
     },
     roleTypeSelected(item) {
       this.objt.theType = item;

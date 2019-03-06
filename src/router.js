@@ -47,11 +47,6 @@ export default new Router({
       props: true
     },
     {
-      path: '/assets',
-      name: 'assets',
-      component: () => import('./views/Assets.vue')
-    },
-    {
       path: '/assetassociations',
       name: 'assetassociations',
       component: () => import('./views/AssetAssociations.vue')
@@ -74,11 +69,6 @@ export default new Router({
       props: true
     },
     {
-      path: '/attackers',
-      name: 'attackers',
-      component: () => import('./views/Attackers.vue')
-    },
-    {
       path: '/about',
       name: 'about',
       component: () => import('./views/About.vue')
@@ -93,11 +83,6 @@ export default new Router({
       name: 'conceptreference',
       component: () => import('./views/ConceptReferenceView.vue'),
       props: true
-    },
-    {
-      path: '/counteremeasures',
-      name: 'countermeasures',
-      component: () => import('./views/Countermeasures.vue')
     },
     {
       path: '/countermeasure/:objectName',
@@ -154,11 +139,6 @@ export default new Router({
       props: true
     },
     {
-      path: '/domainproperties',
-      name: 'domainproperties',
-      component: () => import('./views/DomainProperties.vue')
-    },
-    {
       path: '/domainproperties/:objectName',
       name: 'domainproperty',
       component: () => import('./views/DomainPropertyView.vue'),
@@ -203,11 +183,6 @@ export default new Router({
       component: () => import('./views/GoalModelView.vue')
     },
     {
-      path: '/goals',
-      name: 'goals',
-      component: () => import('./views/Goals.vue')
-    },
-    {
       path: '/goal/:objectName',
       name: 'goal',
       component: () => import('./views/GoalView.vue'),
@@ -250,9 +225,10 @@ export default new Router({
       component: () => import('./views/MisusabilityModelView.vue')
     },
     {
-      path: '/obstacles',
-      name: 'obstacles',
-      component: () => import('./views/Obstacles.vue')
+      path: '/objects/:dimension',
+      name: 'objectsview',
+      component: () => import('./views/ObjectsView.vue'),
+      props: true
     },
     {
       path: '/obstacle/:objectName',
@@ -314,11 +290,6 @@ export default new Router({
       props: true
     },
     {
-      path: '/responses',
-      name: 'responses',
-      component: () => import('./views/Responses.vue')
-    },
-    {
       path: '/response/:objectName',
       name: 'response',
       component: () => import('./views/ResponseView.vue'),
@@ -335,20 +306,10 @@ export default new Router({
       component: () => import('./views/RiskModelView.vue')
     },
     {
-      path: '/risks',
-      name: 'risks',
-      component: () => import('./views/Risks.vue')
-    },
-    {
       path: '/risk/:objectName',
       name: 'risk',
       component: () => import('./views/RiskView.vue'),
       props: true
-    },
-    {
-      path: '/roles',
-      name: 'roles',
-      component: () => import('./views/Roles.vue')
     },
     {
       path: '/roles/:objectName',
@@ -381,11 +342,6 @@ export default new Router({
       name: 'task',
       component: () => import('./views/TaskView.vue'),
       props: true
-    },
-    {
-      path: '/threats',
-      name: 'threats',
-      component: () => import('./views/Threats.vue')
     },
     {
       path: '/threat/:objectName',
@@ -436,11 +392,6 @@ export default new Router({
       name: 'valuetype',
       component: () => import('./views/ValueTypeView.vue'),
       props: true
-    },
-    {
-      path: '/vulnerabilities',
-      name: 'vulnerabilities',
-      component: () => import('./views/Vulnerabilities.vue')
     },
     {
       path: '/vulnerabilities/:objectName',

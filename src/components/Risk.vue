@@ -262,7 +262,7 @@ export default {
     },
     onCancel(evt) {
       evt.preventDefault();
-      this.$router.push({ name: 'risks'})
+      this.$router.push({ name: 'objectsview', params: {dimension: 'risk'}});
     },
     threatSelected(item) {
       this.objt.theThreatName = item;
