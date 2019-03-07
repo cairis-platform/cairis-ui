@@ -216,7 +216,6 @@ export default {
     },
     addRole(data) {
       this.$refs.roleDialog.show();  
-      console.log(data);
     },
     addAttackerRole(data) {
       this.objt.theEnvironmentProperties[this.envPropIndex].theRoles.push(data);
@@ -232,14 +231,12 @@ export default {
     },
     addMotive(data) {
       this.$refs.motiveDialog.show();  
-      console.log(data);
     },
     deleteMotive(item) {
       this.objt.theEnvironmentProperties[this.envPropIndex].theMotives = this.objt.theEnvironmentProperties[this.envPropIndex].theMotives.filter(motive => (motive != item.name));
     },
     addCapability(data) {
       this.$refs.capabilityDialog.show();  
-      console.log(data);
     },
     deleteCapability(item) {
       this.objt.theEnvironmentProperties[this.envPropIndex].theCapabilities = this.objt.theEnvironmentProperties[this.envPropIndex].theCapabilities.filter(cap => (cap.name != item.name));
@@ -259,7 +256,6 @@ export default {
       })
       .catch((error) => {
         EventBus.$emit('operation-failure',error)
-        console.log(error)
       })
     },
     checkForm() {
