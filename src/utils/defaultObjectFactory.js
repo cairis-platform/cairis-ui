@@ -32,6 +32,13 @@ asset : {
   theInterfaces : [],
   theEnvironmentProperties : [],
 },
+attacker : {
+  theName : '',
+  theTags : '',
+  theDescription : '',
+  theImage : '',
+  theEnvironmentProperties : []
+},
 domainproperty : {
   theName : '',
   theType : '',
@@ -57,6 +64,13 @@ role : {
   theShortCode : '',
   theDescription : ''
 },
+threat : {
+  theThreatName : '',
+  theType : '',
+  theMethod : '',
+  theTags : '',
+  theEnvironmentProperties : []
+},
 usecase : {
   theName : '',
   theAuthor : '',
@@ -64,6 +78,13 @@ usecase : {
   theActors : [],
   theDescription : '',
   theReferenceContributions : [],
+  theTags : '',
+  theEnvironmentProperties : []
+},
+vulnerability : {
+  theName : '',
+  theType : '',
+  theDescription : '',
   theTags : '',
   theEnvironmentProperties : []
 }

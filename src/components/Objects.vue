@@ -140,11 +140,14 @@ export default {
             this.$router.push({ name: this.dimName, params : {objectName: row.theName, envName: row.theEnvironmentName}});
             break;
           case 'asset':
+          case 'attacker':
           case 'domainproperty':
           case 'goal':
           case 'obstacle':
           case 'role':
+          case 'threat':
           case 'usecase':
+          case 'vulnerability':
             this.$router.push({ name: 'objectview', params: {dimension: this.dimension, objectName: row.theName, objectsLabel: this.theObjectViewParameters.objectsLabel, componentFile: this.theObjectViewParameters.componentFile, updatePath: this.theObjectViewParameters.updatePath, createPath: this.theObjectViewParameters.createPath}});
             break;
           default: 
@@ -172,11 +175,14 @@ export default {
             this.$router.push({ name: this.dimName, params : {objectName: 'New ' + this.dimName, envName : 'To set'}});
             break;
           case 'asset':
+          case 'attacker':
           case 'domainproperty':
           case 'goal':
           case 'obstacle':
           case 'role':
+          case 'threat':
           case 'usecase':
+          case 'vulnerability':
             this.$router.push({ name: 'objectview', params: {dimension: this.dimension, objectName: 'New ' + this.dimName, objectsLabel: this.theObjectViewParameters.objectsLabel, componentFile: this.theObjectViewParameters.componentFile, updatePath: this.theObjectViewParameters.updatePath, createPath: this.theObjectViewParameters.createPath}});
             break;
           default:

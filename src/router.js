@@ -47,12 +47,6 @@ export default new Router({
       component: () => import('./views/AssetModelView.vue')
     },
     {
-      path: '/attacker/:objectName',
-      name: 'attacker',
-      component: () => import('./views/AttackerView.vue'),
-      props: true
-    },
-    {
       path: '/about',
       name: 'about',
       component: () => import('./views/About.vue')
@@ -240,12 +234,6 @@ export default new Router({
       props: true
     },
     {
-      path: '/threat/:objectName',
-      name: 'threat',
-      component: () => import('./views/ThreatView.vue'),
-      props: true
-    },
-    {
       path: '/traces',
       name: 'traces',
       component: () => import('./views/Traces.vue')
@@ -271,12 +259,6 @@ export default new Router({
       path: '/valuetype/:objectName',
       name: 'valuetype',
       component: () => import('./views/ValueTypeView.vue'),
-      props: true
-    },
-    {
-      path: '/vulnerabilities/:objectName',
-      name: 'vulnerability',
-      component: () => import('./views/VulnerabilityView.vue'),
       props: true
     },
     {

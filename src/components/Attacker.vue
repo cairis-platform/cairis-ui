@@ -172,7 +172,7 @@ export default {
       errors : [],
       objt : this.object,
       envPropIndex : 0,
-      commitLabel : 'Create',
+      commitLabel : this.label,
       roleTableFields : {
         roleactions : {label : ''},
         name : {label : 'Role'}
@@ -199,7 +199,7 @@ export default {
         if (this.objt.theTags != '') {
           this.objt.theTags = this.objt.theTags.split(',').map(t => t.trim());
         }
-        this.$emit('attacker-commit',this.objt);
+        this.$emit('object-commit',this.objt);
       }
     },
     onCancel(evt) {

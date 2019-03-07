@@ -26,6 +26,12 @@ asset : {
   updatePath : '/api/assets/name/',
   createPath : '/api/assets'
 },
+attacker : {
+  objectsLabel : 'Attackers',
+  componentFile : 'Attacker',
+  updatePath : '/api/attackers/name/',
+  createPath : '/api/attackers'
+},
 domainproperty : {
   objectsLabel : 'Domain properties',
   componentFile : 'DomainProperty',
@@ -50,11 +56,23 @@ role : {
   updatePath : '/api/roles/name/',
   createPath : '/api/roles'
 },
+threat : {
+  objectsLabel : 'Threats',
+  componentFile : 'Threat',
+  updatePath : '/api/threats/name/',
+  createPath : '/api/threats'
+},
 usecase : {
   objectsLabel : 'Use cases',
   componentFile : 'UseCase',
   updatePath : '/api/usecases/name/',
   createPath : '/api/usecases'
+},
+vulnerability : {
+  objectsLabel : 'Vulnerabilities',
+  componentFile : 'Vulnerability',
+  updatePath : '/api/vulnerabilities/name/',
+  createPath : '/api/vulnerabilities'
 }
 
 }
