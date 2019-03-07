@@ -316,7 +316,7 @@ export default {
     },
     onCancel(evt) {
       evt.preventDefault();
-      this.$router.push({ name: 'usecases'});
+      this.$router.push({ name: 'objectsview', params: {dimension: 'usecase'}});
     },
     addUseCaseEnvironmentProperty : function(envName) {
       this.addEnvironmentProperty({

@@ -20,7 +20,7 @@ under the License.
 Authors: Shamal Faily 
 -->
 
-  <div class="kaosassociationview">
+  <div class="assetassociationview">
     <b-breadcrumb :items="bcItems" /> 
     <asset-association :object="this.objt" :label="this.commitLabel" v-on:asset-association-commit="commitAssetAssociation" />
   </div>
@@ -46,7 +46,7 @@ export default {
   ],
   computed : {
     bcItems() {
-     return [{text: 'Home', to: {name: 'home'}},{text: 'Asset Associations', to: {name: 'assetassociations'}},{text: this.objt.theEnvironmentName + ' / ' + this.objt.theHeadAsset + ' / ' + this.objt.theTailAsset, to : {name: 'assetassociation'}}]
+     return [{text: 'Home', to: {name: 'home'}},{text: 'Asset Associations', to: {name: 'objectsview', params: {dimension: 'assetassociation'}}},{text: this.objt.theEnvironmentName + ' / ' + this.objt.theHeadAsset + ' / ' + this.objt.theTailAsset, to : {name: 'assetassociation'}}]
     }
   },
   components : {
@@ -108,7 +108,7 @@ export default {
       this.objt = objt
       const updateUrl = this.$store.state.url + "/api/assets/association/environment/" + this.envName + '/head/' + this.headName + '/tail/' + this.tailName + "?session_id=" + this.$store.state.session;
       const createUrl = this.$store.state.url + "/api/assets/association";
-      this.commitObject(updateUrl,createUrl,'assetassociations');
+      this.commitObject(updateUrl,createUrl,'objectsview',undefined,'assetassociation');
     }
   }
 

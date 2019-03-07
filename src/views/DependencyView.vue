@@ -47,7 +47,7 @@ export default {
   ],
   computed : {
     bcItems() {
-     return [{text: 'Home', to: {name: 'home'}},{text: 'Dependency', to: {name: 'dependencies'}},{text: this.objt.theEnvironmentName + ' / ' + this.objt.theDepender + ' / ' + this.objt.theDependee + ' / ' + this.objt.theDependency, to : {name: 'dependency'}}]
+     return [{text: 'Home', to: {name: 'home'}},{text: 'Dependency', to: {name: 'objectsview', params: {dimension: 'dependency'}}},{text: this.objt.theEnvironmentName + ' / ' + this.objt.theDepender + ' / ' + this.objt.theDependee + ' / ' + this.objt.theDependency, to : {name: 'dependency'}}]
     }
   },
   components : {
@@ -103,7 +103,7 @@ export default {
       this.objt = objt
       const updateUrl = this.$store.state.url + "/api/dependencies/environment/" + this.envName + '/depender/' + this.depName + '/dependee/' + this.deeName + '/dependency/' + this.dpyName +  "?session_id=" + this.$store.state.session;
       const createUrl = this.$store.state.url + "/api/dependencies";
-      this.commitObject(updateUrl,createUrl,'dependencies');
+      this.commitObject(updateUrl,createUrl,'objectsview',undefined,'dependency');
     }
   }
 

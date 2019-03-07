@@ -155,7 +155,7 @@ export default {
     },
     onCancel(evt) {
       evt.preventDefault();
-      this.$router.push({ name: 'environments'})
+      this.$router.push({ name: 'objectsview', params: {dimension: 'environment'}});
     },
     addEnvironment() {
       this.$refs.environmentDialog.show();  

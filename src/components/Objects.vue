@@ -208,23 +208,37 @@ export default {
     },
     commitDelete() {
       let deleteUrl = this.delUrl;
-      if (this.dimension == 'kaosassociation') {
-        deleteUrl += this.selectedObject.envName + '/goal/' + this.selectedObject.goal + '/subgoal/' + this.selectedObject.subGoal;
-      }
-      if (this.dimension == 'assetassociation') {
-        deleteUrl += this.selectedObject.envName + '/head/' + this.selectedObject.headName + '/tail/' + this.selectedObject.tailName;
-      }
-      else if (this.dimension == 'dependency') {
-        deleteUrl += this.selectedObject.envName + '/depender/' + this.selectedObject.theDepender + '/dependee/' + this.selectedObject.theDependee + '/dependency/' + this.selectedObject.theDependency;
-      }
-      else if (this.dimension == 'dataflow') {
-        deleteUrl += this.selectedObject.objectName + '/environment/' + this.selectedObject.envName;
-      }
-      else if (this.dimension == 'asset_value' || this.dimension == 'asset_type' || this.dimension == 'access_right' || this.dimension == 'protocol' || this.dimension == 'privilege' || this.dimension == 'surface_type' || this.dimension == 'vulnerability_type' || this.dimension == 'severity' || this.dimension == 'capability' || this.dimension == 'motivation' || this.dimension == 'threat_type' || this.dimension == 'likelihood' || this.dimension == 'threat_value') {
-        deleteUrl += this.theEnvironmentName + '/name/' + this.selectedObject;
-      }
-      else {
-        deleteUrl += JSON.parse(JSON.stringify(this.selectedObject));
+      switch (this.dimension) {
+        case 'kaosassociation':
+          deleteUrl += this.selectedObject.envName + '/goal/' + this.selectedObject.goal + '/subgoal/' + this.selectedObject.subGoal;
+          break;
+        case 'assetassociation':
+          deleteUrl += this.selectedObject.envName + '/head/' + this.selectedObject.headName + '/tail/' + this.selectedObject.tailName;
+          break;
+        case 'dependency':
+          deleteUrl += this.selectedObject.envName + '/depender/' + this.selectedObject.theDepender + '/dependee/' + this.selectedObject.theDependee + '/dependency/' + this.selectedObject.theDependency;
+          break;
+        case 'dataflow':
+          deleteUrl += this.selectedObject.objectName + '/environment/' + this.selectedObject.envName;
+          break;
+        case 'asset_value':
+        case 'asset_type':
+        case 'access_right':
+        case 'protocol':
+        case 'privilege':
+        case 'surface_type':
+        case 'vulnerability_type':
+        case 'severity':
+        case 'capability':
+        case 'motivation':
+        case 'threat_type':
+        case 'likelihood':
+        case 'threat_value':
+          deleteUrl += this.theEnvironmentName + '/name/' + this.selectedObject;
+          break;
+        default: 
+          deleteUrl += JSON.parse(JSON.stringify(this.selectedObject));
+          break;
       }
       axios.delete(deleteUrl,{
         baseURL : this.$store.state.url,
@@ -275,12 +289,14 @@ export default {
       if (assetName != null) {
         this.theGetUrl = '/api/requirements/asset/' + assetName
         this.$refs.envFilter.selected = '';
+        this.loadObjects();
       }
     },
     environmentSelected(envName) {
       if (envName != null) {
         this.theGetUrl = '/api/requirements/environment/' + envName
         this.$refs.assetFilter.selected = '';
+        this.loadObjects();
       }
     },
     vtEnvironmentSelected(envName) {

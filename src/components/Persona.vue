@@ -214,7 +214,7 @@ export default {
     },
     onCancel(evt) {
       evt.preventDefault();
-      this.$router.push({ name: 'personas'})
+      this.$router.push({ name: 'objectsview', params: {dimension: 'persona'}});
     },
     addPersonaEnvironmentProperty : function(envName) {
       this.addEnvironmentProperty({

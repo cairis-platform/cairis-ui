@@ -371,7 +371,7 @@ export default {
     },
     onCancel(evt) {
       evt.preventDefault();
-      this.$router.push({ name: 'kaosassociations'})
+      this.$router.push({ name: 'objectsview', params: {dimension: 'kaosassociation'}});
     },
     checkForm() {
       this.errors = []

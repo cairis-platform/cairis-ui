@@ -176,7 +176,7 @@ export default {
     },
     onCancel(evt) {
       evt.preventDefault();
-      this.$router.push({ name: 'requirements'})
+      this.$router.push({ name: 'objectsview', params: {dimension: 'requirement'}});
     },
     domainSelected(domainName) {
       this.objt.theDomain = domainName

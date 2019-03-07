@@ -56,6 +56,16 @@ export default {
       axios.post(sessionUrl)
       .then(response => {
         that.$store.state.session = response.data['session_id'];
+        axios.get('/api/settings',{
+          baseURL : this.$store.state.url,
+          params : {'session_id' : this.$store.state.session}
+         })
+        .then(response => {
+          document.title = response.data.projectName;
+         })
+        .catch((error) => {
+          EventBus.$emit('operation-failure',error)
+        });
       })
       .catch((error) => {
         EventBus.$emit('operation-failure',error)

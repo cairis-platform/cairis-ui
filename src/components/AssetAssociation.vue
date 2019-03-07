@@ -60,7 +60,7 @@ Authors: Shamal Faily
                 <b-col md="12">
                   <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-for="theHeadTypeRadio" >
                     <b-form-radio-group id="theHeadTypeRadio" v-model="objt.theHeadType" required >
-                      <b-form-radio value="Inheritence">Inheritence</b-form-radio>
+                      <b-form-radio value="Inheritance">Inheritance</b-form-radio>
                       <b-form-radio value="Association">Association</b-form-radio>
                       <b-form-radio value="Aggregation">Aggregation</b-form-radio>
                       <b-form-radio value="Composition">Composition</b-form-radio>
@@ -108,7 +108,7 @@ Authors: Shamal Faily
                 <b-col md="12">
                   <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-for="theTailTypeRadio" >
                     <b-form-radio-group id="theTailTypeRadio" v-model="objt.theTailType" required >
-                      <b-form-radio value="Inheritence">Inheritence</b-form-radio>
+                      <b-form-radio value="Inheritance">Inheritance</b-form-radio>
                       <b-form-radio value="Association">Association</b-form-radio>
                       <b-form-radio value="Aggregation">Aggregation</b-form-radio>
                       <b-form-radio value="Composition">Composition</b-form-radio>
@@ -199,7 +199,7 @@ export default {
     },
     onCancel(evt) {
       evt.preventDefault();
-      this.$router.push({ name: 'assetassociations'})
+      this.$router.push({ name: 'objectsview', params: {dimension: 'assetassociation'}});
     },
     checkForm() {
       this.errors = []

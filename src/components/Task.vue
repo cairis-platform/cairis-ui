@@ -294,7 +294,7 @@ export default {
     },
     onCancel(evt) {
       evt.preventDefault();
-      this.$router.push({ name: 'tasks'});
+      this.$router.push({ name: 'objectsview', params: {dimension: 'task'}});
     },
     addTaskEnvironmentProperty : function(envName) {
       this.addEnvironmentProperty({

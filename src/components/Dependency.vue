@@ -132,7 +132,7 @@ export default {
     },
     onCancel(evt) {
       evt.preventDefault();
-      this.$router.push({ name: 'dependencies'})
+      this.$router.push({ name: 'objectsview', params: {dimension: 'dependency'}});
     },
     checkForm() {
       this.errors = []

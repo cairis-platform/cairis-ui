@@ -46,7 +46,7 @@ export default {
   ],
   computed : {
     bcItems() {
-     return [{text: 'Home', to: {name: 'home'}},{text: 'KAOS Associations', to: {name: 'kaosassociations'}},{text: this.objt.theEnvironmentName + ' / ' + this.objt.theGoal + ' / ' + this.objt.theSubGoal, to : {name: 'kaosassociation'}}]
+     return [{text: 'Home', to: {name: 'home'}},{text: 'KAOS associations', to: {name: 'objectsview', params: {dimension: 'kaosassociation'}}},{text: this.objt.theEnvironmentName + ' / ' + this.objt.theGoal + ' / ' + this.objt.theSubGoal, to : {name: 'kaosassociation'}}]
     }
   },
   components : {
@@ -104,7 +104,7 @@ export default {
       this.objt = objt
       const updateUrl = this.$store.state.url + "/api/goals/association/environment/" + this.envName + '/goal/' + this.goalName + '/subgoal/' + this.subGoalName + "?session_id=" + this.$store.state.session;
       const createUrl = this.$store.state.url + "/api/goals/association";
-      this.commitObject(updateUrl,createUrl,'kaosassociations');
+      this.commitObject(updateUrl,createUrl,'objectsview',undefined,'kaosassociation');
     }
   }
 
