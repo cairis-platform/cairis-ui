@@ -39,6 +39,13 @@ attacker : {
   theImage : '',
   theEnvironmentProperties : []
 },
+countermeasure : {
+  theName : '',
+  theDescription : '',
+  theType : 'Information',
+  theTags : '',
+  theEnvironmentProperties : []
+},
 domainproperty : {
   theName : '',
   theType : '',
@@ -57,6 +64,20 @@ obstacle : {
   theOriginator : '',
   theTags : '',
   theEnvironmentProperties : []
+},
+response : {
+  theName : '',
+  theResponseType : 'Accept',
+  theRisk : '',
+  theTags : '',
+  theEnvironmentProperties : {accept : [], transfer : [], mitigate : []}
+},
+risk : {
+  theName : '',
+  theVulnerabilityName : '',
+  theThreatName : '',
+  theMisuseCase : {theName : '',theRiskName : '',theThreatName : '',theVulnerabilityName : '',theEnvironmentProperties : []},
+  theTags : ''
 },
 role : {
   theName : '',

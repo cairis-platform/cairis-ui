@@ -141,9 +141,12 @@ export default {
             break;
           case 'asset':
           case 'attacker':
+          case 'countermeasure':
           case 'domainproperty':
           case 'goal':
           case 'obstacle':
+          case 'response':
+          case 'risk':
           case 'role':
           case 'threat':
           case 'usecase':
@@ -176,9 +179,12 @@ export default {
             break;
           case 'asset':
           case 'attacker':
+          case 'countermeasure':
           case 'domainproperty':
           case 'goal':
           case 'obstacle':
+          case 'response':
+          case 'risk':
           case 'role':
           case 'threat':
           case 'usecase':

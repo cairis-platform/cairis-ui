@@ -32,6 +32,12 @@ attacker : {
   updatePath : '/api/attackers/name/',
   createPath : '/api/attackers'
 },
+countermeasure : {
+  objectsLabel : 'Countermeasures',
+  componentFile : 'Countermeasure',
+  updatePath : '/api/countermeasures/name/',
+  createPath : '/api/countermeasures'
+},
 domainproperty : {
   objectsLabel : 'Domain properties',
   componentFile : 'DomainProperty',
@@ -49,6 +55,19 @@ obstacle : {
   componentFile : 'Obstacle',
   updatePath : '/api/obstacles/name/',
   createPath : '/api/obstacles'
+},
+response : {
+  objectsLabel : 'Responses',
+  componentFile : 'Response',
+  updatePath : '/api/responses/name/',
+  createPath : '/api/responses'
+},
+risk : {
+  objectsLabel : 'Risks',
+  componentFile : 'Risk',
+  updatePath : '/api/risks/name/',
+  createPath : '/api/risks'
+
 },
 role : {
   objectsLabel : 'Roles',

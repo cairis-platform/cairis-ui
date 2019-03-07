@@ -75,8 +75,9 @@ Authors: Shamal Faily
               <b-row v-show="this.objt.theEnvironmentProperties.length">
                 <b-col sm="4">
                   <b-table striped small bordered :fields="roleTableFields" :items="environmentRoles">
+                    <!-- eslint-disable-next-line -->
                     <template slot="HEAD_roleactions" slot-scope="data"> 
-                      <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addRole(data)"/> 
+                      <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addRole"/> 
                     </template>
                     <template slot="roleactions" slot-scope="row">
                       <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteRole(row.item)"/>
@@ -85,8 +86,9 @@ Authors: Shamal Faily
                 </b-col>
                 <b-col sm="4">
                   <b-table striped small bordered :fields="motiveTableFields" :items="environmentMotives">
+                    <!-- eslint-disable-next-line -->
                     <template slot="HEAD_motiveactions" slot-scope="data"> 
-                      <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addMotive(data)"/> 
+                      <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addMotive"/> 
                     </template>
                     <template slot="motiveactions" slot-scope="row">
                       <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteMotive(row.item)"/>
@@ -95,8 +97,9 @@ Authors: Shamal Faily
                 </b-col>
                 <b-col sm="4">
                   <b-table striped small bordered :fields="capabilityTableFields" :items="environmentCapabilities">
+                    <!-- eslint-disable-next-line -->
                     <template slot="HEAD_capabilityactions" slot-scope="data"> 
-                      <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addCapability(data)"/> 
+                      <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addCapability"/> 
                     </template>
                     <template slot="capabilityactions" slot-scope="row">
                       <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteCapability(row.item)"/>
@@ -214,7 +217,7 @@ export default {
         theCapabilities : []
       });
     },
-    addRole(data) {
+    addRole() {
       this.$refs.roleDialog.show();  
     },
     addAttackerRole(data) {
@@ -229,13 +232,13 @@ export default {
     deleteRole(item) {
       this.objt.theEnvironmentProperties[this.envPropIndex].theRoles = this.objt.theEnvironmentProperties[this.envPropIndex].theRoles.filter(role => (role != item.name));
     },
-    addMotive(data) {
+    addMotive() {
       this.$refs.motiveDialog.show();  
     },
     deleteMotive(item) {
       this.objt.theEnvironmentProperties[this.envPropIndex].theMotives = this.objt.theEnvironmentProperties[this.envPropIndex].theMotives.filter(motive => (motive != item.name));
     },
-    addCapability(data) {
+    addCapability() {
       this.$refs.capabilityDialog.show();  
     },
     deleteCapability(item) {

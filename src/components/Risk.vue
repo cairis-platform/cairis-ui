@@ -257,7 +257,7 @@ export default {
         this.objt.theRiskName = this.objt.theName;
         this.objt.theMisuseCase.theName = 'Exploit ' + this.objt.theName;
         this.objt.theMisuseCase.theRiskName = this.objt.theName;
-        this.$emit('risk-commit',this.objt);
+        this.$emit('object-commit',this.objt);
       }
     },
     onCancel(evt) {
@@ -285,7 +285,7 @@ export default {
         that.theRiskImpact = {};
         that.objt.theMisuseCase = {'theName' : '','theRiskName' : '','theThreatName' : '','theVulnerabilityName' : '','theEnvironmentProperties' : []};
         for (let environmentName of response.data) {
-          const responseUrl = '/api/risks/name/' + this.objt.theName + '/threat/' + this.objt.theThreatName + '/vulnerability/' + this.objt.theVulnerabilityName + '/environment/' + environmentName;
+          const responseUrl = '/api/risks/name/' + (this.objt.theName.length > 0 ? this.objt.theName : 'Unknown') + '/threat/' + this.objt.theThreatName + '/vulnerability/' + this.objt.theVulnerabilityName + '/environment/' + environmentName;
           axios.get(responseUrl,{
             baseURL : this.$store.state.url,
             params : {'session_id' : this.$store.state.session}

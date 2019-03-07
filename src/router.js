@@ -58,12 +58,6 @@ export default new Router({
       props: true
     },
     {
-      path: '/countermeasure/:objectName',
-      name: 'countermeasure',
-      component: () => import('./views/CountermeasureView.vue'),
-      props: true
-    },
-    {
       path: '/dataflowdiagram',
       name: 'dataflowdiagram',
       component: () => import('./views/DataFlowDiagramView.vue')
@@ -201,12 +195,6 @@ export default new Router({
       props: true
     }, 
     {
-      path: '/response/:objectName',
-      name: 'response',
-      component: () => import('./views/ResponseView.vue'),
-      props: true
-    },
-    {
       path: '/responsibilitymodel',
       name: 'responsibilitymodel',
       component: () => import('./views/ResponsibilityModelView.vue')
@@ -215,12 +203,6 @@ export default new Router({
       path: '/riskmodel',
       name: 'riskmodel',
       component: () => import('./views/RiskModelView.vue')
-    },
-    {
-      path: '/risk/:objectName',
-      name: 'risk',
-      component: () => import('./views/RiskView.vue'),
-      props: true
     },
     {
       path: '/taskmodel',

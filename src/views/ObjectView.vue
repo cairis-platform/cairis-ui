@@ -76,7 +76,9 @@ export default {
   }, 
   beforeRouteEnter (to, from, next) {
     if (to.params.objectName == 'New ' + to.params.dimension) {
-      next();
+      next(vm => {
+        vm.objt = JSON.parse(JSON.stringify(defaultObjectFactory[vm.dimension]));
+      });
     }
     else {
       var url = to.params.updatePath + to.params.objectName
