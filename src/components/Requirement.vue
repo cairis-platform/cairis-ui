@@ -171,7 +171,7 @@ export default {
     onCommit(evt) {
       evt.preventDefault();
       if (this.checkForm()) {
-        this.$emit('requirement-commit',{object: this.objt,parameters: this.axiosParameters});
+        this.$emit('object-commit',{object: this.objt,parameters: this.axiosParameters});
       }
     },
     onCancel(evt) {

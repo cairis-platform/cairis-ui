@@ -39,7 +39,7 @@ Authors: Shamal Faily
         <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'domainproperty'}}">Domain Properties</b-dropdown-item>
         <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'goal'}}">Goals</b-dropdown-item>
         <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'obstacle'}}">Obstacles</b-dropdown-item>
-        <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'usecases'}}">Use Cases</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'usecase'}}">Use Cases</b-dropdown-item>
         <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'dependency'}}">Dependencies</b-dropdown-item>
         <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'kaosassociation'}}">KAOS Associations</b-dropdown-item>
         <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'architecturalpattern'}}">Architectural Patterns</b-dropdown-item>
@@ -60,14 +60,14 @@ Authors: Shamal Faily
         <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'environment'}}">Environments</b-dropdown-item>
         <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'persona'}}">Personas</b-dropdown-item>
         <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'task'}}">Tasks</b-dropdown-item>
-        <b-dropdown-item :to="{name: 'dataflows'}">Data Flows</b-dropdown-item>
-        <b-dropdown-item :to="{name: 'trustboundaries'}">Trust Boundaries</b-dropdown-item>
-        <b-dropdown-item :to="{name: 'externaldocuments'}">External Documents</b-dropdown-item>
-        <b-dropdown-item :to="{name: 'documentreferences'}">Document References</b-dropdown-item>
-        <b-dropdown-item :to="{name: 'conceptreferences'}">Concept References</b-dropdown-item>
-        <b-dropdown-item :to="{name: 'personacharacteristics'}">Persona Characteristics</b-dropdown-item>
-        <b-dropdown-item :to="{name: 'taskcharacteristics'}">Task Characteristics</b-dropdown-item>
-        <b-dropdown-item :to="{name: 'locations'}">Locations</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'dataflow'}}">Data Flows</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'trustboundary'}}">Trust Boundaries</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'externaldocument'}}">External Documents</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'documentreference'}}">Document References</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'conceptreference'}}">Concept References</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'personacharacteristic'}}">Persona Characteristics</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'taskcharacteristic'}}">Task Characteristics</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'locations'}}">Locations</b-dropdown-item>
       </b-nav-item-dropdown>
       <b-nav-item-dropdown text="Models">
         <b-dropdown-item :to="{name: 'validationmodel'}">Validate</b-dropdown-item>

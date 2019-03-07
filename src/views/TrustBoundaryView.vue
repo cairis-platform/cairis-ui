@@ -44,7 +44,7 @@ export default {
   ],
   computed : {
     bcItems() {
-     return [{text: 'Home', to: {name: 'home'}},{text: 'Trust Boundaries', to: {name: 'trustboundaries'}},{text: this.objt.theName, to : {name: 'trustboundary'}}]
+     return [{text: 'Home', to: {name: 'home'}},{text: 'Trust boundaries', to: {name: 'objectsview', params: {dimension: 'trustboundary'}}},{text: this.objt.theName, to : {name: 'trustboundary'}}]
     }
   },
   components : {
@@ -86,7 +86,7 @@ export default {
       this.objt = objt
       var updateUrl = this.$store.state.url + "/api/trust_boundaries/name/" + this.objectName + "?session_id=" + this.$store.state.session;
       var createUrl = this.$store.state.url + "/api/trust_boundaries";
-      this.commitObject(updateUrl,createUrl,'trustboundaries');
+      this.commitObject(updateUrl,createUrl,'objectsview',undefined,'trustboundary');
     }
   }
 

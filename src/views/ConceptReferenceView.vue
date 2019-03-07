@@ -44,7 +44,7 @@ export default {
   ],
   computed : {
     bcItems() {
-     return [{text: 'Home', to: {name: 'home'}},{text: 'Concept References', to: {name: 'conceptreferences'}},{text: this.objt.theName, to : {name: 'conceptreference'}}]
+     return [{text: 'Home', to: {name: 'home'}},{text: 'Concept references', to: {name: 'objectsview', params: {dimension: 'conceptreference'}}},{text: this.objt.theName, to : {name: 'conceptreference'}}]
     }
   },
   components : {
@@ -87,7 +87,7 @@ export default {
       this.objt = objt
       var updateUrl = this.$store.state.url + "/api/concept_references/name/" + this.objectName + "?session_id=" + this.$store.state.session;
       var createUrl = this.$store.state.url + "/api/concept_references";
-      this.commitObject(updateUrl,createUrl,'conceptreferences');
+      this.commitObject(updateUrl,createUrl,'objectsview',undefined,'conceptreference');
     }
   }
 }

@@ -44,7 +44,7 @@ export default {
   ],
   computed : {
     bcItems() {
-     return [{text: 'Home', to: {name: 'home'}},{text: 'Document References', to: {name: 'documentreferences'}},{text: this.objt.theName, to : {name: 'documentreference'}}]
+     return [{text: 'Home', to: {name: 'home'}},{text: 'Document references', to: {name: 'objectsview', params: {dimension: 'documentreference'}}},{text: this.objt.theName, to : {name: 'documentreference'}}]
     }
   },
   components : {
@@ -87,7 +87,7 @@ export default {
       this.objt = objt
       var updateUrl = this.$store.state.url + "/api/document_references/name/" + this.objectName + "?session_id=" + this.$store.state.session;
       var createUrl = this.$store.state.url + "/api/document_references";
-      this.commitObject(updateUrl,createUrl,'documentreferences');
+      this.commitObject(updateUrl,createUrl,'objectsview',undefined,'documentreference');
     }
   }
 

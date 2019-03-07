@@ -272,7 +272,7 @@ export default {
       errors : [],
       objt : this.object,
       envPropIndex : 0,
-      commitLabel : 'Create',
+      commitLabel : this.label,
       goalRefinementTableFields : {
         goalrefinementactions : {label : ''},
         theEndType : {label : 'Type'},
@@ -314,7 +314,7 @@ export default {
         if (this.objt.theTags != '') {
           this.objt.theTags = this.objt.theTags.split(',').map(t => t.trim());
         }
-        this.$emit('goal-commit',this.objt);
+        this.$emit('object-commit',this.objt);
       }
     },
     onCancel(evt) {

@@ -93,7 +93,7 @@ export default {
     return {
       errors : [],
       objt : this.object,
-      commitLabel : 'Create',
+      commitLabel : this.label,
       dpTypes: ['Hypothesis','Invariant']
     }
   },
@@ -108,7 +108,7 @@ export default {
         if (this.objt.theTags != '') {
           this.objt.theTags = this.objt.theTags.split(',').map(t => t.trim());
         }
-        this.$emit('domainproperty-commit',this.objt);
+        this.$emit('object-commit',this.objt);
       }
     },
     onCancel(evt) {

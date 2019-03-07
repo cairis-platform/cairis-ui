@@ -181,7 +181,7 @@ export default {
     },
     onCancel(evt) {
       evt.preventDefault();
-      this.$router.push({ name: 'trustboundaries'})
+      this.$router.push({ name: 'objectsview', params: {dimension: 'trustboundary'}});
     },
     deleteComponent(index) {
       this.objt.theEnvironmentProperties[this.envPropIndex].theComponents.splice(index,1);

@@ -44,7 +44,7 @@ export default {
   ],
   computed : {
     bcItems() {
-     return [{text: 'Home', to: {name: 'home'}},{text: 'External Documents', to: {name: 'externaldocuments'}},{text: this.objt.theName, to : {name: 'externaldocument'}}]
+     return [{text: 'Home', to: {name: 'home'}},{text: 'External documents', to: {name: 'objectsview', params: {dimension: 'externaldocument'}}},{text: this.objt.theName, to : {name: 'externaldocument'}}]
     }
   },
   components : {
@@ -88,7 +88,7 @@ export default {
       this.objt = objt
       var updateUrl = this.$store.state.url + "/api/external_documents/name/" + this.objectName + "?session_id=" + this.$store.state.session;
       var createUrl = this.$store.state.url + "/api/external_documents";
-      this.commitObject(updateUrl,createUrl,'externaldocuments');
+      this.commitObject(updateUrl,createUrl,'objectsview',undefined,'externaldocument');
     }
   }
 

@@ -235,7 +235,7 @@ export default {
     },
     onCancel(evt) {
       evt.preventDefault();
-      this.$router.push({ name: 'personacharacteristics'})
+      this.$router.push({ name: 'objectsview', params: {dimension: 'personacharacteristic'}});
     },
     addGrounds() {
       this.selectedCharacteristicReference['characteristicReference'] = JSON.parse(JSON.stringify(this.templateCharacteristicReference));

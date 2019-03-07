@@ -109,7 +109,7 @@ export default {
     },
     onCancel(evt) {
       evt.preventDefault();
-      this.$router.push({ name: 'conceptreferences'})
+      this.$router.push({ name: 'objectsview', params: {dimension: 'conceptreference'}});
     },
     checkForm() {
       this.errors = []

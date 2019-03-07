@@ -36,12 +36,6 @@ export default new Router({
       component: () => import('./views/ArchitecturalPatternModelView.vue')
     },
     {
-      path: '/asset/:objectName',
-      name: 'asset',
-      component: () => import('./views/AssetView.vue'),
-      props: true
-    },
-    {
       path: '/assetassociation/environment/:envName/head/:headName/tail/:tailName',
       name: 'assetassociation',
       component: () => import('./views/AssetAssociationView.vue'),
@@ -62,11 +56,6 @@ export default new Router({
       path: '/about',
       name: 'about',
       component: () => import('./views/About.vue')
-    },
-    {
-      path: '/conceptreferences',
-      name: 'conceptreferences',
-      component: () => import('./views/ConceptReferences.vue')
     },
     {
       path: '/conceptreference/:objectName',
@@ -91,11 +80,6 @@ export default new Router({
       component: () => import('./views/DatabaseView.vue')
     },
     {
-      path: '/dataflows',
-      name: 'dataflows',
-      component: () => import('./views/DataFlows.vue')
-    },
-    {
       path: '/dataflow/:objectName/environment/:envName',
       name: 'dataflow',
       component: () => import('./views/DataFlowView.vue'),
@@ -113,31 +97,15 @@ export default new Router({
       component: () => import('./views/DocumentationView.vue')
     },
     {
-      path: '/documentreferences',
-      name: 'documentreferences',
-      component: () => import('./views/DocumentReferences.vue')
-    },
-    {
       path: '/documentreference/:objectName',
       name: 'documentreference',
       component: () => import('./views/DocumentReferenceView.vue'),
       props: true
     },
     {
-      path: '/domainproperties/:objectName',
-      name: 'domainproperty',
-      component: () => import('./views/DomainPropertyView.vue'),
-      props: true
-    },
-    {
       path: '/export',
       name: 'export',
       component: () => import('./views/ExportView.vue')
-    },
-    {
-      path: '/externaldocuments',
-      name: 'externaldocuments',
-      component: () => import('./views/ExternalDocuments.vue')
     },
     {
       path: '/externaldocument/:objectName',
@@ -163,12 +131,6 @@ export default new Router({
       component: () => import('./views/GoalModelView.vue')
     },
     {
-      path: '/goal/:objectName',
-      name: 'goal',
-      component: () => import('./views/GoalView.vue'),
-      props: true
-    },
-    {
       path: '/import',
       name: 'import',
       component: () => import('./views/ImportView.vue')
@@ -178,11 +140,6 @@ export default new Router({
       name: 'kaosassociation',
       component: () => import('./views/KaosAssociationView.vue'),
       props: true
-    },
-    {
-      path: '/locations',
-      name: 'locations',
-      component: () => import('./views/Locations.vue')
     },
     {
       path: '/locationsmodel',
@@ -200,26 +157,21 @@ export default new Router({
       component: () => import('./views/MisusabilityModelView.vue')
     },
     {
+      path: '/objects/:dimension/name/:objectName',
+      name: 'objectview',
+      component: () => import('./views/ObjectView.vue'),
+      props: true
+    },
+    {
       path: '/objects/:dimension',
       name: 'objectsview',
       component: () => import('./views/ObjectsView.vue'),
       props: true
     },
     {
-      path: '/obstacle/:objectName',
-      name: 'obstacle',
-      component: () => import('./views/ObstacleView.vue'),
-      props: true
-    },
-    {
       path: '/obstaclemodel',
       name: 'obstaclemodel',
       component: () => import('./views/ObstacleModelView.vue')
-    },
-    {
-      path: '/personacharacteristics',
-      name: 'personacharacteristics',
-      component: () => import('./views/PersonaCharacteristics.vue')
     },
     {
       path: '/personacharacteristic/:objectName',
@@ -249,11 +201,11 @@ export default new Router({
       component: () => import('./views/RequirementModelView.vue')
     },
     {
-      path: '/requirement/:objectName',
+      path: '/objects/requirement/name/:objectName',
       name: 'requirement',
       component: () => import('./views/RequirementView.vue'),
       props: true
-    },
+    }, 
     {
       path: '/response/:objectName',
       name: 'response',
@@ -275,17 +227,6 @@ export default new Router({
       name: 'risk',
       component: () => import('./views/RiskView.vue'),
       props: true
-    },
-    {
-      path: '/roles/:objectName',
-      name: 'role',
-      component: () => import('./views/RoleView.vue'),
-      props: true
-    },
-    {
-      path: '/taskcharacteristics',
-      name: 'taskcharacteristics',
-      component: () => import('./views/TaskCharacteristics.vue')
     },
     {
       path: '/taskmodel',
@@ -310,20 +251,9 @@ export default new Router({
       component: () => import('./views/Traces.vue')
     },
     {
-      path: '/trustboundaries',
-      name: 'trustboundaries',
-      component: () => import('./views/TrustBoundaries.vue')
-    },
-    {
       path: '/trustboundary/:objectName',
       name: 'trustboundary',
       component: () => import('./views/TrustBoundaryView.vue'),
-      props: true
-    },
-    {
-      path: '/usecase/:objectName',
-      name: 'usecase',
-      component: () => import('./views/UseCaseView.vue'),
       props: true
     },
     {

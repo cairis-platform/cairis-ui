@@ -77,6 +77,7 @@ import EventBus from '../utils/event-bus';
 import DimensionSelect from '@/components/DimensionSelect.vue'
 import ObjectDependencyModal from '@/components/ObjectDependencyModal.vue'
 import AddTraceModal from '@/components/AddTraceModal.vue'
+import objectViewParametersFactory from '../utils/objectViewParametersFactory';
 
 export default {
   props : {
@@ -101,7 +102,8 @@ export default {
       selectedIndex : -1,
       selectedTraceabilityObject : '',
       isPostTraceability : 1,
-      theEnvironmentName : 'all'
+      theEnvironmentName : 'all',
+      theObjectViewParameters : undefined
     }
   }, 
   watch : {
@@ -114,50 +116,73 @@ export default {
   },
   methods : {
     objectClicked(row) {
-      if (this.dimName == 'requirement') {
-        this.$router.push({ name: this.dimName, params : {objectName: row.theName, domain: this.$refs.assetFilter.selected.length > 0 ? {type: 'asset', name: this.$refs.assetFilter.selected} : {type: 'environment', name: this.$refs.envFilter.selected}}});
-      }
-      else if (this.dimName == 'personacharacteristic') {
-        this.$router.push({ name: this.dimName, params : {objectName: row.theCharacteristic}});
-      }
-      else if (this.dimName == 'kaosassociation') {
-        this.$router.push({ name: this.dimName, params : {envName: row.theEnvironmentName,goalName : row.theGoal, subGoalName: row.theSubGoal}});
-      }
-      else if (this.dimName == 'assetassociation') {
-        this.$router.push({ name: this.dimName, params : {envName: row.theEnvironmentName,headName : row.theHeadAsset, tailName: row.theTailAsset}});
-      }
-      else if (this.dimName == 'dependency') {
-        this.$router.push({ name: this.dimName, params : {envName: row.theEnvironmentName,depName : row.theDepender, deeName: row.theDependee, dpyName : row.theDependency}});
-      }
-      else if (this.dimName == 'dataflow') {
-        this.$router.push({ name: this.dimName, params : {objectName: row.theName, envName: row.theEnvironmentName}});
-      }
-      else if (this.dimName == 'asset_value' || this.dimName == 'asset_type' || this.dimName == 'access_right' || this.dimName == 'protocol' || this.dimName == 'privilege' || this.dimName == 'surface_type' || this.dimName == 'vulnerability_type' || this.dimName == 'severity' || this.dimName == 'capability' || this.dimName == 'motivation' || this.dimName == 'threat_type' || this.dimName == 'likelihood' || this.dimName == 'threat_value') {
-        this.$router.push({ name: 'valuetype', params : {objectName: row.theName, dimName : this.dimName, envName : this.theEnvironmentName}});
+      if (this.dimName == 'asset_value' || this.dimName == 'asset_type' || this.dimName == 'access_right' || this.dimName == 'protocol' || this.dimName == 'privilege' || this.dimName == 'surface_type' || this.dimName == 'vulnerability_type' || this.dimName == 'severity' || this.dimName == 'capability' || this.dimName == 'motivation' || this.dimName == 'threat_type' || this.dimName == 'likelihood' || this.dimName == 'threat_value') {
+        this.$router.push({ name: 'valuetype', params : {objectName: 'New value type', dimName : this.dimName, envName : this.theEnvironmentName}});
       }
       else {
-        this.$router.push({ name: this.dimName, params : {objectName: row.theName}});
+        switch(this.dimension) {
+          case 'requirement':
+            this.$router.push({ name: this.dimName, params : {objectName: row.theName, domain: this.$refs.assetFilter.selected.length > 0 ? {type: 'asset', name: this.$refs.assetFilter.selected} : {type: 'environment', name: this.$refs.envFilter.selected}}});
+            break;
+          case 'personacharacteristic':
+            this.$router.push({ name: this.dimName, params : {objectName: row.theCharacteristic}});
+            break;
+          case 'kaosassociation':
+            this.$router.push({ name: this.dimName, params : {envName: row.theEnvironmentName,goalName : row.theGoal, subGoalName: row.theSubGoal}});
+            break;
+          case 'assetassociation':
+            this.$router.push({ name: this.dimName, params : {envName: row.theEnvironmentName,headName : row.theHeadAsset, tailName: row.theTailAsset}});
+            break;
+          case 'dependency':
+            this.$router.push({ name: this.dimName, params : {envName: row.theEnvironmentName,depName : row.theDepender, deeName: row.theDependee, dpyName : row.theDependency}});
+            break;
+          case 'dataflow':
+            this.$router.push({ name: this.dimName, params : {objectName: row.theName, envName: row.theEnvironmentName}});
+            break;
+          case 'asset':
+          case 'domainproperty':
+          case 'goal':
+          case 'obstacle':
+          case 'role':
+          case 'usecase':
+            this.$router.push({ name: 'objectview', params: {dimension: this.dimension, objectName: row.theName, objectsLabel: this.theObjectViewParameters.objectsLabel, componentFile: this.theObjectViewParameters.componentFile, updatePath: this.theObjectViewParameters.updatePath, createPath: this.theObjectViewParameters.createPath}});
+            break;
+          default: 
+            this.$router.push({ name: this.dimName, params : {objectName: row.theName}});
+            break;
+        }
       }
     },
     addObject() {
-      if (this.dimension == 'kaosassociation') {
-        this.$router.push({ name: this.dimName, params : {envName: 'To set', goalName : 'To set', subGoalName : 'To set'}});
-      }
-      else if (this.dimension == 'assetassociation') {
-        this.$router.push({ name: this.dimName, params : {envName: 'To set', headName : 'To set', tailName : 'To set'}});
-      }
-      else if (this.dimension == 'dependency') {
-        this.$router.push({ name: this.dimName, params : {envName: 'To set', depName : 'To set', deeName : 'To set', dpyName : 'To set'}});
-      }
-      else if (this.dimension == 'dataflow') {
-        this.$router.push({ name: this.dimName, params : {objectName: 'New ' + this.dimName, envName : 'To set'}});
-      }
-      else if (this.dimName == 'asset_value' || this.dimName == 'asset_type' || this.dimName == 'access_right' || this.dimName == 'protocol' || this.dimName == 'privilege' || this.dimName == 'surface_type' || this.dimName == 'vulnerability_type' || this.dimName == 'severity' || this.dimName == 'capability' || this.dimName == 'motivation' || this.dimName == 'threat_type' || this.dimName == 'likelihood' || this.dimName == 'threat_value') {
+      if (this.dimName == 'asset_value' || this.dimName == 'asset_type' || this.dimName == 'access_right' || this.dimName == 'protocol' || this.dimName == 'privilege' || this.dimName == 'surface_type' || this.dimName == 'vulnerability_type' || this.dimName == 'severity' || this.dimName == 'capability' || this.dimName == 'motivation' || this.dimName == 'threat_type' || this.dimName == 'likelihood' || this.dimName == 'threat_value') {
         this.$router.push({ name: 'valuetype', params : {objectName: 'New value type', dimName : this.dimName, envName : this.theEnvironmentName}});
       }
-
       else {
-        this.$router.push({ name: this.dimName, params : {objectName: 'New ' + this.dimName, domain : {type : 'asset', name : ''}}});
+        switch(this.dimension) {
+          case 'kaosassociation':
+            this.$router.push({ name: this.dimName, params : {envName: 'To set', goalName : 'To set', subGoalName : 'To set'}});
+            break;
+          case 'assetassociation':
+            this.$router.push({ name: this.dimName, params : {envName: 'To set', headName : 'To set', tailName : 'To set'}});
+            break;
+          case 'dependency':
+            this.$router.push({ name: this.dimName, params : {envName: 'To set', depName : 'To set', deeName : 'To set', dpyName : 'To set'}});
+            break;
+          case 'dataflow':
+            this.$router.push({ name: this.dimName, params : {objectName: 'New ' + this.dimName, envName : 'To set'}});
+            break;
+          case 'asset':
+          case 'domainproperty':
+          case 'goal':
+          case 'obstacle':
+          case 'role':
+          case 'usecase':
+            this.$router.push({ name: 'objectview', params: {dimension: this.dimension, objectName: 'New ' + this.dimName, objectsLabel: this.theObjectViewParameters.objectsLabel, componentFile: this.theObjectViewParameters.componentFile, updatePath: this.theObjectViewParameters.updatePath, createPath: this.theObjectViewParameters.createPath}});
+            break;
+          default:
+            this.$router.push({ name: this.dimName, params : {objectName: 'New ' + this.dimName, domain : {type : 'asset', name : ''}}});
+            break;
+        }
       }
     },
     deleteObject(index) {
@@ -269,7 +294,9 @@ export default {
     reloadObjects() {
       this.theGetUrl = this.getUrl;
       this.dimension = this.dimName;
+      this.theObjectViewParameters = objectViewParametersFactory[this.dimension];
       this.loadObjects();
+      this.updateDimension();
     },
     loadObjects() {
       if (this.theGetUrl != '') {
@@ -328,25 +355,29 @@ export default {
       this.selectedTraceabilityObject = (this.dimension == 'vulnerability' ? this.items[index].theVulnerabilityName : this.items[index].theName);
       this.isPostTraceability = 1;
       this.$refs.traceDialog.show();
+    },
+    updateDimension() {
+      if (this.dimName == 'externaldocument') {
+        this.dimension = 'external_document';
+      }
+      else if (this.dimName == 'documentreference') {
+        this.dimension = 'document_reference';
+      }
+      else if (this.dimName == 'conceptreference') {
+        this.dimension = 'concept_reference';
+      }
+      else if (this.dimName == 'trustboundary') {
+        this.dimension = 'trust_boundary';
+      }
+      else if (this.dimName == 'securitypattern') {
+        this.dimension = 'security_pattern';
+      }
     }
   },
   mounted() {
+    this.theObjectViewParameters = objectViewParametersFactory[this.dimension];
     this.loadObjects();
-    if (this.dimName == 'externaldocument') {
-      this.dimension = 'external_document';
-    }
-    else if (this.dimName == 'documentreference') {
-      this.dimension = 'document_reference';
-    }
-    else if (this.dimName == 'conceptreference') {
-      this.dimension = 'concept_reference';
-    }
-    else if (this.dimName == 'trustboundary') {
-      this.dimension = 'trust_boundary';
-    }
-    else if (this.dimName == 'securitypattern') {
-      this.dimension = 'security_pattern';
-    }
+    this.updateDimension();
   }
 }
 </script>

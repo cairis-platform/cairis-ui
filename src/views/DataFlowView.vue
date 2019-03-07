@@ -45,7 +45,7 @@ export default {
   ],
   computed : {
     bcItems() {
-     return [{text: 'Home', to: {name: 'home'}},{text: 'Data Flows', to: {name: 'dataflows'}},{text: this.objt.theEnvironmentName + " / " + this.objt.theName, to : {name: 'dataflow'}}]
+     return [{text: 'Home', to: {name: 'home'}},{text: 'Data Flows', to: {name: 'objectsview', params: {dimension: 'dataflow'}}},{text: this.objt.theEnvironmentName + " / " + this.objt.theName, to : {name: 'dataflow'}}]
     }
   },
   components : {
@@ -91,7 +91,7 @@ export default {
       this.objt = objt
       var updateUrl = this.$store.state.url + "/api/dataflows/name/" + this.objectName + "/environment/" + this.envName + "?session_id=" + this.$store.state.session;
       var createUrl = this.$store.state.url + "/api/dataflows";
-      this.commitObject(updateUrl,createUrl,'dataflows');
+      this.commitObject(updateUrl,createUrl,'objectsview',undefined,'dataflow');
     }
   }
 

@@ -155,7 +155,7 @@ export default {
     },
     onCancel(evt) {
       evt.preventDefault();
-      this.$router.push({ name: 'dataflows'});
+      this.$router.push({ name: 'objectsview', params: {dimension: 'dataflow'}});
     },
     checkForm() {
       this.errors = []

@@ -235,7 +235,7 @@ export default {
       errors : [],
       objt : this.object,
       envPropIndex : 0,
-      commitLabel : 'Create',
+      commitLabel : this.label,
       concernTableFields : {
         concernactions : {label : ''},
         name : {label : 'Concern'}
@@ -281,7 +281,7 @@ export default {
         if (this.objt.theTags != '') {
           this.objt.theTags = this.objt.theTags.split(',').map(t => t.trim());
         }
-        this.$emit('obstacle-commit',this.objt);
+        this.$emit('object-commit',this.objt);
       }
     },
     onCancel(evt) {

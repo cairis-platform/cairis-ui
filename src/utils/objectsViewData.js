@@ -72,6 +72,16 @@ attacker : {
   theGetUrl : '/api/attackers/summary',
   theDelUrl : '/api/attackers/name/'
 },
+conceptreference : {
+  bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Concept references', to: {name: 'objectsview', params : {dimension: 'conceptreference'}}}],
+  objectsFields : {
+    objectsactions : {label : ''},
+    theName : {label : 'Name', sortable: true},
+    theDimName : {label : 'Dimension', sortable: true}
+  },
+  theGetUrl : '/api/concept_references',
+  theDelUrl : '/api/concept_references/name/'
+},
 countermeasure : {
   bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Countermeasures', to: {name: 'objectsview', params : {dimension: 'countermeasure'}}}],
   objectsFields : {
@@ -81,6 +91,20 @@ countermeasure : {
   },
   theGetUrl : '/api/countermeasures',
   theDelUrl : '/api/countermeasures/name/'
+},
+dataflow : {
+  bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Dataflows', to: {name: 'objectsview', params: {dimension: 'dataflow'}}}],
+  objectsFields : {
+    objectsactions : {label : ''},
+    theEnvironmentName : {label : 'Environment', sortable: true},
+    theName : {label : 'Name', sortable: true},
+    theFromName : {label : 'From', sortable: true},
+    theFromType : {label : 'Type', sortable: true},
+    theToName : {label : 'To', sortable: true},
+    theToType : {label : 'Type', sortable: true}
+  },
+  theGetUrl : '/api/dataflows',
+  theDelUrl : '/api/dataflows/name/'
 },
 dependency : {
   bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Dependencies', to: {name: 'objectsview', params: {dimension: 'dependency'}}}],
@@ -94,6 +118,17 @@ dependency : {
   },
   theGetUrl : '/api/dependencies',
   theDelUrl : '/api/dependencies/environment/'
+},
+documentreference : {
+  bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Document references', to: {name: 'objectsview', params : {dimension: 'documentreference'}}}],
+  objectsFields : {
+    objectsactions : {label : ''},
+    theName : {label : 'Name', sortable: true},
+    theDocName : {label : 'Document', sortable: true},
+    pretaction : {label: ''}
+  },
+  theGetUrl : '/api/document_references',
+  theDelUrl : '/api/document_references/name/'
 },
 domainproperty: {
   bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Domain properties', to: {name: 'objectsview', params : {dimension: 'domainproperty'}}}],
@@ -115,6 +150,16 @@ environment : {
   },
   theGetUrl : '/api/environments',
   theDelUrl : '/api/environments/name/'
+},
+externaldocument : {
+  bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'External documents', to: {name: 'objectsview', params : {dimension: 'externaldocument'}}}],
+  objectsFields : {
+    objectsactions : {label : ''},
+    theName : {label : 'Name', sortable: true},
+    theDescription : {label : 'Description'}
+  },
+  theGetUrl : '/api/external_documents',
+  theDelUrl : '/api/external_documents/name/'
 },
 goal : {
   bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Goals', to: {name: 'objectsview', params : {dimension: 'goal'}}}],
@@ -141,6 +186,15 @@ kaosassociation : {
   theGetUrl : '/api/goals/association',
   theDelUrl : '/api/goals/association/environment/'
 },
+locations : {
+  bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Locations', to: {name: 'objectsview', params : {dimension: 'locations'}}}],
+  objectsFields : {
+    objectsactions : {label : ''},
+    theName : {label : 'Name', sortable: true}
+  },
+  theGetUrl : '/api/locations',
+  theDelUrl : '/api/locations/name/'
+},
 obstacle : {
   bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Obstacles', to: {name: 'objectsview', params : {dimension: 'obstacle'}}}],
   objectsFields : {
@@ -160,6 +214,17 @@ persona : {
   },
   theGetUrl : '/api/personas/summary',
   theDelUrl : '/api/personas/name/'
+},
+personacharacteristic : {
+  bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Persona characteristics', to: {name: 'objectsview', params : {dimension: 'personacharacteristic'}}}],
+  objectsFields : {
+    objectsactions : {label : ''},
+    theName : {label : 'Name', sortable: true},
+    theVariable : {label : 'Variable', sortable: true},
+    theCharacteristic : {label : 'Characteristic', sortable: true}
+  },
+  theGetUrl : '/api/persona_characteristics/summary',
+  theDelUrl : '/api/persona_characteristics/name/'
 },
 response : {
   bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Responses', to: {name: 'objectsview', params : {dimension: 'response'}}}],
@@ -233,6 +298,16 @@ task : {
   theGetUrl : '/api/tasks',
   theDelUrl : '/api/tasks/name/'
 },
+taskcharacteristic : {
+  bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Task characteristics', to: {name: 'objectsview', params: {dimension: 'taskcharacteristic'}}}],
+  objectsFields : {
+    objectsactions : {label : ''},
+    theTaskName : {label : 'Task', sortable: true},
+    theCharacteristic : {label : 'Characteristic', sortable: true}
+  },
+  theGetUrl : '/api/task_characteristics',
+  theDelUrl : '/api/task_characteristics/name/'
+},
 threat : {
   bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Threats', to: {name: 'objectsview', params: {dimension: 'threat'}}}],
   objectsFields : {
@@ -242,6 +317,16 @@ threat : {
   },
   theGetUrl : '/api/threats/summary',
   theDelUrl : '/api/threats/name/'
+},
+trustboundary : {
+  bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Trust boundaries', to: {name: 'objectsview', params: {dimension: 'trustboundary'}}}],
+  objectsFields : {
+    objectsactions : {label : ''},
+    theName : {label : 'Name', sortable: true},
+    theDescription : {label : 'Description'}
+  },
+  theGetUrl : '/api/trust_boundaries',
+  theDelUrl : '/api/trust_boundaries/name/'
 },
 usecase : {
   bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Use cases', to: {name: 'objectsview', params: {dimension: 'usecase'}}}],
