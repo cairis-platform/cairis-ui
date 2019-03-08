@@ -161,6 +161,7 @@ export default {
           case 'external_document':
           case 'template_asset':
           case 'template_goal':
+          case 'template_requirement':
           case 'trust_boundary':
             this.$router.push({ name: 'objectview', params: {dimension: this.dimName, objectName: row.theName, objectsLabel: this.theObjectViewParameters.objectsLabel, componentFile: this.theObjectViewParameters.componentFile, updatePath: this.theObjectViewParameters.updatePath, createPath: this.theObjectViewParameters.createPath}});
             break;
@@ -211,6 +212,7 @@ export default {
           case 'external_document':
           case 'template_asset':
           case 'template_goal':
+          case 'template_requirement':
           case 'trust_boundary':
             this.$router.push({ name: 'objectview', params: {dimension: this.dimName, objectName: 'New ' + this.dimName, objectsLabel: this.theObjectViewParameters.objectsLabel, componentFile: this.theObjectViewParameters.componentFile, updatePath: this.theObjectViewParameters.updatePath, createPath: this.theObjectViewParameters.createPath}});
             break;
