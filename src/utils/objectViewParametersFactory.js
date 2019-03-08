@@ -32,17 +32,41 @@ attacker : {
   updatePath : '/api/attackers/name/',
   createPath : '/api/attackers'
 },
+conceptreference : {
+  objectsLabel : 'Concept references',
+  componentFile : 'ConceptReference',
+  updatePath : '/api/concept_references/name/',
+  createPath : '/api/concept_references'
+},
 countermeasure : {
   objectsLabel : 'Countermeasures',
   componentFile : 'Countermeasure',
   updatePath : '/api/countermeasures/name/',
   createPath : '/api/countermeasures'
 },
+documentreference : {
+  objectsLabel : 'Document references',
+  componentFile : 'DocumentReference',
+  updatePath : '/api/document_references/name/',
+  createPath : '/api/document_references'
+},
 domainproperty : {
   objectsLabel : 'Domain properties',
   componentFile : 'DomainProperty',
   updatePath : '/api/domainproperties/name/',
   createPath : '/api/domainproperties'
+},
+environment : {
+  objectsLabel : 'Environments',
+  componentFile : 'Environment',
+  updatePath : '/api/environments/name/',
+  createPath : '/api/environments'
+},
+externaldocument : {
+  objectsLabel : 'External documents',
+  componentFile : 'ExternalDocument',
+  updatePath : '/api/external_documents/name/',
+  createPath : '/api/external_documents'
 },
 goal : {
   objectsLabel : 'Goals',
@@ -55,6 +79,12 @@ obstacle : {
   componentFile : 'Obstacle',
   updatePath : '/api/obstacles/name/',
   createPath : '/api/obstacles'
+},
+persona : {
+  objectsLabel : 'Personas',
+  componentFile : 'Persona',
+  updatePath : '/api/personas/name/',
+  createPath : '/api/personas'
 },
 response : {
   objectsLabel : 'Responses',
@@ -75,11 +105,24 @@ role : {
   updatePath : '/api/roles/name/',
   createPath : '/api/roles'
 },
+task : {
+  objectsLabel : 'Tasks',
+  componentFile : 'Task',
+  updatePath : '/api/tasks/name/',
+  createPath : '/api/tasks'
+
+},
 threat : {
   objectsLabel : 'Threats',
   componentFile : 'Threat',
   updatePath : '/api/threats/name/',
   createPath : '/api/threats'
+},
+trustboundary : {
+  objectsLabel : 'Trust boundaries',
+  componentFile : 'TrustBoundary',
+  updatePath : '/api/trust_boundaries/name/',
+  createPath : '/api/trust_boundaries'
 },
 usecase : {
   objectsLabel : 'Use cases',

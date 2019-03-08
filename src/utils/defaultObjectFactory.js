@@ -39,6 +39,12 @@ attacker : {
   theImage : '',
   theEnvironmentProperties : []
 },
+conceptreference : {
+  theName : '',
+  theDimName : 'persona',
+  theObjtName : '',
+  theDescription : ''
+},
 countermeasure : {
   theName : '',
   theDescription : '',
@@ -46,12 +52,50 @@ countermeasure : {
   theTags : '',
   theEnvironmentProperties : []
 },
+documentreference : {
+  theName : '',
+  theDocName : '',
+  theContributor : '',
+  theExcerpt : ''
+},
 domainproperty : {
   theName : '',
   theType : '',
   theDescription : '',
   theOriginator : '',
   theTags : '' 
+},
+environment : {
+  theName : '',
+  theShortCode : '',
+  theDescription : '',
+  theEnvironments : [],
+  theDuplicateProperty : 'None',
+  theOverridingEnvironment : '',
+  theTensions : [
+    {"value": 0, "attr_id": 4, "base_attr_id": 0, "rationale": "None"}, 
+    {"value": 0, "attr_id": 5, "base_attr_id": 0, "rationale": "None"}, 
+    {"value": 0, "attr_id": 6, "base_attr_id": 0, "rationale": "None"}, 
+    {"value": 0, "attr_id": 7, "base_attr_id": 0, "rationale": "None"}, 
+    {"value": 0, "attr_id": 4, "base_attr_id": 1, "rationale": "None"}, 
+    {"value": 0, "attr_id": 5, "base_attr_id": 1, "rationale": "None"}, 
+    {"value": 0, "attr_id": 6, "base_attr_id": 1, "rationale": "None"}, 
+    {"value": 0, "attr_id": 7, "base_attr_id": 1, "rationale": "None"}, 
+    {"value": 0, "attr_id": 4, "base_attr_id": 2, "rationale": "None"}, 
+    {"value": 0, "attr_id": 5, "base_attr_id": 2, "rationale": "None"}, 
+    {"value": 0, "attr_id": 6, "base_attr_id": 2, "rationale": "None"}, 
+    {"value": 0, "attr_id": 7, "base_attr_id": 2, "rationale": "None"}, 
+    {"value": 0, "attr_id": 4, "base_attr_id": 3, "rationale": "None"}, 
+    {"value": 0, "attr_id": 5, "base_attr_id": 3, "rationale": "None"},
+    {"value": 0, "attr_id": 6, "base_attr_id": 3, "rationale": "None"}, 
+    {"value": 0, "attr_id": 7, "base_attr_id": 3, "rationale": "None"}] 
+},
+externaldocument : {
+  theName : '',
+  theVersion : '',
+  thePublicationDate : '',
+  theAuthors : '',
+  theDescription : ''
 },
 goal : {
   theName : '',
@@ -63,6 +107,21 @@ obstacle : {
   theName : '',
   theOriginator : '',
   theTags : '',
+  theEnvironmentProperties : []
+},
+persona : {
+  theName : '',
+  theTags : '',
+  theActivities : '',
+  theAptitudes : '',
+  theAttitudes : '',
+  theMotivations : '',
+  theSkills : '',
+  theIntrinsic : '',
+  theContextual : '',
+  theImage : '',
+  isAssumption : 0,
+  thePersonaType : '',
   theEnvironmentProperties : []
 },
 response : {
@@ -85,11 +144,25 @@ role : {
   theShortCode : '',
   theDescription : ''
 },
+task : {
+  theName : '',
+  theShortCode : '',
+  theObjective : '',
+  isAssumption : 0,
+  theAuthor : '',
+  theTags : '',
+  theEnvironmentProperties : []
+},
 threat : {
   theThreatName : '',
   theType : '',
   theMethod : '',
   theTags : '',
+  theEnvironmentProperties : []
+},
+trustboundary : {
+  theName : '',
+  theDescription : '',
   theEnvironmentProperties : []
 },
 usecase : {

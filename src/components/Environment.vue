@@ -118,7 +118,7 @@ export default {
     return {
       errors : [],
       objt : this.object,
-      commitLabel : 'Create',
+      commitLabel : this.label,
       theCompositeStrategy : 'Maximise',
       environmentTableFields : {
         environmentactions : {label : ''},
@@ -150,7 +150,7 @@ export default {
     onCommit(evt) {
       evt.preventDefault();
       if (this.checkForm()) {
-        this.$emit('environment-commit',this.objt);
+        this.$emit('object-commit',this.objt);
       }
     },
     onCancel(evt) {

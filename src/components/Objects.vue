@@ -143,15 +143,25 @@ export default {
           case 'attacker':
           case 'countermeasure':
           case 'domainproperty':
+          case 'environment':
           case 'goal':
           case 'obstacle':
+          case 'persona':
           case 'response':
           case 'risk':
           case 'role':
+          case 'task':
+          case 'trustboundary':
           case 'threat':
           case 'usecase':
           case 'vulnerability':
             this.$router.push({ name: 'objectview', params: {dimension: this.dimension, objectName: row.theName, objectsLabel: this.theObjectViewParameters.objectsLabel, componentFile: this.theObjectViewParameters.componentFile, updatePath: this.theObjectViewParameters.updatePath, createPath: this.theObjectViewParameters.createPath}});
+            break;
+          case 'concept_reference':
+          case 'document_reference':
+          case 'external_document':
+          case 'trust_boundary':
+            this.$router.push({ name: 'objectview', params: {dimension: this.dimName, objectName: row.theName, objectsLabel: this.theObjectViewParameters.objectsLabel, componentFile: this.theObjectViewParameters.componentFile, updatePath: this.theObjectViewParameters.updatePath, createPath: this.theObjectViewParameters.createPath}});
             break;
           default: 
             this.$router.push({ name: this.dimName, params : {objectName: row.theName}});
@@ -181,15 +191,24 @@ export default {
           case 'attacker':
           case 'countermeasure':
           case 'domainproperty':
+          case 'environment':
           case 'goal':
           case 'obstacle':
+          case 'persona':
           case 'response':
           case 'risk':
           case 'role':
+          case 'task':
           case 'threat':
           case 'usecase':
           case 'vulnerability':
             this.$router.push({ name: 'objectview', params: {dimension: this.dimension, objectName: 'New ' + this.dimName, objectsLabel: this.theObjectViewParameters.objectsLabel, componentFile: this.theObjectViewParameters.componentFile, updatePath: this.theObjectViewParameters.updatePath, createPath: this.theObjectViewParameters.createPath}});
+            break;
+          case 'concept_reference':
+          case 'document_reference':
+          case 'external_document':
+          case 'trust_boundary':
+            this.$router.push({ name: 'objectview', params: {dimension: this.dimName, objectName: 'New ' + this.dimName, objectsLabel: this.theObjectViewParameters.objectsLabel, componentFile: this.theObjectViewParameters.componentFile, updatePath: this.theObjectViewParameters.updatePath, createPath: this.theObjectViewParameters.createPath}});
             break;
           default:
             this.$router.push({ name: this.dimName, params : {objectName: 'New ' + this.dimName, domain : {type : 'asset', name : ''}}});

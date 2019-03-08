@@ -230,7 +230,7 @@ export default {
     onCommit(evt) {
       evt.preventDefault();
       if (this.checkForm()) {
-        this.$emit('persona-characteristic-commit',this.objt);
+        this.$emit('object-commit',this.objt);
       }
     },
     onCancel(evt) {

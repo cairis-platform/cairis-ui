@@ -145,8 +145,8 @@ export default {
       },
       componentTableFields : {
         componentactions : {label : ''},
-        theName : {label : 'Component'},
-        theType : {label : 'Type'}
+        theName : {label : 'Component', sortable: true},
+        theType : {label : 'Type', sortable: true}
       }
     }
   }, 
@@ -176,7 +176,7 @@ export default {
     onCommit(evt) {
       evt.preventDefault();
       if (this.checkForm()) {
-        this.$emit('trust-boundary-commit',this.objt);
+        this.$emit('object-commit',this.objt);
       }
     },
     onCancel(evt) {

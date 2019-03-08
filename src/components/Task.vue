@@ -289,7 +289,7 @@ export default {
         if (this.objt.theTags != '') {
           this.objt.theTags = this.objt.theTags.split(',').map(t => t.trim());
         }
-        this.$emit('task-commit',this.objt);
+        this.$emit('object-commit',this.objt);
       }
     },
     onCancel(evt) {

@@ -89,7 +89,7 @@ export default {
     return {
       errors : [],
       objt : this.object,
-      commitLabel : 'Create'
+      commitLabel : this.label
     }
   },
   methods : {
@@ -100,7 +100,7 @@ export default {
     onCommit(evt) {
       evt.preventDefault();
       if (this.checkForm()) {
-        this.$emit('documentreference-commit',this.objt);
+        this.$emit('object-commit',this.objt);
       }
     },
     onCancel(evt) {

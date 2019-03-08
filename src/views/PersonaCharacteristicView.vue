@@ -22,7 +22,7 @@ Authors: Shamal Faily
 
   <div class="personacharacteristicview">
     <b-breadcrumb :items="bcItems" /> 
-    <persona-characteristic :object="this.objt" :label="this.commitLabel" v-on:persona-characteristic-commit="commitPersonaCharacteristic" />
+    <persona-characteristic :object="this.objt" :label="this.commitLabel" v-on:object-commit="commitPersonaCharacteristic" />
   </div>
 </template>
 

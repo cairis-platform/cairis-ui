@@ -183,7 +183,7 @@ export default {
       errors : [],
       objt : this.object,
       envPropIndex : 0,
-      commitLabel : 'Create',
+      commitLabel : this.label,
       personaTypes : [
         "Customer",
         "Negative",
@@ -209,7 +209,7 @@ export default {
         if (this.objt.theTags != '') {
           this.objt.theTags = this.objt.theTags.split(',').map(t => t.trim());
         }
-        this.$emit('persona-commit',this.objt);
+        this.$emit('object-commit',this.objt);
       }
     },
     onCancel(evt) {
