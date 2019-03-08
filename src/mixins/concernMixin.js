@@ -20,7 +20,9 @@
 export default {
   computed : {
     concernAssociations() {
-      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theConcernAssociations : [] 
+      return this.objt.theConcernAssociations != undefined ? this.objt.theConcernAssociations : (
+        this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theConcernAssociations : [] 
+      )
     }
   },
   components : {
@@ -68,15 +70,17 @@ export default {
       this.$refs.concernAssociationDialog.show();  
     },
     updateConcernAssociation : function(updAssoc) {
+      const theConcernAssociations = (this.objt.theConcernAssociations != undefined ? this.objt.theConcernAssociations : this.objt.theEnvironmentProperties[this.envPropIndex].theConcernAssociations);
       if (updAssoc.update) {
-        this.$set(this.objt.theEnvironmentProperties[this.envPropIndex].theConcernAssociations,updAssoc.index,updAssoc.association);
+        this.$set(theConcernAssociations,updAssoc.index,updAssoc.association);
       }
       else {
-        this.objt.theEnvironmentProperties[this.envPropIndex].theConcernAssociations.push(updAssoc.association);
+        theConcernAssociations.push(updAssoc.association);
       }
     },
     deleteConcernAssociation(index) {
-      this.objt.theEnvironmentProperties[this.envPropIndex].theConcernAssociations.splice(index,1);
+      const theConcernAssociations = (this.objt.theConcernAssociations != undefined ? this.objt.theConcernAssociations : this.objt.theEnvironmentProperties[this.envPropIndex].theConcernAssociations);
+      theConcernAssociations.splice(index,1);
     }
   }
 }
