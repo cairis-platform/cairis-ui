@@ -28,8 +28,8 @@ Authors: Shamal Faily
       </ul>
     </p> 
     <b-card>
-      <b-form-group label="Interface" label-class="text-sm-left" label-cols="3" label-for="theInterface" >
-        <dimension-select id="theInterface" dimension='interface' :initial="this.assetinterface.assetinterface.theInterfaceName" v-on:dimension-select-change="interfaceSelected" required />
+      <b-form-group label="Interface" label-class="text-sm-left" label-cols="3" label-for="theAssetInterfaceInput" >
+        <b-form-input id="theAssetInterfaceInput" v-model="assetinterface.assetinterface.theInterfaceName" type="text" required />
       </b-form-group>
       <b-form-group label="Type" label-class="text-sm-left" label-cols="3" label-for="theType" >
         <b-form-select id="theType" v-model="assetinterface.assetinterface.theInterfaceType" :options="typeValues" class="mb-3" required></b-form-select>
@@ -92,9 +92,6 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
       },
       show() {
         this.$refs.interfaceDialog.show();
-      },
-      interfaceSelected(item) {
-        this.assetinterface.assetinterface.theInterfaceName = item;
       },
       accessRightSelected(item) {
         this.assetinterface.assetinterface.theAccessRight = item;

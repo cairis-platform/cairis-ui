@@ -308,6 +308,36 @@ taskcharacteristic : {
   theGetUrl : '/api/task_characteristics',
   theDelUrl : '/api/task_characteristics/name/'
 },
+templateasset : {
+  bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Template assets', to: {name: 'objectsview', params: {dimension: 'templateasset'}}}],
+  objectsFields : {
+    objectsactions : {label : ''},
+    theName : {label : 'Name', sortable: true},
+    theType : {label : 'Type', sortable: true}
+  },
+  theGetUrl : '/api/template_assets',
+  theDelUrl : '/api/template_assets/name/'
+},
+templategoal : {
+  bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Template goals', to: {name: 'objectsview', params: {dimension: 'templategoal'}}}],
+  objectsFields : {
+    objectsactions : {label : ''},
+    theName : {label : 'Name', sortable: true},
+    theDefinition : {label : 'Definition', sortable: true}
+  },
+  theGetUrl : '/api/template_goals',
+  theDelUrl : '/api/template_goals/name/'
+},
+templaterequirement : {
+  bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Template requirements', to: {name: 'objectsview', params: {dimension: 'templaterequirement'}}}],
+  objectsFields : {
+    objectsactions : {label : ''},
+    theName : {label : 'Name', sortable: true},
+    theType : {label : 'Type', sortable: true}
+  },
+  theGetUrl : '/api/template_requirements',
+  theDelUrl : '/api/template_requirements/name/'
+},
 threat : {
   bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Threats', to: {name: 'objectsview', params: {dimension: 'threat'}}}],
   objectsFields : {

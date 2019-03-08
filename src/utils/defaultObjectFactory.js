@@ -153,6 +153,58 @@ task : {
   theTags : '',
   theEnvironmentProperties : []
 },
+templateasset : {
+  theName : '',
+  theShortCode : '',
+  theDescription : '',
+  theSignificance : '',
+  theType : '',
+  theSurfaceType : '',
+  theAccessRight : '',
+  theTags : '',
+  theInterfaces : [],
+  theProperties : [
+    {name : "Confidentiality",
+     value : "None",
+     rationale : "None"},
+    {name : "Integrity",
+     value : "None",
+     rationale : "None"},
+    {name : "Availability",
+     value : "None",
+     rationale : "None"},
+    {name : "Accountability",
+     value : "None",
+     rationale : "None"},
+    {name : "Anonymity",
+     value : "None",
+     rationale : "None"},
+    {name : "Pseudonymity",
+     value : "None",
+     rationale : "None"},
+    {name : "Unlinkability",
+     value : "None",
+     rationale : "None"},
+    {name : "Unobservability",
+     value : "None",
+     rationale : "None"}
+  ]
+},
+templategoal : {
+  theName : '',
+  theDefinition : '',
+  theRationale : '',
+  theResponsibilities : [],
+  theConcerns : []
+},
+templaterequirement : {
+  theName : '',
+  theDescription : '',
+  theAssetName : '',
+  theFitCriterion : '',
+  theRationale : '',
+  theType : ''
+},
 threat : {
   theThreatName : '',
   theType : '',

@@ -102,9 +102,9 @@ Authors: Shamal Faily
         <b-dropdown-item :to="{name: 'valuetypes', params: {dimension: 'likelihood'}}">Threat Likelihoods</b-dropdown-item>
         <b-dropdown-item :to="{name: 'valuetypes', params: {dimension: 'threat_value'}}">Threat Values</b-dropdown-item>
         <b-dropdown-divider></b-dropdown-divider>
-        <b-dropdown-item href="#">Template Assets</b-dropdown-item>
-        <b-dropdown-item href="#">Template Requirements</b-dropdown-item>
-        <b-dropdown-item href="#">Template Goals</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'templateasset'}}">Template Assets</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'templategoal'}}">Template Goals</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'templaterequirement'}} ">Template Requirements</b-dropdown-item>
         <b-dropdown-item href="#">Countermeasure Values</b-dropdown-item>
         <b-dropdown-divider></b-dropdown-divider>
         <b-dropdown-item :to="{name: 'traces'}">Traceability</b-dropdown-item>

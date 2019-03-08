@@ -31,7 +31,10 @@ export default {
   },
   computed : {
     notNone() {
-      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theProperties.filter(prop => prop.value != 'None') : [];
+      return this.objt.theProperties != undefined ? 
+        this.objt.theProperties.filter(prop => prop.value != 'None') : (
+          this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theProperties.filter(prop => prop.value != 'None') : []
+        );
     }
   },
   methods : {
@@ -64,7 +67,9 @@ export default {
       ]
     },
     updateProperty : function(updProp) {
-      this.objt.theEnvironmentProperties[this.envPropIndex].theProperties.map(prop => { 
+      const theProperties = (this.objt.theProperties != undefined ? this.objt.theProperties : this.objt.theEnvironmentProperties[this.envPropIndex].theProperties);
+
+      theProperties.map(prop => { 
         if (prop.name == updProp.name) {
           prop.value = updProp.value;
           prop.rationale = updProp.rationale;
@@ -72,7 +77,9 @@ export default {
       });
     },
     clearProperty(item) {
-      this.objt.theEnvironmentProperties[this.envPropIndex].theProperties.map(prop => { 
+      const theProperties = (this.objt.theProperties != undefined ? this.objt.theProperties : this.objt.theEnvironmentProperties[this.envPropIndex].theProperties);
+
+      theProperties.map(prop => { 
         if (prop.name == item.name) {
           prop.value = 'None';
           prop.rationale = 'None';
@@ -87,7 +94,8 @@ export default {
     addProperty() {
       this.selectedProperty = {'name' : '','value' : '','rationale' : ''};
       this.selectedProperty['update'] = false;
-      this.selectedProperty['propertyNames'] = this.objt.theEnvironmentProperties[this.envPropIndex].theProperties.filter(prop => (prop.value == 'None')).map(prop => prop.name);
+      const theProperties = (this.objt.theProperties != undefined ? this.objt.theProperties : this.objt.theEnvironmentProperties[this.envPropIndex].theProperties);
+      this.selectedProperty['propertyNames'] = theProperties.filter(prop => (prop.value == 'None')).map(prop => prop.name);
       this.$refs.propertyDialog.show();  
     },
   }

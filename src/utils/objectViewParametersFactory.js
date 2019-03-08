@@ -110,7 +110,24 @@ task : {
   componentFile : 'Task',
   updatePath : '/api/tasks/name/',
   createPath : '/api/tasks'
-
+},
+templateasset : {
+  objectsLabel : 'Template assets',
+  componentFile : 'TemplateAsset',
+  updatePath : '/api/template_assets/name/',
+  createPath : '/api/template_assets'
+},
+templategoal : {
+  objectsLabel : 'Template goals',
+  componentFile : 'TemplateGoal',
+  updatePath : '/api/template_goals/name/',
+  createPath : '/api/template_goals'
+},
+templaterequirement : {
+  objectsLabel : 'Template requirements',
+  componentFile : 'TemplateRequirement',
+  updatePath : '/api/template_requirements/name/',
+  createPath : '/api/template_requirements'
 },
 threat : {
   objectsLabel : 'Threats',

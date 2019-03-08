@@ -20,9 +20,7 @@ under the License.
 Authors: Shamal Faily 
 -->
 
-  <div class="asset">
-    <dimension-modal ref="environmentDialog" dimension="environment" :existing="environmentNames" v-on:dimension-modal-update="addAssetEnvironmentProperty"/> 
-    <association-modal ref="assetAssociationDialog" :assetAssociation="selectedAssociation" v-on:association-update="updateAssetAssociation"/> 
+  <div class="templateasset">
     <property-modal ref="propertyDialog" :securityProperty="selectedProperty" v-on:property-update="updateProperty"/> 
     <asset-interface-modal ref="assetInterfaceDialog" :assetInterface="selectedInterface" v-on:interface-update="updateAssetInterface"/> 
     <p v-if="errors.length">
@@ -66,6 +64,18 @@ Authors: Shamal Faily
                 </b-col>
               </b-row>
               <b-row>
+                <b-col md="6">
+                  <b-form-group label="Surface Type" label-class="font-weight-bold text-md-left" label-for="theSurfaceTypeSelect">
+                    <dimension-select id="theSurfaceTypeSelect" dimension='surface_type' :initial="objt.theSurfaceType" v-on:dimension-select-change="surfaceTypeSelected" />
+                  </b-form-group>
+                </b-col>
+                <b-col md="6">
+                  <b-form-group label="Access Right" label-class="font-weight-bold text-md-left" label-for="theAccessRightSelect">
+                    <dimension-select id="theAccessRightSelect" dimension='access_right' :initial="objt.theAccessRight" v-on:dimension-select-change="accessRightSelected" />
+                  </b-form-group>
+                </b-col>
+              </b-row>
+              <b-row>
                 <b-col md="12">
                   <b-form-group label="Tags" label-class="font-weight-bold text-md-left" label-cols="1" label-for="theTagsInput">
                     <b-form-input id="theTagsInput" v-model="objt.theTags" type="text" />
@@ -73,23 +83,6 @@ Authors: Shamal Faily
                 </b-col>
               </b-row>
             </b-card> 
-          </b-tab>
-          <b-tab title="Criticality">
-            <b-card bg-variant="light">
-              <b-container>
-                <b-row>
-                  <b-col sm="2">
-                    <b-form-checkbox v-model="objt.isCritical" >Critical Asset</b-form-checkbox>
-                  </b-col>
-                </b-row>
-                <b-row>
-                  <b-col>
-                    <b-form-textarea v-model="objt.theCriticalRationale" type="text" :rows=2 :max-rows=4 v-if="objt.isCritical">
-                    </b-form-textarea>
-                  </b-col>
-                </b-row>
-              </b-container> 
-            </b-card>
           </b-tab>
           <b-tab title="Interfaces">
             <b-card bg-variant="light">
@@ -106,50 +99,15 @@ Authors: Shamal Faily
           </b-tab>
         </b-tabs>
         <b-container fluid>
-          <b-card header="Environments" no-body class="text-left">
-            <template slot="header">
-              <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addEnvironment"/> Environment
+          <b-table striped small hover :items="notNone" :fields=propTableFields @row-clicked="viewProperty">
+            <!-- eslint-disable-next-line -->
+            <template slot="HEAD_propactions" slot-scope="data"> 
+              <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addProperty"/> 
             </template> 
-            <b-row>
-              <b-col sm="12">
-                <b-tabs pills v-model="envPropIndex">
-                  <b-tab v-for="envProp in this.objt.theEnvironmentProperties" :key="envProp.theEnvironmentName" :title=envProp.theName>
-                    <template slot="title">
-                      <font-awesome-icon icon="minus" :style="{color: 'red'}" @click="deleteEnvironment(envProp.theEnvironmentName)"/>  {{envProp.theEnvironmentName}}
-                    </template> 
-                  </b-tab> 
-                 </b-tabs>
-               </b-col> 
-            </b-row>
-            <b-row v-show="this.objt.theEnvironmentProperties.length">
-              <b-col sm="12">
-                <b-tabs >
-                  <b-tab title="Definition" active>
-                    <b-table striped small hover :items="notNone" :fields=propTableFields @row-clicked="viewProperty">
-                      <!-- eslint-disable-next-line -->
-                      <template slot="HEAD_propactions" slot-scope="data"> 
-                        <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addProperty"/> 
-                      </template> 
-                      <template slot="propactions" slot-scope="row">
-                        <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="clearProperty(row.item)"/>
-                      </template> 
-                    </b-table>
-                  </b-tab>
-                  <b-tab title="Associations">
-                    <b-table striped small hover :items="assetAssociations" :fields="assocTableFields" @row-clicked="viewAssetAssociation">
-                      <!-- eslint-disable-next-line -->
-                      <template slot="HEAD_assocactions" slot-scope="data">
-                        <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addAssetAssociation"/> 
-                      </template>
-                      <template slot="assocactions" slot-scope="row">
-                        <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteAssetAssociation(row.index)"/>
-                      </template>
-                    </b-table> 
-                  </b-tab> 
-                </b-tabs>
-              </b-col>
-            </b-row> 
-          </b-card>
+            <template slot="propactions" slot-scope="row">
+              <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="clearProperty(row.item)"/>
+            </template> 
+          </b-table>
         </b-container>
       </b-card> 
       <b-container fluid>
@@ -166,13 +124,11 @@ Authors: Shamal Faily
 
 <script>
 
-import environmentMixin from '../mixins/environmentMixin'
-import objectMixin from '../mixins/objectMixin'
-import propertiesMixin from '../mixins/propertiesMixin'
-import PropertyModal from './PropertyModal'
-import DimensionModal from './DimensionModal'
-import AssociationModal from './AssociationModal'
-import AssetInterfaceModal from './AssetInterfaceModal'
+import objectMixin from '../mixins/objectMixin';
+import propertiesMixin from '../mixins/propertiesMixin';
+import PropertyModal from '@/components/PropertyModal';
+import DimensionSelect from '@/components/DimensionSelect';
+import AssetInterfaceModal from '@/components/AssetInterfaceModal';
 
 export default {
   props : {
@@ -183,22 +139,17 @@ export default {
     object: 'setObject'
   },
   mixins : [
-    environmentMixin,
     objectMixin,
     propertiesMixin
   ],
   computed : {
-    assetAssociations() {
-      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theAssociations : [] ;
-    },
     unusedProperties() {
-      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theProperties.filter(prop => (prop.value == 'None')).map(prop => prop.name) : [];
+      return this.objt.theProperties.filter(prop => (prop.value == 'None')).map(prop => prop.name);
     }
   },
   components : {
     PropertyModal,
-    DimensionModal,
-    AssociationModal,
+    DimensionSelect,
     AssetInterfaceModal
   },
   data() {
@@ -207,23 +158,6 @@ export default {
       commitLabel : this.label,
       envPropIndex : 0,
       errors : [],
-      selectedAssociation : {
-        asset : '',
-        environment : '',
-        update : false,
-        initial : '',
-        association : {
-          theHeadNav : 0, 
-          theHeadType : 'Association', 
-          theHeadMultiplicity : '*', 
-          theHeadRole: '', 
-          theTailRole : '', 
-          theTailMultiplicity : '*', 
-          theTypeType : 'Association',
-          theTailNav : 0, 
-          theTailName : ''
-         }
-      },
       selectedInterface : {
         update : false,
         assetinterface : {
@@ -234,28 +168,13 @@ export default {
         }
       },
       assetTypes: ['Hardware','Information','People','Systems','Systems - General','System of Systems'],
-      envFields : {
-        envactions : {label : ''},
-        theName : {label : 'Environment'}
-      },
       interfaceTableFields : {
         intactions : {label : ''},
         theInterfaceName : {label : 'Interface'},
         theInterfaceType : {label : 'Type'},
         theAccessRight : {label : 'Access Right'},
         thePrivilege : {label : 'Privilege'} 
-      },
-      assocTableFields : [
-        {key: 'assocactions', label: ''},
-        {key: 'theHeadNav', label: 'Nav'},
-        {key: 'theHeadType',label: 'Type'},
-        {key: 'theHeadMultiplicity', label: 'Nry'},
-        {key: 'theHeadRole', label: 'Role'},
-        {key: 'theTailRole', label: 'Tail Role'},
-        {key: 'theTailMultiplicity', label: 'Tail Nry'},
-        {key: 'theTailNav', label: 'Tail Nav'},
-        {key: 'theTailName', label: 'Tail Asset'}
-      ]
+      }
     }
   }, 
   methods: {
@@ -276,14 +195,27 @@ export default {
       if (this.objt.theSignificance.length == 0) {
         this.errors.push('Significance is required');
       }
-      if (this.objt.theEnvironmentProperties.length == 0) {
-        this.errors.push('No environment properties have been defined')
+      if (this.objt.theSurfaceType.length == 0) {
+        this.errors.push('Surface type is required');
+      }
+      if (this.objt.theAccessRight.length == 0) {
+        this.errors.push('Access right is required');
       }
       if (!this.errors.length) {
         return true;
       }
       else {
         return false;
+      }
+    },
+    accessRightSelected(item) {
+      if (item != undefined) {
+        this.objt.theAccessRight = item;
+      }
+    },
+    surfaceTypeSelected(item) {
+      if (item != undefined) {
+        this.objt.theSurfaceType = item;
       }
     },
     setObject() {
@@ -302,16 +234,6 @@ export default {
     onCancel(evt) {
       evt.preventDefault();
       this.$router.push({ name: 'objectsview', params: {dimension: 'asset'}});
-    },
-    addAssetAssociation() {
-      this.selectedAssociation['asset'] = this.objt.theName;
-      this.selectedAssociation['environment'] = this.objt.theEnvironmentProperties[this.envPropIndex].theEnvironmentName;
-      this.selectedAssociation['association'] = {theHeadNav : 0, theHeadType : 'Association', theHeadMultiplicity : '*', theHeadRole: '', theTailRole : '', theTailMultiplicity : '*', theTailNav : 0, theTailType : 'Association', theTailName : ''};
-      this.selectedAssociation['update'] = false;
-      this.$refs.assetAssociationDialog.show();  
-    },
-    deleteAssetAssociation(index) {
-      this.objt.theEnvironmentProperties[this.envPropIndex].theAssociations.splice(index,1);
     },
     addInterface() {
       this.selectedInterface['assetinterface'] = {theInterfaceName : '', theInterfaceType : '', theAccessRight : '', thePrivilege: ''};
@@ -334,34 +256,6 @@ export default {
       else {
         this.objt.theInterfaces.push(updIf.interface);
       }
-    },
-    addEnvironment(evt) {
-      evt.preventDefault();
-      this.$refs.environmentDialog.show();  
-    },
-    addAssetEnvironmentProperty : function(envName) {
-      this.addEnvironmentProperty({
-        theEnvironmentName : envName,
-        theAssociations : [],
-        theProperties : this.defaultProperties()
-      });
-    },
-    updateAssetAssociation : function(updAssoc) {
-      if (updAssoc.update) {
-        this.$set(this.objt.theEnvironmentProperties[this.envPropIndex].theAssociations,updAssoc.index,updAssoc.association);
-      }
-      else {
-        this.objt.theEnvironmentProperties[this.envPropIndex].theAssociations.push(updAssoc.association);
-      }
-    },
-    viewAssetAssociation(data,index) {
-      this.selectedAssociation['asset'] = this.objt.theName
-      this.selectedAssociation['index'] = index
-      this.selectedAssociation['environment'] = this.objt.theEnvironmentProperties[this.envPropIndex].theEnvironmentName
-      this.selectedAssociation['association'] = JSON.parse(JSON.stringify(data));
-      this.selectedAssociation['update'] = true;
-      this.selectedAssociation['initial'] = this.selectedAssociation['association'].theTailName
-      this.$refs.assetAssociationDialog.show();  
     }
   }
 }
