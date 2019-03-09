@@ -124,6 +124,20 @@ persona : {
   thePersonaType : '',
   theEnvironmentProperties : []
 },
+personacharacteristic : {
+  thePersonaName : '',
+  theModQual : '',
+  theVariable : '',
+  theName : '',
+  theCharacteristicSynopsis : {
+    theDimension : 'goal',
+    theSynopsis : ''
+  },
+  theGrounds : [],
+  theWarrant : [],
+  theBacking : [],
+  theRebuttal : []
+},
 response : {
   theName : '',
   theResponseType : 'Accept',

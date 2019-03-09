@@ -124,9 +124,9 @@ export default {
           case 'requirement':
             this.$router.push({ name: this.dimName, params : {objectName: row.theName, domain: this.$refs.assetFilter.selected.length > 0 ? {type: 'asset', name: this.$refs.assetFilter.selected} : {type: 'environment', name: this.$refs.envFilter.selected}}});
             break;
-          case 'personacharacteristic':
-            this.$router.push({ name: this.dimName, params : {objectName: row.theCharacteristic}});
-            break;
+//          case 'personacharacteristic':
+//            this.$router.push({ name: this.dimName, params : {objectName: row.theCharacteristic}});
+//            break;
           case 'kaosassociation':
             this.$router.push({ name: this.dimName, params : {envName: row.theEnvironmentName,goalName : row.theGoal, subGoalName: row.theSubGoal}});
             break;
@@ -147,6 +147,7 @@ export default {
           case 'goal':
           case 'obstacle':
           case 'persona':
+          case 'personacharacteristic':
           case 'response':
           case 'risk':
           case 'role':
@@ -197,6 +198,7 @@ export default {
           case 'goal':
           case 'obstacle':
           case 'persona':
+          case 'personacharacteristic':
           case 'response':
           case 'risk':
           case 'role':
@@ -232,9 +234,9 @@ export default {
       else if (this.dimName == 'dependency') {
         this.selectedObject = {'envName' : this.items[index].theEnvironmentName,'theDepender' : this.items[index].theDepender,'theDependee' : this.items[index].theDependee, 'theDependency' : this.items[index].theDependency };
       }
-      else if (this.dimName == 'personacharacteristic') {
-        this.selectedObject = this.items[index].theCharacteristic;
-      }
+//      else if (this.dimName == 'personacharacteristic') {
+//        this.selectedObject = this.items[index].theCharacteristic;
+//      }
       else {
         this.selectedObject = this.items[index].theName;
       }

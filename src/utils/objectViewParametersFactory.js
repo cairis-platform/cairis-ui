@@ -86,6 +86,12 @@ persona : {
   updatePath : '/api/personas/name/',
   createPath : '/api/personas'
 },
+personacharacteristic : {
+  objectsLabel : 'Persona characteristics',
+  componentFile : 'PersonaCharacteristic',
+  updatePath : '/api/persona_characteristics/name/',
+  createPath : '/api/persona_characteristics'
+},
 response : {
   objectsLabel : 'Responses',
   componentFile : 'Response',

@@ -37,7 +37,7 @@ Authors: Shamal Faily
               <b-row>
                 <b-col md="12">
                   <b-form-group label="Definition" label-class="font-weight-bold text-md-left" label-for="theDefinitionInput">
-                    <b-form-input id="theDefinitionInput" v-model="objt.theCharacteristic" type="text" required>
+                    <b-form-input id="theDefinitionInput" v-model="objt.theName" type="text" required>
                     </b-form-input>
                   </b-form-group>
                 </b-col>
@@ -210,8 +210,8 @@ export default {
       if (this.objt.theModQual.length == 0) {
         this.errors.push('Modal Qualifier is required');
       }
-      if (this.objt.theCharacteristic.length == 0) {
-        this.errors.push('Characteristic is required');
+      if (this.objt.theNamelength == 0) {
+        this.errors.push('Characteristic definition is required');
       }
       if (this.objt.theGrounds.length == 0) {
         this.errors.push('No grounds have been defined')
