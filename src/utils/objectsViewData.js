@@ -302,8 +302,8 @@ taskcharacteristic : {
   bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Task characteristics', to: {name: 'objectsview', params: {dimension: 'taskcharacteristic'}}}],
   objectsFields : {
     objectsactions : {label : ''},
-    theTaskName : {label : 'Task', sortable: true},
-    theCharacteristic : {label : 'Characteristic', sortable: true}
+    theName : {label : 'Characteristic', sortable: true},
+    theTaskName : {label : 'Task', sortable: true}
   },
   theGetUrl : '/api/task_characteristics',
   theDelUrl : '/api/task_characteristics/name/'

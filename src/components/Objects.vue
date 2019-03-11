@@ -152,6 +152,7 @@ export default {
           case 'risk':
           case 'role':
           case 'task':
+          case 'taskcharacteristic':
           case 'threat':
           case 'usecase':
           case 'vulnerability':
@@ -203,6 +204,7 @@ export default {
           case 'risk':
           case 'role':
           case 'task':
+          case 'taskcharacteristic':
           case 'templateasset':
           case 'threat':
           case 'usecase':
@@ -234,9 +236,6 @@ export default {
       else if (this.dimName == 'dependency') {
         this.selectedObject = {'envName' : this.items[index].theEnvironmentName,'theDepender' : this.items[index].theDepender,'theDependee' : this.items[index].theDependee, 'theDependency' : this.items[index].theDependency };
       }
-//      else if (this.dimName == 'personacharacteristic') {
-//        this.selectedObject = this.items[index].theCharacteristic;
-//      }
       else {
         this.selectedObject = this.items[index].theName;
       }
@@ -247,6 +246,9 @@ export default {
         let objectDimension = this.dimension;
         if (objectDimension == 'personacharacteristic') {
           objectDimension = 'persona_characteristic';
+        }
+        else if (objectDimension == 'taskcharacteristic') {
+          objectDimension = 'task_characteristic';
         }
         const odUrl = '/api/object_dependency/dimension/' + objectDimension + '/object/' + this.selectedObject;
         axios.get(odUrl,{

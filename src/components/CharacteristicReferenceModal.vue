@@ -27,26 +27,41 @@ Authors: Shamal Faily
         <li v-for="error in errors" :key="error">{{ error }}</li>
       </ul>
     </p> 
-    <b-card no-body v-if="reference != undefined">
+    <b-card no-body v-if="reference != undefined"> 
       <b-tabs card>
         <b-tab title="Reference" active>
           <b-card bg-variant="light">
             <b-row>
               <b-col md="12">
-                <b-form-group label="Reference" label-class="font-weight-bold text-sm-left" label-for="theCReferenceSelect" >
-                  <dimension-select id="theCReferenceSelect" :dimension='referenceDimension' :initial="reference.theReferenceName" v-on:dimension-select-change="referenceSelected" />
-                </b-form-group>
+                <div v-if="this.characteristic_type == 'persona'">
+                  <b-form-group label="Reference" label-class="font-weight-bold text-sm-left" label-for="theCReferenceSelect" >
+                    <dimension-select id="theCReferenceSelect" :dimension='referenceDimension' :initial="reference.theReferenceName" v-on:dimension-select-change="referenceSelected" />
+                  </b-form-group>
+                </div>
+                <div v-if="this.characteristic_type != 'persona'">
+                  <b-form-group label="Dimension" label-class="font-weigh-bold text-md-left" label-for="theDimensionRadio">
+                    <b-form-radio-group id="theDimensionRadio" v-model="theConceptReferenceDimension">
+                      <b-form-radio value="document">Document</b-form-radio>
+                      <b-form-radio value="persona">Persona</b-form-radio>
+                      <b-form-radio value="requirement">Requirement</b-form-radio>
+                      <b-form-radio value="task">Task</b-form-radio>
+                      <b-form-radio value="usecase">Use Case</b-form-radio>
+                    </b-form-radio-group>
+                  </b-form-group>
+                  <b-form-group>
+                    <b-form-select id="theConceptReferences" v-model="reference.theReferenceName" :options="theFilteredConceptReferences" class="mb-3" required />
+                  </b-form-group>
+                </div>
               </b-col>
             </b-row>
             <b-row>
               <b-col md="12">
-                <b-form-textarea v-model="reference.theReferenceDescription" type="text" :rows=4 :max-rows=4 readonly>
-                </b-form-textarea>
+                <b-form-textarea v-model="reference.theReferenceDescription" type="text" :rows=4 :max-rows=4 readonly />
               </b-col>
             </b-row>
           </b-card>
         </b-tab>
-        <b-tab title="GRL Elements">
+        <b-tab title="GRL Elements" v-if="characteristic_type == 'persona'">
           <b-card bg-variant="light">
             <b-row>
               <b-col md="12">
@@ -87,8 +102,7 @@ Authors: Shamal Faily
             <b-row>
               <b-col md="12">
                 <b-form-group label="Contribution" label-class="font-weight-bold text-md-left" label-for="theContributionSelect">
-                  <b-form-select id="theContributionSelect" v-model="reference.theReferenceContribution.theContribution" :options="contributionTypes" class="mb-3" required>
-                  </b-form-select>
+                  <b-form-select id="theContributionSelect" v-model="reference.theReferenceContribution.theContribution" :options="contributionTypes" class="mb-3" required />
                 </b-form-group>
               </b-col>
             </b-row>
@@ -109,7 +123,11 @@ import DimensionSelect from './DimensionSelect';
     name : 'characteristic-reference-modal',
     props : {
       characteristicReference : Object,
-      characteristic: String
+      characteristic: String,
+      characteristic_type : {
+        type: String,
+        default: 'persona'
+      }
     },
     watch : {
       characteristicReference: {
@@ -118,6 +136,31 @@ import DimensionSelect from './DimensionSelect';
           if (this.reference.theReferenceName != "") {
             this.updateReferenceDescription(this.reference.theReferenceName);
           }
+          if (this.characteristic_type != 'document') {
+            this.theConceptReferenceDimension = this.reference.theDimensionName;
+          }
+        },
+        deep: true
+      },
+      theConceptReferenceDimension: {
+        handler() {
+          this.reference.theDimensionName = this.theConceptReferenceDimension;
+          const refUrl = '/api/' + (this.theConceptReferenceDimension == 'document' ? 'document' : 'concept') + '_references';
+          axios.get(refUrl,{
+            baseURL : this.$store.state.url,
+            params : {'session_id' : this.$store.state.session}
+          })
+          .then(response => {
+            if (this.theConceptReferenceDimension == 'document') {
+              this.theFilteredConceptReferences = response.data.map(dr => dr.theName);
+            }
+            else {
+              this.theFilteredConceptReferences = response.data.filter(cr => cr.theDimName == this.theConceptReferenceDimension).map(cr => cr.theName);
+            }
+          })
+          .catch((error) => {
+            EventBus.$emit('operation-failure',error)
+          });
         },
         deep: true
       }
@@ -126,7 +169,9 @@ import DimensionSelect from './DimensionSelect';
       return {
         reference : this.characteristicReference.characteristicReference,
         contributionTypes : ['','Make','SomePositive','Help','Hurt','SomeNegative','Break'],
-        errors : []
+        errors : [],
+        theConceptReferenceDimension : '',
+        theFilteredConceptReferences : []
       }
     },
     computed : {
@@ -134,7 +179,7 @@ import DimensionSelect from './DimensionSelect';
         return (this.characteristicReference.update ? "Update " : "Add ") + (this.characteristicReference.characteristicReference != undefined ? this.characteristicReference.characteristicReference.theCharacteristicType : '');
       },
       referenceDimension() {
-        return this.reference.theDimensionName == 'document' ? 'document_reference' : this.reference.theDimensionName;
+        return this.reference.theDimensionName == 'document' ? 'document_reference' : 'concept_reference';
       }
     },
     components : {
@@ -170,13 +215,18 @@ import DimensionSelect from './DimensionSelect';
         this.updateReferenceDescription(refName);
       },
       updateReferenceDescription(refName) {
-        const dcUrl = '/api/' + this.reference.theDimensionName + '_references/name/' + refName;
+        const dcUrl = '/api/' + (this.reference.theDimensionName == 'document' ? 'document' : 'concept') + '_references/name/' + refName;
         axios.get(dcUrl,{
           baseURL : this.$store.state.url,
           params : {'session_id' : this.$store.state.session}
          })
         .then(response => {
-          this.reference.theReferenceDescription = response.data.theExcerpt;
+          if (this.reference.theDimensionName == 'document') {
+            this.reference.theReferenceDescription = response.data.theExcerpt;
+          }
+          else {
+            this.reference.theReferenceDescription = response.data.theDescription;
+          }
          })
         .catch((error) => {
           EventBus.$emit('operation-failure',error)

@@ -20,8 +20,8 @@ under the License.
 Authors: Shamal Faily 
 -->
 
-  <div class="personacharacteristic">
-    <characteristic-reference-modal ref="crDialog" :characteristicReference="this.selectedCharacteristicReference" :characteristic="this.objt.theName" v-on:characteristic-reference-modal-update="updateCharacteristicReference"/> 
+  <div class="taskcharacteristic">
+    <characteristic-reference-modal ref="crDialog" :characteristicReference="this.selectedCharacteristicReference" :characteristic="this.objt.theName" characteristic_type="task" v-on:characteristic-reference-modal-update="updateCharacteristicReference"/> 
     <p v-if="errors.length">
       <b>Please correct the following error(s):</b>
       <ul>
@@ -29,100 +29,63 @@ Authors: Shamal Faily
       </ul>
     </p>
     <b-form>
-      <b-card no-body>
-        <b-tabs card>
-          <b-tab title="Characteristic" active>
-            <b-container fluid>
-              <b-card bg-variant="light">
-              <b-row>
-                <b-col md="12">
-                  <b-form-group label="Definition" label-class="font-weight-bold text-md-left" label-for="theDefinitionInput">
-                    <b-form-input id="theDefinitionInput" v-model="objt.theName" type="text" required>
-                    </b-form-input>
-                  </b-form-group>
-                </b-col>
-              </b-row>
-              <b-row>
-                <b-col md="4">
-                  <b-form-group label="Persona" label-class="font-weight-bold text-md-left" label-for="thePersonaSelect">
-                    <dimension-select id="thePersonaSelect" dimension='persona' :initial="objt.thePersonaName" v-on:dimension-select-change="personaSelected" />
-                  </b-form-group>
-                </b-col>
-                <b-col md="4">
-                  <b-form-group label="Variable" label-class="font-weight-bold text-md-left" label-for="theVariableSelect">
-                    <b-form-select id="theTypeInput" v-model="objt.theVariable" :options="variableTypes" class="mb-3" required>
-                    </b-form-select>
-                  </b-form-group>
-                </b-col>
-                <b-col md="4">
-                  <b-form-group label="Modal Qualifier" label-class="font-weight-bold text-md-left" label-for="theModalQualifierInput">
-                    <b-form-input id="theModalQualifierInput" v-model="objt.theModQual" type="text" required>
-                    </b-form-input>
-                  </b-form-group>
-                </b-col>
-              </b-row>
-              <b-row>
-                <b-col md="4">
-                  <b-table striped bordered small :fields="groundTableFields" :items="objt.theGrounds" @row-clicked="viewGrounds">
-                    <!-- eslint-disable-next-line -->
-                    <template slot="HEAD_gwractions" slot-scope="data"> 
-                      <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addGrounds"/> 
-                    </template>
-                    <template slot="gwractions" slot-scope="row">
-                      <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteGrounds(row.index)"/>
-                    </template>
-                  </b-table>
-                </b-col>
-                <b-col md="4">
-                  <b-table striped bordered small :fields="warrantTableFields" :items="objt.theWarrant" @row-clicked="viewWarrant">
-                    <!-- eslint-disable-next-line -->
-                    <template slot="HEAD_gwractions" slot-scope="data"> 
-                      <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addWarrant"/> 
-                    </template>
-                    <template slot="gwractions" slot-scope="row">
-                      <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteWarrant(row.index)"/>
-                    </template>
-                  </b-table>
-                </b-col>
-                <b-col md="4">
-                  <b-table striped bordered small :fields="rebuttalTableFields" :items="objt.theRebuttal" @row-clicked="viewRebuttal">
-                    <!-- eslint-disable-next-line -->
-                    <template slot="HEAD_gwractions" slot-scope="data"> 
-                      <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addRebuttal"/> 
-                    </template>
-                    <template slot="gwractions" slot-scope="row">
-                      <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteRebuttal(row.index)"/>
-                    </template>
-                  </b-table>
-                </b-col>
-              </b-row>
-              </b-card>
-            </b-container>
-          </b-tab>
-          <b-tab title="GRL Elements">
-            <b-container fluid>
-              <b-row>
-                <b-col md="12">
-                  <b-form-group label="Element Type" label-class="font-weight-bold text-md-left" label-for="theElementTypeRadio">
-                    <b-form-radio-group id="theElementTypeRadio" v-model="objt.theCharacteristicSynopsis.theDimension">
-                      <b-form-radio value="goal">Goal</b-form-radio>
-                      <b-form-radio value="softgoal">Soft Goal</b-form-radio>
-                      <b-form-radio value="task">Task</b-form-radio>
-                    </b-form-radio-group>
-                  </b-form-group>
-                </b-col>
-              </b-row>
-              <b-row>
-                <b-col md="12">
-                  <b-form-group label="Intention" label-class="font-weight-bold text-md-left" label-for="thePCIntentionInput">
-                    <b-form-input id="thePCIntentionInput" v-model="objt.theCharacteristicSynopsis.theSynopsis" type="text" required>
-                    </b-form-input>
-                  </b-form-group>
-                </b-col>
-              </b-row>
-            </b-container>
-          </b-tab>
-        </b-tabs>
+      <b-card bg-variant="light">
+        <b-container fluid>
+          <b-row>
+            <b-col md="12">
+              <b-form-group label="Definition" label-class="font-weight-bold text-md-left" label-for="theDefinitionInput">
+                <b-form-input id="theDefinitionInput" v-model="objt.theName" type="text" required />
+              </b-form-group>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col md="6">
+              <b-form-group label="Task" label-class="font-weight-bold text-md-left" label-for="theTaskSelect">
+                <dimension-select id="theTaskSelect" dimension='task' :initial="objt.theTaskName" v-on:dimension-select-change="taskSelected" />
+              </b-form-group>
+            </b-col>
+            <b-col md="6">
+              <b-form-group label="Modal Qualifier" label-class="font-weight-bold text-md-left" label-for="theModalQualifierInput">
+                <b-form-input id="theModalQualifierInput" v-model="objt.theModQual" type="text" required />
+              </b-form-group>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col md="4">
+              <b-table striped bordered small :fields="groundTableFields" :items="objt.theGrounds" @row-clicked="viewGrounds">
+                <!-- eslint-disable-next-line -->
+                <template slot="HEAD_gwractions" slot-scope="data"> 
+                  <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addGrounds"/> 
+                </template>
+                <template slot="gwractions" slot-scope="row">
+                  <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteGrounds(row.index)"/>
+                </template>
+              </b-table>
+            </b-col>
+            <b-col md="4">
+              <b-table striped bordered small :fields="warrantTableFields" :items="objt.theWarrant" @row-clicked="viewWarrant">
+                <!-- eslint-disable-next-line -->
+                <template slot="HEAD_gwractions" slot-scope="data"> 
+                  <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addWarrant"/> 
+                </template>
+                <template slot="gwractions" slot-scope="row">
+                  <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteWarrant(row.index)"/>
+                </template>
+              </b-table>
+            </b-col>
+            <b-col md="4">
+              <b-table striped bordered small :fields="rebuttalTableFields" :items="objt.theRebuttal" @row-clicked="viewRebuttal">
+                <!-- eslint-disable-next-line -->
+                <template slot="HEAD_gwractions" slot-scope="data"> 
+                  <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addRebuttal"/> 
+                </template>
+                <template slot="gwractions" slot-scope="row">
+                  <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteRebuttal(row.index)"/>
+                </template>
+              </b-table>
+            </b-col>
+          </b-row>
+        </b-container>
       </b-card>
       <b-container fluid>
         <b-form-row>
@@ -201,11 +164,8 @@ export default {
   methods: {
     checkForm() {
       this.errors = []
-      if (this.objt.thePersonaName.length == 0) {
-        this.errors.push('Persona is required');
-      }
-      if (this.objt.theVariable.length == 0) {
-        this.errors.push('Behavioural Variable is required');
+      if (this.objt.theTaskName.length == 0) {
+        this.errors.push('Task is required');
       }
       if (this.objt.theModQual.length == 0) {
         this.errors.push('Modal Qualifier is required');
@@ -235,12 +195,12 @@ export default {
     },
     onCancel(evt) {
       evt.preventDefault();
-      this.$router.push({ name: 'objectsview', params: {dimension: 'personacharacteristic'}});
+      this.$router.push({ name: 'objectsview', params: {dimension: 'taskcharacteristic'}});
     },
     addGrounds() {
       this.selectedCharacteristicReference['characteristicReference'] = JSON.parse(JSON.stringify(this.templateCharacteristicReference));
       this.selectedCharacteristicReference.characteristicReference.theCharacteristicType = 'grounds';
-      this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theActor = this.objt.thePersonaName;
+      this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theActor = this.objt.theTaskName;
       this.selectedCharacteristicReference['update'] = false;
       this.$refs.crDialog.show();  
     },
@@ -256,7 +216,7 @@ export default {
     addWarrant() {
       this.selectedCharacteristicReference['characteristicReference'] = JSON.parse(JSON.stringify(this.templateCharacteristicReference));
       this.selectedCharacteristicReference.characteristicReference.theCharacteristicType = 'warrant';
-      this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theActor = this.objt.thePersonaName;
+      this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theActor = this.objt.theTaskName;
       this.selectedCharacteristicReference['update'] = false;
       this.$refs.crDialog.show();  
     },
@@ -272,7 +232,7 @@ export default {
     addRebuttal() {
       this.selectedCharacteristicReference['characteristicReference'] = JSON.parse(JSON.stringify(this.templateCharacteristicReference));
       this.selectedCharacteristicReference.characteristicReference.theCharacteristicType = 'rebuttal';
-      this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theActor = this.objt.thePersonaName;
+      this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theActor = this.objt.theTaskName;
       this.selectedCharacteristicReference['update'] = false;
       this.$refs.crDialog.show();  
     },
@@ -285,8 +245,8 @@ export default {
     deleteRebuttal(index) {
       this.objt.theRebuttal.splice(index,1);
     },
-    personaSelected(pName) {
-      this.objt.thePersonaName = pName;
+    taskSelected(pName) {
+      this.objt.theTaskName = pName;
     },
     updateCharacteristicReference : function(updCr) {
       if (updCr.update) {

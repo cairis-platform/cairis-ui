@@ -117,6 +117,12 @@ task : {
   updatePath : '/api/tasks/name/',
   createPath : '/api/tasks'
 },
+taskcharacteristic : {
+  objectsLabel : 'Task characteristics',
+  componentFile : 'TaskCharacteristic',
+  updatePath : '/api/task_characteristics/name/',
+  createPath : '/api/task_characteristics'
+},
 templateasset : {
   objectsLabel : 'Template assets',
   componentFile : 'TemplateAsset',

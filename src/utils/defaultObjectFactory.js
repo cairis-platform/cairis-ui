@@ -167,6 +167,16 @@ task : {
   theTags : '',
   theEnvironmentProperties : []
 },
+taskcharacteristic : {
+  thePersonaName : '',
+  theModQual : '',
+  theVariable : '',
+  theName : '',
+  theGrounds : [],
+  theWarrant : [],
+  theBacking : [],
+  theRebuttal : []
+},
 templateasset : {
   theName : '',
   theShortCode : '',
