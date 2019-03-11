@@ -40,45 +40,47 @@ Authors: Shamal Faily
                 </b-col>
               </b-row>
               <b-row>
-                <b-col md="8">
-                  <b-form-group label="Head" label-class="font-weight-bold text-sm-left" label-cols="1" label-for="theGoalRadio" >
-                    <b-form-radio-group :disabled="disable" buttons button-variant="outline-primary" size="sm" id="theGoalRadio" v-model="theGoalType" :options="goalTypeOptions" class="mb-3" required name="theGoalRadio">
-                    </b-form-radio-group>
+                <b-col md="12">
+                  <b-form-group label="Head" label-class="font-weight-bold text-md-left" label-for="theGoalRadio" >
+                    <b-form-radio-group :disabled="disable" buttons button-variant="outline-primary" size="md" id="theGoalRadio" v-model="theGoalType" :options="goalTypeOptions" class="mb-3" required name="theGoalRadio" />
                   </b-form-group>
                 </b-col>
-                <b-col md="4">
-                  <dimension-select id="theGoalSelect" display_size="sm" :is_disabled="disable" :environment='objt.theEnvironmentName' :dimension='theGoalType' :initial="objt.theGoal" v-on:dimension-select-change="goalSelected" />
+              </b-row>
+              <b-row> 
+                <b-col md="12">
+                  <dimension-select id="theGoalSelect" :is_disabled="disable" :environment='objt.theEnvironmentName' :dimension='theGoalType' :initial="objt.theGoal" v-on:dimension-select-change="goalSelected" />
                 </b-col>
               </b-row>
               <b-row>
-                <b-col md="8">
-                  <b-form-group label="Tail" label-class="font-weight-bold text-sm-left" label-cols="1" label-for="theSubGoalRadio" >
-                    <b-form-radio-group :disabled="disable" buttons button-variant="outline-primary" size="sm" id="theSubGoalRadio" v-model="theSubGoalType" :options="subGoalTypeOptions" class="mb-3" required name="theSubGoalRadio">
-                    </b-form-radio-group>
+                <b-col md="12">
+                  <b-form-group label="Tail" label-class="font-weight-bold text-md-left" label-for="theSubGoalRadio" >
+                    <b-form-radio-group :disabled="disable" buttons button-variant="outline-primary" size="md" id="theSubGoalRadio" v-model="theSubGoalType" :options="subGoalTypeOptions" class="mb-3" required name="theSubGoalRadio" />
                   </b-form-group>
                 </b-col>
-                <b-col md="4">
-                  <dimension-select id="theSubGoalSelect" display_size="sm" :is_disabled="disable" :environment='objt.theEnvironmentName' :dimension='objt.theSubGoalDimension' :initial="objt.theSubGoal" v-on:dimension-select-change="subGoalSelected" />
+              </b-row>
+              <b-row>
+                <b-col md="12">
+                  <dimension-select id="theSubGoalSelect" :is_disabled="disable" :environment='objt.theEnvironmentName' :dimension='objt.theSubGoalDimension' :initial="objt.theSubGoal" v-on:dimension-select-change="subGoalSelected" />
                 </b-col>
               </b-row>
               <b-row>
                 <b-col md="2">
-                  <b-form-group label="Association" label-class="font-weight-bold text-sm-left" label-for="theAssociationRadio" >
-                    <b-form-radio-group buttons button-variant="outline-primary" size="sm" id="theAssociationRadio" v-model="objt.theAssociationType" :options="refTypeOptions" class="mb-3" required name="theAssociationRadio">
+                  <b-form-group label="Association" label-class="font-weight-bold text-md-left" label-for="theAssociationRadio" >
+                    <b-form-radio-group buttons button-variant="outline-primary" size="md" id="theAssociationRadio" v-model="objt.theAssociationType" :options="refTypeOptions" class="mb-3" required name="theAssociationRadio">
                     </b-form-radio-group>
                   </b-form-group>
                 </b-col>
                 <b-col md="2">
-                  <b-form-group label="Alternative" label-class="font-weight-bold text-sm-left" label-for="theHeadNryInput" >
-                    <b-form-radio-group buttons button-variant="outline-primary" size="sm" v-model="objt.theAlternativeId">
+                  <b-form-group label="Alternative" label-class="font-weight-bold text-md-left" label-for="theHeadNryInput" >
+                    <b-form-radio-group buttons button-variant="outline-primary" size="md" v-model="objt.theAlternativeId">
                       <b-form-radio value=0>No</b-form-radio>
                       <b-form-radio value=1>Yes</b-form-radio>
                     </b-form-radio-group>
                   </b-form-group>
                 </b-col>
                 <b-col md="8">
-                  <b-form-group label="Rationale" label-class="font-weight-bold text-sm-left" label-for="theRationaleInput" >
-                    <b-form-input id="theRationaleInput" size="sm" v-model="objt.theRationale"></b-form-input>
+                  <b-form-group label="Rationale" label-class="font-weight-bold text-md-left" label-for="theRationaleInput" >
+                    <b-form-input id="theRationaleInput" size="md" v-model="objt.theRationale"></b-form-input>
                   </b-form-group>
                 </b-col>
               </b-row>
