@@ -109,6 +109,11 @@ goal : {
   theTags : '',
   theEnvironmentProperties : []
 },
+locations : {
+  theName : '',
+  theDiagram : '',
+  theLocations : []
+},
 obstacle : {
   theName : '',
   theOriginator : '',

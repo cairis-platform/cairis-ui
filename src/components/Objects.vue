@@ -155,6 +155,7 @@ export default {
           case 'domainproperty':
           case 'environment':
           case 'goal':
+          case 'locations':
           case 'obstacle':
           case 'persona':
           case 'personacharacteristic':
@@ -208,6 +209,7 @@ export default {
           case 'domainproperty':
           case 'environment':
           case 'goal':
+          case 'locations':
           case 'obstacle':
           case 'persona':
           case 'personacharacteristic':

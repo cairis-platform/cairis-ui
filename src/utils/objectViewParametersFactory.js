@@ -80,6 +80,12 @@ goal : {
   updatePath : '/api/goals/name/',
   createPath : '/api/goals'
 },
+locations : {
+  objectsLabel : 'Locations',
+  componentFile : 'Locations',
+  updatePath : '/api/locations/name/',
+  createPath : '/api/locations'
+},
 obstacle : {
   objectsLabel : 'Obstacles',
   componentFile : 'Obstacle',
