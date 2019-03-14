@@ -59,7 +59,7 @@ Authors: Shamal Faily
             <template slot="title">
               <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addComponent"/> Component 
             </template> 
-              <b-container fluid>
+              <b-container fluid v-if="objt.theComponents.length > 0">
                 <b-row md="12">
                   <b-card no-body>
                     <b-tabs card v-model="componentIndex">
@@ -67,7 +67,7 @@ Authors: Shamal Faily
                         <template slot="title">
                           <font-awesome-icon icon="minus" :style="{color: 'red'}" @click="deleteComponent(comp.theName)"/>  {{comp.theName}}
                         </template> 
-                        <b-tabs v-if="objt.theComponents.length > 0">
+                        <b-tabs>
                           <b-tab title="Summary" active>
                             <b-card bg-variant="light">
                               <b-row>
@@ -116,7 +116,7 @@ Authors: Shamal Faily
                             <b-card bg-variant="light">
                               <b-table striped small hover :items="requirements" :fields="requirementTableFields">
                                 <!-- eslint-disable-next-line -->
-                                <template slot="HEAD_requirementeactions" slot-scope="data">
+                                <template slot="HEAD_requirementactions" slot-scope="data">
                                   <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addRequirement"/> 
                                 </template>
                                 <template slot="requirementactions" slot-scope="row">
@@ -425,7 +425,7 @@ export default {
       this.$refs.reqDialog.show();  
     },
     addComponentRequirement(data) {
-      this.objt.theComponents[this.componentIndex].theRequirments.push(data);
+      this.objt.theComponents[this.componentIndex].theRequirements.push(data);
     },
     deleteComponentRequirement(index) {
       this.objt.theComponents[this.componentIndex].theRequirements.splice(index,1);

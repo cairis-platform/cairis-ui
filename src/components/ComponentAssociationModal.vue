@@ -36,7 +36,7 @@ Authors: Shamal Faily
             </b-form-group>
           </b-col>
         </b-row>
-        <b-row>
+        <b-row v-if="isArchitecturalPattern">
           <b-col md="12">
             <b-form-group label="Navigation" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theHeadNavSelect" >
               <b-form-select id="theHeadNavSelect" v-model="association.association.theHeadNav" :options="navValues" class="mb-3" required />
@@ -85,7 +85,7 @@ Authors: Shamal Faily
             </b-form-group>
           </b-col>
         </b-row>
-        <b-row>
+        <b-row v-if="isArchitecturalPattern">
           <b-col md="12">
             <b-form-group label="Navigation" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theTailNavInput" >
               <b-form-select id="theTailNavInput" v-model="association.association.theTailNav" :options="navValues" class="mb-3" required />
@@ -111,7 +111,11 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
   export default {
     name : 'component-association-modal',
     props : {
-      componentAssociation : Object
+      componentAssociation : Object,
+      isArchitecturalPattern : {
+        type: Boolean,
+        default: true
+      }
     },
     data () {
       return {

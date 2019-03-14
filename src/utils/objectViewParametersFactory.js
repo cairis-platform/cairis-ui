@@ -123,6 +123,12 @@ role : {
   updatePath : '/api/roles/name/',
   createPath : '/api/roles'
 },
+securitypattern : {
+  objectsLabel : 'Security patterns',
+  componentFile : 'SecurityPattern',
+  updatePath : '/api/security_patterns/name/',
+  createPath : '/api/security_patterns'
+},
 task : {
   objectsLabel : 'Tasks',
   componentFile : 'Task',

@@ -169,6 +169,14 @@ role : {
   theShortCode : '',
   theDescription : ''
 },
+securitypattern : {
+  theName : '',
+  theConcernAssociations : [],
+  theProblem : '',
+  theSolution : '',
+  theRequirements : [],
+  theContext : []
+},
 task : {
   theName : '',
   theShortCode : '',

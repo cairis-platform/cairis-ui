@@ -173,6 +173,7 @@ export default {
           case 'concept_reference':
           case 'document_reference':
           case 'external_document':
+          case 'security_pattern':
           case 'template_asset':
           case 'template_goal':
           case 'template_requirement':
@@ -228,6 +229,7 @@ export default {
           case 'concept_reference':
           case 'document_reference':
           case 'external_document':
+          case 'security_pattern':
           case 'template_asset':
           case 'template_goal':
           case 'template_requirement':
