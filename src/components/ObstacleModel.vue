@@ -27,7 +27,7 @@ Authors: Shamal Faily
     <domain-property-modal v-if="theEnvironmentName !=''" ref="dpDialog" :environment="this.theEnvironmentName" :domainproperty="this.theSelectedObject"/> 
     <use-case-modal v-if="theEnvironmentName != ''" ref="ucDialog" :environment="this.theEnvironmentName" :usecase="this.theSelectedObject"/> 
     <requirement-modal v-if="theEnvironmentName != ''" ref="reqDialog" :requirement="this.theSelectedObject"/> 
-    <role-modal v-if="theEnvironmentName != ''" ref="roleDialog" :environment="this.theEnvironmentName" :role="this.theSelectedObject"/> 
+    <role-modal v-if="theEnvironmentName != ''" ref="roleDialog" :role="this.theSelectedObject"/> 
     <task-modal v-if="theEnvironmentName != ''" ref="taskDialog" :environment="this.theEnvironmentName" :task="this.theSelectedObject"/> 
     <b-card no-body>
     <b-container fluid>

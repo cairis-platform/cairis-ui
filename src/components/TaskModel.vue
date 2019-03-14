@@ -25,7 +25,7 @@ Authors: Shamal Faily
     <attacker-modal v-if="theEnvironmentName != ''" ref="attackerDialog" :environment="this.theEnvironmentName" :attacker="this.theSelectedObject"/> 
     <misuse-case-modal v-if="theEnvironmentName != ''" ref="mcDialog" :environment="this.theEnvironmentName" :misusecase="this.theSelectedObject"/> 
     <persona-modal v-if="theEnvironmentName != ''" ref="personaDialog" :environment="this.theEnvironmentName" :persona="this.theSelectedObject"/> 
-    <role-modal v-if="theEnvironmentName" ref="roleDialog" :environment="this.theEnvironmentName" :role="this.theSelectedObject"/> 
+    <role-modal v-if="theEnvironmentName" ref="roleDialog" :role="this.theSelectedObject"/> 
     <task-modal v-if="theEnvironmentName" ref="taskDialog" :environment="this.theEnvironmentName" :task="this.theSelectedObject"/> 
     <use-case-modal v-if="theEnvironmentName" ref="ucDialog" :environment="this.theEnvironmentName" :usecase="this.theSelectedObject"/> 
     <b-card no-body>

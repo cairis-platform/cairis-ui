@@ -28,6 +28,7 @@ architecturalpattern : {
     'theAttackSurfaceMetric.theInterfacesDER' : {label : 'Interfaces DER'},
     'theAttackSurfaceMetric.theChannelsDER' : {label : 'Channels DER'},
     'theAttackSurfaceMetric.theUntrustedSurfaceDER' : {label : 'Untrusted Surface DER'},
+    sitaction : {label : 'Situate'}
   },
   theGetUrl : '/api/architectural_patterns',
   theDelUrl : '/api/architectural_patterns/name/'

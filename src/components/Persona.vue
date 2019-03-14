@@ -30,7 +30,7 @@ Authors: Shamal Faily
     </p>
     <b-form>
       <b-container fluid>
-        <b-card no body>
+        <b-card no-body>
         <b-row>
           <b-col md=2>
             <b-img :src="personaImage" rounded center fluid-grow @click="imageClicked" /> 

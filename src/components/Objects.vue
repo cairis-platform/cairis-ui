@@ -22,8 +22,10 @@ Authors: Shamal Faily
 
   <div class="objects">
     <b-breadcrumb :items="breadCrumbItems" />
+    <dimension-modal ref="environmentDialog" dimension="environment" v-on:dimension-modal-update="viewWeaknessAnalysis"/> 
     <object-dependency-modal ref="depDialog" :dependencies="objectDependencies" v-on:object-dependency-ok="deleteDependencies" />
     <add-trace-modal v-if="selectedTraceabilityObject != ''" ref="traceDialog" :dimension="dimension" :tobject="selectedTraceabilityObject" :isFrom="isPostTraceability" />
+    <weakness-analysis-modal ref="waDialog" :architecturalPattern="itemName" :environment="thePatternEnvironment" v-on:weakness-analysis-confirm="applyArchitecturalPattern"/>
     <b-card no-body>
       <b-container v-if="dimension == 'requirement'" fluid>
         <b-row>
@@ -65,6 +67,9 @@ Authors: Shamal Faily
         <template slot="postaction" slot-scope="row">
           <font-awesome-icon icon="arrow-right" :style="{color: 'green'}" @click.stop="addPostTraceabilityLink(row.index)"/>
         </template>
+        <template slot="sitaction" slot-scope="row">
+          <font-awesome-icon icon="angle-down" :style="{color: 'green'}" @click.stop="situateArchitecturalPattern(row.index)"/>
+        </template>
       </b-table>
     </b-card>
   </div>
@@ -75,6 +80,8 @@ Authors: Shamal Faily
 import axios from 'axios';
 import EventBus from '../utils/event-bus';
 import DimensionSelect from '@/components/DimensionSelect.vue'
+import DimensionModal from '@/components/DimensionModal.vue'
+import WeaknessAnalysisModal from '@/components/WeaknessAnalysisModal.vue'
 import ObjectDependencyModal from '@/components/ObjectDependencyModal.vue'
 import AddTraceModal from '@/components/AddTraceModal.vue'
 import objectViewParametersFactory from '../utils/objectViewParametersFactory';
@@ -90,7 +97,9 @@ export default {
   components : {
     DimensionSelect,
     ObjectDependencyModal,
-    AddTraceModal
+    AddTraceModal,
+    DimensionModal,
+    WeaknessAnalysisModal
   },
   data() {
     return {
@@ -103,6 +112,7 @@ export default {
       selectedTraceabilityObject : '',
       isPostTraceability : 1,
       theEnvironmentName : 'all',
+      thePatternEnvironment: '',
       theObjectViewParameters : undefined
     }
   }, 
@@ -112,6 +122,9 @@ export default {
   computed : {
     environmentSpecificValueType() {
       return this.dimension == 'asset_value' ? true : false;
+    },
+    itemName() {
+      return this.selectedIndex != -1 ? this.items[this.selectedIndex].theName : '';
     }
   },
   methods : {
@@ -124,9 +137,6 @@ export default {
           case 'requirement':
             this.$router.push({ name: this.dimName, params : {objectName: row.theName, domain: this.$refs.assetFilter.selected.length > 0 ? {type: 'asset', name: this.$refs.assetFilter.selected} : {type: 'environment', name: this.$refs.envFilter.selected}}});
             break;
-//          case 'personacharacteristic':
-//            this.$router.push({ name: this.dimName, params : {objectName: row.theCharacteristic}});
-//            break;
           case 'kaosassociation':
             this.$router.push({ name: this.dimName, params : {envName: row.theEnvironmentName,goalName : row.theGoal, subGoalName: row.theSubGoal}});
             break;
@@ -158,6 +168,7 @@ export default {
           case 'vulnerability':
             this.$router.push({ name: 'objectview', params: {dimension: this.dimension, objectName: row.theName, objectsLabel: this.theObjectViewParameters.objectsLabel, componentFile: this.theObjectViewParameters.componentFile, updatePath: this.theObjectViewParameters.updatePath, createPath: this.theObjectViewParameters.createPath}});
             break;
+          case 'architectural_pattern':
           case 'concept_reference':
           case 'document_reference':
           case 'external_document':
@@ -211,6 +222,7 @@ export default {
           case 'vulnerability':
             this.$router.push({ name: 'objectview', params: {dimension: this.dimension, objectName: 'New ' + this.dimName, objectsLabel: this.theObjectViewParameters.objectsLabel, componentFile: this.theObjectViewParameters.componentFile, updatePath: this.theObjectViewParameters.updatePath, createPath: this.theObjectViewParameters.createPath}});
             break;
+          case 'architectural_pattern':
           case 'concept_reference':
           case 'document_reference':
           case 'external_document':
@@ -249,6 +261,9 @@ export default {
         }
         else if (objectDimension == 'taskcharacteristic') {
           objectDimension = 'task_characteristic';
+        }
+        else if (objectDimension == 'architectural_pattern') {
+          objectDimension = 'component_view';
         }
         const odUrl = '/api/object_dependency/dimension/' + objectDimension + '/object/' + this.selectedObject;
         axios.get(odUrl,{
@@ -387,6 +402,26 @@ export default {
         EventBus.$emit('operation-failure',error)
       });
     },
+    situateArchitecturalPattern(index) {
+      this.selectedIndex = index;
+      this.$refs.environmentDialog.show();
+    },
+    viewWeaknessAnalysis(envName) {
+      this.thePatternEnvironment = envName;
+      this.$refs.waDialog.show();
+    },
+    applyArchitecturalPattern() {
+      const spUrl = this.$store.state.url + '/api/architectural_patterns/name/' + this.itemName + '/environment/' + this.thePatternEnvironment + '/situate';
+      axios.post(spUrl,{
+        session_id : this.$store.state.session
+      })
+      .then(response => {
+        EventBus.$emit('operation-success',response.data.message)
+      })
+      .catch((error) => {
+        EventBus.$emit('operation-failure',error)
+      });
+    },
     addPreTraceabilityLink(index) {
       this.selectedTraceabilityObject = (this.dimension == 'vulnerability' ? this.items[index].theVulnerabilityName : this.items[index].theName);
       this.isPostTraceability = 0;
@@ -398,7 +433,10 @@ export default {
       this.$refs.traceDialog.show();
     },
     updateDimension() {
-      if (this.dimName == 'externaldocument') {
+      if (this.dimName == 'architecturalpattern') {
+        this.dimension = 'architectural_pattern';
+      }
+      else if (this.dimName == 'externaldocument') {
         this.dimension = 'external_document';
       }
       else if (this.dimName == 'documentreference') {

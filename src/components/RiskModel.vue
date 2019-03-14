@@ -29,7 +29,7 @@ Authors: Shamal Faily
     <requirement-modal ref="reqDialog" :requirement="this.theSelectedObject"/> 
     <response-modal ref="responseDialog" :environment="this.theEnvironmentName" :response="this.theSelectedObject"/> 
     <risk-modal ref="riskDialog" :environment="this.theEnvironmentName" :risk="this.theSelectedObject" :responseList="this.theResponseList"/> 
-    <role-modal ref="roleDialog" :environment="this.theEnvironmentName" :role="this.theSelectedObject"/> 
+    <role-modal ref="roleDialog" :role="this.theSelectedObject"/> 
     <task-modal ref="taskDialog" :environment="this.theEnvironmentName" :task="this.theSelectedObject"/> 
     <threat-modal ref="threatDialog" :environment="this.theEnvironmentName" :threat="this.theSelectedObject"/> 
     <vulnerability-modal ref="vulDialog" :environment="this.theEnvironmentName" :vulnerability="this.theSelectedObject"/> 

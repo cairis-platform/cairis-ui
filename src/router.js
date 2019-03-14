@@ -96,6 +96,16 @@ export default new Router({
       props: true
     },
     {
+      path: '/model/component/asset',
+      name: 'componentassetmodel',
+      component: () => import('./views/ComponentAssetModelView.vue')
+    },
+    {
+      path: '/model/component/goal',
+      name: 'componentgoalmodel',
+      component: () => import('./views/ComponentGoalModelView.vue')
+    },
+    {
       path: '/model/goal',
       name: 'goalmodel',
       component: () => import('./views/GoalModelView.vue')

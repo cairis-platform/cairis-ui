@@ -26,7 +26,7 @@ Authors: Shamal Faily
     <goal-modal v-if="theEnvironmentName != ''" ref="goalDialog" :environment="this.theEnvironmentName" :goal="this.theSelectedObject"/> 
     <obstacle-modal v-if="theEnvironmentName !=''" ref="obsDialog" :environment="this.theEnvironmentName" :obstacle="this.theSelectedObject"/> 
     <requirement-modal v-if="theEnvironmentName != ''" ref="reqDialog" :requirement="this.theSelectedObject"/> 
-    <role-modal v-if="theEnvironmentName != ''" ref="roleDialog" :environment="this.theEnvironmentName" :role="this.theSelectedObject"/> 
+    <role-modal v-if="theEnvironmentName != ''" ref="roleDialog" :role="this.theSelectedObject"/> 
     <task-modal v-if="theEnvironmentName != ''" ref="taskDialog" :environment="this.theEnvironmentName" :task="this.theSelectedObject"/> 
     <b-card no-body>
     <b-container fluid>

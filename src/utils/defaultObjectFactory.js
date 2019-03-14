@@ -20,6 +20,12 @@
 
 const defaultObjectFactory = { 
 
+architecturalpattern : {
+  theName : '',
+  theSynopsis : '',
+  theComponents : [],
+  theConnectors : []
+},
 asset : {
   theName : '',
   theTags : '',

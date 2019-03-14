@@ -20,6 +20,12 @@
 
 const objectViewParametersFactory = { 
 
+architecturalpattern : {
+  objectsLabel : 'Architectural patterns',
+  componentFile : 'ArchitecturalPattern',
+  updatePath : '/api/architectural_patterns/name/',
+  createPath : '/api/architectural_patterns'
+},
 asset : {
   objectsLabel : 'Assets',
   componentFile : 'Asset',

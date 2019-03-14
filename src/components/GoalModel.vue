@@ -27,7 +27,7 @@ Authors: Shamal Faily
     <domain-property-modal ref="dpDialog" :environment="this.theEnvironmentName" :domainproperty="this.theSelectedObject"/> 
     <use-case-modal ref="ucDialog" :environment="this.theEnvironmentName" :usecase="this.theSelectedObject"/> 
     <requirement-modal ref="reqDialog" :requirement="this.theSelectedObject"/> 
-    <role-modal ref="roleDialog" :environment="this.theEnvironmentName" :role="this.theSelectedObject"/> 
+    <role-modal ref="roleDialog" :role="this.theSelectedObject"/> 
     <task-modal ref="taskDialog" :environment="this.theEnvironmentName" :task="this.theSelectedObject"/> 
     <b-card no-body>
     <b-container fluid>
