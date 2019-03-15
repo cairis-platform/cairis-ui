@@ -50,7 +50,6 @@ Authors: Shamal Faily
         },3000);
       });
       EventBus.$on('operation-failure',function(msg) {
-        console.log(msg)
         ref.isSuccess = -1;
         ref.theStatusMessage = msg;
         setTimeout(function() {

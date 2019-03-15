@@ -90,6 +90,7 @@ Authors: Shamal Faily
 import DimensionSelect from '@/components/DimensionSelect.vue'
 import PieChart from '@/components/PieChart.js'
 import axios from 'axios'
+import EventBus from '../utils/event-bus';
 
 export default {
   name: 'ModelSummary',
@@ -208,7 +209,7 @@ export default {
         that.selectedEnvironment = firstEnvName;
       })
       .catch((error) => {
-        console.log(error)
+        EventBus.$emit('operation-failure',error)
       });
     },
     onEnvironmentSelected(item) {
@@ -248,19 +249,19 @@ export default {
               this.theEntities = response.data.theEntities;
             })
             .catch((error) => {
-              console.log(error)
+              EventBus.$emit('operation-failure',error);
             })
           })
           .catch((error) => {
-            console.log(error)
+            EventBus.$emit('operation-failure',error);
           })
         })
         .catch((error) => {
-          console.log(error)
+          EventBus.$emit('operation-failure',error);
         })
       })
       .catch((error) => {
-        console.log(error)
+        EventBus.$emit('operation-failure',error);
       })
     }
   }

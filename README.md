@@ -4,11 +4,9 @@
 
 UI for CAIRIS.  
 
-The current design is based on the CAIRIS 1.x UI, but -- once complete -- this will replace the existing CAIRIS 1.x UI.  
-
 ## Project setup
 ```
-npm install
+yarn install
 ```
 
 ### Compiles and hot-reloads for development
@@ -23,24 +21,19 @@ yarn run build
 
 ### Run your tests
 ```
-npm run test
+yarn run test
 ```
 
 ### Lints and fixes files
 ```
-npm run lint
-```
-
-### Run your unit tests
-```
-npm run test:unit
+yarn run lint
 ```
 
 ### Installing into CAIRIS
 
-To deploy the CAIRIS 2 UI:
+To deploy latest version of the CAIRIS 2 UI:
 
-1.  Run ```npm run build``` to create a deployable dist directory.  Copy this to the cairis/cairis directory on your server.
+1.  Run ```yarn run build``` to create a deployable dist directory.  Copy this to the cairis/cairis directory on your server.
 2.  Set the web_static_dir and web_asset_dir entries in your cairis.cnf to point to this dist directory.
 
 ### Development and unit testing support

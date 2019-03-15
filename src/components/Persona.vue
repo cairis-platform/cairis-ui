@@ -114,6 +114,7 @@ Authors: Shamal Faily
                      <b-row>
                        <b-col>
                          <b-table striped small bordered :fields="roleTableFields" :items="environmentRoles">
+                           <!-- eslint-disable-next-line -->
                            <template slot="HEAD_roleactions" slot-scope="data"> 
                              <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addRole(data)"/> 
                            </template>
@@ -224,9 +225,8 @@ export default {
         theNarrative : ''
       });
     },
-    addRole(data) {
+    addRole() {
       this.$refs.roleDialog.show();  
-      console.log(data);
     },
     addPersonaRole(data) {
       this.objt.theEnvironmentProperties[this.envPropIndex].theRoles.push(data);
@@ -252,7 +252,6 @@ export default {
       })
       .catch((error) => {
         EventBus.$emit('operation-failure',error)
-        console.log(error)
       })
     },
     checkForm() {
