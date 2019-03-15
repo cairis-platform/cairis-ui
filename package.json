@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
-    "test": "npm run test:unit"
+    "test": "yarn run test:unit"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.15",
@@ -36,7 +36,7 @@
     "chai": "^4.1.2",
     "eslint": "^5.15.1",
     "eslint-plugin-vue": "^5.2.2",
-    "jest": "^23.6.0",
+    "jest": "^24.5.0",
     "jest-vue-preprocessor": "^1.5.0",
     "jsdom": "^13.2.0",
     "vue-jest": "^3.0.4",

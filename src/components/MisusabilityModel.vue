@@ -22,7 +22,7 @@ Authors: Shamal Faily
 
   <div class="misusabilitymodel">
     <external-document-modal v-if="theMisusabilityCase != ''" ref="edDialog" :external_document="this.theSelectedObject"/> 
-<!--    <document-reference-modal v-if="thePersonaName != ''" ref="drDialog" :document_reference="this.theSelectedObject"/>  -->
+    <document-reference-modal v-if="thePersonaName != ''" ref="drDialog" :document_reference="this.theSelectedObject"/> 
     <b-card no-body>
     <b-container fluid>
       <b-row>
@@ -71,6 +71,7 @@ export default {
   components : {
     DimensionSelect,
     ExternalDocumentModal,
+    DocumentReferenceModal,
     GraphicalModel
   },
   methods : {
