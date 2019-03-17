@@ -85,6 +85,18 @@ Authors: Shamal Faily
                     <b-row>
                       <b-col md="12">
                         <b-table striped bordered small :fields="responseTableFields" :items="responses">
+                          <template slot="show_details" slot-scope="row">
+                            <b-button size="sm" @click="row.toggleDetails" class="mr-2">
+                              {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
+                            </b-button>
+                          </template>
+                          <template slot="row-details" slot-scope="row">
+                            <b-card>
+                              <b-row class="mb-12">
+                                <b-form-textarea id="theRiskDetailsText" v-model="row.item.details" type="text" rows="10" readonly />
+                              </b-row>
+                            </b-card>
+                          </template>
                         </b-table>
                       </b-col>
                     </b-row>
@@ -112,8 +124,7 @@ Authors: Shamal Faily
                       </b-col>
                       <b-col md="6">
                         <b-form-group label="Narrative" label-class="font-weight-bold text-md-left" label-for="theNarrativeInput">
-                          <b-form-textarea id="theNarrativeInput" v-model="misuseCaseNarrative" type="text" :rows=16 required>
-                         </b-form-textarea>
+                          <b-form-textarea id="theNarrativeInput" v-model="misuseCaseNarrative" type="text" :rows=16 required />
                         </b-form-group>
                       </b-col>
                     </b-row>
@@ -221,7 +232,8 @@ export default {
       responseTableFields : {
         responseName : {label : 'Name'},
         unmitScore : {label : 'Score (Pre Mitigation)'},
-        mitScore : {label : 'Score (Pre Mitigation)'}
+        mitScore : {label : 'Score (Pre Mitigation)'},
+        show_details : {label: ''}
       }
     }
   },

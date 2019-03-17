@@ -233,7 +233,7 @@ response : {
     objectsactions : {label : ''},
     theName : {label : 'Name', sortable: true},
     theResponseType : {label : 'Type', sortable: true},
-    generategoalaction : {label : ''}
+    generategoalaction : {label : 'Goal'}
   },
   theGetUrl : '/api/responses',
   theDelUrl : '/api/responses/name/'

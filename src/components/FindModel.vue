@@ -38,6 +38,7 @@ Authors: Shamal Faily
 
 import axios from 'axios';
 import EventBus from '../utils/event-bus';
+import objectViewParametersFactory from '../utils/objectViewParametersFactory';
 
 export default {
   props : {
@@ -72,9 +73,10 @@ export default {
   },
   methods : {
     viewObject(data) {
-      const dimRoute = data.theDimension.replace(" ","").toLowerCase();
+      const dimName = data.theDimension.replace(" ","").toLowerCase();
+      const theObjectViewParameters = objectViewParametersFactory[dimName];
       const objtName = data.theObject;
-      this.$router.push({ name: dimRoute, params : {objectName: objtName}});
+      this.$router.push({ name: 'objectview', params: {dimension: dimName, objectName: objtName, objectsLabel: theObjectViewParameters.objectsLabel, componentFile: theObjectViewParameters.componentFile, updatePath: theObjectViewParameters.updatePath, createPath: theObjectViewParameters.createPath}});
     }
   }
 }
