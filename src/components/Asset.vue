@@ -233,7 +233,7 @@ export default {
           thePrivilege : ''
         }
       },
-      assetTypes: ['Hardware','Information','People','Systems','Systems - General','System of Systems'],
+      assetTypes: ['Hardware','Information','People','Software','Systems','Systems - General','System of Systems'],
       envFields : {
         envactions : {label : ''},
         theName : {label : 'Environment'}

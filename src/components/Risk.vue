@@ -220,8 +220,8 @@ export default {
       errors : [],
       responseTableFields : {
         responseName : {label : 'Name'},
-        mitScore : {label : 'Score (Pre Mitigation)'},
-        unmitScore : {label : 'Score (Post Mitigation)'},
+        unmitScore : {label : 'Score (Pre Mitigation)'},
+        mitScore : {label : 'Score (Pre Mitigation)'}
       }
     }
   },

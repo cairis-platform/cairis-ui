@@ -28,7 +28,7 @@ Authors: Shamal Faily
     </p>
     <b-form>
       <b-container fluid>
-      <b-card no body>
+      <b-card no body bg-variant="light">
         <b-form-group label="Role" label-class="font-weight-bold text-md-left" label-for="theRoleInput">
           <b-form-input id="theRoleInput" v-model="objt.theName" type="text" required>
           </b-form-input>

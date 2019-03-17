@@ -184,6 +184,11 @@ export default new Router({
       component: () => import('./views/TaskModelView.vue')
     },
     {
+      path: '/export/trello',
+      name: 'totrello',
+      component: () => import('./views/ExportTrelloView.vue')
+    },
+    {
       path: '/traces',
       name: 'traces',
       component: () => import('./views/Traces.vue')

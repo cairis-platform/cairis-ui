@@ -23,10 +23,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state : {
-//    session : '',
-//    url : window.location.protocol + "//" + window.location.host
+    session : '',
+    url : window.location.protocol + "//" + window.location.host
 // Uncomment the below when developing/unit testing.
-    session: 'test',
-    url: 'http://192.168.161.141:7071'
+    token : '',
+//    session: 'test',
+//    url: 'http://192.168.161.138:7071'
   }
 });
