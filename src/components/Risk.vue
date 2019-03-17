@@ -232,7 +232,7 @@ export default {
       responseTableFields : {
         responseName : {label : 'Name'},
         unmitScore : {label : 'Score (Pre Mitigation)'},
-        mitScore : {label : 'Score (Pre Mitigation)'},
+        mitScore : {label : 'Score (Post Mitigation)'},
         show_details : {label: ''}
       }
     }
