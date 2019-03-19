@@ -378,7 +378,6 @@ vulnerability : {
     objectsactions : {label : ''},
     theName : {label : 'Name', sortable: true},
     theType : {label : 'Type', sortable: true},
-    introduceaction : {label: ''},
     pretaction : {label: ''},
     introduceaction : {label: ''}
   },
