@@ -167,6 +167,7 @@ export default {
             });
             that.isLoading = false;
             EventBus.$emit('operation-success','Document references exported');
+            that.$router.push({ name: 'home'})
           })
           .catch((error) => {
             that.isLoading = false;

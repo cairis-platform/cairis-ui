@@ -90,6 +90,11 @@ export default new Router({
       component: () => import('./views/ExportView.vue')
     },
     {
+      path: '/export/trello',
+      name: 'totrello',
+      component: () => import('./views/ExportTrelloView.vue')
+    },
+    {
       path: '/find/:findTxt',
       name: 'findview',
       component: () => import('./views/FindView.vue'),
@@ -114,6 +119,11 @@ export default new Router({
       path: '/import',
       name: 'import',
       component: () => import('./views/ImportView.vue')
+    },
+    {
+      path: '/import/trello',
+      name: 'fromtrello',
+      component: () => import('./views/ImportTrelloView.vue')
     },
     {
       path: '/model/locations',
@@ -182,11 +192,6 @@ export default new Router({
       path: '/model/task',
       name: 'taskmodel',
       component: () => import('./views/TaskModelView.vue')
-    },
-    {
-      path: '/export/trello',
-      name: 'totrello',
-      component: () => import('./views/ExportTrelloView.vue')
     },
     {
       path: '/traces',
