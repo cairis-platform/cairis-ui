@@ -35,9 +35,6 @@ Authors: Shamal Faily
           <b-form-group label="Board" label-class="text-md-left" label-cols="3" label-for="theBoardInput">
             <b-form-input id="theBoardInput" v-model="theBoardName" type="text" required />
           </b-form-group>
-          <b-form-group v-if="this.$store.state.token == ''" label="Token" label-class="text-md-left" label-cols="3" label-for="theTokenInput">
-            <b-form-input id="theTokenInput" v-model="this.$store.state.token" type="text" required />
-          </b-form-group>
         </b-card>
       </b-container> 
       <b-container fluid>
@@ -61,7 +58,30 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 import axios from 'axios';
 import EventBus from '../utils/event-bus';
 
-var Trello = require("trello");
+function RateLimit(fn, delay, context) {
+  var queue = [], timer = null;
+
+  function processQueue() {
+    var item = queue.shift();
+    if (item) {
+      fn.apply(item.context, item.arguments);
+    }
+    if (queue.length === 0) {
+      clearInterval(timer), timer = null;
+    }
+  }
+
+  return function limited() {
+    queue.push({
+      context: context || this,
+      arguments: [].slice.call(arguments)
+    });
+    if (!timer) {
+      processQueue();
+      timer = setInterval(processQueue, delay);
+    }
+  }
+}
 
 export default {
   computed : {
@@ -76,9 +96,7 @@ export default {
     return {
       errors : [],
       isLoading : false,
-      theBoardName : '',
-      theModalContent : '',
-      auth : false
+      theBoardName : ''
     }
   },
   methods : {
@@ -87,9 +105,6 @@ export default {
 
       if (this.theBoardName.length == 0) {
         this.errors.push('Board name is required');
-      }
-      if (this.$store.state.token.length == 0) {
-        this.errors.push('API token is required');
       }
       if (!this.errors.length) {
         return true;
@@ -101,13 +116,69 @@ export default {
     onExport(evt) {
       evt.preventDefault();
       if (this.checkForm()) {
-        var trello = new Trello("f8371ed97c21a7bab5774e45d014be3e",this.$store.state.token);
+        this.isLoading = true;
+        let that = this;
+        // eslint-disable-next-line
+        Trello.authorize({
+          type: 'popup',
+          name: 'CAIRIS',
+          scope: {read: 'true', write: 'true'},
+          expiration: 'never',
+          success: function() {
+            that.exportBoard();
+          },
+          error: function() {
+            EventBus.$emit('operation-failure','Authentication failed')
+          }
+        });
       }
     },
     onCancel(evt) {
       evt.preventDefault();
       this.isLoading = false;
       this.$router.push({ name: 'home'})
+    },
+    exportBoard() {
+      const that = this;
+      // eslint-disable-next-line
+      Trello.post('/boards/',{name: this.theBoardName},function(createBoardData) {
+        const boardId = createBoardData.id;
+
+        // eslint-disable-next-line
+        Trello.post('/boards/' + boardId + '/labels',{name: 'grounds', color: 'green'},function(){});
+        // eslint-disable-next-line
+        Trello.post('/boards/' + boardId + '/labels',{name: 'warrant', color: 'blue'},function(){});
+        // eslint-disable-next-line
+        Trello.post('/boards/' + boardId + '/labels',{name: 'rebuttal', color: 'red'},function(){});
+
+        const newList = {name : 'Uncategorised Factoids', defaultLists: false};
+
+        // eslint-disable-next-line
+        Trello.post('/boards/' + boardId + '/lists',newList,function(createListData) {
+          const listId = createListData.id;
+          axios.get('/api/document_references',{
+            baseURL : that.$store.state.url,
+            params : {'session_id' : that.$store.state.session}
+          })
+          .then(response => {
+            let rlPost = RateLimit(that.postReference,100);
+            response.data.forEach(function(dr) {
+              rlPost(dr,listId);            
+            });
+            that.isLoading = false;
+            EventBus.$emit('operation-success','Document references exported');
+          })
+          .catch((error) => {
+            that.isLoading = false;
+            EventBus.$emit('operation-failure',error)
+          });
+        });
+      });
+    },
+    postReference(dr,listId) {
+      const newCard = {name: dr.theName, desc: dr.theExcerpt, due: null};
+      // eslint-disable-next-line
+      Trello.post('/lists/' + listId + '/cards',newCard,function() {});
     }
   }
 }

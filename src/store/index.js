@@ -26,8 +26,7 @@ export default new Vuex.Store({
     session : '',
     url : window.location.protocol + "//" + window.location.host,
 // Uncomment the below when developing/unit testing.
-    token : ''
 //    session: 'test',
-//    url: 'http://192.168.161.138:7071'
+//    url: 'http://192.168.161.139:7071'
   }
 });

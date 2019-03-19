@@ -45,6 +45,7 @@ import EventBus from '@/utils/event-bus';
 
 export default {
   name: 'App',
+  props : ['Trello'],
   components: {
     Navbar,
     StatusFooter
