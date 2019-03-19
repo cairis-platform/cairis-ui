@@ -1,14 +1,14 @@
-import BootstrapVue from 'bootstrap-vue'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { faMinus } from '@fortawesome/free-solid-svg-icons'
-import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome' 
-import {mount, createLocalVue} from '@vue/test-utils'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
-import {config} from '@vue/test-utils'
-import Attacker from '@/components/Attacker.vue'
-import testData from '../testData'
+import BootstrapVue from 'bootstrap-vue';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faMinus } from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'; 
+import {mount, createLocalVue} from '@vue/test-utils';
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
+import {config} from '@vue/test-utils';
+import Attacker from '@/components/Attacker.vue';
+import testData from '../testData';
 
 library.add(faPlus)
 library.add(faMinus)

@@ -55,6 +55,10 @@ export default {
     },
     createPath : {
       type: String
+    },
+    directoryEntry : {
+      type: Object,
+      default: undefined
     }
   },
   mixins : [
@@ -78,6 +82,11 @@ export default {
     if (to.params.objectName == 'New ' + to.params.dimension) {
       next(vm => {
         vm.objt = JSON.parse(JSON.stringify(defaultObjectFactory[vm.dimension]));
+      });
+    }
+    else if (to.params.directoryEntry != undefined) {
+      next(vm => {
+        vm.objt = to.params.directoryEntry;
       });
     }
     else {

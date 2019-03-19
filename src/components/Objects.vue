@@ -26,6 +26,7 @@ Authors: Shamal Faily
     <object-dependency-modal ref="depDialog" :dependencies="objectDependencies" v-on:object-dependency-ok="deleteDependencies" />
     <add-trace-modal v-if="selectedTraceabilityObject != ''" ref="traceDialog" :dimension="dimension" :tobject="selectedTraceabilityObject" :isFrom="isPostTraceability" />
     <weakness-analysis-modal ref="waDialog" :architecturalPattern="itemName" :environment="thePatternEnvironment" v-on:weakness-analysis-confirm="applyArchitecturalPattern"/>
+    <directory-modal ref="dirDialog" v-if="dimension == 'threat' || dimension == 'vulnerability'" :dimension="dimension" v-on:directory-modal-update="addDirectoryEntry"/> 
     <b-card no-body>
       <b-container v-if="dimension == 'requirement'" fluid>
         <b-row>
@@ -70,6 +71,10 @@ Authors: Shamal Faily
         <template slot="sitaction" slot-scope="row">
           <font-awesome-icon icon="angle-down" :style="{color: 'green'}" @click.stop="situateArchitecturalPattern(row.index)"/>
         </template>
+        <!-- eslint-disable-next-line -->
+        <template slot="HEAD_introduceaction" slot-scope="data">
+          <font-awesome-icon icon="plus" :style="{color: 'blue'}" @click.stop="introduceDirectoryEntry"/> 
+        </template>
       </b-table>
     </b-card>
   </div>
@@ -79,11 +84,12 @@ Authors: Shamal Faily
 
 import axios from 'axios';
 import EventBus from '../utils/event-bus';
-import DimensionSelect from '@/components/DimensionSelect.vue'
-import DimensionModal from '@/components/DimensionModal.vue'
-import WeaknessAnalysisModal from '@/components/WeaknessAnalysisModal.vue'
-import ObjectDependencyModal from '@/components/ObjectDependencyModal.vue'
-import AddTraceModal from '@/components/AddTraceModal.vue'
+import DimensionSelect from '@/components/DimensionSelect.vue';
+import DimensionModal from '@/components/DimensionModal.vue';
+import DirectoryModal from '@/components/DirectoryModal.vue';
+import WeaknessAnalysisModal from '@/components/WeaknessAnalysisModal.vue';
+import ObjectDependencyModal from '@/components/ObjectDependencyModal.vue';
+import AddTraceModal from '@/components/AddTraceModal.vue';
 import objectViewParametersFactory from '../utils/objectViewParametersFactory';
 
 export default {
@@ -99,6 +105,7 @@ export default {
     ObjectDependencyModal,
     AddTraceModal,
     DimensionModal,
+    DirectoryModal,
     WeaknessAnalysisModal
   },
   data() {
@@ -285,7 +292,7 @@ export default {
          })
         .catch((error) => {
           EventBus.$emit('operation-failure',error)
-        })
+        });
       }
       else {
         this.commitDelete();
@@ -464,6 +471,13 @@ export default {
       else if (this.dimName == 'templaterequirement') {
         this.dimension = 'template_requirement';
       }
+    },
+    introduceDirectoryEntry() {
+      this.$refs.dirDialog.show();
+    },
+    addDirectoryEntry(dirEntry) {
+      const newObjt = (this.dimension == 'threat' ? {theThreatName : dirEntry.theLabel,theType : dirEntry.theType, theMethod: dirEntry.theName + ': ' + dirEntry.theDescription + '\nReference: ' + dirEntry.theReference ,theTags : [],theEnvironmentProperties: []} : {theName : dirEntry.theLabel, theType : dirEntry.theType, theDescription : dirEntry.theName + ': ' + dirEntry.theDescription + '\nReference: ' + dirEntry.theReference,theTags : [], theEnvironmentProperties : []});
+      this.$router.push({ name: 'objectview', params: {dimension: this.dimension, objectName: dirEntry.theLabel, objectsLabel: this.theObjectViewParameters.objectsLabel, componentFile: this.theObjectViewParameters.componentFile, updatePath: this.theObjectViewParameters.updatePath, createPath: this.theObjectViewParameters.createPath, directoryEntry: newObjt}});
     }
   },
   mounted() {

@@ -344,7 +344,8 @@ threat : {
   objectsFields : {
     objectsactions : {label : ''},
     theName : {label : 'Name', sortable: true},
-    theType : {label : 'Type', sortable: true}
+    theType : {label : 'Type', sortable: true},
+    introduceaction : {label: ''}
   },
   theGetUrl : '/api/threats/summary',
   theDelUrl : '/api/threats/name/'
@@ -377,7 +378,9 @@ vulnerability : {
     objectsactions : {label : ''},
     theName : {label : 'Name', sortable: true},
     theType : {label : 'Type', sortable: true},
-    pretaction : {label: ''}
+    introduceaction : {label: ''},
+    pretaction : {label: ''},
+    introduceaction : {label: ''}
   },
   theGetUrl : '/api/vulnerabilities',
   theDelUrl : '/api/vulnerabilities/name/'
