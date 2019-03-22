@@ -61,9 +61,14 @@ Authors: Shamal Faily
     methods : {
       onClick(event) {
         event.preventDefault();
-        var url = event.target.parentElement.href.baseVal;
-        if (url != undefined) {
-          this.$emit('graphical-model-url',url);
+        if (event.target.parentElement.href != undefined) {
+          const url = event.target.parentElement.href.baseVal;
+          if (url != undefined) {
+            this.$emit('graphical-model-url',url);
+          }
+        }
+        else {
+          console.log('undefined href');
         }
       },
       loadModel() {

@@ -22,6 +22,7 @@ Authors: Shamal Faily
 
   <div class="goalmodel">
     <goal-modal ref="goalDialog" :environment="this.theEnvironmentName" :goal="this.theSelectedObject"/> 
+    <goal-association-modal ref="assocDialog" :association="this.theSelectedObject"/> 
     <obstacle-modal ref="obsDialog" :environment="this.theEnvironmentName" :obstacle="this.theSelectedObject"/> 
     <countermeasure-modal ref="cmDialog" :environment="this.theEnvironmentName" :countermeasure="this.theSelectedObject"/> 
     <domain-property-modal ref="dpDialog" :environment="this.theEnvironmentName" :domainproperty="this.theSelectedObject"/> 
@@ -60,6 +61,7 @@ import axios from 'axios';
 import GraphicalModel from '@/components/GraphicalModel.vue'
 import DimensionSelect from '@/components/DimensionSelect.vue'
 import GoalModal from '@/components/GoalModal.vue'
+import GoalAssociationModal from '@/components/GoalAssociationModal.vue'
 import CountermeasureModal from '@/components/CountermeasureModal.vue'
 import ObstacleModal from '@/components/ObstacleModal.vue'
 import UseCaseModal from '@/components/UseCaseModal.vue'
@@ -88,6 +90,7 @@ export default {
     DimensionSelect,
     DomainPropertyModal,
     GoalModal,
+    GoalAssociationModal,
     GraphicalModel,
     ObstacleModal,
     RequirementModal,
@@ -98,8 +101,11 @@ export default {
   methods : {
     nodeClicked(url) {
       const dimName = url.slice(5).substring(0, url.slice(5).indexOf('/'))
-      if (['goals','countermeasures','obstacles','usecases','domainproperties','requirements','roles','tasks'].indexOf(dimName) == -1) {
+      if (['goals','goalassociations','countermeasures','obstacles','usecases','domainproperties','requirements','roles','tasks'].indexOf(dimName) == -1) {
         return;
+      }
+      if (dimName == 'goalassociations') {
+        url = '/api/goals/association' + url.substring(url.indexOf(dimName) + dimName.length);
       }
       axios.get(url,{
         baseURL : this.$store.state.url,
@@ -109,6 +115,9 @@ export default {
         this.theSelectedObject = response.data;
         if (dimName == 'goals') {
           this.$refs.goalDialog.show();  
+        }
+        else if (dimName == 'goalassociations') {
+          this.$refs.assocDialog.show();  
         }
         else if (dimName == 'countermeasures') {
           this.$refs.cmDialog.show();  

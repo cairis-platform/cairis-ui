@@ -23,6 +23,7 @@ Authors: Shamal Faily
   <div class="dataflowdiagram">
     <asset-modal ref="assetDialog" :environment="this.theEnvironmentName" :asset="this.theSelectedObject"/> 
     <use-case-modal ref="ucDialog" :environment="this.theEnvironmentName" :usecase="this.theSelectedObject"/> 
+    <data-flow-modal ref="dfDialog" :environment="this.theEnvironmentName" :dataflow="this.theSelectedObject"/> 
     <b-card no-body>
     <b-container fluid>
       <b-row>
@@ -52,6 +53,7 @@ import GraphicalModel from '@/components/GraphicalModel.vue'
 import DimensionSelect from '@/components/DimensionSelect.vue'
 import AssetModal from '@/components/AssetModal.vue'
 import UseCaseModal from '@/components/UseCaseModal.vue'
+import DataFlowModal from '@/components/DataFlowModal.vue'
 import EventBus from '../utils/event-bus';
 
 export default {
@@ -71,12 +73,13 @@ export default {
     GraphicalModel,
     DimensionSelect,
     AssetModal,
+    DataFlowModal,
     UseCaseModal
   },
   methods : {
     nodeClicked(url) {
       const dimName = url.slice(5).substring(0, url.slice(5).indexOf('/'))
-      if (['assets','usecases'].indexOf(dimName) == -1) {
+      if (['assets','usecases','dataflows'].indexOf(dimName) == -1) {
         return;
       }
       axios.get(url,{
@@ -90,6 +93,9 @@ export default {
         }
         else if (dimName == 'usecases') {
           this.$refs.ucDialog.show();  
+        }
+        else if (dimName == 'dataflows') {
+          this.$refs.dfDialog.show();  
         }
       })
       .catch((error) => {

@@ -171,7 +171,7 @@ export default {
                   session_id : that.$store.state.session,
                   object : pc
                 })
-                .then(response => {
+                .then(() => {
                   EventBus.$emit('operation-success','Imported persona characteristic: ' + pc.theName);
                   that.isLoading = false;
                 })
