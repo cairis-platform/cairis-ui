@@ -28,7 +28,7 @@ architecturalpattern : {
     'theAttackSurfaceMetric.theInterfacesDER' : {label : 'Interfaces DER'},
     'theAttackSurfaceMetric.theChannelsDER' : {label : 'Channels DER'},
     'theAttackSurfaceMetric.theUntrustedSurfaceDER' : {label : 'Untrusted Surface DER'},
-    sitaction : {label : 'Situate'}
+    sitapaction : {label : 'Situate'}
   },
   theGetUrl : '/api/architectural_patterns',
   theDelUrl : '/api/architectural_patterns/name/'
@@ -88,7 +88,9 @@ countermeasure : {
   objectsFields : {
     objectsactions : {label : ''},
     theName : {label : 'Name', sortable: true},
-    theType : {label : 'Type', sortable: true}
+    theType : {label : 'Type', sortable: true},
+    sitcmaction : {label : 'Situate'},
+    rmspaction : {label: 'Pattern'}
   },
   theGetUrl : '/api/countermeasures',
   theDelUrl : '/api/countermeasures/name/'
@@ -282,7 +284,8 @@ securitypattern : {
   bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Security patterns', to: {name: 'objectsview', params: {dimension: 'securitypattern'}}}],
   objectsFields : {
     objectsactions : {label : ''},
-    theName : {label : 'Name', }
+    theName : {label : 'Name'},
+    sitspaction : {label : 'Situate'}
   },
   theGetUrl : '/api/security_patterns',
   theDelUrl : '/api/security_patterns/name/'

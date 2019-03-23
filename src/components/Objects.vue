@@ -23,10 +23,13 @@ Authors: Shamal Faily
   <div class="objects">
     <b-breadcrumb :items="breadCrumbItems" />
     <dimension-modal ref="environmentDialog" dimension="environment" v-on:dimension-modal-update="viewWeaknessAnalysis"/> 
+    <dimension-modal ref="spEnvDialog" dimension="environment" v-on:dimension-modal-update="applySecurityPattern"/> 
+    <dimension-modal ref="spRmDialog" :dimensionUrl="spRmUrl" label="Situated security pattern" v-on:dimension-modal-update="removeSecurityPattern"/> 
     <object-dependency-modal ref="depDialog" :dependencies="objectDependencies" v-on:object-dependency-ok="deleteDependencies" />
     <add-trace-modal v-if="selectedTraceabilityObject != ''" ref="traceDialog" :dimension="dimension" :tobject="selectedTraceabilityObject" :isFrom="isPostTraceability" />
     <weakness-analysis-modal ref="waDialog" :architecturalPattern="itemName" :environment="thePatternEnvironment" v-on:weakness-analysis-confirm="applyArchitecturalPattern"/>
     <directory-modal ref="dirDialog" v-if="dimension == 'threat' || dimension == 'vulnerability'" :dimension="dimension" v-on:directory-modal-update="addDirectoryEntry"/> 
+    <situate-countermeasure-modal ref="scDialog" :countermeasure="itemName" v-on:situate-countermeasure-update="applySituateCountermeasure"/>
     <b-card no-body>
       <b-container v-if="dimension == 'requirement'" fluid>
         <b-row>
@@ -68,8 +71,17 @@ Authors: Shamal Faily
         <template slot="postaction" slot-scope="row">
           <font-awesome-icon icon="arrow-right" :style="{color: 'green'}" @click.stop="addPostTraceabilityLink(row.index)"/>
         </template>
-        <template slot="sitaction" slot-scope="row">
+        <template slot="sitapaction" slot-scope="row">
           <font-awesome-icon icon="angle-down" :style="{color: 'green'}" @click.stop="situateArchitecturalPattern(row.index)"/>
+        </template>
+        <template slot="sitspaction" slot-scope="row">
+          <font-awesome-icon icon="angle-down" :style="{color: 'green'}" @click.stop="situateSecurityPattern(row.index)"/>
+        </template>
+        <template slot="rmspaction" slot-scope="row">
+          <font-awesome-icon icon="minus" :style="{color: 'green'}" @click.stop="desituateSecurityPattern(row.index)"/>
+        </template>
+        <template slot="sitcmaction" slot-scope="row">
+          <font-awesome-icon icon="angle-down" :style="{color: 'green'}" @click.stop="situateCountermeasure(row.index)"/>
         </template>
         <!-- eslint-disable-next-line -->
         <template slot="HEAD_introduceaction" slot-scope="data">
@@ -88,6 +100,7 @@ import DimensionSelect from '@/components/DimensionSelect.vue';
 import DimensionModal from '@/components/DimensionModal.vue';
 import DirectoryModal from '@/components/DirectoryModal.vue';
 import WeaknessAnalysisModal from '@/components/WeaknessAnalysisModal.vue';
+import SituateCountermeasureModal from '@/components/SituateCountermeasureModal.vue';
 import ObjectDependencyModal from '@/components/ObjectDependencyModal.vue';
 import AddTraceModal from '@/components/AddTraceModal.vue';
 import objectViewParametersFactory from '../utils/objectViewParametersFactory';
@@ -106,6 +119,7 @@ export default {
     AddTraceModal,
     DimensionModal,
     DirectoryModal,
+    SituateCountermeasureModal,
     WeaknessAnalysisModal
   },
   data() {
@@ -132,6 +146,9 @@ export default {
     },
     itemName() {
       return this.selectedIndex != -1 ? this.items[this.selectedIndex].theName : '';
+    },
+    spRmUrl() {
+      return this.selectedIndex != -1 ? '/api/countermeasures/name/' + this.items[this.selectedIndex].theName + '/patterns': '';
     }
   },
   methods : {
@@ -417,14 +434,47 @@ export default {
       this.selectedIndex = index;
       this.$refs.environmentDialog.show();
     },
+    situateSecurityPattern(index) {
+      this.selectedIndex = index;
+      this.$refs.spEnvDialog.show();
+    },
+    desituateSecurityPattern(index) {
+      this.selectedIndex = index;
+      this.$refs.spRmDialog.show();
+    },
     viewWeaknessAnalysis(envName) {
       this.thePatternEnvironment = envName;
       this.$refs.waDialog.show();
     },
     applyArchitecturalPattern() {
-      const spUrl = this.$store.state.url + '/api/architectural_patterns/name/' + this.itemName + '/environment/' + this.thePatternEnvironment + '/situate';
+      const apUrl = this.$store.state.url + '/api/architectural_patterns/name/' + this.itemName + '/environment/' + this.thePatternEnvironment + '/situate';
+      axios.post(apUrl,{
+        session_id : this.$store.state.session
+      })
+      .then(response => {
+        EventBus.$emit('operation-success',response.data.message)
+      })
+      .catch((error) => {
+        EventBus.$emit('operation-failure',error)
+      });
+    },
+    applySecurityPattern(envName) {
+      const spUrl = this.$store.state.url + '/api/security_patterns/name/' + this.itemName + '/environment/' + envName + '/situate';
       axios.post(spUrl,{
         session_id : this.$store.state.session
+      })
+      .then(response => {
+        EventBus.$emit('operation-success',response.data.message)
+      })
+      .catch((error) => {
+        EventBus.$emit('operation-failure',error)
+      });
+    },
+    removeSecurityPattern(spName) {
+      const rmUrl =  '/api/countermeasures/name/' + this.itemName + '/security_pattern/' + spName + '/remove_situated';
+      axios.delete(rmUrl,{
+        baseURL : this.$store.state.url,
+        params : {'session_id' : this.$store.state.session}
       })
       .then(response => {
         EventBus.$emit('operation-success',response.data.message)
@@ -478,6 +528,37 @@ export default {
     addDirectoryEntry(dirEntry) {
       const newObjt = (this.dimension == 'threat' ? {theThreatName : dirEntry.theLabel,theType : dirEntry.theType, theMethod: dirEntry.theName + ': ' + dirEntry.theDescription + '\nReference: ' + dirEntry.theReference ,theTags : [],theEnvironmentProperties: []} : {theName : dirEntry.theLabel, theType : dirEntry.theType, theDescription : dirEntry.theName + ': ' + dirEntry.theDescription + '\nReference: ' + dirEntry.theReference,theTags : [], theEnvironmentProperties : []});
       this.$router.push({ name: 'objectview', params: {dimension: this.dimension, objectName: dirEntry.theLabel, objectsLabel: this.theObjectViewParameters.objectsLabel, componentFile: this.theObjectViewParameters.componentFile, updatePath: this.theObjectViewParameters.updatePath, createPath: this.theObjectViewParameters.createPath, directoryEntry: newObjt}});
+    },
+    situateCountermeasure(index) {
+      this.selectedIndex = index;
+      this.$refs.scDialog.show();
+    },
+    applySituateCountermeasure(objt) {
+      let postUrl = this.$store.state.url + '/api/countermeasures/name/' + this.itemName;
+
+      if (objt.situateType == 'asset') {
+        postUrl += '/generate_asset';
+      }
+      else if (objt.situateType == 'template_asset') {
+        postUrl += '/template_asset/' + objt.situateValue + '/generate_asset';
+      }
+      else if (objt.situateType == 'securitypattern') {
+        postUrl += '/security_pattern/' + objt.situateValue + '/situate';
+      }
+      else if (objt.situateType == 'securitypattern-existing') {
+        postUrl += '/security_pattern/' + objt.situateValue + '/associate_situated';
+      }
+
+      axios.post(postUrl,{
+        session_id : this.$store.state.session,
+        object : this.objt
+      })
+      .then(response => {
+        EventBus.$emit('operation-success',response.data.message)
+      })
+      .catch((error) => {
+        EventBus.$emit('operation-failure',error)
+      });
     }
   },
   mounted() {
