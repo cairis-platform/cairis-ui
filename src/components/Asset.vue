@@ -322,7 +322,7 @@ export default {
       this.objt.theInterfaces.splice(index,1);
     },
     viewInterface(data,index) {
-      this.selectedInterface['index'] = index
+      this.selectedInterface.index = index
       this.selectedInterface['assetinterface'] = JSON.parse(JSON.stringify(data));
       this.selectedInterface['update'] = true;
       this.$refs.assetInterfaceDialog.show();  

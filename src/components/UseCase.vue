@@ -25,6 +25,7 @@ Authors: Shamal Faily
     <dimension-modal ref="actorDialog" dimension="role" :existing="actorNames" v-on:dimension-modal-update="addUseCaseActor"/> 
     <step-modal v-if="objt.theEnvironmentProperties.length" ref="stepDialog" :usecaseStep="selectedStep" :usecaseActors="actorNames" :environment="environmentName" v-on:step-update="updateStep"/> 
     <exception-modal v-if="objt.theEnvironmentProperties.length" ref="excDialog" :stepException="selectedException" :usecase="objt.theName" :environment="environmentName" v-on:exception-update="updateException"/> 
+    <reference-contribution-modal ref="rcDialog" :referenceContribution="selectedReferenceContribution" v-on:reference-contribution-update="updateReferenceContribution"/> 
     <p v-if="errors.length">
       <b>Please correct the following error(s):</b>
       <ul>
@@ -32,59 +33,73 @@ Authors: Shamal Faily
       </ul>
     </p>
     <b-form>
-      <b-container fluid>
-        <b-card bg-variant="light">
-          <b-row>
-            <b-col md="5">
-              <b-form-group label="Use Case" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theUseCaseInput">
-                <b-form-input id="theUseCaseInput" v-model="objt.theName" type="text" required>
-                </b-form-input>
-              </b-form-group>
-            </b-col>
-            <b-col md="4">
-              <b-form-group label="Short Code" label-class="font-weight-bold text-md-left" label-cols="4" label-for="theShortCodeInput">
-                <b-form-input id="theShortCodeInput" v-model="objt.theCode" type="text" required>
-                </b-form-input>
-              </b-form-group>
-            </b-col>
-            <b-col md="3">
-              <b-form-group label="Author" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theAuthorInput">
-                <b-form-input id="theAuthorInput" v-model="objt.theAuthor" type="text" required>
-                </b-form-input>
-              </b-form-group>
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col md="12">
-              <b-table striped bordered small hover :items="actors" :fields=actorTableFields>
-                <!-- eslint-disable-next-line -->
-                <template slot="HEAD_actorsactions" slot-scope="data"> 
-                  <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addActor"/> 
-                </template> 
-                <template slot="actorsactions" slot-scope="row">
-                  <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteActor(row.item)"/>
-                </template> 
-              </b-table>
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col md="12">
-              <b-form-group label="Objective" label-class="font-weight-bold text-md-left" label-for="theDescriptionInput">
-                <b-form-textarea id="theDescriptionInput" v-model="objt.theDescription" type="text" :rows=2 :max-rows=4 required>
-                </b-form-textarea>
-              </b-form-group>
-            </b-col>
-          </b-row>
-          <b-row>
-            <b-col md="12">
-              <b-form-group label="Tags" label-class="font-weight-bold text-md-left" label-cols="1" label-for="theTagsInput">
-                <b-form-input id="theTagsInput" v-model="objt.theTags" type="text">
-                </b-form-input>
-              </b-form-group>
-            </b-col>
-          </b-row>
-        </b-card>
-      </b-container>
+      <b-card no-body>
+        <b-tabs card>
+          <b-tab title="Summary" active>
+            <b-card bg-variant="light">
+              <b-row>
+                <b-col md="5">
+                  <b-form-group label="Use Case" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theUseCaseInput">
+                    <b-form-input id="theUseCaseInput" v-model="objt.theName" type="text" required />
+                  </b-form-group>
+                </b-col>
+                <b-col md="4">
+                  <b-form-group label="Short Code" label-class="font-weight-bold text-md-left" label-cols="4" label-for="theShortCodeInput">
+                    <b-form-input id="theShortCodeInput" v-model="objt.theCode" type="text" required />
+                  </b-form-group>
+                </b-col>
+                <b-col md="3">
+                  <b-form-group label="Author" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theAuthorInput">
+                    <b-form-input id="theAuthorInput" v-model="objt.theAuthor" type="text" required />
+                  </b-form-group>
+                </b-col>
+              </b-row>
+              <b-row>
+                <b-col md="12">
+                  <b-table striped bordered small hover :items="actors" :fields=actorTableFields>
+                    <!-- eslint-disable-next-line -->
+                    <template slot="HEAD_actorsactions" slot-scope="data"> 
+                      <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addActor"/> 
+                    </template> 
+                    <template slot="actorsactions" slot-scope="row">
+                      <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteActor(row.item)"/>
+                    </template> 
+                  </b-table>
+                </b-col>
+              </b-row>
+              <b-row>
+                <b-col md="12">
+                  <b-form-group label="Objective" label-class="font-weight-bold text-md-left" label-for="theDescriptionInput">
+                    <b-form-textarea id="theDescriptionInput" v-model="objt.theDescription" type="text" :rows=2 :max-rows=4 required />
+                  </b-form-group>
+                </b-col>
+              </b-row>
+              <b-row>
+                <b-col md="12">
+                  <b-form-group label="Tags" label-class="font-weight-bold text-md-left" label-cols="1" label-for="theTagsInput">
+                    <b-form-input id="theTagsInput" v-model="objt.theTags" type="text" />
+                  </b-form-group>
+                </b-col>
+              </b-row>
+            </b-card>
+          </b-tab>
+          <b-tab title="Contribution">
+            <b-row>
+              <b-col md="12">
+                <b-table striped bordered small hover :items="contributions" :fields=contributionTableFields @row-clicked="viewContribution">
+                  <!-- eslint-disable-next-line -->
+                  <template slot="HEAD_contributionactions" slot-scope="data"> 
+                    <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addContribution"/> 
+                  </template> 
+                  <template slot="contributionactions" slot-scope="row">
+                    <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteContribution(row.index)"/>
+                  </template> 
+                </b-table>
+              </b-col>
+            </b-row>
+          </b-tab>
+        </b-tabs>
+      </b-card>
       <b-container fluid>
         <b-card header="Environments" class="text-left">
           <template slot="header">
@@ -205,6 +220,9 @@ export default {
     exceptions() {
       return this.objt.theEnvironmentProperties.length > 0 && this.objt.theEnvironmentProperties[this.envPropIndex].theSteps.length > 0 && this.theStepIndex != -1 ? this.objt.theEnvironmentProperties[this.envPropIndex].theSteps[this.theStepIndex].theExceptions.map((exc,idx) => ({theIndex : idx, theName : exc.theName, theCategory : exc.theCategory, theDescription : exc.theDescription,  })): [];
     },
+    contributions() {
+      return this.objt != undefined ? this.objt.theReferenceContributions : [];
+    },
     preconditions : {
       get : function() {
         return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].thePreCond : ''
@@ -225,7 +243,8 @@ export default {
   components : {
     DimensionModal : () => import('@/components/DimensionModal'),
     StepModal : () => import('@/components/StepModal'),
-    ExceptionModal : () => import('@/components/ExceptionModal')
+    ExceptionModal : () => import('@/components/ExceptionModal'),
+    ReferenceContributionModal : () => import('@/components/ReferenceContributionModal')
   },
   data() {
     return {
@@ -237,6 +256,12 @@ export default {
       actorTableFields : {
         actorsactions : {label : ''},
         name : {label : 'Actor'},
+      },
+      contributionTableFields : {
+        contributionactions : {label : ''},
+        theContributionTo : {label: 'Intention', sortable: true},
+        'theReferenceContribution.theMeansEnd': {label: 'Means/End', sortable: true},
+        'theReferenceContribution.theContribution' : {label: 'Contribution', sortable: true}
       },
       stepTableFields : {
         stepsactions : {label : ''},
@@ -269,6 +294,16 @@ export default {
           theDescription : '',
           theDimensionType : 'none',
           theDimensionValue : ''
+        }
+      },
+      selectedReferenceContribution : {
+        update : false,
+        referenceContribution : {
+          theContributionTo : '',
+          theReferenceContribution : {
+            theMeansEnd : 'means',
+            theContribution : 'SomePositive'
+          }
         }
       }
     }
@@ -394,6 +429,29 @@ export default {
       .catch((error) => {
         EventBus.$emit('operation-failure',error)
       });
+    },
+    deleteContribution(index) {
+      this.objt.theReferenceContributions.splice(index,1);
+    },
+    addContribution() {
+      this.selectedReferenceContribution['referenceContribution'] = {theContributionTo : '',theReferenceContribution : {theMeansEnd : 'means', theContribution: 'SomePositive'}};
+      this.selectedReferenceContribution['update'] = false;
+      this.$refs.rcDialog.show();  
+    },
+    viewContribution(row,index) {
+      this.selectedReferenceContribution['index'] = index;
+      const rcObjt = JSON.parse(JSON.stringify(this.objt.theReferenceContributions[index]));
+      this.selectedReferenceContribution['referenceContribution'] = rcObjt;
+      this.selectedReferenceContribution['update'] = true;
+      this.$refs.rcDialog.show();  
+    },
+    updateReferenceContribution : function(updRc) {
+      if (updRc.update) {
+        this.$set(this.objt.theReferenceContributions,updRc.index,updRc.referenceContribution);
+      }
+      else {
+        this.objt.theReferenceContributions.push(updRc.referenceContribution);
+      }
     },
   }
 }
