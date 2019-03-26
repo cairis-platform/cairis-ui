@@ -263,7 +263,8 @@ risk : {
     objectsactions : {label : ''},
     theName : {label : 'Name', sortable: true},
     theVulnerability : {label : 'Vulnerability', sortable: true},
-    theThreat : {label : 'Threat', sortable: true}
+    theThreat : {label : 'Threat', sortable: true},
+    postaction : {label : ''}
   },
   theGetUrl : '/api/risks/summary',
   theDelUrl : '/api/risks/name/'
