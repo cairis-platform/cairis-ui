@@ -484,12 +484,12 @@ export default {
       });
     },
     addPreTraceabilityLink(index) {
-      this.selectedTraceabilityObject = (this.dimension == 'vulnerability' ? this.items[index].theVulnerabilityName : this.items[index].theName);
+      this.selectedTraceabilityObject = this.items[index].theName;
       this.isPostTraceability = 0;
       this.$refs.traceDialog.show();
     },
     addPostTraceabilityLink(index) {
-      this.selectedTraceabilityObject = (this.dimension == 'vulnerability' ? this.items[index].theVulnerabilityName : this.items[index].theName);
+      this.selectedTraceabilityObject = this.items[index].theName;
       this.isPostTraceability = 1;
       this.$refs.traceDialog.show();
     },
