@@ -57,10 +57,13 @@ import EventBus from '../utils/event-bus';
 export default {
   computed : {
     assetModelURI() {
-      return "/api/assets/model/environment/" + this.theEnvironmentName + "/asset/" + this.theAssetName ;
+      return "/api/assets/model/environment/" + this.theEnvironmentName + "/asset/" + this.asset ;
     },
     concernsParameter() {
       return this.theConcernsHidden == true ? '' : '&hide_concerns=0'
+    },
+    asset() {
+      return this.theAssetName == undefined || this.theAssetName.length == 0 ? 'all' : this.theAssetName;
     }
   },
   data() {
@@ -101,14 +104,11 @@ export default {
       })
     },
     environmentSelected(envName) {
-      this.theEnvironmentName = envName
-      if (this.$refs.assetModelAsset != undefined) {
-        this.theAssetName = 'all'
-        this.$refs.assetModelAsset.selected = this.theAssetName;
-      }
+      this.theEnvironmentName = envName;
+      this.theAssetName = 'all';
     },
     assetSelected(assetName) {
-      this.theAssetName = assetName
+      this.theAssetName = assetName;
     }
   }
 }
