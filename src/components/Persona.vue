@@ -108,7 +108,7 @@ Authors: Shamal Faily
                    <b-tab title="Roles" active>
                      <b-row>
                        <b-col sm="2">
-                         <b-form-checkbox v-model="objt.theEnvironmentProperties[envPropIndex].theDirectFlag" value="True" unchecked-value="False" >Direct User</b-form-checkbox>
+                         <b-form-checkbox v-model="directFlag" value="True" unchecked-value="False" >Direct User</b-form-checkbox>
                        </b-col>
                      </b-row>
                      <b-row>
@@ -126,7 +126,7 @@ Authors: Shamal Faily
                      </b-row>
                    </b-tab>
                    <b-tab title="Narrative">
-                     <b-form-textarea id="theNarrative" v-model="objt.theEnvironmentProperties[envPropIndex].theNarrative" type="text" rows="4" max-rows="4" required />
+                     <b-form-textarea id="theNarrative" v-model="narrative" type="text" rows="4" max-rows="4" required />
                    </b-tab>
                  </b-tabs>
                </b-col>
@@ -173,8 +173,24 @@ export default {
       return this.objt.theImage != '' ? this.$store.state.url + '/images/' + this.objt.theImage : this.$store.state.url + '/assets/default-avatar.png'
     },
     environmentRoles() {
-      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theRoles.map(role => ({name : role})) : []
-    }
+      return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theRoles.map(role => ({name : role})) : []
+    },
+    narrative : {
+      get : function() {
+        return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theNarrative : ''
+      },
+      set : function(value) {
+        this.objt.theEnvironmentProperties[this.envPropIndex].theNarrative = value;
+      }
+    },
+    directFlag : {
+      get : function() {
+        return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theDirectFlag : ''
+      },
+      set : function(value) {
+        this.objt.theEnvironmentProperties[this.envPropIndex].theDirectFlag = value;
+      }
+    },
   },
   components : {
     DimensionModal

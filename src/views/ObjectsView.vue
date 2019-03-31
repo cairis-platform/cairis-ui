@@ -27,13 +27,37 @@ Authors: Shamal Faily
 <script>
 import Objects from '@/components/Objects.vue'
 import objectsViewData from '../utils/objectsViewData';
+import axios from 'axios';
+import EventBus from '../utils/event-bus';
+import store from '../store';
+
+function dimensionCheck(dimName, cb) {
+  const dcUrl = '/api/dimensions/table/' + dimName;
+  axios.get(dcUrl,{
+    baseURL : store.state.url,
+    params : {'session_id' : store.state.session}
+  })
+  .then(response => {
+    if (response.data.length > 0) {
+      if (cb != undefined) {
+        cb();
+      }
+    }
+    else {
+      EventBus.$emit('operation-failure','You must define or import at least one ' + dimName + ' first.')
+    }
+  })
+  .catch((error) => {
+    EventBus.$emit('operation-failure',error)
+  });
+}
 
 export default {
   props : {
     dimension : String
   },
   watch : {
-    dimension : 'setData' 
+    dimension : 'checkRoute' 
   },
   components : {
     Objects
@@ -47,7 +71,157 @@ export default {
       theDelUrl : ''
     }
   },
+  beforeRouteEnter (to, from, next) {
+    if (['requirement','goal','obstacle','usecase','dependency','environment','asset','persona','location','traceability','role','kaosassociation'].indexOf(to.params.dimension) > -1) {
+      dimensionCheck('environment',next);
+    }
+    else if (to.params.dimension == 'attacker') {
+      dimensionCheck('role',() => {
+        dimensionCheck('environment',next);
+      });
+    }
+    else if (to.params.dimension == 'assetassociation') {
+      dimensionCheck('environment',() => {
+        dimensionCheck('asset',next);
+      });
+    }
+    else if (to.params.dimension == 'vulnerability') {
+      dimensionCheck('vulnerability_type',() => {
+        dimensionCheck('environment',() => {
+          dimensionCheck('asset',next);
+        });
+      });
+    }
+    else if (to.params.dimension == 'threat') {
+      dimensionCheck('threat_type',() => {
+        dimensionCheck('environment',() => {
+          dimensionCheck('attacker',() => {
+            dimensionCheck('asset',next);
+          });
+        });
+      });
+    }
+    else if (to.params.dimension == 'risk') {
+      dimensionCheck('threat',() => {
+        dimensionCheck('vulnerability',next);
+      });
+    }
+    else if (to.params.dimension == 'response') {
+      dimensionCheck('risk',next);
+    }
+    else if (to.params.dimension == 'countermeasure') {
+      dimensionCheck('response',() => {
+        dimensionCheck('task',next);
+      });
+    }
+    else if (to.params.dimension == 'task') {
+      dimensionCheck('persona',next);
+    }
+    else if (to.params.dimension == 'trust_boundary') {
+      dimensionCheck('environment',() => {
+        dimensionCheck('usecase',next);
+      });
+    }
+    else if (to.params.dimension == 'dataflow') {
+      dimensionCheck('environment',() => {
+        dimensionCheck('usecase',next);
+      });
+    }
+    else if (to.params.dimension == 'template_asset') {
+      dimensionCheck('surface_type',() => {
+        dimensionCheck('access_right',() => {
+          dimensionCheck('privilege',next);
+        });
+      });
+    }
+    else if (to.params.dimension == 'template_requirement') {
+      dimensionCheck('template_asset',next);
+    }
+    else if (to.params.dimension == 'architectural_pattern') {
+      dimensionCheck('template_asset',() => {
+        dimensionCheck('protocol',next);
+      });
+    }
+    else if (['external_document','domainproperty','template_goal','template_asset'].indexOf(to.params.dimension) > -1) {
+      next();
+    }
+  },
   methods : {
+    checkRoute() {
+      if (['requirement','goal','obstacle','usecase','dependency','environment','asset','persona','location','traceability','role','kaosassociation'].indexOf(this.dimension) > -1) {
+        dimensionCheck('environment',this.setData);
+      }
+      else if (this.dimension == 'attacker') {
+        dimensionCheck('role',() => {
+          dimensionCheck('environment',this.setData);
+        });
+      }
+      else if (this.dimension == 'assetassociation') {
+        dimensionCheck('environment',() => {
+          dimensionCheck('asset',this.setData);
+        });
+      }
+      else if (this.dimension == 'vulnerability') {
+        dimensionCheck('vulnerability_type',() => {
+          dimensionCheck('environment',() => {
+            dimensionCheck('asset',this.setData);
+          });
+        });
+      }
+      else if (this.dimension == 'threat') {
+        dimensionCheck('threat_type',() => {
+          dimensionCheck('environment',() => {
+            dimensionCheck('attacker',() => {
+              dimensionCheck('asset',this.setData);
+            });
+          });
+        });
+      }
+      else if (this.dimension == 'risk') {
+        dimensionCheck('threat',() => {
+          dimensionCheck('vulnerability',this.setData);
+        });
+      }
+      else if (this.dimension == 'response') {
+        dimensionCheck('risk',this.setData);
+      }
+      else if (this.dimension == 'countermeasure') {
+        dimensionCheck('response', () => {
+          dimensionCheck('task',this.setData);
+        });
+      }
+      else if (this.dimension == 'task') {
+        dimensionCheck('persona',this.setData);
+      }
+      else if (this.dimension == 'trust_boundary') {
+        dimensionCheck('environment',() => {
+          dimensionCheck('usecase',this.setData);
+        });
+      }
+      else if (this.dimension == 'dataflow') {
+        dimensionCheck('environment',() => {
+          dimensionCheck('usecase',this.setData);
+        });
+      }
+      else if (this.dimension == 'template_asset') {
+        dimensionCheck('surface_type',() => {
+          dimensionCheck('access_right',() => {
+            dimensionCheck('privilege',this.setData);
+          });
+        });
+      }
+      else if (this.dimension == 'template_requirement') {
+        dimensionCheck('template_asset',this.setData);
+      }
+      else if (this.dimension == 'architectural_pattern') {
+        dimensionCheck('template_asset',() => {
+          dimensionCheck('protocol',this.setData);
+        });
+      }
+      else if (['external_document','domainproperty','template_goal','template_asset'].indexOf(this.dimension) > -1) {
+        this.setData();
+      }
+    },
     setData() {
       const viewData = objectsViewData[this.dimension];
       this.bcItems = viewData.bcItems;

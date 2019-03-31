@@ -19,14 +19,11 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state : {
-    session : '',
+    session : undefined ,
     url : window.location.protocol + "//" + window.location.host
-// Uncomment the below when developing/unit testing.
-//    session: 'test',
-//    url: 'http://192.168.161.138:7071'
   }
 });

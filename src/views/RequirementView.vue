@@ -22,7 +22,7 @@ Authors: Shamal Faily
 
   <div class="requirementview">
     <b-breadcrumb :items="bcItems" /> 
-    <requirement :object="this.objt" :domain="this.domain" :label="this.commitLabel" v-on:requirement-commit="commitRequirement" />
+    <requirement :object="this.objt" :domain="this.domain" :label="this.commitLabel" v-on:object-commit="commitRequirement" />
   </div>
 </template>
 

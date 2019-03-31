@@ -48,6 +48,7 @@ library.add(faArrowRight);
 Vue.component('font-awesome-icon',FontAwesomeIcon);
 Vue.use(BootstrapVue);
 Vue.use(VueAxios,axios);
+Vue.axios.defaults.baseURL = process.env.VUE_APP_TEST_CAIRIS_SERVER | window.location.protocol + "//" + window.location.host;
 
 Vue.config.productionTip = false
 

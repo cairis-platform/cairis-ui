@@ -77,8 +77,7 @@ Authors: Shamal Faily
           <b-row v-if="this.objt.theEnvironmentProperties.length">
             <b-col sm="12">
               <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-cols="1" label-for="theLikelihood">
-                <b-form-select id="theLikelihood" v-model="objt.theEnvironmentProperties[envPropIndex].theLikelihood" :options="likelihoodTypes" class="mb-3" required>
-                </b-form-select>
+                <b-form-select id="theLikelihood" v-model="likelihood" :options="likelihoodTypes" class="mb-3" required />
               </b-form-group>
             </b-col>
           </b-row>
@@ -154,17 +153,25 @@ export default {
     propertiesMixin
   ],
   computed : {
+    likelihood : {
+      get : function() {
+        return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theLikelihood : ''
+      },
+      set : function(value) {
+        this.objt.theEnvironmentProperties[this.envPropIndex].theLikelihood = value;
+      }
+    },
     assetNames() {
-      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theAssets : [] ;
+      return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theAssets : [] ;
     },
     attackerNames() {
-      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theAttackers : [] ;
+      return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theAttackers : [] ;
     },
     environmentAssets() {
-      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theAssets.map(asset => ({name : asset})) : []
+      return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theAssets.map(asset => ({name : asset})) : []
     },
     environmentAttackers() {
-      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theAttackers.map(attacker => ({name : attacker})) : []
+      return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theAttackers.map(attacker => ({name : attacker})) : []
     },
   },
   components : {

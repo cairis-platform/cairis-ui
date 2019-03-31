@@ -115,7 +115,7 @@ Authors: Shamal Faily
     <b-navbar-nav class="ml-auto">
       <b-nav-form>
         <b-form-input size="sm" class="mr-sm-2" type="text" v-model="theSearchString" placeholder="Search"/>
-        <b-button size="sm" class="my-2 my-sm-0" type="submit" @click="onFind">Search</b-button>
+        <b-button size="sm" class="my-2 my-sm-0" type="submit" @click.prevent="onFind">Search</b-button>
       </b-nav-form>
       <b-nav-item :to="{name: 'logout'}" right>Logout</b-nav-item>
     </b-navbar-nav>
@@ -132,8 +132,7 @@ Authors: Shamal Faily
       }
     },
     methods : {
-      onFind(evt) {
-        evt.preventDefault();
+      onFind: function() {
         this.$router.push({ name: 'findview', params : {findTxt: this.theSearchString}});
       }
     }

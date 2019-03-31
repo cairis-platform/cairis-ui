@@ -140,7 +140,13 @@ export default {
     label : String
   },
   watch : {
-    object: 'setObject'
+    object: {
+      handler: function() {
+        this.objt = this.object;
+        this.commitLabel = this.label;
+      },
+      deep: true
+    }
   },
   mixins : [
     environmentMixin,
@@ -151,19 +157,19 @@ export default {
       return this.objt.theImage != '' ? this.$store.state.url + '/images/' + this.objt.theImage : this.$store.state.url + '/assets/default-avatar.png'
     },
     environmentRoles() {
-      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theRoles.map(r => ({name: r})) : []
+      return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theRoles.map(r => ({name: r})) : []
     },
     environmentRoleNames() {
-      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theRoles : []
+      return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theRoles : []
     },
     environmentMotives() {
-      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theMotives.map(motive => ({name : motive})): []
+      return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theMotives.map(motive => ({name : motive})): []
     },
     environmentCapabilities() {
-      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theCapabilities : []
+      return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theCapabilities : []
     },
     capabilityNames() {
-      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theCapabilities.map(cap => cap.name) : []
+      return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theCapabilities.map(cap => cap.name) : []
     },
   },
   components : {
@@ -192,10 +198,6 @@ export default {
     }
   },
   methods : {
-    setObject() {
-      this.objt = this.object;
-      this.commitLabel = this.label;
-    },
     onCommit(evt) {
       evt.preventDefault();
       if (this.checkForm()) {

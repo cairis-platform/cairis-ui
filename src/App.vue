@@ -51,7 +51,10 @@ export default {
     StatusFooter
   },
   created() {
-    if (this.$store.state.session != 'test') {
+    if (process.env.VUE_APP_TEST_CAIRIS_SERVER) {
+      this.$store.state.url = process.env.VUE_APP_TEST_CAIRIS_SERVER;
+    }
+    if (process.env.VUE_APP_TEST_SESSION == undefined) {
       let that = this;
       const sessionUrl = this.$store.state.url + '/make_session';
       axios.post(sessionUrl)
@@ -71,6 +74,9 @@ export default {
       .catch((error) => {
         EventBus.$emit('operation-failure',error)
       });
+    }
+    else {
+      this.$store.state.session = process.env.VUE_APP_TEST_SESSION;
     }
   }
 }

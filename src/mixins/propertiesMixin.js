@@ -33,7 +33,7 @@ export default {
     notNone() {
       return this.objt.theProperties != undefined ? 
         this.objt.theProperties.filter(prop => prop.value != 'None') : (
-          this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theProperties.filter(prop => prop.value != 'None') : []
+          this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theProperties.filter(prop => prop.value != 'None') : []
         );
     }
   },

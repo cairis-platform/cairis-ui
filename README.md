@@ -38,7 +38,7 @@ To deploy latest version of the CAIRIS 2 UI:
 
 ### Development and unit testing support
 
-If you're developing for CAIRIS, you can use the cairis_test_default database to avoid authentication.  To do this:
+If you're developing for CAIRIS, you can use the cairis_test_default database to avoid authentication.  To do this, you should add a .env.development file to the cairis-ui root directory.  In this file, you should set the following environment variables:
 
-1.  Manually set the IP address of your CAIRIS server in store/index.js.
-2.  Set the session in store/index.js to 'test'.
+VUE_APP_TEST_SESSION=test
+VUE_APP_TEST_CAIRIS_SERVER=<CAIRIS server hostname or IP address>
