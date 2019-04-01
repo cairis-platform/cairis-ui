@@ -192,7 +192,7 @@ export default {
     selectedEnvironment : 'reloadModels'
   },
   mounted() {
-    if (this.$store.state.session != '') {
+    if (this.$store.state.session != undefined) {
       this.loadEnvironments();
     }
   },
