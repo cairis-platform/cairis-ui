@@ -117,7 +117,7 @@ export default {
     else if (to.params.dimension == 'task') {
       dimensionCheck('persona',next);
     }
-    else if (to.params.dimension == 'trust_boundary') {
+    else if (to.params.dimension == 'trustboundary') {
       dimensionCheck('environment',() => {
         dimensionCheck('usecase',next);
       });
@@ -137,7 +137,12 @@ export default {
     else if (to.params.dimension == 'template_requirement') {
       dimensionCheck('template_asset',next);
     }
-    else if (to.params.dimension == 'architectural_pattern') {
+    else if (to.params.dimension == 'architecturalpattern') {
+      dimensionCheck('template_asset',() => {
+        dimensionCheck('protocol',next);
+      });
+    }
+    else if (to.params.dimension == 'securitypattern') {
       dimensionCheck('template_asset',() => {
         dimensionCheck('protocol',next);
       });
@@ -150,7 +155,12 @@ export default {
         dimensionCheck('document_reference',next);
       });
     }
-    else if (['environment','externaldocument','domainproperty','template_goal','template_asset'].indexOf(to.params.dimension) > -1) {
+    else if (to.params.dimension == 'locations') {
+      dimensionCheck('persona',() => {
+        dimensionCheck('asset',next);
+      });
+    }
+    else if (['environment','externaldocument','domainproperty','template_goal','template_asset','taskcharacteristic'].indexOf(to.params.dimension) > -1) {
       next();
     }
   },
@@ -201,7 +211,7 @@ export default {
       else if (this.dimension == 'task') {
         dimensionCheck('persona',this.setData);
       }
-      else if (this.dimension == 'trust_boundary') {
+      else if (this.dimension == 'trustboundary') {
         dimensionCheck('environment',() => {
           dimensionCheck('usecase',this.setData);
         });
@@ -221,7 +231,12 @@ export default {
       else if (this.dimension == 'template_requirement') {
         dimensionCheck('template_asset',this.setData);
       }
-      else if (this.dimension == 'architectural_pattern') {
+      else if (this.dimension == 'architecturalpattern') {
+        dimensionCheck('template_asset',() => {
+          dimensionCheck('protocol',this.setData);
+        });
+      }
+      else if (this.dimension == 'securitypattern') {
         dimensionCheck('template_asset',() => {
           dimensionCheck('protocol',this.setData);
         });
@@ -234,7 +249,12 @@ export default {
           dimensionCheck('document_reference',this.setData);
         });
       }
-      else if (['environment','externaldocument','domainproperty','template_goal','template_asset'].indexOf(this.dimension) > -1) {
+      else if (this.dimension == 'locations') {
+        dimensionCheck('persona',() => {
+          dimensionCheck('asset',this.setData);
+        });
+      }
+      else if (['environment','externaldocument','conceptreference','domainproperty','template_goal','template_asset','taskcharacteristic'].indexOf(this.dimension) > -1) {
         this.setData();
       }
     },
