@@ -142,7 +142,15 @@ export default {
         dimensionCheck('protocol',next);
       });
     }
-    else if (['environment','external_document','domainproperty','template_goal','template_asset'].indexOf(to.params.dimension) > -1) {
+    else if (to.params.dimension == 'documentreference') {
+      dimensionCheck('external_document',next);
+    }
+    else if (to.params.dimension == 'personacharacteristic') {
+      dimensionCheck('external_document',() => {
+        dimensionCheck('document_reference',next);
+      });
+    }
+    else if (['environment','externaldocument','domainproperty','template_goal','template_asset'].indexOf(to.params.dimension) > -1) {
       next();
     }
   },
@@ -218,7 +226,15 @@ export default {
           dimensionCheck('protocol',this.setData);
         });
       }
-      else if (['environment','external_document','domainproperty','template_goal','template_asset'].indexOf(this.dimension) > -1) {
+      else if (this.dimension == 'documentreference') {
+        dimensionCheck('external_document',this.setData);
+      }
+      else if (this.dimension == 'personacharacteristic') {
+        dimensionCheck('external_document',() => {
+          dimensionCheck('document_reference',this.setData);
+        });
+      }
+      else if (['environment','externaldocument','domainproperty','template_goal','template_asset'].indexOf(this.dimension) > -1) {
         this.setData();
       }
     },
