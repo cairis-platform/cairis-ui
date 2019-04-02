@@ -21,7 +21,7 @@ Authors: Shamal Faily
 -->
 
   <div class="personacharacteristic">
-    <characteristic-reference-modal ref="crDialog" :characteristicReference="this.selectedCharacteristicReference" :characteristic="this.objt.theName" v-on:characteristic-reference-modal-update="updateCharacteristicReference"/> 
+    <characteristic-reference-modal ref="crDialog" :characteristicReference="this.selectedCharacteristicReference" :characteristic="this.objt.theCharacteristicSynopsis.theSynopsis" v-on:characteristic-reference-modal-update="updateCharacteristicReference"/> 
     <p v-if="errors.length">
       <b>Please correct the following error(s):</b>
       <ul>
@@ -247,6 +247,9 @@ export default {
     viewGrounds(data,index) {
       this.selectedCharacteristicReference['index'] = index
       this.selectedCharacteristicReference['characteristicReference'] = JSON.parse(JSON.stringify(data));
+      this.selectedCharacteristicReference.characteristicReference.theCharacteristicType = 'grounds';
+      this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theActor = this.objt.thePersonaName;
+      this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theActorType = 'persona';
       this.selectedCharacteristicReference['update'] = true;
       this.$refs.crDialog.show();  
     },
@@ -257,6 +260,7 @@ export default {
       this.selectedCharacteristicReference['characteristicReference'] = JSON.parse(JSON.stringify(this.templateCharacteristicReference));
       this.selectedCharacteristicReference.characteristicReference.theCharacteristicType = 'warrant';
       this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theActor = this.objt.thePersonaName;
+      this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theActorType = 'persona';
       this.selectedCharacteristicReference['update'] = false;
       this.$refs.crDialog.show();  
     },
@@ -279,6 +283,8 @@ export default {
     viewRebuttal(data,index) {
       this.selectedCharacteristicReference['index'] = index
       this.selectedCharacteristicReference['characteristicReference'] = JSON.parse(JSON.stringify(data));
+      this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theActor = this.objt.thePersonaName;
+      this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theActorType = 'persona';
       this.selectedCharacteristicReference['update'] = true;
       this.$refs.crDialog.show();  
     },

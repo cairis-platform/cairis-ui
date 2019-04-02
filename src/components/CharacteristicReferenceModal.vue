@@ -74,7 +74,7 @@ Authors: Shamal Faily
             <b-row>
               <b-col md="12">
                 <b-form-group label="Intention" label-class="font-weight-bold text-md-left" label-for="theSynopsisInput">
-                  <b-form-input id="theSynopsisInput" v-model="reference.theSynopsis" type="text" >
+                  <b-form-input id="theSynopsisInput" v-model="reference.theReferenceSynopsis.theSynopsis" type="text" >
                   </b-form-input>
                 </b-form-group>
               </b-col>
@@ -92,7 +92,7 @@ Authors: Shamal Faily
             <b-row>
               <b-col md="12">
                 <b-form-group label="Means/End" label-class="font-weight-bold text-md-left" label-for="theMeansEndRadio">
-                  <b-form-radio-group id="theElementTypeRadio" v-model="reference.theReferenceContribution.theMeansEnd">
+                  <b-form-radio-group id="theMeansEndRadio" v-model="reference.theReferenceContribution.theMeansEnd">
                     <b-form-radio value="means">Means</b-form-radio>
                     <b-form-radio value="end">End</b-form-radio>
                   </b-form-radio-group>
