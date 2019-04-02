@@ -32,32 +32,37 @@ Authors: Shamal Faily
           </ul>
         </p>
         <b-card bg-variant="light">
-          <b-form-group label="Model" label-class="text-md-left" label-cols="3" label-for="theModelRadio">
-            <b-form-radio-group id="theModelRadio" v-model="theModelType">
-              <b-form-radio value="Model">Model</b-form-radio>
-              <b-form-radio value="GRL">GRL</b-form-radio>
-              <b-form-radio value="Architectural Pattern">Architectural Pattern</b-form-radio>
-            </b-form-radio-group>
-          </b-form-group>
-          <b-form-group v-if="theModelType == 'Architectural Pattern'" label="Architectural Pattern" label-class="text-md-left" label-cols="3"  label-for="thePatternSelect">
-            <dimension-select ref="patternSelect" id="patternSelect" dimension="component_view" v-on:dimension-select-change="patternSelected" />
-          </b-form-group>
-          <b-container fluid v-if="theModelType == 'GRL'">
-            <b-row>
-              <b-col md="4">
-                <b-form-group label="Environment" label-class="text-md-left" label-cols="3" label-for="theEnvironmentSelect">
-                  <dimension-select ref="environmentSelect" id="environmentSelect" dimension="environment" v-on:dimension-select-change="environmentSelected" />
-                </b-form-group>
-              </b-col>
-              <b-col md="4">
-                <b-form-group label="Task" label-class="text-md-left" label-cols="3" label-for="theTaskSelect">
-                  <dimension-select ref="taskSelect" id="taskSelect" dimension="task" v-on:dimension-select-change="taskSelected" />
-                </b-form-group>
-              </b-col>
-
-            </b-row>
-          </b-container>
-          <b-form-group label="File name" label-class="text-md-left" label-cols="3" label-for="theFileName">
+          <b-row>
+            <b-col md="12">
+              <b-form-group label="Model" label-class="text-md-left font-weight-bold" label-for="theModelRadio">
+                <b-form-radio-group id="theModelRadio" v-model="theModelType">
+                  <b-form-radio value="Model">Model</b-form-radio>
+                  <b-form-radio value="GRL">GRL</b-form-radio>
+                  <b-form-radio value="Architectural Pattern">Architectural Pattern</b-form-radio>
+                </b-form-radio-group>
+              </b-form-group>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col md="12">
+              <b-form-group v-if="theModelType == 'Architectural Pattern'" label="Architectural Pattern" label-class="text-md-left font-weight-bold" label-for="thePatternSelect">
+                <dimension-select ref="patternSelect" id="patternSelect" dimension="component_view" v-on:dimension-select-change="patternSelected" />
+              </b-form-group>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col md="6">
+              <b-form-group v-if="theModelType == 'GRL'" label="Environment" label-class="text-md-left font-weight-bold" label-for="theEnvironmentSelect">
+                <dimension-select ref="environmentSelect" id="environmentSelect" dimension="environment" v-on:dimension-select-change="environmentSelected" />
+              </b-form-group>
+            </b-col>
+            <b-col md="6">
+              <b-form-group v-if="theModelType == 'GRL'" label="Task" label-class="text-md-left font-weight-bold" label-for="theTaskSelect">
+                <dimension-select ref="taskSelect" id="taskSelect" dimension="task" v-on:dimension-select-change="taskSelected" />
+              </b-form-group>
+            </b-col>
+          </b-row>
+          <b-form-group label="File name" label-class="text-md-left font-weight-bold" label-for="theFileName">
             <b-form-input id="theModelFile" v-model="theExportParameters.filename" type="text" required>
             </b-form-input>
           </b-form-group>
