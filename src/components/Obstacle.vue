@@ -179,6 +179,7 @@ export default {
   },
   components : {
     KaosRefinementModal : () => import('@/components/KaosRefinementModal.vue'),
+    DimensionModal : () => import('@/components/DimensionModal.vue')
   },
   mixins : [
     objectMixin,
