@@ -51,14 +51,19 @@ Authors: Shamal Faily
             </b-col>
           </b-row>
           <b-row>
-            <b-col md="6">
+            <b-col md="4">
               <b-form-group v-if="theModelType == 'GRL'" label="Environment" label-class="text-md-left font-weight-bold" label-for="theEnvironmentSelect">
                 <dimension-select ref="environmentSelect" id="environmentSelect" dimension="environment" v-on:dimension-select-change="environmentSelected" />
               </b-form-group>
             </b-col>
-            <b-col md="6">
+            <b-col md="4">
               <b-form-group v-if="theModelType == 'GRL'" label="Task" label-class="text-md-left font-weight-bold" label-for="theTaskSelect">
                 <dimension-select ref="taskSelect" id="taskSelect" dimension="task" v-on:dimension-select-change="taskSelected" />
+              </b-form-group>
+            </b-col>
+            <b-col md="4">
+              <b-form-group v-if="theModelType == 'GRL'" label="Persona" label-class="text-md-left font-weight-bold" label-for="thePersonaSelect">
+                <dimension-select ref="personaSelect" id="personaSelect" dimension="persona" includeall="true" v-on:dimension-select-change="personaSelected" />
               </b-form-group>
             </b-col>
           </b-row>
@@ -97,7 +102,10 @@ export default {
      return [{text: 'Home', to: {name: 'home'}},{text: 'Export', to: {name: 'export'}}]
     },
     exportURL() {
-      return this.theModelType == 'Model' ? '/api/export/file' : (this.theModelType == 'Architectural Pattern' ? '/api/export/file/architectural_pattern/' + this.theArchitecturalPatternName : '/api/export/file/grl/task/' + this.theTaskName + '/persona/' + this.thePersonaName + '/environment/' + this.theEnvironmentName);
+      return this.theModelType == 'Model' ? '/api/export/file' : (this.theModelType == 'Architectural Pattern' ? '/api/export/file/architectural_pattern/' + this.theArchitecturalPatternName : '/api/export/file/grl/task/' + this.theTaskName + '/persona/' + this.persona + '/environment/' + this.theEnvironmentName);
+    },
+    persona() {
+      return this.thePersonaName == 'all' ? 'ALL' : this.thePersonaName;
     }
   },
   components : {
