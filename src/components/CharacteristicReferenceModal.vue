@@ -65,7 +65,7 @@ Authors: Shamal Faily
           <b-card bg-variant="light">
             <b-row>
               <b-col md="12">
-                <b-form-group label="Characteristic" label-class="font-weight-bold text-md-left" label-for="theCharacteristicInput">
+                <b-form-group label="Characteristic Intention" label-class="font-weight-bold text-md-left" label-for="theCharacteristicInput">
                   <b-form-input id="theCharacteristicInput" v-model="characteristic" type="text" readonly>
                   </b-form-input>
                 </b-form-group>
@@ -73,7 +73,7 @@ Authors: Shamal Faily
             </b-row>
             <b-row>
               <b-col md="12">
-                <b-form-group label="Intention" label-class="font-weight-bold text-md-left" label-for="theSynopsisInput">
+                <b-form-group label="Reference Intention" label-class="font-weight-bold text-md-left" label-for="theSynopsisInput">
                   <b-form-input id="theSynopsisInput" v-model="reference.theReferenceSynopsis.theSynopsis" type="text" >
                   </b-form-input>
                 </b-form-group>
