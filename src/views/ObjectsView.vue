@@ -72,7 +72,7 @@ export default {
     }
   },
   beforeRouteEnter (to, from, next) {
-    if (['requirement','goal','obstacle','usecase','dependency','asset','persona','location','traceability','role','kaosassociation'].indexOf(to.params.dimension) > -1) {
+    if (['requirement','goal','obstacle','usecase','dependency','asset','location','traceability','role','kaosassociation'].indexOf(to.params.dimension) > -1) {
       dimensionCheck('environment',next);
     }
     else if (to.params.dimension == 'attacker') {
@@ -115,7 +115,12 @@ export default {
       });
     }
     else if (to.params.dimension == 'task') {
-      dimensionCheck('persona',next);
+      dimensionCheck('persona',() => {
+        dimensionCheck('role',next);
+      });
+    }
+    else if (to.params.dimension == 'persona') {
+      dimensionCheck('role',next);
     }
     else if (to.params.dimension == 'trustboundary') {
       dimensionCheck('environment',() => {
@@ -166,7 +171,7 @@ export default {
   },
   methods : {
     checkRoute() {
-      if (['requirement','goal','obstacle','usecase','dependency','asset','persona','location','traceability','role','kaosassociation'].indexOf(this.dimension) > -1) {
+      if (['requirement','goal','obstacle','usecase','dependency','asset','location','traceability','role','kaosassociation'].indexOf(this.dimension) > -1) {
         dimensionCheck('environment',this.setData);
       }
       else if (this.dimension == 'attacker') {
@@ -209,7 +214,12 @@ export default {
         });
       }
       else if (this.dimension == 'task') {
-        dimensionCheck('persona',this.setData);
+        dimensionCheck('persona',() => {
+          dimensionCheck('role',this.setData);
+        });
+      }
+      else if (this.dimension == 'persona') {
+        dimensionCheck('role',this.setData);
       }
       else if (this.dimension == 'trustboundary') {
         dimensionCheck('environment',() => {

@@ -262,7 +262,7 @@ export default {
         update : false,
         association : {
           theEndName : '', 
-          theEndType : '', 
+          theEndType : 'obstacle', 
           theRefType : 'and', 
           isAlternate: 'No', 
           theRationale : ''
@@ -309,7 +309,7 @@ export default {
       this.$refs.obstacleRefinementDialog.show();  
     },
     addObstacleRefinement() {
-      this.selectedAssociation['association'] = {theEndName : '', theEndType : '', theRefType : 'and', isAlternate: 'No', theRationale : ''};
+      this.selectedAssociation['association'] = {theEndName : '', theEndType : 'obstacle', theRefType : 'and', isAlternate: 'No', theRationale : ''};
       this.selectedAssociation['environment'] = this.objt.theEnvironmentProperties[this.envPropIndex].theEnvironmentName;
       this.selectedAssociation['update'] = false;
       this.$refs.obstacleRefinementDialog.show();  
@@ -325,7 +325,8 @@ export default {
       this.$refs.subObstacleRefinementDialog.show();  
     },
     addSubObstacleRefinement() {
-      this.selectedAssociation['association'] = {theEndName : '', theEndType : '', theRefType : 'and', isAlternate: 'No', theRationale : ''};
+      this.selectedAssociation['association'] = {theEndName : '', theEndType : 'obstacle', theRefType : 'and', isAlternate: 'No', theRationale : ''};
+      this.selectedAssociation['environment'] = this.objt.theEnvironmentProperties[this.envPropIndex].theEnvironmentName;
       this.selectedAssociation['update'] = false;
       this.$refs.subObstacleRefinementDialog.show();  
     },

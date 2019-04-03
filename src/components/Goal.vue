@@ -295,7 +295,7 @@ export default {
         update : false,
         association : {
           theEndName : '', 
-          theEndType : '', 
+          theEndType : 'goal', 
           theRefType : 'and', 
           isAlternate: 'No', 
           theRationale : ''
@@ -343,7 +343,7 @@ export default {
       this.$refs.goalRefinementDialog.show();  
     },
     addGoalRefinement() {
-      this.selectedAssociation['association'] = {theEndName : '', theEndType : '', theRefType : 'and', isAlternate: 'No', theRationale : ''};
+      this.selectedAssociation['association'] = {theEndName : '', theEndType : 'goal', theRefType : 'and', isAlternate: 'No', theRationale : ''};
       this.selectedAssociation['environment'] = this.objt.theEnvironmentProperties[this.envPropIndex].theEnvironmentName;
       this.selectedAssociation['update'] = false;
       this.$refs.goalRefinementDialog.show();  
@@ -359,7 +359,8 @@ export default {
       this.$refs.subGoalRefinementDialog.show();  
     },
     addSubGoalRefinement() {
-      this.selectedAssociation['association'] = {theEndName : '', theEndType : '', theRefType : 'and', isAlternate: 'No', theRationale : ''};
+      this.selectedAssociation['association'] = {theEndName : '', theEndType : 'goal', theRefType : 'and', isAlternate: 'No', theRationale : ''};
+      this.selectedAssociation['environment'] = this.objt.theEnvironmentProperties[this.envPropIndex].theEnvironmentName;
       this.selectedAssociation['update'] = false;
       this.$refs.subGoalRefinementDialog.show();  
     },
