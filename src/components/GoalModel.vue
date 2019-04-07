@@ -34,24 +34,29 @@ Authors: Shamal Faily
     <b-container fluid>
       <b-row>
         <b-col>
-          <b-form-group label="Environment" label-for="goalModelEnvironment" :label-cols="4" >
+          <b-form-group label="Environment" label-for="goalModelEnvironment">
             <dimension-select id="goalModelEnvironment" ref="goalModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
-          <b-form-group label="Goal" label-for="goalModelGoal" :label-cols="2" >
+          <b-form-group label="Goal" label-for="goalModelGoal">
             <dimension-select id="goalModelGoal" ref="goalModelGoal" dimension="goal" :environment="theEnvironmentName" initial="all" includeall v-on:dimension-select-change="goalSelected" />
           </b-form-group>
         </b-col>
         <b-col v-show="theEnvironmentName != ''">
-          <b-form-group label="Use Case" label-form="goaModelUseCase" :label-cols="4" >
+          <b-form-group label="Use Case" label-form="goaModelUseCase">
             <dimension-select id="goalModelUseCase" ref="goalModelUseCase" dimension="usecase" :environment="theEnvironmentName" initial="all" includeall v-on:dimension-select-change="useCaseSelected" />
+          </b-form-group>
+        </b-col>
+        <b-col v-show="theEnvironmentName != ''">
+          <b-form-group label="Top-level goals" label-form="goalModelTopLevel">
+            <b-form-checkbox id="goalModelTopLevel" v-model="theTopLevel" />
           </b-form-group>
         </b-col>
       </b-row>
     </b-container>
     </b-card>
-    <graphical-model v-if="theEnvironmentName != ''" :api="goalModelURI" v-on:graphical-model-url="nodeClicked"/>
+    <graphical-model v-if="theEnvironmentName != ''" :api="goalModelURI" :parameters="topParameters" v-on:graphical-model-url="nodeClicked"/>
   </div>
 </template>
 
@@ -75,6 +80,9 @@ export default {
   computed : {
     goalModelURI() {
       return "/api/goals/model/environment/" + this.theEnvironmentName + "/goal/" + this.theGoalName + "/usecase/" + this.theUseCaseName;
+    },
+    topParameters() {
+      return this.theTopLevel == 0 ? '&top=0' : '&top=1';
     }
   },
   data() {
@@ -82,6 +90,7 @@ export default {
       theEnvironmentName : '',
       theGoalName : 'all',
       theUseCaseName : 'all',
+      theTopLevel : 0,
       theSelectedObject: null
     }
   },

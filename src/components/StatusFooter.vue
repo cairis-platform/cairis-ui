@@ -54,7 +54,7 @@ Authors: Shamal Faily
         ref.theStatusMessage = msg;
         setTimeout(function() {
           ref.isSuccess = 0;
-        },6000);
+        },4000);
       });
     }
   };
