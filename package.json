@@ -17,6 +17,8 @@
     "bootstrap-vue": "^2.0.0-rc.13",
     "chart.js": "^2.7.3",
     "d3": "^5.9.1",
+    "global": "^4.3.2",
+    "jslint": "^0.12.1",
     "svg-pan-zoom": "^3.6.0",
     "vue": "^2.6.8",
     "vue-axios": "^2.1.4",

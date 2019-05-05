@@ -70,8 +70,8 @@ export default {
   data() {
     return {
       isLoading : false,
-      theModelType : 'Model',
-      modelTypes : ['Model','Project data','Requirements','Risk Analysis','Usability','Misusability','Associations','Threat and Vulnerability Types','Domain Values','Threat and Vulnerability Directory','Security Pattern','Architectural Pattern','Attack Pattern','Synopses','Assets','Processes','Locations','Dataflows','Attack Tree (Dot)'],
+      theModelType : 'Model Package',
+      modelTypes : ['Model Package','Model','Project data','Requirements','Risk Analysis','Usability','Misusability','Associations','Threat and Vulnerability Types','Domain Values','Threat and Vulnerability Directory','Security Pattern','Architectural Pattern','Attack Pattern','Synopses','Assets','Processes','Locations','Dataflows','Attack Tree (Dot)'],
       theImportFile : '',
       theModelContent : ''
     }
@@ -79,12 +79,36 @@ export default {
   methods : {
     onImport(evt) {
       evt.preventDefault();
+      if (this.theModelType == 'Model Package') {
+        this.importPackage();
+      }
+      else {
+        this.importFile();
+      }
+    },
+    importPackage() {
+      this.isLoading = true;
+      const fd = new FormData();
+      fd.append('file',this.theImportFile)
+      const url = this.$store.state.url + '/api/import/package?session_id=' + this.$store.state.session
+      axios.post(url, fd)
+      .then(response => {
+        EventBus.$emit('operation-success',response.data.message)
+        this.isLoading = false;
+        this.$router.push({ name: 'home'})
+      })
+      .catch((error) => {
+        this.isLoading = false;
+        EventBus.$emit('operation-failure',error)
+      });
+    },
+    importFile() {
       let reader = new FileReader();
       reader.onload = e => {
         this.isLoading = true;
         this.theModelContent = e.target.result;
         const importObjt = {'urlenc_file_contents' : this.theModelContent,'overwrite' : 1, 'type': this.theModelType};
-        const importUrl = this.$store.state.url + '/api/import/text'
+        const importUrl = this.$store.state.url + '/api/import/text';
         axios.post(importUrl,{
           session_id : store.state.session,
           object : importObjt
@@ -97,14 +121,16 @@ export default {
         .catch((error) => {
           this.isLoading = false;
           EventBus.$emit('operation-failure',error)
-        })
+        });
       }
-      reader.readAsText(this.theImportFile)
+      reader.readAsText(this.theImportFile);
     },
     onCancel(evt) {
       evt.preventDefault();
       this.isLoading = false;
       this.$router.push({ name: 'home'})
+    },
+    importModelFile() {
     }
   }
 }

@@ -37,6 +37,7 @@ Authors: Shamal Faily
               <b-form-group label="Model" label-class="text-md-left font-weight-bold" label-for="theModelRadio">
                 <b-form-radio-group id="theModelRadio" v-model="theModelType">
                   <b-form-radio value="Model">Model</b-form-radio>
+                  <b-form-radio value="ModelXML">Model (XML file)</b-form-radio>
                   <b-form-radio value="GRL">GRL</b-form-radio>
                   <b-form-radio value="Architectural Pattern">Architectural Pattern</b-form-radio>
                 </b-form-radio-group>
@@ -102,7 +103,7 @@ export default {
      return [{text: 'Home', to: {name: 'home'}},{text: 'Export', to: {name: 'export'}}]
     },
     exportURL() {
-      return this.theModelType == 'Model' ? '/api/export/file' : (this.theModelType == 'Architectural Pattern' ? '/api/export/file/architectural_pattern/' + this.theArchitecturalPatternName : '/api/export/file/grl/task/' + this.theTaskName + '/persona/' + this.persona + '/environment/' + this.theEnvironmentName);
+      return this.theModelType == 'Model' || this.theModelType == 'ModelXML' ? '/api/export/file' : (this.theModelType == 'Architectural Pattern' ? '/api/export/file/architectural_pattern/' + this.theArchitecturalPatternName : '/api/export/file/grl/task/' + this.theTaskName + '/persona/' + this.persona + '/environment/' + this.theEnvironmentName);
     },
     persona() {
       return this.thePersonaName == 'all' ? 'ALL' : this.thePersonaName;
@@ -124,9 +125,9 @@ export default {
       thePersonaName : '',
       theExportParameters : {
         session_id : this.$store.state.session,
-        filename : 'model.xml'
-      },
-      theExportHeaders : {'Content-Type' : 'application/xml'}
+        filename : 'model',
+        fileType : 'xml'
+      }
     }
   },
   methods : {
@@ -164,14 +165,18 @@ export default {
       evt.preventDefault();
       if (this.checkForm()) {
         this.isLoading = true;
+        this.theExportParameters.fileType = this.theModelType == 'Model' ? 'cairis' : 'xml';
+        const fileType = this.theModelType == 'Model' ? 'octet-stream' : 'xml';
+        const exportHeaders = {'Content-Type': 'application/' + fileType} ;
+
         axios.get(this.exportURL,{
           responseType : 'arraybuffer',
-          headers : this.theExportHeaders,
+          headers : exportHeaders,
           baseURL : this.$store.state.url,
           params : this.theExportParameters
          })
         .then(response => {
-          let blob = new Blob([response.data],{type: 'application/xml' });
+          let blob = new Blob([response.data],{type: 'application/' + fileType });
           let link = document.createElement('a');
           link.href = window.URL.createObjectURL(blob);
           link.download = this.theExportParameters.filename;

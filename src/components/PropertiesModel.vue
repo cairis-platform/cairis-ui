@@ -134,7 +134,7 @@ export default {
   },
   computed : {
     richPictureImage() {
-      return this.objt.richPicture != '' ? this.$store.state.url + '/images/' + this.objt.richPicture : this.$store.state.url + '/assets/default-avatar.png'
+      return (this.objt.richPicture != '' ? this.$store.state.url + '/images/' + this.objt.richPicture : this.$store.state.url + '/assets/default-avatar.png') + '?session_id=' + this.$store.state.session;
     }
   },
   components : {
@@ -255,11 +255,11 @@ export default {
     imageSelected(evt) {
       evt.preventDefault();
       const fd = new FormData();
-      fd.append('file',this.$refs.richpictureimageupload.files[0])
+      fd.append('file',this.$refs.richpictureupload.files[0])
       const url = this.$store.state.url + '/api/upload/image?session_id=' + this.$store.state.session
       axios.post(url, fd)
       .then(response => {
-        this.objt.theImage = response.data.filename;
+        this.objt.richPicture = response.data.filename;
         EventBus.$emit('operation-success',response.data.message)
       })
       .catch((error) => {

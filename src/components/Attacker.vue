@@ -154,7 +154,7 @@ export default {
   ],
   computed : {
     attackerImage() {
-      return this.objt.theImage != '' ? this.$store.state.url + '/images/' + this.objt.theImage : this.$store.state.url + '/assets/default-avatar.png'
+      return (this.objt.theImage != '' ? this.$store.state.url + '/images/' + this.objt.theImage : this.$store.state.url + '/assets/default-avatar.png') + '?session_id=' + this.$store.state.session;
     },
     environmentRoles() {
       return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theRoles.map(r => ({name: r})) : []
@@ -261,7 +261,7 @@ export default {
       })
       .catch((error) => {
         EventBus.$emit('operation-failure',error)
-      })
+      });
     },
     checkForm() {
       this.errors = []
