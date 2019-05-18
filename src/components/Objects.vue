@@ -154,7 +154,7 @@ export default {
   methods : {
     objectClicked(row) {
       if (this.dimName == 'asset_value' || this.dimName == 'asset_type' || this.dimName == 'access_right' || this.dimName == 'protocol' || this.dimName == 'privilege' || this.dimName == 'surface_type' || this.dimName == 'vulnerability_type' || this.dimName == 'severity' || this.dimName == 'capability' || this.dimName == 'motivation' || this.dimName == 'threat_type' || this.dimName == 'likelihood' || this.dimName == 'threat_value') {
-        this.$router.push({ name: 'valuetype', params : {objectName: 'New value type', dimName : this.dimName, envName : this.theEnvironmentName}});
+        this.$router.push({ name: 'valuetype', params : {objectName: row.theName, dimName : this.dimName, envName : this.theEnvironmentName}});
       }
       else {
         switch(this.dimension) {
