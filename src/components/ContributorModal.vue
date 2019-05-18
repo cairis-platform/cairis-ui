@@ -27,20 +27,20 @@ Authors: Shamal Faily
         <li v-for="error in errors" :key="error">{{ error }}</li>
       </ul>
     </p> 
-    <b-card no-body>
-      <b-form-group label="First name" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theFirstNameInput">
+    <b-card>
+      <b-form-group label="First name" label-class="font-weight-bold text-md-left" label-for="theFirstNameInput">
         <b-form-input id="theFirstNameInput" v-model="objt.firstName" type="text" required>
         </b-form-input>
       </b-form-group>
-      <b-form-group label="Surname" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theSurnameInput">
+      <b-form-group label="Surname" label-class="font-weight-bold text-md-left" label-for="theSurnameInput">
         <b-form-input id="theSurnameInput" v-model="objt.surname" type="text" required>
         </b-form-input>
       </b-form-group>
-      <b-form-group label="Affiliation" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theAffiliationInput">
+      <b-form-group label="Affiliation" label-class="font-weight-bold text-md-left" label-for="theAffiliationInput">
         <b-form-input id="theAffiliationInput" v-model="objt.affiliation" type="text" required>
         </b-form-input>
       </b-form-group>
-      <b-form-group label="Role" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theRoleRadio">
+      <b-form-group label="Role" label-class="font-weight-bold text-md-left" label-for="theRoleRadio">
         <b-form-radio-group id="theRoleRadio" v-model="objt.role">
           <b-form-radio value="Participant">Participant</b-form-radio>
           <b-form-radio value="Facilitator">Facilitator</b-form-radio>

@@ -27,8 +27,8 @@ Authors: Shamal Faily
         <li v-for="error in errors" :key="error">{{ error }}</li>
       </ul>
     </p> 
-    <b-card no-body>
-      <b-form-group label="<b>Revision comments</b>" label-class="text-md-left" label-cols="3" label-for="theRevisionInput">
+    <b-card>
+      <b-form-group label="Revision comments" label-class="font-weight-bold text-md-left" label-for="theRevisionInput">
         <b-form-textarea id="theRevisionInput" v-model="objt" type="text" :rows=2 :max-rows=4 required>
         </b-form-textarea>
       </b-form-group>
