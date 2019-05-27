@@ -73,7 +73,7 @@ Authors: Shamal Faily
                   <b-container fluid>
                     <b-row>
                       <b-col md="12">
-                        <b-form-group label="Category" label-class="font-weight-bold text-md-left" label-cols="1" label-for="theCategorySelect">
+                        <b-form-group label="Category" label-class="font-weight-bold text-md-left" label-for="theCategorySelect">
                           <b-form-select id="theCategorySelect" v-model="category" :options="obstacleCategories" class="mb-3" required />
                         </b-form-group>
                       </b-col>
@@ -87,12 +87,12 @@ Authors: Shamal Faily
                     </b-row>
                     <b-row>
                       <b-col md="6">
-                        <b-form-group label="Probability" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theProbabilityInput">
+                        <b-form-group label="Probability" label-class="font-weight-bold text-md-left" label-for="theProbabilityInput">
                           <b-form-input id="theProbabilityInput" v-model="probability" type="number" required />
                         </b-form-group>
                       </b-col>
                       <b-col md="6">
-                        <b-form-group label="Reason" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theReasonInput">
+                        <b-form-group label="Reason" label-class="font-weight-bold text-md-left" label-for="theReasonInput">
                           <b-form-input id="theReasonInput" v-model="rationale" type="text" required />
                         </b-form-group>
                       </b-col>

@@ -35,20 +35,20 @@ Authors: Shamal Faily
             <b-container v-if="objt != undefined" fluid>
               <b-row>
                 <b-col md="6">
-                  <b-form-group label="Dataflow" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theDataflowInput" >
+                  <b-form-group label="Dataflow" label-class="font-weight-bold text-md-left" label-for="theDataflowInput" >
                     <b-form-input id="theDataFlowInput" v-model="objt.theName" type="text" required>
                     </b-form-input>
                   </b-form-group>
                 </b-col>
                 <b-col md="6">
-                  <b-form-group label="Environment" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theEnvironmentSelect" >
+                  <b-form-group label="Environment" label-class="font-weight-bold text-md-left" label-for="theEnvironmentSelect" >
                     <dimension-select id="theEnvironmentSelect" dimension='environment' :initial="objt.theEnvironmentName" v-on:dimension-select-change="environmentSelected" />
                   </b-form-group>
                 </b-col>
               </b-row>
               <b-row>
                 <b-col md="4">
-                  <b-form-group label="From" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theFromRadio" >
+                  <b-form-group label="From" label-class="font-weight-bold text-md-left" label-for="theFromRadio" >
                     <b-form-radio-group v-model="theFromType">
                       <b-form-radio value='entity'>Entity</b-form-radio>
                       <b-form-radio value='datastore'>Datastore</b-form-radio>
@@ -62,7 +62,7 @@ Authors: Shamal Faily
               </b-row>
               <b-row>
                 <b-col md="4">
-                  <b-form-group label="To" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theToRadio" >
+                  <b-form-group label="To" label-class="font-weight-bold text-md-left" label-for="theToRadio" >
                     <b-form-radio-group id="theToRadio" v-model="objt.theToType" :options="toTypeOptions" class="mb-3" required name="theToRadio">
                     </b-form-radio-group>
                   </b-form-group>

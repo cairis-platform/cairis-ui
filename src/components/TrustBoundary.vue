@@ -34,7 +34,7 @@ Authors: Shamal Faily
         <b-card bg-variant="light">
           <b-row>
             <b-col md="12">
-              <b-form-group label="Trust Boundary" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theTrustBoundaryInput">
+              <b-form-group label="Trust Boundary" label-class="font-weight-bold text-md-left" label-for="theTrustBoundaryInput">
                 <b-form-input id="theTrustBoundaryInput" v-model="objt.theName" type="text" required>
                 </b-form-input>
               </b-form-group>
@@ -69,7 +69,7 @@ Authors: Shamal Faily
           </b-row>
           <b-row v-if="this.objt.theEnvironmentProperties.length">
             <b-col sm="12">
-              <b-form-group label="Privilege" label-class="font-weight-bold text-md-left" label-cols="1" label-for="thePrivilegeSelect">
+              <b-form-group label="Privilege" label-class="font-weight-bold text-md-left" label-for="thePrivilegeSelect">
                 <dimension-select id="thePrivilegeSelect" dimension='privilege' :initial="privilege" v-on:dimension-select-change="privilegeSelected" />
               </b-form-group>
               <b-table striped bordered small :fields="componentTableFields" :items="components">

@@ -34,7 +34,7 @@ Authors: Shamal Faily
             <b-container v-if="objt != undefined" fluid>
               <b-row>
                 <b-col md="12">
-                  <b-form-group label="Environment" label-class="font-weight-bold text-sm-left" label-cols="2" label-for="theEnvironmentSelect" >
+                  <b-form-group label="Environment" label-class="font-weight-bold text-sm-left" label-for="theEnvironmentSelect" >
                     <dimension-select id="theEnvironmentSelect" dimension='environment' :is_disabled="disable" :initial="objt.theEnvironmentName" v-on:dimension-select-change="environmentSelected" />
                   </b-form-group>
                 </b-col>

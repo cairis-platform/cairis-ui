@@ -36,22 +36,22 @@ Authors: Shamal Faily
         <b-card bg-variant="light">
           <b-row>
             <b-col md="6">
-              <b-form-group label="Threat" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theThreatInput">
+              <b-form-group label="Threat" label-class="font-weight-bold text-md-left" label-for="theThreatInput">
                 <b-form-input id="theThreatInput" v-model="objt.theThreatName" type="text" required>
                 </b-form-input>
               </b-form-group>
             </b-col>
             <b-col md="6">
-              <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theThreatType">
+              <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-for="theThreatType">
                 <dimension-select id="theThreatType" dimension='threat_type' :initial="this.objt.theType" v-on:dimension-select-change="threatTypeSelected" />
               </b-form-group>
             </b-col>
           </b-row>
         <b-form-group label="Method" label-class="font-weight-bold text-md-left" label-for="theMethodInput">
-          <b-form-textarea id="theMethodInput" v-model="objt.theMethod" type="text" :rows=2 :max-rows=4 required>
+          <b-form-textarea id="theMethodInput" v-model="objt.theMethod" type="text" rows=2 max-rows=4 required>
           </b-form-textarea>
         </b-form-group>
-        <b-form-group label="Tags" label-class="font-weight-bold text-md-left" label-cols="1" label-for="theTagsInput">
+        <b-form-group label="Tags" label-class="font-weight-bold text-md-left" label-for="theTagsInput">
           <b-form-input id="theTagsInput" v-model="objt.theTags" type="text">
           </b-form-input>
         </b-form-group>
@@ -76,7 +76,7 @@ Authors: Shamal Faily
           </b-row>
           <b-row v-if="this.objt.theEnvironmentProperties.length">
             <b-col sm="12">
-              <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-cols="1" label-for="theLikelihood">
+              <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-for="theLikelihood">
                 <b-form-select id="theLikelihood" v-model="likelihood" :options="likelihoodTypes" class="mb-3" required />
               </b-form-group>
             </b-col>

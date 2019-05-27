@@ -36,7 +36,7 @@ Authors: Shamal Faily
             <b-container fluid>
               <b-row>
                 <b-col md="12">
-                  <b-form-group label="Project" label-class="font-weight-bold text-md-left" label-cols="1" label-for="theProjectInput">
+                  <b-form-group label="Project" label-class="font-weight-bold text-md-left" label-for="theProjectInput">
                     <b-form-input id="theProjectInput" v-model="objt.projectName" type="text" required>
                     </b-form-input>
                   </b-form-group>

@@ -34,12 +34,12 @@ Authors: Shamal Faily
       <b-container v-if="dimension == 'requirement'" fluid>
         <b-row>
           <b-col>
-            <b-form-group label="Asset" label-for="reqAsset" :label-cols="5" >
+            <b-form-group label="Asset" label-class="font-weight-bold" label-for="reqAsset">
               <dimension-select ref="assetFilter" id="assetEnvironment" dimension="asset" v-on:dimension-select-change="assetSelected" />
             </b-form-group>
           </b-col>
           <b-col>
-            <b-form-group label="Environment" label-for="reqEnvironment" :label-cols="5" >
+            <b-form-group label="Environment" label-class="font-weight-bold" label-for="reqEnvironment" >
               <dimension-select ref="envFilter" id="reqEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
             </b-form-group>
           </b-col>
@@ -48,7 +48,7 @@ Authors: Shamal Faily
       <b-container v-if="environmentSpecificValueType" fluid>
         <b-row>
           <b-col>
-            <b-form-group label="Environment" label-for="reqEnvironment" :label-cols="5" >
+            <b-form-group label="Environment" label-class="font-weight-bold" label-for="reqEnvironment" >
               <dimension-select ref="envFilter" id="vtEnvironment" dimension="environment" v-on:dimension-select-change="vtEnvironmentSelected" />
             </b-form-group>
           </b-col>

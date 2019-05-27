@@ -32,13 +32,13 @@ Authors: Shamal Faily
         <b-card bg-variant="light">
           <b-row>
             <b-col md="8">
-              <b-form-group label="Risk" label-class="font-weight-bold text-md-left" label-cols="1" label-for="theRiskInput">
+              <b-form-group label="Risk" label-class="font-weight-bold text-md-left" label-for="theRiskInput">
                 <b-form-input id="theRiskInput" v-model="objt.theName" type="text">
                 </b-form-input>
               </b-form-group>
             </b-col>
             <b-col md="4">
-              <b-form-group label="Tags" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theTagsInput">
+              <b-form-group label="Tags" label-class="font-weight-bold text-md-left" label-for="theTagsInput">
                 <b-form-input id="theTagsInput" v-model="objt.theTags" type="text">
                 </b-form-input>
               </b-form-group>
@@ -46,12 +46,12 @@ Authors: Shamal Faily
           </b-row>
           <b-row>
             <b-col md="6">
-              <b-form-group label="Threat" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theThreatSelect">
+              <b-form-group label="Threat" label-class="font-weight-bold text-md-left" label-for="theThreatSelect">
                 <dimension-select id="theThreatSelect" dimension='threat' :initial="objt.theThreatName" v-on:dimension-select-change="threatSelected" />
               </b-form-group>
             </b-col>
             <b-col md="6">
-              <b-form-group label="Vulnerability" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theVulnerabilitySelect">
+              <b-form-group label="Vulnerability" label-class="font-weight-bold text-md-left" label-for="theVulnerabilitySelect">
                 <dimension-select id="theVulnerabilitySelect" dimension='vulnerability' :initial="objt.theVulnerabilityName" v-on:dimension-select-change="vulnerabilitySelected" />
               </b-form-group>
             </b-col>

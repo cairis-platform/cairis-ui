@@ -22,7 +22,7 @@ Authors: Shamal Faily
 
   <div class="modelsummary">
     <b-card>
-      <b-form-group id="modelSummaryToolbar" :label-cols="2" label="Environments" label-for="modelSummary">
+      <b-form-group id="modelSummaryToolbar" label="Environments" label-for="modelSummary">
         <dimension-select ref="modelSummaryEnvironment" id="modelSummary" dimension= "environment" v-on:dimension-select-change="onEnvironmentSelected" />
       </b-form-group>
       <b-card bg-variant="light">

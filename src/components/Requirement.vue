@@ -32,13 +32,13 @@ Authors: Shamal Faily
         <b-card bg-variant="light">
           <b-row>
             <b-col md="6">
-              <b-form-group label="Name" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theNameInput">
+              <b-form-group label="Name" label-class="font-weight-bold text-md-left" label-for="theNameInput">
                 <b-form-input id="theNameInput" v-model="objt.theName" type="text" required>
                 </b-form-input>
               </b-form-group>
             </b-col>
             <b-col md="6">
-              <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-cols="2" label-for="theType">
+              <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-for="theType">
                 <b-form-select id="theTypeInput" v-model="objt.theType" :options="reqTypes" class="mb-3" required>
                 </b-form-select>
               </b-form-group>
@@ -46,7 +46,7 @@ Authors: Shamal Faily
           </b-row>
           <b-row>
             <b-col md="4">
-              <b-form-group label="Domain" label-class="font-weight-bold text-md-left" label-cols="3" >
+              <b-form-group label="Domain" label-class="font-weight-bold text-md-left" >
                 <b-form-radio-group v-model="selectedDomain">
                   <b-form-radio value="asset">Asset</b-form-radio>
                   <b-form-radio value="environment">Environment</b-form-radio>
@@ -61,21 +61,21 @@ Authors: Shamal Faily
         <b-card bg-variant="light">
           <b-row>
             <b-col md="6">
-              <b-form-group label="Specification" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theDescriptionInput">
-                <b-form-textarea id="theDescriptionInput" v-model="objt.theDescription" type="text" :rows=4 :max-rows=8 required>
+              <b-form-group label="Specification" label-class="font-weight-bold text-md-left" label-for="theDescriptionInput">
+                <b-form-textarea id="theDescriptionInput" v-model="objt.theDescription" type="text" rows=4 max-rows=8 required>
                 </b-form-textarea>
               </b-form-group>
             </b-col>
             <b-col md="6">
-              <b-form-group label="Fit Criterion" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theFitCriterionInput">
-                <b-form-textarea id="theFitCriterionInput" v-model="objt.theFitCriterion" type="text" :rows=4 :max-rows=8 required>
+              <b-form-group label="Fit Criterion" label-class="font-weight-bold text-md-left" label-for="theFitCriterionInput">
+                <b-form-textarea id="theFitCriterionInput" v-model="objt.theFitCriterion" type="text" rows=4 max-rows=8 required>
                 </b-form-textarea>
               </b-form-group>
             </b-col>
           </b-row>
           <b-row>
             <b-col md="5">
-            <b-form-group label="Priority" label-class="font-weight-bold text-md-left" label-cols="2" >
+            <b-form-group label="Priority" label-class="font-weight-bold text-md-left">
               <b-form-radio-group v-model="objt.thePriority">
                 <b-form-radio value="1">1</b-form-radio>
                 <b-form-radio value="2">2</b-form-radio>
@@ -86,15 +86,15 @@ Authors: Shamal Faily
           </b-row>
           <b-row>
             <b-col md="12">
-              <b-form-group label="Rationale" label-class="font-weight-bold text-md-left" label-cols="1" label-for="theRationaleInput">
-                <b-form-textarea id="theRationaleInput" v-model="objt.theRationale" type="text" :rows=2 :max-rows=4 required>
+              <b-form-group label="Rationale" label-class="font-weight-bold text-md-left" label-for="theRationaleInput">
+                <b-form-textarea id="theRationaleInput" v-model="objt.theRationale" type="text" rows=2 max-rows=4 required>
                 </b-form-textarea>
               </b-form-group>
             </b-col>
           </b-row>
           <b-row>
             <b-col md="12">
-              <b-form-group label="Originator" label-class="font-weight-bold text-md-left" label-cols="1" label-for="theOriginatorInput">
+              <b-form-group label="Originator" label-class="font-weight-bold text-md-left" label-for="theOriginatorInput">
                 <b-form-input id="theOriginatorInput" v-model="objt.theOriginator" type="text" required>
                 </b-form-input>
               </b-form-group>

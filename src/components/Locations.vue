@@ -35,7 +35,7 @@ Authors: Shamal Faily
         <b-card bg-variant="light">
           <b-row>
             <b-col md="12">
-              <b-form-group label="Name" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theNameInput">
+              <b-form-group label="Name" label-class="font-weight-bold text-md-left" label-for="theNameInput">
                  <b-form-input id="theNameInput" v-model="objt.theName" type="text" required />
               </b-form-group>
             </b-col>
@@ -56,7 +56,7 @@ Authors: Shamal Faily
                       </template> 
                       <b-row md="12">
                         <b-container fluid>
-                        <b-form-group label="Name" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theLocationNameInput">
+                        <b-form-group label="Name" label-class="font-weight-bold text-md-left" label-for="theLocationNameInput">
                           <b-form-input id="theLocationNameInput" v-model="objt.theLocations[locationIndex].theName" type="text" required />
                         </b-form-group>
                         </b-container>
