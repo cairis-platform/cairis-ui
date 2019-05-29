@@ -22,13 +22,13 @@ Authors: Shamal Faily
 
   <b-modal ref="riskDialog" ok-only :title="dialogTitle">
     <b-container v-if="objt != undefined">
-      <b-form-group label="Threat" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theThreat" >
+      <b-form-group label="Threat" label-class="font-weight-bold text-sm-left" label-for="theThreat" >
         <b-form-input readonly id="theThreat" v-model="objt.theThreatName"></b-form-input>
       </b-form-group>
-      <b-form-group label="Vulnerability" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theVulnerability" >
+      <b-form-group label="Vulnerability" label-class="font-weight-bold text-sm-left" label-for="theVulnerability" >
         <b-form-input readonly id="theVulnerability" v-model="objt.theVulnerabilityName"></b-form-input>
       </b-form-group>
-      <b-form-group label="Risk Rating" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theRiskRating" >
+      <b-form-group label="Risk Rating" label-class="font-weight-bold text-sm-left" label-for="theRiskRating" >
         <b-form-input readonly id="theRiskRating" v-model="riskrating"></b-form-input>
       </b-form-group>
       <b-table bordered small :items="responses" :fields="responseTableFields">

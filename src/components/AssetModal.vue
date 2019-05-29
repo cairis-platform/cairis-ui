@@ -22,7 +22,7 @@ Authors: Shamal Faily
 
   <b-modal ref="assetDialog" ok-only :title="dialogTitle">
     <b-container v-if="objt != undefined">
-      <b-form-group label="Type" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theType" >
+      <b-form-group label="Type" label-class="font-weight-bold text-sm-left" label-for="theType" >
         <b-form-input readonly id="theType" v-model="objt.theType"></b-form-input>
       </b-form-group>
       <b-form-group label="Description" label-class="font-weight-bold text-sm-left" label-for="theDescription" >

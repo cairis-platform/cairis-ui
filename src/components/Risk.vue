@@ -61,18 +61,16 @@ Authors: Shamal Faily
 
       <b-container fluid>
         <b-card header="Environments" class="text-left">
-          <b-row>
-            <b-col sm="12">
-              <b-tabs pills v-model="envPropIndex">
-                <b-tab v-for="envProp in this.objt.theMisuseCase.theEnvironmentProperties" :key="envProp.theEnvironmentName" :title="envProp.theEnvironmentName">
-                  {{envProp.theEnviromentName}}
-                </b-tab> 
-               </b-tabs>
-             </b-col> 
+          <b-row v-if="this.objt.theMisuseCase.theEnvironmentProperties.length">
+            <b-col md="12">
+              <b-tabs pills v-model="envPropIndex" >
+                <b-tab v-for="envProp in misuseCaseEnvironments" :key="envProp.theEnvironmentName" :title="envProp.theEnvironmentName" />
+              </b-tabs>
+            </b-col> 
           </b-row>
           <b-row v-if="this.objt.theMisuseCase.theEnvironmentProperties.length">
-            <b-col sm="12">
-              <b-tabs >
+            <b-col md="12">
+              <b-tabs>
                 <b-tab title="Impact" active>
                   <b-container fluid>
                     <b-row>
@@ -132,7 +130,7 @@ Authors: Shamal Faily
                 </b-tab>
               </b-tabs>
             </b-col>
-          </b-row>
+          </b-row> 
         </b-card>
       </b-container>
       <b-container fluid>
@@ -174,6 +172,9 @@ export default {
     },
     responses() {
       return this.theRiskImpact[this.environmentName] != undefined && this.envPropIndex != -1 ? this.theRiskImpact[this.environmentName] : [];
+    },
+    misuseCaseEnvironments() {
+      return this.objt.theMisuseCase.theEnvironmentProperties;
     },
     riskrating : {
       get : function() {
