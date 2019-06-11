@@ -105,8 +105,8 @@ Authors: Shamal Faily
           <template slot="header">
             <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addEnvironment"/> Environment
           </template> 
-          <b-row>
-            <b-col sm="12">
+          <b-row v-if="this.objt.theEnvironmentProperties.length">
+            <b-col md="12">
               <b-tabs pills v-model="envPropIndex">
                 <b-tab v-for="envProp in this.objt.theEnvironmentProperties" :key="envProp.theEnvironmentName" :title=envProp.theName>
                   <template slot="title">
