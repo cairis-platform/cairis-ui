@@ -349,6 +349,7 @@ threat : {
     objectsactions : {label : ''},
     theName : {label : 'Name', sortable: true},
     theType : {label : 'Type', sortable: true},
+    pretaction : {label: ''},
     introduceaction : {label: ''}
   },
   theGetUrl : '/api/threats/summary',
