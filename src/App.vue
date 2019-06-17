@@ -60,6 +60,7 @@ export default {
       axios.post(sessionUrl)
       .then(response => {
         that.$store.state.session = response.data['session_id'];
+        that.$store.state.user = response.date['user'];
         axios.get('/api/settings',{
           baseURL : this.$store.state.url,
           params : {'session_id' : this.$store.state.session}
