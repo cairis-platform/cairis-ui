@@ -23,10 +23,12 @@ Authors: Shamal Faily
   <b-modal ref="newDbDialog" title="New Database"  @ok="onOk">
     <b-card>
       <b-container fluid>
-        <b-row md="12">
-          <b-form-group label="Name" label-class="font-weight-bold text-md-left" label-for="theDatabaseInput">
-            <b-form-input id="theDatabaseInput" v-model="theName" type="text" required />
-          </b-form-group>
+        <b-row>
+          <b-col md="12">
+            <b-form-group label="Name" label-class="font-weight-bold text-md-left" label-for="theDatabaseInput">
+              <b-form-input id="theDatabaseInput" v-model="theName" type="text" required />
+            </b-form-group>
+          </b-col>
         </b-row>
       </b-container>
     </b-card>
