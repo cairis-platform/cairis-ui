@@ -45,21 +45,7 @@ export default {
     searchString : String
   },
   watch : {
-    searchString: {
-      handler() {
-        const findUrl = '/api/find/' + this.searchString;
-        axios.get(findUrl,{
-          baseURL : this.$store.state.url,
-          params : {'session_id' : this.$store.state.session}
-        })
-        .then(response => {
-          this.findResults = response.data;
-        })
-        .catch((error) => {
-          EventBus.$emit('operation-failure',error)
-        });
-      }
-    }
+    searchString: 'searchModel'
   },
   data() {
     return {
@@ -77,7 +63,23 @@ export default {
       const theObjectViewParameters = objectViewParametersFactory[dimName];
       const objtName = data.theObject;
       this.$router.push({ name: 'objectview', params: {dimension: dimName, objectName: objtName, objectsLabel: theObjectViewParameters.objectsLabel, componentFile: theObjectViewParameters.componentFile, updatePath: theObjectViewParameters.updatePath, createPath: theObjectViewParameters.createPath}});
+    },
+    searchModel() {
+      const findUrl = '/api/find/' + this.searchString;
+      axios.get(findUrl,{
+        baseURL : this.$store.state.url,
+        params : {'session_id' : this.$store.state.session}
+      })
+      .then(response => {
+        this.findResults = response.data;
+      })
+      .catch((error) => {
+        EventBus.$emit('operation-failure',error)
+      });
     }
+  },
+  mounted() {
+    this.searchModel();
   }
 }
 </script>
