@@ -52,7 +52,7 @@ export default {
     })
     .then(response => {
       next(vm => {
-        vm.theDatabases = response.data.map(r => r.database);
+        vm.theDatabases = response.data;
       })
     })
     .catch((error) => {

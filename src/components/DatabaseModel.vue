@@ -21,18 +21,42 @@ Authors: Shamal Faily
 -->
   <div class="databasemodel">
     <new-database-modal ref="newDbDialog" v-on:new-database-modal-update="createDatabase"/> 
+    <new-id-modal ref="newIdDialog" v-on:new-id-modal-update="grantPermissionToId"/> 
     <b-form class="vld-parent">
       <loading :active.sync="isLoading" is-full-page />
       <b-card bg-variant="light">
         <b-row>
           <b-col md="12">
-            <b-table striped hover small bordered :fields="dbTableFields" :items="dbs" @row-clicked="openDatabase">
+            <b-table striped hover small bordered :fields="dbTableFields" :items="theDatabases" @row-clicked="openDatabase">
               <!-- eslint-disable-next-line -->
               <template slot="HEAD_dbactions" slot-scope="data"> 
                 <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addDatabase"/> 
               </template>
+              <!-- eslint-disable-next-line -->
               <template slot="dbactions" slot-scope="row">
-                <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteDatabase(row.item)"/>
+                <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteDatabase(row)"/>
+              </template>
+              <!-- eslint-disable-next-line -->
+              <template slot="permissions" slot-scope="row">
+                  <b-button size="sm" v-if="row.item.permissioned == 'Y'" @click="showPermissions(row)" class="mr-2">
+                    {{ row.detailsShowing ? 'Hide' : 'Show'}} Permissions
+                  </b-button>
+              </template>
+              <template slot="row-details" slot-scope="row">
+                <b-card>
+                  <b-row class="mb-12">
+                    <b-table striped hover small bordered :fields="permissionTableFields" :items="ids">
+                      <!-- eslint-disable-next-line -->
+                      <template slot="HEAD_permittedactions" slot-scope="data"> 
+                        <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="grantPermission"/> 
+                      </template>
+                      <!-- eslint-disable-next-line -->
+                      <template slot="permittedactions" slot-scope="row">
+                        <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="revokePermission(row)"/>
+                      </template>
+                    </b-table>
+                  </b-row>
+                </b-card>
               </template>
             </b-table>
           </b-col>
@@ -57,6 +81,8 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import EventBus from '../utils/event-bus';
 import NewDatabaseModal from './NewDatabaseModal'
+import NewIdModal from './NewIdModal'
+import store from '../store'
 
 export default {
   props : {
@@ -71,21 +97,29 @@ export default {
     }
   },
   computed : {
-    dbs() {
-      return this.theDatabases.length > 0 ? this.theDatabases.map(db => ({name : db})) : [];
+    ids() {
+      return this.thePermittedIds.length > 0 ? this.thePermittedIds.map(id => ({name : id})) : [];
     }
   },
   components : {
     Loading,
-    NewDatabaseModal
+    NewDatabaseModal,
+    NewIdModal
   },
   data() {
     return {
       isLoading : false,
       theDatabases : this.databases,
+      theCurrentDatabase : '',
       dbTableFields : {
         dbactions : {label : ''},
-        name : {label : 'Database', sortable: true}
+        database : {label : 'Database', sortable: true},
+        permissions : {label: ''}
+      },
+      thePermittedIds : [],
+      permissionTableFields : {
+        permittedactions : {label : ''},
+        name : {label : 'Account', sortable: true},
       }
     }
   },
@@ -134,7 +168,7 @@ export default {
 
     },
     openDatabase(item) {
-      const clearUrl = this.$store.state.url + '/api/settings/database/' + item.name + '/open';
+      const clearUrl = this.$store.state.url + '/api/settings/database/' + item.database + '/open';
       this.isLoading = true;
       axios.post(clearUrl,{
         session_id : this.$store.state.session,
@@ -150,8 +184,8 @@ export default {
         EventBus.$emit('operation-failure',error)
       });
     },
-    deleteDatabase(item) {
-      const delUrl = this.$store.state.url + '/api/settings/database/' + item.name + '/delete';
+    deleteDatabase(row) {
+      const delUrl = this.$store.state.url + '/api/settings/database/' + row.item.database + '/delete';
       this.isLoading = true;
       axios.post(delUrl,{
         session_id : this.$store.state.session,
@@ -161,6 +195,51 @@ export default {
         this.isLoading = false;
         EventBus.$emit('operation-success',response.data.message)
         this.$router.push({ name: 'home'});
+      })
+      .catch((error) => {
+        this.isLoading = false;
+        EventBus.$emit('operation-failure',error)
+      });
+    },
+    showPermissions(row) {
+      const url = '/api/permissions/database/' + row.item.database;
+      this.theCurrentDatabase = row.item.database;
+      axios.get(url,{
+        baseURL : store.state.url,
+        params : {'session_id' : store.state.session}
+      })
+      .then(response => {
+        this.thePermittedIds = response.data;
+        row.toggleDetails();
+      })
+      .catch((error) => {
+        EventBus.$emit('operation-failure',error)
+      });
+    },
+    grantPermission() {
+      this.$refs.newIdDialog.show();  
+    },
+    grantPermissionToId(userId) {
+      this.changePermission(userId,'grant');
+    },
+    revokePermission(row) {
+      this.changePermission(row.item.name,'revoke');
+    },
+    changePermission(userId,permission) {
+      const revokeUrl = this.$store.state.url + '/api/permissions/database/' + this.theCurrentDatabase + '/user/' + userId + '/permission/' + permission;
+      this.isLoading = true;
+      axios.post(revokeUrl,{
+        session_id : this.$store.state.session,
+      })
+      .then(response => {
+        if (permission == 'grant') {
+          this.thePermittedIds.push(userId);
+        }
+        else {
+          this.thePermittedIds.splice(userId);
+        }
+        this.isLoading = false;
+        EventBus.$emit('operation-success',response.data.message)
       })
       .catch((error) => {
         this.isLoading = false;
