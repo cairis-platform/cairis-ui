@@ -42,6 +42,7 @@ Authors: Shamal Faily
                     {{ row.detailsShowing ? 'Hide' : 'Show'}} Permissions
                   </b-button>
               </template>
+              <!-- eslint-disable-next-line -->
               <template slot="row-details" slot-scope="row">
                 <b-card>
                   <b-row class="mb-12">
@@ -213,7 +214,7 @@ export default {
         row.toggleDetails();
       })
       .catch((error) => {
-        EventBus.$emit('operation-failure',error)
+        EventBus.$emit('operation-failure',error.response.data.message);
       });
     },
     grantPermission() {
@@ -239,11 +240,11 @@ export default {
           this.thePermittedIds.splice(userId);
         }
         this.isLoading = false;
-        EventBus.$emit('operation-success',response.data.message)
+        EventBus.$emit('operation-success',response.data.message);
       })
       .catch((error) => {
         this.isLoading = false;
-        EventBus.$emit('operation-failure',error)
+        EventBus.$emit('operation-failure',error.response.data.message);
       });
     }
   }
