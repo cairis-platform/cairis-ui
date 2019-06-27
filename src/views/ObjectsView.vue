@@ -132,14 +132,14 @@ export default {
         dimensionCheck('usecase',next);
       });
     }
-    else if (to.params.dimension == 'template_asset') {
+    else if (to.params.dimension == 'templateasset') {
       dimensionCheck('surface_type',() => {
         dimensionCheck('access_right',() => {
           dimensionCheck('privilege',next);
         });
       });
     }
-    else if (to.params.dimension == 'template_requirement') {
+    else if (to.params.dimension == 'templaterequirement') {
       dimensionCheck('template_asset',next);
     }
     else if (to.params.dimension == 'architecturalpattern') {
@@ -165,7 +165,7 @@ export default {
         dimensionCheck('asset',next);
       });
     }
-    else if (['environment','externaldocument','domainproperty','template_goal','template_asset','taskcharacteristic'].indexOf(to.params.dimension) > -1) {
+    else if (['environment','externaldocument','domainproperty','templategoal','taskcharacteristic'].indexOf(to.params.dimension) > -1) {
       next();
     }
   },
