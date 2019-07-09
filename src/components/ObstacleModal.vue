@@ -91,7 +91,9 @@ Authors: Shamal Faily
     },
     methods : {
       show() {
-        this.$refs.obstacleDialog.show()
+        if (this.$refs.obstacleDialog != undefined) {
+          this.$refs.obstacleDialog.show();
+        }
       },
       updateData() {
         this.objt = this.obstacle

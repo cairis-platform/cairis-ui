@@ -69,7 +69,9 @@ export default {
   },
   methods : {
     show() {
-      this.$refs.reqDialog.show();
+      if (this.$refs.reqDialog != undefined) {
+        this.$refs.reqDialog.show();
+      }
     },
     updateData() {
       this.objt = this.requirement

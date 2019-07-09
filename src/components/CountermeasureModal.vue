@@ -109,7 +109,9 @@ Authors: Shamal Faily
     },
     methods : {
       show() {
-        this.$refs.cmDialog.show();
+        if (this.$refs.cmDialog != undefined) {
+          this.$refs.cmDialog.show();
+        }
       },
       updateData() {
         this.objt = this.countermeasure

@@ -97,7 +97,9 @@ Authors: Shamal Faily
     },
     methods : {
       show() {
-        this.$refs.responseDialog.show();
+        if (this.$refs.responseDialog != undefined) {
+          this.$refs.responseDialog.show();
+        }
       },
       updateData() {
         this.objt = this.response

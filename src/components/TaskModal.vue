@@ -112,7 +112,9 @@ Authors: Shamal Faily
     },
     methods : {
       show() {
-        this.$refs.taskDialog.show();
+        if (this.$refs.taskDialog != undefined) {
+          this.$refs.taskDialog.show();
+        }
       },
       updateData() {
         this.objt = this.task

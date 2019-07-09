@@ -61,7 +61,9 @@ Authors: Shamal Faily
     },
     methods : {
       show() {
-        this.$refs.roleDialog.show();
+        if (this.$refs.roleDialog != undefined) {
+          this.$refs.roleDialog.show();
+        }
       },
       updateData() {
         this.objt = this.role;

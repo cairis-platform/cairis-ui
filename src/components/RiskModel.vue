@@ -21,18 +21,17 @@ Authors: Shamal Faily
 -->
 
   <div class="riskmodel">
-    <asset-modal ref="assetDialog" :environment="this.theEnvironmentName" :asset="this.theSelectedObject"/> 
-    <attacker-modal ref="attackerDialog" :environment="this.theEnvironmentName" :attacker="this.theSelectedObject"/> 
-    <countermeasure-modal ref="cmDialog" :environment="this.theEnvironmentName" :countermeasure="this.theSelectedObject"/> 
-    <obstacle-modal ref="obsDialog" :environment="this.theEnvironmentName" :obstacle="this.theSelectedObject"/> 
-    <misuse-case-modal ref="mcDialog" :environment="this.theEnvironmentName" :misusecase="this.theSelectedObject"/> 
-    <requirement-modal ref="reqDialog" :requirement="this.theSelectedObject"/> 
-    <response-modal ref="responseDialog" :environment="this.theEnvironmentName" :response="this.theSelectedObject"/> 
-    <risk-modal ref="riskDialog" :environment="this.theEnvironmentName" :risk="this.theSelectedObject" :responseList="this.theResponseList"/> 
-    <role-modal ref="roleDialog" :role="this.theSelectedObject"/> 
-    <task-modal ref="taskDialog" :environment="this.theEnvironmentName" :task="this.theSelectedObject"/> 
-    <threat-modal ref="threatDialog" :environment="this.theEnvironmentName" :threat="this.theSelectedObject"/> 
-    <vulnerability-modal ref="vulDialog" :environment="this.theEnvironmentName" :vulnerability="this.theSelectedObject"/> 
+    <asset-modal v-if="assetSelected" ref="assetDialog" :environment="this.theEnvironmentName" :asset="this.theSelectedObject"/> 
+    <attacker-modal v-if="attackerSelected" ref="attackerDialog" :environment="this.theEnvironmentName" :attacker="this.theSelectedObject"/> 
+    <countermeasure-modal v-if="countermeasureSelected" ref="cmDialog" :environment="this.theEnvironmentName" :countermeasure="this.theSelectedObject"/> 
+    <obstacle-modal v-if="obstacleSelected" ref="obsDialog" :environment="this.theEnvironmentName" :obstacle="this.theSelectedObject"/> 
+    <requirement-modal v-if="requirementSelected" ref="reqDialog" :requirement="this.theSelectedObject"/> 
+    <response-modal v-if="responseSelected" ref="responseDialog" :environment="this.theEnvironmentName" :response="this.theSelectedObject"/> 
+    <risk-modal v-if="riskSelected" ref="riskDialog" :environment="this.theEnvironmentName" :risk="this.theSelectedObject" :responseList="this.theResponseList"/> 
+    <role-modal v-if="roleSelected" ref="roleDialog" :role="this.theSelectedObject"/> 
+    <task-modal v-if="taskSelected" ref="taskDialog" :environment="this.theEnvironmentName" :task="this.theSelectedObject"/> 
+    <threat-modal v-if="threatSelected" ref="threatDialog" :environment="this.theEnvironmentName" :threat="this.theSelectedObject"/> 
+    <vulnerability-modal v-if="vulnerabilitySelected" ref="vulDialog" :environment="this.theEnvironmentName" :vulnerability="this.theSelectedObject"/> 
     <b-card no-body>
     <b-container fluid>
       <b-row>
@@ -67,7 +66,6 @@ import AttackerModal from '@/components/AttackerModal.vue'
 import CountermeasureModal from '@/components/CountermeasureModal.vue'
 import DimensionSelect from '@/components/DimensionSelect.vue'
 import GraphicalModel from '@/components/GraphicalModel.vue'
-import MisuseCaseModal from '@/components/MisuseCaseModal.vue'
 import ObstacleModal from '@/components/ObstacleModal.vue'
 import RequirementModal from '@/components/RequirementModal.vue'
 import ResponseModal from '@/components/ResponseModal.vue'
@@ -85,6 +83,39 @@ export default {
     },
     nameURI() {
       return "api/risks/model/environment/" + this.theEnvironmentName + "/names"
+    },
+    assetSelected() {
+      return this.theSelectedObject != null && this.theSelectedDimension == 'assets' ? true : false;
+    },
+    attackerSelected() {
+      return this.theSelectedObject != null && this.theSelectedDimension == 'attackers' ? true : false;
+    },
+    countermeasureSelected() {
+      return this.theSelectedObject != null && this.theSelectedDimension == 'countermeasures' ? true : false;
+    },
+    obstacleSelected() {
+      return this.theSelectedObject != null && this.theSelectedDimension == 'obstacles' ? true : false;
+    },
+    requirementSelected() {
+      return this.theSelectedObject != null && this.theSelectedDimension == 'requirements' ? true : false;
+    },
+    responseSelected() {
+      return this.theSelectedObject != null && this.theSelectedDimension == 'responses' ? true : false;
+    },
+    riskSelected() {
+      return this.theSelectedObject != null && this.theSelectedDimension == 'risks' ? true : false;
+    },
+    roleSelected() {
+      return this.theSelectedObject != null && this.theSelectedDimension == 'roles' ? true : false;
+    },
+    taskSelected() {
+      return this.theSelectedObject != null && this.theSelectedDimension == 'tasks' ? true : false;
+    },
+    threatSelected() {
+      return this.theSelectedObject != null && this.theSelectedDimension == 'threats' ? true : false;
+    },
+    vulnerabilitySelected() {
+      return this.theSelectedObject != null && this.theSelectedDimension == 'vulnerabilities' ? true : false;
     }
   },
   data() {
@@ -97,8 +128,9 @@ export default {
         object_name : 'all',
         layout : 'Hierarchical'
       },
-      dimensionTypes : ['all','asset','attacker','countermeasure','misusecase','obstacle','requirement','response','risk','role','task','threat','vulnerability'],
-      theSelectedObject: null
+      dimensionTypes : ['all','asset','attacker','countermeasure','obstacle','requirement','response','risk','role','task','threat','vulnerability'],
+      theSelectedObject: null,
+      theSelectedDimension : ''
     }
   },
   components : {
@@ -107,7 +139,6 @@ export default {
     AssetModal,
     AttackerModal,
     CountermeasureModal,
-    MisuseCaseModal,
     ObstacleModal,
     RequirementModal,
     ResponseModal,
@@ -120,6 +151,8 @@ export default {
   methods : {
     nodeClicked(url) {
       const dimName = url.slice(5).substring(0, url.slice(5).indexOf('/'))
+      this.theSelectedDimension = dimName;
+      let that = this;
       if (['assets','attackers','countermeasures','misusecases','obstacles','requirements','responses','risks','roles','tasks','threats','vulnerabilities'].indexOf(dimName) == -1) {
         return;
       }
@@ -130,28 +163,34 @@ export default {
       .then(response => {
         this.theSelectedObject = response.data;
         if (dimName == 'assets') {
-          this.$refs.assetDialog.show();  
+          if (that.$refs.assetDialog != undefined) {
+            that.$refs.assetDialog.show();  
+          }
         }
         else if (dimName == 'attackers') {
-          this.$refs.attackerDialog.show();  
+          if (that.$refs.attackerDialog != undefined) {
+            that.$refs.attackerDialog.show();  
+          }
         }
         else if (dimName == 'countermeasures') {
-          this.$refs.cmDialog.show();  
-        }
-        else if (dimName == 'misusecases') {
-          this.theSelectedObject = {}
-          this.theSelectedObject.theName = response.data.theName
-          this.theSelectedObject.theDescription = response.data.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.theEnvironmentName)[0].theDescription
-          this.$refs.mcDialog.show();  
+          if (that.$refs.cmDialog != undefined) {
+            that.$refs.cmDialog.show();  
+          }
         }
         else if (dimName == 'obstacles') {
-          this.$refs.obsDialog.show();  
+          if (that.$refs.obsDialog != undefined) {
+            that.$refs.obsDialog.show();  
+          }
         }
         else if (dimName == 'requirements') {
-          this.$refs.reqDialog.show();  
+          if (that.$refs.reqDialog != undefined) {
+            that.$refs.reqDialog.show();  
+          }
         }
         else if (dimName == 'responses') {
-          this.$refs.responseDialog.show();  
+          if (that.$refs.responseDialog != undefined) {
+            that.$refs.responseDialog.show();  
+          }
         }
         else if (dimName == 'risks') {
           axios.get('/api/risks/name/' + this.theSelectedObject.theName + '/threat/' + this.theSelectedObject.theThreatName + '/vulnerability/' + this.theSelectedObject.theVulnerabilityName + '/environment/' + this.theEnvironmentName,{
@@ -160,23 +199,33 @@ export default {
           })
           .then(response => {
             this.theResponseList = response.data;
-            this.$refs.riskDialog.show();  
+            if (that.$refs.riskDialog != undefined) {
+              that.$refs.riskDialog.show();  
+            }
           })
           .catch((error) => {
             EventBus.$emit('operation-failure',error)
           })
         }
         else if (dimName == 'roles') {
-          this.$refs.roleDialog.show();  
+          if (that.$refs.roleDialog != undefined) {
+            that.$refs.roleDialog.show();  
+          }
         }
         else if (dimName == 'tasks') {
-          this.$refs.taskDialog.show();  
+          if (that.$refs.taskDialog != undefined) {
+            that.$refs.taskDialog.show();  
+          }
         }
         else if (dimName == 'threats') {
-          this.$refs.threatDialog.show();  
+          if (that.$refs.threatDialog != undefined) {
+            that.$refs.threatDialog.show();  
+          }
         }
         else if (dimName == 'vulnerabilities') {
-          this.$refs.vulDialog.show();  
+          if (that.$refs.vulDialog != undefined) {
+            that.$refs.vulDialog.show();  
+          }
         }
       })
       .catch((error) => {
@@ -185,16 +234,24 @@ export default {
     },
     environmentSelected(envName) {
       this.theEnvironmentName = envName
-      this.filterParameters.dimension_name = 'all'
-      this.$refs.riskModelType.selected = 'all';
-      this.$refs.riskModelName.selected = 'all';
+      this.filterParameters.dimension_name = 'all';
+      if (this.$refs.riskModelType != undefined) {
+        this.$refs.riskModelType.selected = 'all';
+      }
+      if (this.$refs.riskModelName != undefined) {
+        this.$refs.riskModelName.selected = 'all';
+      }
     },
     typeSelected() {
-      this.$refs.riskModelName.selected = 'all';
+      if (this.$refs.riskModelName != undefined) {
+        this.$refs.riskModelName.selected = 'all';
+      }
     }, 
     nameSelected(objtName) {
       this.filterParameters.object_name = objtName
-      this.$refs.riskModelName.$emit('dimension-select-change',objtName);
+      if (this.$refs.riskModelName != undefined) {
+        this.$refs.riskModelName.$emit('dimension-select-change',objtName);
+      }
     }
   }
 }

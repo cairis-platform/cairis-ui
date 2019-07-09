@@ -79,7 +79,9 @@ Authors: Shamal Faily
     },
     methods : {
       show() {
-        this.$refs.attackerDialog.show();
+        if (this.$refs.attackerDialog != undefined) {
+          this.$refs.attackerDialog.show();
+        }
       },
       updateData() {
         this.objt = this.attacker
