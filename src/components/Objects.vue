@@ -358,7 +358,7 @@ export default {
         EventBus.$emit('operation-success',response.data.message)
        })
       .catch((error) => {
-        EventBus.$emit('operation-failure',error)
+        EventBus.$emit('operation-failure',error.response.data.message)
       });
     },
     deleteDependencies() {
