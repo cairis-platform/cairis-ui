@@ -87,7 +87,7 @@ Authors: Shamal Faily
           this.theSvgData = response.data.substring(0,5) + `id="svg-id" ` + response.data.slice(5);
          })
         .catch((error) => {
-          EventBus.$emit('operation-failure',error)
+          EventBus.$emit('operation-failure',error.response.data.message)
         })
       },
       displayModel() {
