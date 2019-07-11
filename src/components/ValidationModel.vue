@@ -77,7 +77,7 @@ export default {
         this.validationResults = response.data;
       })
       .catch((error) => {
-        EventBus.$emit('operation-failure',error)
+        EventBus.$emit('operation-failure',error.response.data);
       });
     }
   }
