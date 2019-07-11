@@ -69,7 +69,7 @@ export default {
           document.title = response.data.projectName;
          })
         .catch((error) => {
-          EventBus.$emit('operation-failure',error)
+          EventBus.$emit('operation-failure',error);
         });
       })
       .catch((error) => {

@@ -60,7 +60,7 @@ Authors: Shamal Faily
           <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addObject"/> 
         </template>
         <template slot="objectsactions" slot-scope="row">
-          <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteObject(row.index)"/>
+          <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteObject(row)"/>
         </template>
         <template slot="pretaction" slot-scope="row">
           <font-awesome-icon icon="arrow-left" :style="{color: 'green'}" @click.stop="addPreTraceabilityLink(row.index)"/>
@@ -266,20 +266,22 @@ export default {
         }
       }
     },
-    deleteObject(index) {
+    deleteObject(row) {
       if (this.dimName == 'kaosassociation') {
-        this.selectedObject = {'envName' : this.items[index].theEnvironmentName,'goal' : this.items[index].theGoal,'subGoal' : this.items[index].theSubGoal};
+        this.selectedObject = {'envName' : row.item.theEnvironmentName,'goal' : row.item.theGoal,'subGoal' : row.item.theSubGoal};
+        this.selectedIndex = this.items.findIndex(o => o.theEnvironmentName == row.item.theEnvironmentName && o.theGoal == row.item.theGoal && o.theSubGoal == row.item.theSubGoal);
       }
       else if (this.dimName == 'assetassociation') {
-        this.selectedObject = {'envName' : this.items[index].theEnvironmentName,'headName' : this.items[index].theHeadAsset,'tailName' : this.items[index].theTailAsset};
+        this.selectedObject = {'envName' : row.item.theEnvironmentName,'headName' : row.item.theHeadAsset,'tailName' : row.item.theTailAsset};
       }
       else if (this.dimName == 'dependency') {
-        this.selectedObject = {'envName' : this.items[index].theEnvironmentName,'theDepender' : this.items[index].theDepender,'theDependee' : this.items[index].theDependee, 'theDependency' : this.items[index].theDependency };
+        this.selectedObject = {'envName' : row.item.theEnvironmentName,'theDepender' : row.item.theDepender,'theDependee' : row.item.theDependee, 'theDependency' : row.item.theDependency };
+        this.selectedIndex = this.items.findIndex(o => o.theEnvironmentName == row.item.theEnvironmentName && o.theDepender == row.item.theDepender && o.theDependee == row.item.theDependee && o.theDependency == row.item.theDependency);
       }
       else {
-        this.selectedObject = this.items[index].theName;
+        this.selectedObject = row.item.theName;
+        this.selectedIndex = this.items.findIndex(o => o.theName == row.item.theName);
       }
-      this.selectedIndex = index;
       const that = this;
 
       if (this.dimension != 'kaosassociation' && this.dimension != 'assetassociation' && this.dimension != 'dependency' && this.dimension != 'dataflow' && this.dimension != 'valuetype') {

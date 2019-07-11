@@ -209,7 +209,7 @@ export default {
         that.selectedEnvironment = firstEnvName;
       })
       .catch((error) => {
-        EventBus.$emit('operation-failure',error)
+        EventBus.$emit('operation-failure',error);
       });
     },
     onEnvironmentSelected(item) {
