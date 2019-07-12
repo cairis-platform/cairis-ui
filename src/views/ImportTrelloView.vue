@@ -109,19 +109,6 @@ export default {
       this.isLoading = false;
       this.$router.push({ name: 'home'})
     },
-    containsReserved(trelloStr) {
-      const reservedChars = [34,35,36,37,39,42,47,51,60,62,63,92,95,96];
-      for (let i = 0; i < trelloStr.length; i++) {
-        const cCode = trelloStr[i].charCodeAt(0);
-        if (reservedChars.indexOf(cCode) != -1) {
-          return true;
-        }
-        if (cCode > 127) {
-          return true;
-        }
-      }
-      return false;
-    },
     importBoard() {
       const that = this;
       const varList = ['activities','aptitudes','attitudes','motivations','skills','intrinsic','contextual'];
@@ -138,15 +125,9 @@ export default {
             Trello.get('/lists/' + item.id + '/cards',function(cards) {
               cards.forEach(function(card) {
                 const cardName = card.name;
-                if (that.containsReserved(cardName)) {
-                  that.errors.push(cardName + ' contains a reserved or non-ASCII character');
-                }
                 let cardDesc = card.desc;
                 if (cardDesc == "") {
                   cardDesc = cardName;
-                }
-                if (that.containsReserved(cardDesc)) {
-                  that.errors.push("Card description " + cardDesc + " contains a reserved or non-ASCII character");
                 }
                 if (card.labels.length == 0) {
                   that.errors.push("No card labels set.  Permissable values: grounds, warrant, rebuttal");
