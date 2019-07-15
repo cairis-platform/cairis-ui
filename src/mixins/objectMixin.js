@@ -38,7 +38,7 @@ export default {
           }
         })
         .catch((error) => {
-          EventBus.$emit('operation-failure',error)
+          EventBus.$emit('operation-failure',error.response.data.message);
         });
       }
       else {
@@ -56,7 +56,7 @@ export default {
           }
         })
         .catch((error) => {
-          EventBus.$emit('operation-failure',error)
+          EventBus.$emit('operation-failure',error.response.data.message);
         });
       }
     }

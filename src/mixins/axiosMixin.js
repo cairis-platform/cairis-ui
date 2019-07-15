@@ -42,7 +42,7 @@ export default {
           }
         })
         .catch((error) => {
-          EventBus.$emit('operation-failure',error)
+          EventBus.$emit('operation-failure',error.response.data.message);
         })
       }
       else {
@@ -63,7 +63,7 @@ export default {
           }
         })
         .catch((error) => {
-          EventBus.$emit('operation-failure',error)
+          EventBus.$emit('operation-failure',error.response.data.message);
         })
       }
     }
@@ -72,10 +72,10 @@ export default {
     const url = '/api/upload/image?session_id=' + this.$store.state.session
     axios.post(url, formData)
     .then(response => {
-      EventBus.$emit('operation-success',response.data.message)
+      EventBus.$emit('operation-success',response.data.message);
     })
     .catch((error) => {
-      EventBus.$emit('operation-failure',error)
+      EventBus.$emit('operation-failure',error.response.data.message);
     })
   }
 }
