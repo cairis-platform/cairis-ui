@@ -54,6 +54,7 @@ Authors: Shamal Faily
                   <b-form-radio-group id="theFormatRadio" v-model="theDocFormat">
                     <b-form-radio value="PDF">PDF</b-form-radio>
                     <b-form-radio value="RTF">RTF</b-form-radio>
+                    <b-form-radio value="ODT">ODT</b-form-radio>
                   </b-form-radio-group>
                 </b-form-group>
               </b-col>
@@ -143,7 +144,7 @@ export default {
           let blob = new Blob([response.data],{type: 'application/' + this.theDocFormat.toLowerCase() });
           let link = document.createElement('a');
           link.href = window.URL.createObjectURL(blob);
-          link.download = this.theExportParameters.filename;
+          link.download = this.theExportParameters.filename + '.' + this.theDocFormat.toLowerCase();
           link.click();
           this.isLoading = false;
         })
