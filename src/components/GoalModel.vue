@@ -53,10 +53,15 @@ Authors: Shamal Faily
             <b-form-checkbox id="goalModelTopLevel" v-model="theTopLevel" />
           </b-form-group>
         </b-col>
+        <b-col v-if="theEnvironmentName != ''">
+          <b-form-group label="Refresh" label-for="gmRefresh">
+            <font-awesome-icon id="gmRefresh" icon="sync" @click.stop="refreshModel" />
+          </b-form-group>
+        </b-col>
       </b-row>
     </b-container>
     </b-card>
-    <graphical-model v-if="theEnvironmentName != ''" :api="goalModelURI" :parameters="topParameters" v-on:graphical-model-url="nodeClicked"/>
+    <graphical-model v-if="theEnvironmentName != ''" ref="graphicalModel" :api="goalModelURI" :parameters="topParameters" v-on:graphical-model-url="nodeClicked"/>
   </div>
 </template>
 
@@ -155,7 +160,8 @@ export default {
       })
     },
     environmentSelected(envName) {
-      this.theEnvironmentName = envName
+      this.theEnvironmentName = envName;
+      this.$refs.goalModelEnvironment.selected = envName;
       if (this.$refs.goalModelGoal != undefined) {
         this.theGoalName = 'all'
         this.theUseCaseName = 'all'
@@ -168,6 +174,9 @@ export default {
     },
     useCaseSelected(ucName) {
       this.theUseCaseName = ucName
+    },
+    refreshModel() {
+      this.$refs.graphicalModel.loadModel();
     }
   }
 }

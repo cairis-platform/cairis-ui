@@ -22,8 +22,8 @@ Authors: Shamal Faily
   <div class="obstacle">
     <dimension-modal v-if="objt.theEnvironmentProperties" ref="environmentDialog" dimension="environment" :existing="environmentNames" v-on:dimension-modal-update="addObstacleEnvironmentProperty"/> 
     <dimension-modal v-if="objt.theEnvironmentProperties.length" ref="assetDialog" dimension="asset" :environment="environmentName" :existing="concernNames" v-on:dimension-modal-update="addObstacleConcern"/> 
-    <kaos-refinement-modal v-if="objt.theEnvironmentProperties.length" ref="obstacleRefinementDialog" :goalAssociation="selectedAssociation" refinementType="Goal" v-on:kaos-refinement-update="updateObstacleRefinement"/> 
-    <kaos-refinement-modal v-if="objt.theEnvironmentProperties.length" ref="subObstacleRefinementDialog" :goalAssociation="selectedAssociation" refinementType="Sub-Goal" v-on:kaos-refinement-update="updateSubObstacleRefinement"/> 
+    <kaos-refinement-modal v-if="objt.theEnvironmentProperties.length" ref="obstacleRefinementDialog" :goalAssociation="selectedAssociation" refinementType="Goal" :source="objt.theName" v-on:kaos-refinement-update="updateObstacleRefinement"/> 
+    <kaos-refinement-modal v-if="objt.theEnvironmentProperties.length" ref="subObstacleRefinementDialog" :goalAssociation="selectedAssociation" refinementType="Sub-Goal" :source="objt.theName" v-on:kaos-refinement-update="updateSubObstacleRefinement"/> 
     <p v-if="errors.length">
       <b>Please correct the following error(s):</b>
       <ul>
@@ -229,7 +229,13 @@ export default {
     },
     subGoalRefinements() {
       return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theSubGoalRefinements : [] 
+    }
+/*    existingGoals() {
+      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theGoalRefinements.map(gr => gr.theEndName) : [] 
     },
+    existingSubGoals() {
+      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theSubGoalRefinements.map(gr => gr.theEndName) : [] 
+    }*/
   },
   data() {
     return {

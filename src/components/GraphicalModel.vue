@@ -100,6 +100,14 @@ Authors: Shamal Faily
             contain: true,
             minZoom: 0.2});
         }
+      },
+      updateModel() {
+        if ((this.api.indexOf('api/risks/model') >= 0) || (this.api.indexOf('api/requirements/model') >= 0)) {
+          this.updateRequirementsNodes();
+        }
+        else {
+          this.displayModel();
+        }
       }
     },
     watch : {
@@ -117,12 +125,7 @@ Authors: Shamal Faily
       this.loadModel(); 
     },
     updated() {
-      if ((this.api.indexOf('api/risks/model') >= 0) || (this.api.indexOf('api/requirements/model') >= 0)) {
-        this.updateRequirementsNodes();
-      }
-      else {
-        this.displayModel();
-      }
+      this.updateModel();
       this.isLoading = false;
     }
   };

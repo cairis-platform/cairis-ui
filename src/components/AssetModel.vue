@@ -25,24 +25,29 @@ Authors: Shamal Faily
       <b-row>
         <b-col>
           <b-form-group label="Environment" label-for="assetModelEnvironment" :label-cols="4" >
-            <dimension-select id="assetModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
+            <dimension-select ref="assetModelEnvironment" id="assetModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
           <b-form-group label="Asset" label-for="assetModelAsset" :label-cols="2" >
-            <dimension-select id="assetModelAsset" ref="assetModelAsset" dimension="asset" :environment="theEnvironmentName" includeall v-on:dimension-select-change="assetSelected" />
+            <dimension-select id="assetModelAsset" ref="assetModelAsset" dimension="asset" initial="all" :environment="theEnvironmentName" includeall v-on:dimension-select-change="assetSelected" />
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
-          <b-form-group label="Hide Concerns" label-form="assetModelHideConcerns" :label-cols="4">
+          <b-form-group label="Hide Concerns" label-form="assetModelHideConcerns" :label-cols="3">
             <b-form-checkbox id="assetModelHideConcerns" v-model="theConcernsHidden" />
+          </b-form-group>
+        </b-col>
+        <b-col v-if="theEnvironmentName != ''">
+          <b-form-group label="Refresh" label-for="amRefresh" :label-cols="3" >
+            <font-awesome-icon id="amRefresh" icon="sync" @click.stop="refreshModel" />
           </b-form-group>
         </b-col>
       </b-row>
     </b-container>
     </b-card>
     <b-container fluid>
-      <graphical-model v-if="theEnvironmentName != ''" :api="assetModelURI" :parameters="concernsParameter" v-on:graphical-model-url="nodeClicked"/>
+      <graphical-model v-if="theEnvironmentName != ''" ref="graphicalModel" :api="assetModelURI" :parameters="concernsParameter" v-on:graphical-model-url="nodeClicked"/>
     </b-container>
   </div>
 </template>
@@ -105,10 +110,14 @@ export default {
     },
     environmentSelected(envName) {
       this.theEnvironmentName = envName;
+      this.$refs.assetModelEnvironment.selected = envName;
       this.theAssetName = 'all';
     },
     assetSelected(assetName) {
       this.theAssetName = assetName;
+    },
+    refreshModel() {
+      this.$refs.graphicalModel.loadModel();
     }
   }
 }

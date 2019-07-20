@@ -134,7 +134,14 @@ export default {
               ref.items.unshift('all')
             }
           }
-          this.selected = this.initial
+          if (this.initial != '') {
+            this.selected = this.initial
+          }
+          else {
+            if (ref.items > 0) {
+              this.selected = ref.items[0];
+            }
+          }
         })
         .catch((error) => {
           EventBus.$emit('operation-failure','Error updating selector:' + error)

@@ -22,8 +22,8 @@ Authors: Shamal Faily
   <div class="attacker">
     <dimension-modal v-if="objt.theEnvironmentProperties" ref="environmentDialog" dimension="environment" :existing="environmentNames" v-on:dimension-modal-update="addGoalEnvironmentProperty"/> 
     <dimension-modal v-if="objt.theEnvironmentProperties.length" ref="assetDialog" dimension="asset" :environment="environmentName" :existing="concernNames" v-on:dimension-modal-update="addGoalConcern"/> 
-    <kaos-refinement-modal v-if="selectedAssociation.environment != ''" ref="goalRefinementDialog" :goalAssociation="selectedAssociation" refinementType="Goal" v-on:kaos-refinement-update="updateGoalRefinement"/> 
-    <kaos-refinement-modal v-if="selectedAssociation.environment != ''" ref="subGoalRefinementDialog" :goalAssociation="selectedAssociation" refinementType="Sub-Goal" v-on:kaos-refinement-update="updateSubGoalRefinement"/> 
+    <kaos-refinement-modal v-if="selectedAssociation.environment != ''" ref="goalRefinementDialog" :goalAssociation="selectedAssociation" :source="objt.theName" refinementType="Goal" v-on:kaos-refinement-update="updateGoalRefinement"/> 
+    <kaos-refinement-modal v-if="selectedAssociation.environment != ''" ref="subGoalRefinementDialog" :goalAssociation="selectedAssociation" :source="objt.theName" refinementType="Sub-Goal" v-on:kaos-refinement-update="updateSubGoalRefinement"/> 
     <concern-association-modal v-if="objt.theEnvironmentProperties.length" ref="concernAssociationDialog" :concernAssociation="selectedConcernAssociation" :concerns="concernNames" v-on:concern-association-update="updateConcernAssociation"/> 
     <p v-if="errors.length">
       <b>Please correct the following error(s):</b>

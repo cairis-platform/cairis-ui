@@ -29,19 +29,24 @@ Authors: Shamal Faily
       <b-row>
         <b-col>
           <b-form-group label="Environment" label-for="dfdEnvironment" :label-cols="4" >
-            <dimension-select id="dfdEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
+            <dimension-select ref="dfdEnvironment" id="dfdEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
           <b-form-group label="Filter" label-for="dfdFilter" :label-cols="2" >
-            <dimension-select id="dfdFilter" dimension="dfd_filter" :environment="theEnvironmentName" initial="None" :includeall="true" v-on:dimension-select-change="filterSelected" />
+            <dimension-select ref="dfdFilter" id="dfdFilter" dimension="dfd_filter" :environment="theEnvironmentName" initial="None" :includeall="true" v-on:dimension-select-change="filterSelected" />
+          </b-form-group>
+        </b-col>
+        <b-col v-if="theEnvironmentName != ''">
+          <b-form-group label="Refresh" label-for="refreshCtrl" :label-cols="2" >
+            <font-awesome-icon id="refreshCtrl" icon="sync" @click.stop="refreshModel" />
           </b-form-group>
         </b-col>
       </b-row>
     </b-container>
     </b-card>
     <b-container fluid>
-      <graphical-model v-if="theEnvironmentName != ''" :api="dfdURI" v-on:graphical-model-url="nodeClicked"/>
+      <graphical-model v-if="theEnvironmentName != ''" ref="graphicalModel" :api="dfdURI" v-on:graphical-model-url="nodeClicked"/>
     </b-container>
   </div>
 </template>
@@ -103,12 +108,14 @@ export default {
       })
     },
     environmentSelected(envName) {
-      this.theEnvironmentName = envName
-      this.theFilterName = 'None'
-      this.$refs.dfdFilter.$emit('dimension-select-change',this.theFilterName);
+      this.theEnvironmentName = envName;
+      this.$refs.dfdEnvironment.selected = envName;
     },
     filterSelected(filterName) {
-      this.theFilterName = filterName
+      this.theFilterName = filterName;
+    },
+    refreshModel() {
+      this.$refs.graphicalModel.loadModel();
     }
   }
 }

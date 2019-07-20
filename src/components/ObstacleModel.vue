@@ -42,10 +42,15 @@ Authors: Shamal Faily
             <dimension-select id="obstacleModelObstacle" ref="obstacleModelObstacle" dimension="obstacle" :environment="theEnvironmentName" initial="all" includeall v-on:dimension-select-change="obstacleSelected" />
           </b-form-group>
         </b-col>
+        <b-col v-if="theEnvironmentName != ''">
+          <b-form-group label="Refresh" label-for="gmRefresh" :label-cols="2">
+            <font-awesome-icon id="gmRefresh" icon="sync" @click.stop="refreshModel" />
+          </b-form-group>
+        </b-col>
       </b-row>
     </b-container>
     </b-card>
-    <graphical-model v-if="theEnvironmentName != ''" :api="obstacleModelURI" v-on:graphical-model-url="nodeClicked"/>
+    <graphical-model v-if="theEnvironmentName != ''" ref="graphicalModel" :api="obstacleModelURI" v-on:graphical-model-url="nodeClicked"/>
   </div>
 </template>
 
@@ -131,14 +136,18 @@ export default {
       })
     },
     environmentSelected(envName) {
-      this.theEnvironmentName = envName
+      this.theEnvironmentName = envName;
+      this.$refs.obstacleModelEnvironment = envName;
       if (this.$refs.obstacleModelObstacle != undefined) {
-        this.theObstacleName = 'all'
+        this.theObstacleName = 'all';
         this.$refs.obstacleModelObstacle.selected = this.theObstacleName;
       }
     },
     obstacleSelected(obsName) {
       this.theObstacleName = obsName
+    },
+    refreshModel() {
+      this.$refs.graphicalModel.loadModel();
     }
   }
 }

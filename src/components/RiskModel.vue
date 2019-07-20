@@ -54,7 +54,7 @@ Authors: Shamal Faily
       </b-row>
     </b-container>
     </b-card>
-    <graphical-model v-if="theEnvironmentName != ''" :api="riskModelURI" :jsonParameters="this.filterParameters" v-on:graphical-model-url="nodeClicked"/>
+    <graphical-model v-if="theEnvironmentName != ''" ref="graphicalModel" :api="riskModelURI" :jsonParameters="this.filterParameters" v-on:graphical-model-url="nodeClicked"/>
   </div>
 </template>
 

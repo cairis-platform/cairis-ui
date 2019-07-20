@@ -398,6 +398,9 @@ export default {
       if (this.objt.theRationale.length == 0) {
         this.errors.push('Rationale is required');
       }
+      if (this.objt.theGoal == this.objt.theSubGoal) {
+        this.errors.push('Self refinement is not allowed.')
+      }
       if (!this.errors.length) {
         return true;
       }
