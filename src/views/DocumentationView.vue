@@ -50,11 +50,12 @@ Authors: Shamal Faily
                  </b-form-group>
               </b-col>
               <b-col md="3">
-                <b-form-group label="Format" label-class="text-md-left" label-cols="3" label-for="theFormatRadio">
+                <b-form-group label="Format" label-class="text-md-left" label-for="theFormatRadio">
                   <b-form-radio-group id="theFormatRadio" v-model="theDocFormat">
                     <b-form-radio value="PDF">PDF</b-form-radio>
-                    <b-form-radio value="RTF">RTF</b-form-radio>
-                    <b-form-radio value="ODT">ODT</b-form-radio>
+                    <b-form-radio value="DOCX">Word Document (.docx)</b-form-radio>
+                    <b-form-radio value="ODT">OpenDocument Text (.odt)</b-form-radio>
+                    <b-form-radio value="RTF">Rich Text Format (.rtf)</b-form-radio>
                   </b-form-radio-group>
                 </b-form-group>
               </b-col>
