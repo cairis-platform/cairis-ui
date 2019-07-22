@@ -148,9 +148,7 @@ export default {
       });
     }
     else if (to.params.dimension == 'securitypattern') {
-      dimensionCheck('template_asset',() => {
-        dimensionCheck('protocol',next);
-      });
+      dimensionCheck('template_asset',next);
     }
     else if (to.params.dimension == 'documentreference') {
       dimensionCheck('external_document',next);
