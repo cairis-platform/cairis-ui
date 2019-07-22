@@ -22,8 +22,7 @@ Authors: Shamal Faily
 
   <b-modal ref="mcDialog" ok-only :title="dialogTitle">
     <b-container v-if="objt != undefined">
-      <b-form-textarea id="theNarrative" v-model="objt.theDescription" type="text" :rows=10 :max-rows="14" readonly>
-      </b-form-textarea>
+      <b-form-textarea id="theNarrative" v-model="narrative" type="text" rows="10" readonly />
     </b-container>
   </b-modal>
 </template>
@@ -48,6 +47,9 @@ Authors: Shamal Faily
     computed : {
       dialogTitle() {
         return (this.objt != undefined ? this.objt.theName : '') + ' Misuse Case';
+      },
+      narrative() {
+        return this.objt != undefined && this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.theEnvironmentName)[0].theDescription : '';
       }
     },
     methods : {

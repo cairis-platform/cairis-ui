@@ -137,7 +137,7 @@ export default {
     },
     environmentSelected(envName) {
       this.theEnvironmentName = envName;
-      this.$refs.obstacleModelEnvironment = envName;
+      this.$refs.obstacleModelEnvironment.selected = envName;
       if (this.$refs.obstacleModelObstacle != undefined) {
         this.theObstacleName = 'all';
         this.$refs.obstacleModelObstacle.selected = this.theObstacleName;

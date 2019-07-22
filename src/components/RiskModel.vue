@@ -233,7 +233,8 @@ export default {
       })
     },
     environmentSelected(envName) {
-      this.theEnvironmentName = envName
+      this.theEnvironmentName = envName;
+      this.$refs.riskModelEnvironment.selected = envName;
       this.filterParameters.dimension_name = 'all';
       if (this.$refs.riskModelType != undefined) {
         this.$refs.riskModelType.selected = 'all';

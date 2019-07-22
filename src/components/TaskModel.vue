@@ -21,13 +21,13 @@ Authors: Shamal Faily
 -->
 
   <div class="taskmodel">
-    <asset-modal v-if="theEnvironmentName != ''" ref="assetDialog" :environment="this.theEnvironmentName" :asset="this.theSelectedObject"/> 
-    <attacker-modal v-if="theEnvironmentName != ''" ref="attackerDialog" :environment="this.theEnvironmentName" :attacker="this.theSelectedObject"/> 
-    <misuse-case-modal v-if="theEnvironmentName != ''" ref="mcDialog" :environment="this.theEnvironmentName" :misusecase="this.theSelectedObject"/> 
-    <persona-modal v-if="theEnvironmentName != ''" ref="personaDialog" :environment="this.theEnvironmentName" :persona="this.theSelectedObject"/> 
-    <role-modal v-if="theEnvironmentName" ref="roleDialog" :role="this.theSelectedObject"/> 
-    <task-modal v-if="theEnvironmentName" ref="taskDialog" :environment="this.theEnvironmentName" :task="this.theSelectedObject"/> 
-    <use-case-modal v-if="theEnvironmentName" ref="ucDialog" :environment="this.theEnvironmentName" :usecase="this.theSelectedObject"/> 
+    <asset-modal v-if="assetSelected" ref="assetDialog" :environment="this.theEnvironmentName" :asset="this.theSelectedObject"/> 
+    <attacker-modal v-if="attackerSelected" ref="attackerDialog" :environment="this.theEnvironmentName" :attacker="this.theSelectedObject"/> 
+    <misuse-case-modal v-if="misuseCaseNodeSelected" ref="mcDialog" :environment="this.theEnvironmentName" :misusecase="this.theSelectedObject"/> 
+    <persona-modal v-if="personaSelected" ref="personaDialog" :environment="this.theEnvironmentName" :persona="this.theSelectedObject"/> 
+    <role-modal v-if="roleSelected" ref="roleDialog" :role="this.theSelectedObject"/> 
+    <task-modal v-if="taskNodeSelected" ref="taskDialog" :environment="this.theEnvironmentName" :task="this.theSelectedObject"/> 
+    <use-case-modal v-if="useCaseSelected" ref="ucDialog" :environment="this.theEnvironmentName" :usecase="this.theSelectedObject"/> 
     <b-card no-body>
     <b-container fluid>
       <b-row>
@@ -71,6 +71,27 @@ export default {
   computed : {
     taskModelURI() {
       return "/api/tasks/model/environment/" + this.theEnvironmentName + "/task/" + this.theTaskName + "/misusecase/" + this.theMisuseCaseName;
+    },
+    assetSelected() {
+      return this.theSelectedObject != null && this.theSelectedDimension == 'assets' ? true : false;
+    },
+    attackerSelected() {
+      return this.theSelectedObject != null && this.theSelectedDimension == 'attackers' ? true : false;
+    },
+    misuseCaseNodeSelected() {
+      return this.theSelectedObject != null && this.theSelectedDimension == 'misusecases' ? true : false;
+    },
+    personaSelected() {
+      return this.theSelectedObject != null && this.theSelectedDimension == 'personas' ? true : false;
+    },
+    roleSelected() {
+      return this.theSelectedObject != null && this.theSelectedDimension == 'roles' ? true : false;
+    },
+    taskNodeSelected() {
+      return this.theSelectedObject != null && this.theSelectedDimension == 'tasks' ? true : false;
+    },
+    useCaseSelected() {
+      return this.theSelectedObject != null && this.theSelectedDimension == 'usecases' ? true : false;
     }
   },
   data() {
@@ -78,7 +99,8 @@ export default {
       theEnvironmentName : '',
       theTaskName : 'all',
       theMisuseCaseName : 'all',
-      theSelectedObject: null
+      theSelectedObject: null,
+      theSelectedDimension: ''
     }
   },
   components : {
@@ -95,6 +117,8 @@ export default {
   methods : {
     nodeClicked(url) {
       const dimName = url.slice(5).substring(0, url.slice(5).indexOf('/'))
+      this.theSelectedDimension = dimName;
+      let that = this;
       if (['assets','attackers','misusecases','personas','roles','tasks','usecases'].indexOf(dimName) == -1) {
         return;
       }
@@ -105,25 +129,39 @@ export default {
       .then(response => {
         this.theSelectedObject = response.data;
         if (dimName == 'assets') {
-          this.$refs.assetDialog.show();  
+          if (that.$refs.assetDialog != undefined) {
+            that.$refs.assetDialog.show();  
+          }
         }
         else if (dimName == 'attackers') {
-          this.$refs.attackerDialog.show();  
+          if (that.$refs.attackerDialog != undefined) {
+            that.$refs.attackerDialog.show();  
+          }
         }
         else if (dimName == 'misusecases') {
-          this.$refs.mcDialog.show();  
+          if (that.$refs.mcDialog != undefined) {
+            that.$refs.mcDialog.show();  
+          }
         }
         else if (dimName == 'personas') {
-          this.$refs.personaDialog.show();  
+          if (that.$refs.personaDialog != undefined) {
+            that.$refs.personaDialog.show();  
+          }
         }
         else if (dimName == 'roles') {
-          this.$refs.roleDialog.show();  
+          if (that.$refs.roleDialog != undefined) {
+            that.$refs.roleDialog.show();  
+          }
         }
         else if (dimName == 'tasks') {
-          this.$refs.taskDialog.show();  
+          if (that.$refs.taskDialog != undefined) {
+            that.$refs.taskDialog.show();  
+          }
         }
         else if (dimName == 'usecases') {
-          this.$refs.ucDialog.show();  
+          if (that.$refs.ucDialog != undefined) {
+            that.$refs.ucDialog.show();  
+          }
         }
       })
       .catch((error) => {
@@ -131,7 +169,8 @@ export default {
       })
     },
     environmentSelected(envName) {
-      this.theEnvironmentName = envName
+      this.theEnvironmentName = envName;
+      this.$refs.taskModelEnvironment.selected = envName;
       if (this.$refs.taskModelTask != undefined) {
         this.theTaskName = 'all'
         this.theMisuseCaseName = 'all'
