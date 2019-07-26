@@ -76,7 +76,7 @@ Authors: Shamal Faily
           </b-row>
           <b-row v-if="this.objt.theEnvironmentProperties.length">
             <b-col sm="12">
-              <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-for="theLikelihood">
+              <b-form-group label="Likelihood" label-class="font-weight-bold text-md-left" label-for="theLikelihood">
                 <b-form-select id="theLikelihood" v-model="likelihood" :options="likelihoodTypes" class="mb-3" required />
               </b-form-group>
             </b-col>
