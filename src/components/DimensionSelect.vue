@@ -120,7 +120,7 @@ export default {
         .then(response => {
           ref.items = response.data
           ref.items = ref.items.length > 0 ? ref.items.filter((item) => {if (!ref.existing.includes(item)) return item; }) : []
-          if (ref.items.length == 1) {
+          if (ref.items.length == 1 && !ref.includeall) {
             ref.$emit('dimension-select-change',ref.items[0]);
           } 
           if (ref.includeall) {
@@ -134,12 +134,12 @@ export default {
               ref.items.unshift('all')
             }
           }
-          if (this.initial != '') {
-            this.selected = this.initial
+          if (ref.initial != '') {
+            ref.selected = ref.initial
           }
           else {
             if (ref.items > 0) {
-              this.selected = ref.items[0];
+              ref.selected = ref.items[0];
             }
           }
         })
