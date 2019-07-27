@@ -51,6 +51,11 @@ Authors: Shamal Faily
             <dimension-select id="riskModelName" ref="riskModelName" :environment="theEnvironmentName" :dimensionUrl="nameURI" includeall v-on:dimension-select-change="nameSelected" />
           </b-form-group>
         </b-col>
+        <b-col v-if="theEnvironmentName != ''">
+          <b-form-group label="Tags" label-form="riskModelTagGroups" :label-cols="2">
+            <b-form-checkbox id="riskModelTagGroups" v-model="isTagged" v-on:change="tagUpdated" />
+          </b-form-group>
+        </b-col>
       </b-row>
     </b-container>
     </b-card>
@@ -126,11 +131,13 @@ export default {
       filterParameters : {
         dimension_name : 'all',
         object_name : 'all',
-        layout : 'Hierarchical'
+        layout : 'Hierarchical',
+        tagged : '0'
       },
       dimensionTypes : ['all','asset','attacker','countermeasure','obstacle','requirement','response','risk','role','task','threat','vulnerability'],
       theSelectedObject: null,
-      theSelectedDimension : ''
+      theSelectedDimension : '',
+      isTagged : false
     }
   },
   components : {
@@ -236,6 +243,7 @@ export default {
       this.theEnvironmentName = envName;
       this.$refs.riskModelEnvironment.selected = envName;
       this.filterParameters.dimension_name = 'all';
+      this.filterParameters.tagged = (this.isTagged == true ? '1' : '0');
       if (this.$refs.riskModelType != undefined) {
         this.$refs.riskModelType.selected = 'all';
       }
@@ -245,14 +253,19 @@ export default {
     },
     typeSelected() {
       if (this.$refs.riskModelName != undefined) {
+        this.filterParameters.tagged = (this.isTagged == true ? '1' : '0');
         this.$refs.riskModelName.selected = 'all';
       }
     }, 
     nameSelected(objtName) {
-      this.filterParameters.object_name = objtName
+      this.filterParameters.object_name = objtName;
+      this.filterParameters.tagged = (this.isTagged == true ? '1' : '0');
       if (this.$refs.riskModelName != undefined) {
         this.$refs.riskModelName.$emit('dimension-select-change',objtName);
       }
+    },
+    tagUpdated(v) {
+      this.filterParameters.tagged = (v == true ? '1' : '0');
     }
   }
 }
