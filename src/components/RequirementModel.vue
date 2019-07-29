@@ -24,14 +24,15 @@ Authors: Shamal Faily
     <requirement-modal ref="reqDialog" :requirement="this.theSelectedObject"/> 
     <b-card no-body>
     <b-container fluid>
-      <b-row>
-        <b-col>
-          <b-form-group label="Environment" label-for="requirementModelEnvironment" :label-cols="4" >
-            <dimension-select id="requirementModelEnvironment" ref="requirementModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
-          </b-form-group>
+      <b-row class="justify-content-md-left">
+        <b-col md="2">
+          <b-form-radio-group :disabled="disable" buttons size="md" id="theDimensionRadio" v-model="theDimensionName" :options="dimensionOptions" class="sm-3" required name="theDimensionRadio" />
         </b-col>
-        <b-col v-if="theEnvironmentName != ''">
-          <b-form-group label="Requirement" label-for="requirementModelRequirement" :label-cols="3" >
+        <b-col md="5">
+          <dimension-select id="requirementModelDimension" ref="requirementModelDimension" :dimension="theDimensionName" initial="all" includeall v-on:dimension-select-change="dimensionSelected" />
+        </b-col> 
+        <b-col md="5">
+          <b-form-group label="Requirement" label-for="requirementModelRequirement" label-cols="3" >
             <dimension-select id="requirementModelRequirement" ref="requirementModelRequirement" dimension="requirement" initial="all" includeall v-on:dimension-select-change="requirementSelected" />
           </b-form-group>
         </b-col>
@@ -53,14 +54,19 @@ import EventBus from '../utils/event-bus';
 export default {
   computed : {
     requirementModelURI() {
-      return "/api/requirements/model/environment/" + this.theEnvironmentName + "/requirement/" + this.theRequirementName;
+      return "/api/requirements/model/environment/" + this.theDimensionValue + "/requirement/" + this.theRequirementName;
     }
   },
   data() {
     return {
-      theEnvironmentName : '',
+      theDimensionName : 'environment',
+      theDimensionValue : 'all',
       theRequirementName : 'all',
-      theSelectedObject: null
+      theSelectedObject: null,
+      dimensionOptions : [
+        {text : 'Environment', value : 'environment'},
+        {text : 'Asset', value : 'asset'}
+      ],
     }
   },
   components : {
@@ -86,8 +92,8 @@ export default {
         EventBus.$emit('operation-failure',error)
       })
     },
-    environmentSelected(envName) {
-      this.theEnvironmentName = envName
+    dimensionSelected(dimName) {
+      this.theDimensionValue = dimName
       if (this.$refs.requirementsModelRequirement != undefined) {
         this.theRequirementName = 'all'
         this.$refs.requirementModelRequirement.selected = this.theRequirementName;

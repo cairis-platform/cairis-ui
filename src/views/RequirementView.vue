@@ -72,7 +72,7 @@ export default {
       next();
     }
     else {
-      var url = "/api/requirements/name/" + to.params.objectName
+      var url = "/api/requirements/name/" + encodeURIComponent(to.params.objectName)
       axios.get(url,{
         baseURL : store.state.url,
         params : {'session_id' : store.state.session}

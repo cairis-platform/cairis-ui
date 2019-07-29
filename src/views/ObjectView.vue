@@ -90,7 +90,7 @@ export default {
       });
     }
     else {
-      var url = to.params.updatePath + to.params.objectName
+      var url = to.params.updatePath + encodeURIComponent(to.params.objectName)
       axios.get(url,{
         baseURL : store.state.url,
         params : {'session_id' : store.state.session}
@@ -117,7 +117,7 @@ export default {
       else {
         this.objt = objt;
       }
-      var updateUrl = this.$store.state.url + this.updatePath + this.objectName + "?session_id=" + this.$store.state.session;
+      var updateUrl = this.$store.state.url + this.updatePath + encodeURIComponent(this.objectName) + "?session_id=" + this.$store.state.session;
       var createUrl = this.$store.state.url + this.createPath;
       this.commitObject(updateUrl,createUrl,'objectsview',undefined,this.dimension);
     },
