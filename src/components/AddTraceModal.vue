@@ -37,6 +37,13 @@ Authors: Shamal Faily
             <b-table v-if="theObjects.length > 0" striped selectable select-mode="single" selectedVariant="primary" small bordered :fields="objtTableFields" :items="objects" @row-clicked="objectClicked" />
           </b-col>
         </b-row>
+        <b-row v-if="requirementsTrace">
+          <b-col md="12">
+            <b-form-group label="Label" label-for="traceEditorLabel">
+              <b-form-input id="traceEditorLabel" v-model="theLabel" type="text" required />
+            </b-form-group>
+          </b-col>
+        </b-row>
       </b-container>
     </b-card>
   </b-modal> 
@@ -64,6 +71,7 @@ export default {
       theObjects : [],
       theTargetDimension : '',
       theTargetObject : '',
+      theLabel : 'supports',
       dimTableFields : {
         name : {label : 'Dimension', sortable : true}
       },
@@ -81,6 +89,9 @@ export default {
     },
     objects() {
       return this.theObjects.length > 0 ? this.theObjects.map(o => ({name : o})) : [];
+    },
+    requirementsTrace() {
+      return this.dimension == 'requirement' && this.theTargetDimension == 'requirement' ? true : false;
     }
   },
   methods : {
@@ -137,7 +148,7 @@ export default {
       });
     },
     addTraceLink() {
-      const traceObjt = this.isFrom == 1 ? {theFromObject : this.dimension, theFromName : this.tobject, theToObject : this.theTargetDimension, theToName : this.theTargetObject} : {theFromObject : this.theTargetDimension, theFromName : this.theTargetObject, theToObject : this.dimension, theToName : this.tobject};
+      const traceObjt = this.isFrom == 1 ? {theFromObject : this.dimension, theFromName : this.tobject, theToObject : this.theTargetDimension, theToName : this.theTargetObject, theLabel : this.theLabel} : {theFromObject : this.theTargetDimension, theFromName : this.theTargetObject, theToObject : this.dimension, theToName : this.tobject, theLabel : this.theLabel};
       axios.post(this.$store.state.url + '/api/traces',{
         session_id : this.$store.state.session,
         object : traceObjt

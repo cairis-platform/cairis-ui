@@ -244,7 +244,7 @@ requirement : {
   bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Requirements', to: {name: 'objectsview', params : {dimension: 'requirement'}}}],
   objectsFields : {
     objectsactions : {label : ''},
-    theName : {label : 'Requirement', sortable: true},
+    theName : {label : 'Name', sortable: true},
     theDescription : {label : 'Description'},
     thePriority : {label : 'Priority', sortable: true},
     theRationale : {label : 'Rationale'},

@@ -26,20 +26,20 @@ Authors: Shamal Faily
     <b-container fluid>
       <b-row class="justify-content-md-left">
         <b-col md="2">
-          <b-form-radio-group :disabled="disable" buttons size="md" id="theDimensionRadio" v-model="theDimensionName" :options="dimensionOptions" class="sm-3" required name="theDimensionRadio" />
+          <b-form-radio-group buttons size="md" id="theDimensionRadio" v-model="theDimensionName" :options="dimensionOptions" class="sm-3" required name="theDimensionRadio"/>
         </b-col>
         <b-col md="5">
           <dimension-select id="requirementModelDimension" ref="requirementModelDimension" :dimension="theDimensionName" initial="all" includeall v-on:dimension-select-change="dimensionSelected" />
         </b-col> 
         <b-col md="5">
           <b-form-group label="Requirement" label-for="requirementModelRequirement" label-cols="3" >
-            <dimension-select id="requirementModelRequirement" ref="requirementModelRequirement" dimension="requirement" initial="all" includeall v-on:dimension-select-change="requirementSelected" />
+            <dimension-select id="requirementModelRequirement" ref="requirementModelRequirement" :dimensionUrl="requirementsNameURI" initial="all" includeall v-on:dimension-select-change="requirementSelected" />
           </b-form-group>
         </b-col>
       </b-row>
     </b-container>
     </b-card>
-    <graphical-model v-if="theEnvironmentName != ''" :api="requirementModelURI" v-on:graphical-model-url="nodeClicked"/>
+    <graphical-model :api="requirementModelURI" :jsonParameters="this.filterParameters" v-on:graphical-model-url="nodeClicked"/>
   </div>
 </template>
 
@@ -55,6 +55,9 @@ export default {
   computed : {
     requirementModelURI() {
       return "/api/requirements/model/environment/" + this.theDimensionValue + "/requirement/" + this.theRequirementName;
+    },
+    requirementsNameURI() {
+      return (this.theDimensionValue == 'all' ? "/api/dimensions/table/requirement" : "/api/requirements/" + this.theDimensionName + "/" + this.theDimensionValue + "/names");
     }
   },
   data() {
@@ -63,6 +66,9 @@ export default {
       theDimensionValue : 'all',
       theRequirementName : 'all',
       theSelectedObject: null,
+      filterParameters : {
+        asset : '0'
+      },
       dimensionOptions : [
         {text : 'Environment', value : 'environment'},
         {text : 'Asset', value : 'asset'}
@@ -94,12 +100,14 @@ export default {
     },
     dimensionSelected(dimName) {
       this.theDimensionValue = dimName
+      this.theRequirementName = 'all'
+      this.filterParameters.asset = (this.theDimensionName == 'asset' ? '1' : '0');
       if (this.$refs.requirementsModelRequirement != undefined) {
-        this.theRequirementName = 'all'
         this.$refs.requirementModelRequirement.selected = this.theRequirementName;
       }
     },
     requirementSelected(reqName) {
+      this.filterParameters.asset = (this.theDimensionName == 'asset' ? '1' : '0');
       this.theRequirementName = reqName
     }
   }

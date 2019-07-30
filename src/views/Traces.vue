@@ -60,6 +60,7 @@ export default {
         theFromName : {label : 'Name', sortable: true},
         theToObject : {label : 'To', sortable: true},
         theToName : {label : 'Name', sortable: true},
+        theLabel : {label: 'Label', sortable: true}
       }
     }
   },
