@@ -25,6 +25,8 @@ export default new Vuex.Store({
   state : {
     session : undefined ,
     user : 'User',
-    url : window.location.protocol + "//" + window.location.host
+    url : window.location.protocol + "//" + window.location.host,
+    domain : '',
+    domainName : ''
   }
 });

@@ -22,9 +22,9 @@ Authors: Shamal Faily
 
   <div class="objects">
     <b-breadcrumb :items="breadCrumbItems" />
-    <dimension-modal ref="environmentDialog" dimension="environment" v-on:dimension-modal-update="viewWeaknessAnalysis"/> 
-    <dimension-modal ref="spEnvDialog" dimension="environment" v-on:dimension-modal-update="applySecurityPattern"/> 
-    <dimension-modal ref="spRmDialog" :dimensionUrl="spRmUrl" label="Situated security pattern" v-on:dimension-modal-update="removeSecurityPattern"/> 
+    <dimension-modal v-if="this.dimension == 'architectural_pattern'" ref="environmentDialog" dimension="environment" v-on:dimension-modal-update="viewWeaknessAnalysis"/> 
+    <dimension-modal v-if="this.dimension == 'countermeasure'" ref="spEnvDialog" dimension="environment" v-on:dimension-modal-update="applySecurityPattern"/> 
+    <dimension-modal v-if="this.dimension == 'countermeasure'" ref="spRmDialog" :dimensionUrl="spRmUrl" label="Situated security pattern" v-on:dimension-modal-update="removeSecurityPattern"/> 
     <object-dependency-modal ref="depDialog" :dependencies="objectDependencies" v-on:object-dependency-ok="deleteDependencies" />
     <add-trace-modal v-if="selectedTraceabilityObject != ''" ref="traceDialog" :dimension="dimension" :tobject="selectedTraceabilityObject" :isFrom="isPostTraceability" />
     <weakness-analysis-modal ref="waDialog" :architecturalPattern="itemName" :environment="thePatternEnvironment" v-on:weakness-analysis-confirm="applyArchitecturalPattern"/>
@@ -145,7 +145,7 @@ export default {
       return this.dimension == 'asset_value' ? true : false;
     },
     itemName() {
-      return this.selectedIndex != -1 ? this.items[this.selectedIndex].theName : '';
+      return this.selectedIndex != -1 && this.items[this.selectedIndex] != undefined ? this.items[this.selectedIndex].theName : '';
     },
     spRmUrl() {
       return this.selectedIndex != -1 ? '/api/countermeasures/name/' + this.items[this.selectedIndex].theName + '/patterns': '';
@@ -385,6 +385,9 @@ export default {
       this.updateDimension();
     },
     loadObjects() {
+      if (this.theGetUrl == '' && this.dimension == 'requirement' && this.$store.state.domainName != '') {
+        this.theGetUrl = '/api/requirements/' + this.$store.state.domain + '/' + this.$store.state.domainName;
+      }
       if (this.theGetUrl != '') {
         axios.get(this.theGetUrl,{
           baseURL : this.$store.state.url,
@@ -392,7 +395,7 @@ export default {
          })
         .then(response => {
           this.items = response.data;
-         })
+        })
         .catch((error) => {
           EventBus.$emit('operation-failure',error)
         });
@@ -400,14 +403,20 @@ export default {
     },
     assetSelected(assetName) {
       if (assetName != null) {
+        this.$store.state.domain = 'asset';
+        this.$store.state.domainName = assetName;
         this.theGetUrl = '/api/requirements/asset/' + assetName
+        this.$refs.assetFilter.selected = assetName;
         this.$refs.envFilter.selected = '';
         this.loadObjects();
       }
     },
     environmentSelected(envName) {
       if (envName != null) {
+        this.$store.state.domain = 'environment';
+        this.$store.state.domainName = envName;
         this.theGetUrl = '/api/requirements/environment/' + envName
+        this.$refs.envFilter.selected = envName;
         this.$refs.assetFilter.selected = '';
         this.loadObjects();
       }
@@ -561,10 +570,19 @@ export default {
       .catch((error) => {
         EventBus.$emit('operation-failure',error)
       });
+    },
+    applyFilter() {
+      if (this.$store.state.domainName != '') {
+        let filter = this.$store.state.domain == 'environment' ? 'env' : 'asset';
+        if (this.$refs[filter + 'Filter'] != undefined) {
+          this.$refs[filter + 'Filter'].selected = this.$store.state.domainName;
+        }
+      }
     }
   },
   mounted() {
     this.theObjectViewParameters = objectViewParametersFactory[this.dimension];
+    this.applyFilter();
     this.loadObjects();
     this.updateDimension();
   }

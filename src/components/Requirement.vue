@@ -54,7 +54,7 @@ Authors: Shamal Faily
               </b-form-group>
             </b-col>
             <b-col md="8">
-              <dimension-select id="reqDomains" :dimension="selectedDomain" :initial="objt.theDomain" v-on:dimension-select-change="domainSelected" />
+              <dimension-select id="reqDomains" ref="reqDomains" :dimension="selectedDomain" :initial="objt.theDomain" v-on:dimension-select-change="domainSelected" />
             </b-col>
           </b-row>
         </b-card>
@@ -155,7 +155,7 @@ export default {
         this.errors.push('Name is required');
       }
       if (this.objt.theDescription.length == 0) {
-        this.errors.push('Type is required');
+        this.errors.push('Description is required');
       }
       if (!this.errors.length) {
         return true;
@@ -171,6 +171,9 @@ export default {
     onCommit(evt) {
       evt.preventDefault();
       if (this.checkForm()) {
+        this.$store.state.domain = this.selectedDomain;
+        this.$store.state.domainName = this.objt.theDomain;
+        this.domainSelected(this.$store.state.domainName);
         this.$emit('object-commit',{object: this.objt,parameters: this.axiosParameters});
       }
     },
@@ -186,7 +189,18 @@ export default {
       else {
         this.axiosParameters = {post : {'environment' : domainName}, put : {}}
       }
+    },
+    setFilters() {
+      if (this.$store.state.domain != '') {
+        this.selectedDomain = this.$store.state.domain;
+        this.domain.type = this.$store.state.domain;
+        this.domainSelected(this.$store.state.domainName);
+        this.$refs.reqDomains.selected = this.$store.state.domainName;
+      }
     }
+  },
+  mounted() {
+    this.setFilters();
   }
 }
 </script>
