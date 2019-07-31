@@ -32,17 +32,13 @@ Authors: Shamal Faily
     <situate-countermeasure-modal ref="scDialog" :countermeasure="itemName" v-on:situate-countermeasure-update="applySituateCountermeasure"/>
     <b-card no-body>
       <b-container v-if="dimension == 'requirement'" fluid>
-        <b-row>
-          <b-col>
-            <b-form-group label="Asset" label-class="font-weight-bold" label-for="reqAsset">
-              <dimension-select ref="assetFilter" id="assetEnvironment" dimension="asset" v-on:dimension-select-change="assetSelected" />
-            </b-form-group>
+        <b-row class="justify-content-md-left">
+          <b-col md="2">
+            <b-form-radio-group buttons size="md" id="theDomainRadio" v-model="$store.state.domain" :options="domainOptions" class="sm-3" required name="theDomainRadio"/>
           </b-col>
-          <b-col>
-            <b-form-group label="Environment" label-class="font-weight-bold" label-for="reqEnvironment" >
-              <dimension-select ref="envFilter" id="reqEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
-            </b-form-group>
-          </b-col>
+          <b-col md="5">
+            <dimension-select id="domainFilter" ref="domainFilter" :dimension="$store.state.domain" v-on:dimension-select-change="domainSelected" />
+          </b-col> 
         </b-row>
       </b-container>
       <b-container v-if="environmentSpecificValueType" fluid>
@@ -134,7 +130,11 @@ export default {
       isPostTraceability : 1,
       theEnvironmentName : 'all',
       thePatternEnvironment: '',
-      theObjectViewParameters : undefined
+      theObjectViewParameters : undefined,
+      domainOptions : [
+        {text : 'Environment', value : 'environment'},
+        {text : 'Asset', value : 'asset'}
+      ]
     }
   }, 
   watch : {
@@ -159,7 +159,7 @@ export default {
       else {
         switch(this.dimension) {
           case 'requirement':
-            this.$router.push({ name: this.dimName, params : {objectName: row.theName, domain: this.$refs.assetFilter.selected.length > 0 ? {type: 'asset', name: this.$refs.assetFilter.selected} : {type: 'environment', name: this.$refs.envFilter.selected}}});
+            this.$router.push({ name: this.dimName, params : {objectName: row.theName, domain: this.$store.state.domain}});
             break;
           case 'kaosassociation':
             this.$router.push({ name: this.dimName, params : {envName: row.theEnvironmentName,goalName : row.theGoal, subGoalName: row.theSubGoal}});
@@ -387,7 +387,7 @@ export default {
     loadObjects() {
       if (this.theGetUrl == '' && this.dimension == 'requirement' && this.$store.state.domainName != '') {
         this.theGetUrl = '/api/requirements/' + this.$store.state.domain + '/' + this.$store.state.domainName;
-      }
+      } 
       if (this.theGetUrl != '') {
         axios.get(this.theGetUrl,{
           baseURL : this.$store.state.url,
@@ -401,23 +401,11 @@ export default {
         });
       }
     },
-    assetSelected(assetName) {
-      if (assetName != null) {
-        this.$store.state.domain = 'asset';
-        this.$store.state.domainName = assetName;
-        this.theGetUrl = '/api/requirements/asset/' + assetName
-        this.$refs.assetFilter.selected = assetName;
-        this.$refs.envFilter.selected = '';
-        this.loadObjects();
-      }
-    },
-    environmentSelected(envName) {
-      if (envName != null) {
-        this.$store.state.domain = 'environment';
-        this.$store.state.domainName = envName;
-        this.theGetUrl = '/api/requirements/environment/' + envName
-        this.$refs.envFilter.selected = envName;
-        this.$refs.assetFilter.selected = '';
+    domainSelected(domName) {
+      if (domName != null) {
+        this.$store.state.domainName = domName;
+        this.$refs.domainFilter.selected = domName;
+        this.theGetUrl = '/api/requirements/' + this.$store.state.domain + '/' + domName;
         this.loadObjects();
       }
     },
@@ -573,16 +561,15 @@ export default {
     },
     applyFilter() {
       if (this.$store.state.domainName != '') {
-        let filter = this.$store.state.domain == 'environment' ? 'env' : 'asset';
-        if (this.$refs[filter + 'Filter'] != undefined) {
-          this.$refs[filter + 'Filter'].selected = this.$store.state.domainName;
-        }
+        this.$refs.domainFilter.selected = this.$store.state.domainName;
       }
     }
   },
   mounted() {
     this.theObjectViewParameters = objectViewParametersFactory[this.dimension];
-    this.applyFilter();
+    if (this.dimension == 'requirement') {
+      this.applyFilter();
+    }
     this.loadObjects();
     this.updateDimension();
   }

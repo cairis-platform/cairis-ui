@@ -181,11 +181,12 @@ export default {
       evt.preventDefault();
       this.$store.state.domain = this.selectedDomain;
       this.$store.state.domainName = this.objt.theDomain;
-      this.domainSelected(this.$store.state.domainName);
       this.$router.push({ name: 'objectsview', params: {dimension: 'requirement'}});
     },
     domainSelected(domainName) {
       this.objt.theDomain = domainName
+      this.$store.state.domain = this.selectedDomain;
+      this.$store.state.domainName = this.objt.theDomain;
       if (this.selectedDomain == 'asset') {
         this.axiosParameters = {post : {'asset' : domainName}, put : {}}
       }
