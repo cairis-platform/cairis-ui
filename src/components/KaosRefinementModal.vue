@@ -32,7 +32,12 @@ Authors: Shamal Faily
         <b-form-select id="theEndTypeSelect" v-model="association.association.theEndType" :options="endTypeValues" class="mb-3" required></b-form-select>
       </b-form-group>
       <b-form-group :label="theTargetType" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theObjectSelect" >
-        <dimension-select v-if="this.association.environment !=''" id="theObjectSelect" :dimension='association.association.theEndType' :environment="this.association.environment" :initial="association.association.theEndName" :existing="[this.source]" v-on:dimension-select-change="endSelected" />
+        <div v-if="association.association.theEndType != 'role'">
+          <dimension-select v-if="this.association.environment !=''" id="theObjectSelect" :dimension='association.association.theEndType' :environment="this.association.environment" :initial="association.association.theEndName" :existing="[this.source]" v-on:dimension-select-change="endSelected" />
+        </div>
+        <div v-if="association.association.theEndType == 'role'">
+          <dimension-select v-if="this.association.environment !=''" id="theObjectSelect" :dimension='association.association.theEndType' :initial="association.association.theEndName" :existing="[this.source]" v-on:dimension-select-change="endSelected" />
+        </div>
       </b-form-group>
       <b-form-group label="Refinement" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theRefinementSelect" >
         <b-form-select id="theRefinementSelect" v-model="association.association.theRefType" :options="refTypeValues" class="mb-3" required></b-form-select>

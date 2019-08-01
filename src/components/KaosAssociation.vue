@@ -60,7 +60,12 @@ Authors: Shamal Faily
               </b-row>
               <b-row>
                 <b-col md="12">
-                  <dimension-select id="theSubGoalSelect" :is_disabled="disable" :environment='objt.theEnvironmentName' :dimension='objt.theSubGoalDimension' :initial="objt.theSubGoal" v-on:dimension-select-change="subGoalSelected" />
+                  <div v-if="objt.theSubGoalDimension != 'role'">
+                    <dimension-select id="theSubGoalSelect" :is_disabled="disable" :environment='objt.theEnvironmentName' :dimension='objt.theSubGoalDimension' :initial="objt.theSubGoal" v-on:dimension-select-change="subGoalSelected" />
+                  </div>
+                  <div v-if="objt.theSubGoalDimension == 'role'">
+                    <dimension-select id="theSubGoalSelect" :is_disabled="disable" :dimension='objt.theSubGoalDimension' :initial="objt.theSubGoal" v-on:dimension-select-change="subGoalSelected" />
+                  </div>
                 </b-col>
               </b-row>
               <b-row>
