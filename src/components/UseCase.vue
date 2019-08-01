@@ -282,7 +282,7 @@ export default {
           theStepText : '',
           theSynopsis : '',
           theActor : '',
-          theActorType : 'asset',
+          theActorType : 'role',
           theExceptions : []
          }
       },
@@ -371,7 +371,7 @@ export default {
       this.objt.theActors.splice(index,1);
     },
     addStep() {
-      this.selectedStep['step'] = {theStepText : '',theActor : '',theActorType : '',theSynopsis : '',theExceptions : []};
+      this.selectedStep['step'] = {theStepText : '',theActor : '',theActorType : 'role',theSynopsis : '',theExceptions : []};
       this.selectedStep['update'] = false;
       this.$refs.stepDialog.show();  
     },
