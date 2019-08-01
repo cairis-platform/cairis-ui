@@ -126,7 +126,7 @@ Authors: Shamal Faily
               <b-tab title="Steps">
                 <b-container fluid>
                   <b-row>
-                  <b-col md="8">
+                  <b-col md="12">
                     <b-table striped bordered small hover :items="steps" :fields=stepTableFields @row-clicked="viewStep">
                       <!-- eslint-disable-next-line -->
                       <template slot="HEAD_stepsactions" slot-scope="data"> 
@@ -135,30 +135,40 @@ Authors: Shamal Faily
                       <template slot="stepsactions" slot-scope="row">
                         <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteStep(row.item)"/>
                       </template> 
-                    </b-table>
-                  </b-col>
-                  <b-col md="4">
-                    <div v-if="theStepIndex != -1"><p><b>Step {{theStepIndex + 1}}</b></p></div>
-                    <b-table v-if="theStepIndex != -1 && updating == true" striped bordered small hover :items="exceptions" :fields=exceptionTableFields @row-clicked="viewException">
+                      <template slot="show_details" slot-scope="row">
+                        <b-button size="sm" @click="toggleExceptionDetails(row)" class="mr-2">
+                          {{ row.detailsShowing ? 'Hide' : 'Show'}} Exceptions 
+                        </b-button>
+                      </template>
                       <!-- eslint-disable-next-line -->
-                      <template slot="HEAD_exceptionsactions" slot-scope="data"> 
-                        <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addException"/> 
-                      </template> 
-                      <template slot="exceptionsactions" slot-scope="row">
-                        <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteException(row.item)"/>
-                      </template> 
-                      <template slot="excobsactions" slot-scope="row">
-                        <font-awesome-icon icon="bolt" :style="{color: 'blue'}" @click.stop="generateObstacle(row.item)"/>
-                      </template> 
-                    </b-table>
-                    <b-table v-if="theStepIndex != -1 && updating == false" striped bordered small hover :items="exceptions" :fields=nonUpdatingExceptionTableFields @row-clicked="viewException">
-                      <!-- eslint-disable-next-line -->
-                      <template slot="HEAD_exceptionsactions" slot-scope="data"> 
-                        <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addException"/> 
-                      </template> 
-                      <template slot="exceptionsactions" slot-scope="row">
-                        <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteException(row.item)"/>
-                      </template> 
+                      <template slot="row-details" slot-scope="row">
+                        <b-card>
+                          <b-row class="mb-12">
+                            <b-table v-if="updating == true" striped bordered small hover :items="exceptions" :fields=exceptionTableFields @row-clicked="viewException">
+                              <!-- eslint-disable-next-line -->
+                              <template slot="HEAD_exceptionsactions" slot-scope="data"> 
+                                <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addException"/> 
+                              </template> 
+                              <template slot="exceptionsactions" slot-scope="row">
+                                <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteException(row.item)"/>
+                              </template> 
+                              <template slot="excobsactions" slot-scope="row">
+                                <font-awesome-icon icon="bolt" :style="{color: 'blue'}" @click.stop="generateObstacle(row.item)"/>
+                              </template> 
+                            </b-table>
+
+                            <b-table v-if="updating == false" striped bordered small hover :items="exceptions" :fields=nonUpdatingExceptionTableFields @row-clicked="viewException">
+                              <!-- eslint-disable-next-line -->
+                              <template slot="HEAD_exceptionsactions" slot-scope="data"> 
+                                <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addException"/> 
+                              </template> 
+                              <template slot="exceptionsactions" slot-scope="row">
+                                <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteException(row.item)"/>
+                              </template> 
+                            </b-table>
+                          </b-row>
+                        </b-card>
+                      </template>
                     </b-table>
                   </b-col>
                   </b-row>
@@ -265,7 +275,8 @@ export default {
       },
       stepTableFields : {
         stepsactions : {label : ''},
-        theStepText : {label: 'Step'}
+        theStepText : {label: 'Step'},
+        show_details : {label: ''}
       },
       exceptionTableFields : {
         exceptionsactions : {label : ''},
@@ -453,6 +464,10 @@ export default {
         this.objt.theReferenceContributions.push(updRc.referenceContribution);
       }
     },
+    toggleExceptionDetails(row) {
+      this.theStepIndex = row.index;
+      row.toggleDetails();
+    }
   }
 }
 </script>
