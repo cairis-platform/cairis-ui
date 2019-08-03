@@ -135,6 +135,9 @@ Authors: Shamal Faily
                       <template slot="stepsactions" slot-scope="row">
                         <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteStep(row.item)"/>
                       </template> 
+                      <template slot="theExceptions" slot-scope="row">
+                        {{ objt.theEnvironmentProperties.length > 0 && objt.theEnvironmentProperties[envPropIndex].theSteps.length > 0 && row.index != -1 && objt.theEnvironmentProperties[envPropIndex].theSteps[row.index].theExceptions.length > 0 ? objt.theEnvironmentProperties[envPropIndex].theSteps[row.index].theExceptions.map(exc => exc.theName).toString() : 'None' }} 
+                      </template> 
                       <template slot="show_details" slot-scope="row">
                         <b-button size="sm" @click="toggleExceptionDetails(row)" class="mr-2">
                           {{ row.detailsShowing ? 'Hide' : 'Show'}} Exceptions 
@@ -144,20 +147,7 @@ Authors: Shamal Faily
                       <template slot="row-details" slot-scope="row">
                         <b-card>
                           <b-row class="mb-12">
-                            <b-table v-if="updating == true" striped bordered small hover :items="exceptions" :fields=exceptionTableFields @row-clicked="viewException">
-                              <!-- eslint-disable-next-line -->
-                              <template slot="HEAD_exceptionsactions" slot-scope="data"> 
-                                <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addException"/> 
-                              </template> 
-                              <template slot="exceptionsactions" slot-scope="row">
-                                <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteException(row.item)"/>
-                              </template> 
-                              <template slot="excobsactions" slot-scope="row">
-                                <font-awesome-icon icon="bolt" :style="{color: 'blue'}" @click.stop="generateObstacle(row.item)"/>
-                              </template> 
-                            </b-table>
-
-                            <b-table v-if="updating == false" striped bordered small hover :items="exceptions" :fields=nonUpdatingExceptionTableFields @row-clicked="viewException">
+                            <b-table striped bordered small hover :items="exceptions" :fields=exceptionTableFields @row-clicked="viewException">
                               <!-- eslint-disable-next-line -->
                               <template slot="HEAD_exceptionsactions" slot-scope="data"> 
                                 <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addException"/> 
@@ -276,14 +266,10 @@ export default {
       stepTableFields : {
         stepsactions : {label : ''},
         theStepText : {label: 'Step'},
+        theExceptions : {label: 'Exceptions'},
         show_details : {label: ''}
       },
       exceptionTableFields : {
-        exceptionsactions : {label : ''},
-        theName : {label: 'Exception'},
-        excobsactions : {label : ''}
-      },
-      nonUpdatingExceptionTableFields : {
         exceptionsactions : {label : ''},
         theName : {label: 'Exception'}
       },
@@ -429,17 +415,22 @@ export default {
       this.objt.theEnvironmentProperties[this.envPropIndex].theSteps[this.theStepIndex].theExceptions.splice(index,1);
     },
     generateObstacle(row) {
-      const goUrl = this.$store.state.url + '/api/usecases/environment/' + this.environmentName + '/step/' + this.objt.theEnvironmentProperties[this.envPropIndex].theSteps[this.theStepIndex].theStepText + '/exception/' + this.objt.theEnvironmentProperties[this.envPropIndex].theSteps[this.theStepIndex].theExceptions[row.theIndex].theName + '/generate_obstacle';
-      axios.post(goUrl,{
-        session_id : this.$store.state.session,
-        object : this.objt
-      })
-      .then(response => {
-        EventBus.$emit('operation-success',response.data.message)
-      })
-      .catch((error) => {
-        EventBus.$emit('operation-failure',error)
-      });
+      if (this.objt.theEnvironmentProperties[this.envPropIndex].theSteps[this.theStepIndex].theExceptions[row.theIndex].theDimensionType == 'none') {
+        EventBus.$emit('operation-failure',"Obstacles cannot be generated for exceptions of type none");
+      }
+      else {
+        const goUrl = this.$store.state.url + '/api/usecases/environment/' + this.environmentName + '/step/' + this.objt.theEnvironmentProperties[this.envPropIndex].theSteps[this.theStepIndex].theStepText + '/exception/' + this.objt.theEnvironmentProperties[this.envPropIndex].theSteps[this.theStepIndex].theExceptions[row.theIndex].theName + '/generate_obstacle';
+        axios.post(goUrl,{
+          session_id : this.$store.state.session,
+          object : this.objt
+        })
+        .then(response => {
+          EventBus.$emit('operation-success',response.data.message)
+        })
+        .catch((error) => {
+          EventBus.$emit('operation-failure',error)
+        });
+      }
     },
     deleteContribution(index) {
       this.objt.theReferenceContributions.splice(index,1);

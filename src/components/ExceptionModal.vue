@@ -116,10 +116,10 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
         if (this.objt.theDimensionType.length == 0) {
           this.errors.push('Dimension Type is required');
         }
-        if (this.objt.theDimensionType != 'none' && this.objt.theDimensionValue.length == 0) {
+        if (this.objt.theDimensionType != 'none' && (this.objt.theDimensionValue.length == 0 || this.objt.theDimensionValue == 'None')) {
           this.errors.push('Dimension Value is required');
         }
-        if (this.objt.theCategoryName.length == 0) {
+        if (this.objt.theCategoryName.length == 0 || this.objt.theCategoryName == 'None') {
           this.errors.push('Category Name is required');
         }
         if (this.objt.theDescription.length == 0) {

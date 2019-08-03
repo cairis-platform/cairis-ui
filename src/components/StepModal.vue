@@ -38,15 +38,14 @@ Authors: Shamal Faily
             <b-row>
               <b-col md="12">
                 <b-form-group label="Intention" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theIntentionInput">
-                  <b-form-input id="theIntentionInput" v-model="objt.theSynopsis" type="text" required>
-                  </b-form-input>
+                  <b-form-input id="theIntentionInput" v-model="objt.theSynopsis" type="text" required />
                 </b-form-group>
               </b-col>
             </b-row>
             <b-row>
               <b-col md="6">
                 <b-form-group label="Actor" label-class="font-weight-bold text-sm-left" label-cols="4" label-for="theActorTypeRadio" >
-                  <b-form-radio-group id="theActorTypeRadio" v-model="objt.theActorType" stacked>
+                  <b-form-radio-group id="theActorTypeRadio" v-model="actorType" stacked>
                     <b-form-radio value='asset'>Asset</b-form-radio>
                     <b-form-radio value='role'>Role</b-form-radio>
                     <b-form-radio value='component'>Component</b-form-radio>
@@ -54,7 +53,7 @@ Authors: Shamal Faily
                 </b-form-group>
               </b-col>
               <b-col md="6">
-                <dimension-select id="theActorTypeSelect" :environment='environment' :dimension='objt.theActorType' :initial="objt.theActor" v-on:dimension-select-change="actorSelected" />
+                <dimension-select id="theActorTypeSelect" :environment='environment' :dimension='actorType' :initial="objt.theActor" v-on:dimension-select-change="actorSelected" />
               </b-col>
             </b-row>
           </b-container>
@@ -95,6 +94,14 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
     computed : {
       dialogTitle() {
         return (this.usecaseStep.update ? "Update" : "Add") + " Step";
+      },
+      actorType : {
+        get : function() {
+          return this.objt != undefined && this.objt.theActorType != '' ? this.objt.theActorType : 'role';
+        },
+        set : function(value) {
+          this.objt.theActorType = value;
+        }
       }
     },
     methods : {

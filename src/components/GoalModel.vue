@@ -171,9 +171,13 @@ export default {
     },
     goalSelected(goalName) {
       this.theGoalName = goalName
+      this.theUseCaseName = 'all';
+      this.$refs.goalModelUseCase.selected = 'all';
     },
     useCaseSelected(ucName) {
-      this.theUseCaseName = ucName
+      this.theUseCaseName = ucName;
+      this.theGoalName = 'all';
+      this.$refs.goalModelGoal.selected = 'all';
     },
     refreshModel() {
       this.$refs.graphicalModel.loadModel();
