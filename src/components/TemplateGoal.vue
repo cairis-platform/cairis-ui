@@ -58,7 +58,7 @@ Authors: Shamal Faily
               <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addConcern"/> 
             </template> 
             <template slot="concernactions" slot-scope="row">
-              <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteConcern(row.item)"/>
+              <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteConcern(row.index)"/>
             </template> 
           </b-table>
         </b-row>
@@ -69,7 +69,7 @@ Authors: Shamal Faily
               <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addRole"/> 
             </template> 
             <template slot="responsibilityactions" slot-scope="row">
-              <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteRole(row.item)"/>
+              <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteRole(row.index)"/>
             </template> 
           </b-table>
         </b-row>

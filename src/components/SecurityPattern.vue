@@ -73,7 +73,7 @@ Authors: Shamal Faily
                         <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addStructure"/> 
                       </template>
                       <template slot="structureactions" slot-scope="row">
-                        <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteStructure(row.item)"/>
+                        <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteStructure(row.index)"/>
                       </template>
                     </b-table>
                   </b-col>
@@ -92,7 +92,7 @@ Authors: Shamal Faily
                         <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addRequirement"/> 
                       </template>
                       <template slot="requirementactions" slot-scope="row">
-                        <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteRequirement(row.item)"/>
+                        <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteRequirement(row.index)"/>
                       </template>
                     </b-table>
                   </b-col>

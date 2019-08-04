@@ -59,7 +59,7 @@ Authors: Shamal Faily
                 <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addEnvironment(data)"/> 
               </template> 
               <template slot="environmentactions" slot-scope="row">
-                <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteEnvironment(row.item)"/>
+                <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteEnvironment(row.index)"/>
               </template> 
             </b-table>
           </b-col>

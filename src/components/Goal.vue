@@ -119,7 +119,7 @@ Authors: Shamal Faily
                             <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addGoalRefinement"/> 
                           </template> 
                           <template slot="goalrefinementactions" slot-scope="row">
-                            <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteGoalRefinement(row.item)"/>
+                            <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteGoalRefinement(row.index)"/>
                           </template> 
                         </b-table>
                       </b-col>
@@ -136,7 +136,7 @@ Authors: Shamal Faily
                             <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addSubGoalRefinement"/> 
                           </template> 
                           <template slot="subgoalrefinementactions" slot-scope="row">
-                            <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteSubGoalRefinement(row.item)"/>
+                            <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteSubGoalRefinement(row.index)"/>
                           </template> 
                         </b-table>
                       </b-col>
@@ -153,7 +153,7 @@ Authors: Shamal Faily
                             <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addConcern"/> 
                           </template> 
                           <template slot="concernactions" slot-scope="row">
-                            <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteConcern(row.item)"/>
+                            <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteConcern(row.index)"/>
                           </template> 
                         </b-table>
                       </b-col>
@@ -164,7 +164,7 @@ Authors: Shamal Faily
                             <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addConcernAssociation"/> 
                           </template> 
                           <template slot="concernassociationactions" slot-scope="row">
-                            <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteConcernAssociation(row.item)"/>
+                            <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteConcernAssociation(row.index)"/>
                           </template> 
                         </b-table>
                       </b-col>

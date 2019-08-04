@@ -116,7 +116,7 @@ Authors: Shamal Faily
                             <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addTarget"/> 
                           </template> 
                           <template slot="targetsactions" slot-scope="row">
-                            <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteTarget(row.item)"/>
+                            <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteTarget(row.index)"/>
                           </template> 
                         </b-table>
                       </b-col>

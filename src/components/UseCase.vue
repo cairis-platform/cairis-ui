@@ -62,7 +62,7 @@ Authors: Shamal Faily
                       <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addActor"/> 
                     </template> 
                     <template slot="actorsactions" slot-scope="row">
-                      <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteActor(row.item)"/>
+                      <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteActor(row.index)"/>
                     </template> 
                   </b-table>
                 </b-col>
@@ -133,7 +133,7 @@ Authors: Shamal Faily
                         <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addStep"/> 
                       </template> 
                       <template slot="stepsactions" slot-scope="row">
-                        <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteStep(row.item)"/>
+                        <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteStep(row.index)"/>
                       </template> 
                       <template slot="theExceptions" slot-scope="row">
                         {{ objt.theEnvironmentProperties.length > 0 && objt.theEnvironmentProperties[envPropIndex].theSteps.length > 0 && row.index != -1 && objt.theEnvironmentProperties[envPropIndex].theSteps[row.index].theExceptions.length > 0 ? objt.theEnvironmentProperties[envPropIndex].theSteps[row.index].theExceptions.map(exc => exc.theName).toString() : 'None' }} 
@@ -153,7 +153,7 @@ Authors: Shamal Faily
                                 <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addException"/> 
                               </template> 
                               <template slot="exceptionsactions" slot-scope="row">
-                                <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteException(row.item)"/>
+                                <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteException(row.index)"/>
                               </template> 
                             </b-table>
                           </b-row>

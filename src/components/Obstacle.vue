@@ -105,7 +105,7 @@ Authors: Shamal Faily
                             <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addConcern"/> 
                           </template> 
                           <template slot="concernactions" slot-scope="row">
-                            <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteConcern(row.item)"/>
+                            <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteConcern(row.index)"/>
                           </template> 
                         </b-table>
                       </b-col>
@@ -122,7 +122,7 @@ Authors: Shamal Faily
                             <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addObstacleRefinement"/> 
                           </template> 
                           <template slot="obstaclerefinementactions" slot-scope="row">
-                            <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteObstacleRefinement(row.item)"/>
+                            <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteObstacleRefinement(row.index)"/>
                           </template> 
                         </b-table>
                       </b-col>
@@ -139,7 +139,7 @@ Authors: Shamal Faily
                             <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addSubObstacleRefinement"/> 
                           </template> 
                           <template slot="subobstaclerefinementactions" slot-scope="row">
-                            <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteSubObstacleRefinement(row.item)"/>
+                            <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteSubObstacleRefinement(row.index)"/>
                           </template> 
                         </b-table>
                       </b-col>

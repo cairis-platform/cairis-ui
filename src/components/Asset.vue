@@ -99,7 +99,7 @@ Authors: Shamal Faily
                   <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addInterface"/> 
                 </template>
                 <template slot="intactions" slot-scope="row">
-                  <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteInterface(row.item)"/>
+                  <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteInterface(row.index)"/>
                 </template>
               </b-table>
             </b-card>

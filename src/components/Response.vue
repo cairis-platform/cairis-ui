@@ -122,7 +122,7 @@ Authors: Shamal Faily
                     <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addRole"/> 
                   </template>
                   <template slot="roleactions" slot-scope="row">
-                    <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteRole(row.item)"/>
+                    <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteRole(row.index)"/>
                   </template>
                 </b-table>
               </b-col>
@@ -410,6 +410,9 @@ export default {
     },
     addRoleCost(data) {
       this.objt.theEnvironmentProperties.transfer[this.envPropIndex].theRoles.push(data);
+    },
+    deleteRole(index) {
+      this.objt.theEnvironmentProperties.transfer[this.envPropIndex].theRoles.splice(index,1);
     },
     addRole() {
       this.$refs.rcDialog.show();  
