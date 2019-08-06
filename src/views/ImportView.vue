@@ -21,19 +21,39 @@ Authors: Shamal Faily
 -->
 
   <div class="importview">
+    <p v-if="errors.length">
+      <b>Please correct the following error(s):</b>
+      <ul>
+        <li v-for="error in errors" :key="error">{{ error }}</li>
+      </ul>
+    </p>
     <b-form class="vld-parent">
       <loading :active.sync="isLoading" is-full-page></loading>
       <b-breadcrumb :items="bcItems" /> 
       <b-container fluid>
         <b-card bg-variant="light">
           <b-form-group label="Model" label-class="text-md-left" label-cols="3" label-for="theModelSelect">
-            <b-form-select id="theModelSelect" v-model="theModelType" :options="modelTypes" class="mb-3" required>
-            </b-form-select>
+            <b-form-select id="theModelSelect" v-model="theModelType" :options="modelTypes" class="mb-3" required />
           </b-form-group>
           <b-form-group label="File" label-class="text-md-left" label-cols="3" label-for="theImportFileInput">
-            <b-form-file accept="text/xml+vnd.graphviz" v-model="theImportFile" class="mt-3" plain>
-            </b-form-file>
+            <b-form-file accept="text/xml+vnd.graphviz" v-model="theImportFile" class="mt-3" plain />
           </b-form-group>
+          <div v-if="theModelType == 'Attack Tree (Dot)'">
+            <b-card bg-variant="light">
+              <b-row>
+                <b-col md="6">
+                  <b-form-group label="Environment" label-class="font-weight-bold text-md-left" label-for="theEnvironmentSelect">
+                    <dimension-select id="theEnvironmentSelect" dimension='environment' v-on:dimension-select-change="environmentSelected" />
+                  </b-form-group>
+                </b-col>
+                <b-col md="6">
+                  <b-form-group label="Contributor" label-class="font-weight-bold text-md-left" label-for="theContributorInput">
+                    <b-form-input id="theContributorInput" v-model="theContributor" type="text" required />
+                  </b-form-group>
+                </b-col>
+              </b-row>
+            </b-card>
+          </div>
         </b-card>
       </b-container> 
       <b-container fluid>
@@ -57,6 +77,7 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import store from '../store'
 import EventBus from '../utils/event-bus';
+import DimensionSelect from '@/components/DimensionSelect.vue'
 
 export default {
   computed : {
@@ -65,25 +86,51 @@ export default {
     }
   },
   components : {
-    Loading
+    Loading,
+    DimensionSelect
   },
   data() {
     return {
       isLoading : false,
+      errors : [],
       theModelType : 'Model Package',
       modelTypes : ['Model Package','Model','Project data','Requirements','Risk Analysis','Usability','Misusability','Associations','Threat and Vulnerability Types','Domain Values','Threat and Vulnerability Directory','Security Pattern','Architectural Pattern','Attack Pattern','Synopses','Assets','Processes','Locations','Dataflows','Attack Tree (Dot)'],
       theImportFile : '',
-      theModelContent : ''
+      theModelContent : '',
+      theEnvironment : '',
+      theContributor : 'Unknown'
     }
   },
   methods : {
     onImport(evt) {
       evt.preventDefault();
-      if (this.theModelType == 'Model Package') {
-        this.importPackage();
+      if (this.checkForm()) {
+        if (this.theModelType == 'Model Package') {
+          this.importPackage();
+        }
+        else {
+          this.importFile();
+        }
+      }
+    },
+    checkForm() {
+      this.errors = []
+      if (this.theImportFile.length == 0) {
+        this.errors.push('Import file name is required');
+      }
+      if (this.theModelType == 'Attack Tree (Dot)') {
+        if (this.theEnvironment.length == 0) {
+          this.errors.push("Environment not defined");
+        }
+        if (this.theContributor.length == 0) {
+          this.errors.push("Contributor not defined");
+        }
+      }
+      if (!this.errors.length) {
+        return true;
       }
       else {
-        this.importFile();
+        return false;
       }
     },
     importPackage() {
@@ -107,7 +154,7 @@ export default {
       reader.onload = e => {
         this.isLoading = true;
         this.theModelContent = e.target.result;
-        const importObjt = {'urlenc_file_contents' : this.theModelContent,'overwrite' : 1, 'type': this.theModelType};
+        const importObjt = {'urlenc_file_contents' : this.theModelContent,'overwrite' : 1, 'type': this.theModelType, 'environment' : this.theEnvironment, 'contributor' : this.theContributor};
         const importUrl = this.$store.state.url + '/api/import/text';
         axios.post(importUrl,{
           session_id : store.state.session,
@@ -130,7 +177,10 @@ export default {
       this.isLoading = false;
       this.$router.push({ name: 'home'})
     },
-    importModelFile() {
+    environmentSelected(item) {
+      if (item != undefined) {
+        this.theEnvironment = item;
+      }
     }
   }
 }
