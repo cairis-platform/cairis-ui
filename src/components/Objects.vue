@@ -278,6 +278,10 @@ export default {
         this.selectedObject = {'envName' : row.item.theEnvironmentName,'theDepender' : row.item.theDepender,'theDependee' : row.item.theDependee, 'theDependency' : row.item.theDependency };
         this.selectedIndex = this.items.findIndex(o => o.theEnvironmentName == row.item.theEnvironmentName && o.theDepender == row.item.theDepender && o.theDependee == row.item.theDependee && o.theDependency == row.item.theDependency);
       }
+      else if (this.dimName == 'dataflow') {
+        this.selectedObject = {'envName' : row.item.theEnvironmentName,'objectName' : row.item.theName};
+        this.selectedIndex = this.items.findIndex(o => o.theEnvironmentName == row.item.theEnvironmentName && o.theName == row.item.theName);
+      }
       else {
         this.selectedObject = row.item.theName;
         this.selectedIndex = this.items.findIndex(o => o.theName == row.item.theName);
