@@ -123,6 +123,7 @@ export default {
     },
     personaSelected(personaName) {
       this.thePersonaName = personaName
+      this.$refs.personaModelPersona.selected = this.thePersonaName;
       if (this.$refs.personaModelBehaviourType != undefined) {
         this.theBehaviourType = 'all'
         this.theCharacteristic = 'all'
