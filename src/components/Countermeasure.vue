@@ -193,29 +193,31 @@ export default {
   ],
   computed : {
     participants() {
-      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].thePersonas : [];
+      return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].thePersonas : [];
     },
     requirements() {
-      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theRequirements.map(r => ({name: r})) : [];
+      return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theRequirements.map(r => ({name: r})) : [];
     },
     requirementNames() {
-      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theRequirements : [];
+      return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theRequirements : [];
     },
     targets() {
-      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theTargets : [];
+      return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theTargets : [];
     },
     roles() {
-      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theRoles.map(r => ({name : r})) : [];
+      return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theRoles.map(r => ({name : r})) : [];
     },
     roleNames() {
-      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theRoles : [];
+      return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theRoles : [];
     },
     cost : {
       get : function() {
-        return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theCost : ''
+        return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theCost : ''
       },
       set : function(value) {
-        this.objt.theEnvironmentProperties[this.envPropIndex].theCost = value;
+        if (this.envPropIndex >= 0) {
+          this.objt.theEnvironmentProperties[this.envPropIndex].theCost = value;
+        }
       }
     }
   },
@@ -320,7 +322,7 @@ export default {
         theEnvironmentName : envName,
         theCost : 'Low',
         thePersonas : [],
-        theProperties : [],
+        theProperties : this.defaultProperties(),
         theRequirements : [],
         theRoles : [],
         theTargets : []
