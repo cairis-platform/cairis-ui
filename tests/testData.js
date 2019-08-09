@@ -132,6 +132,12 @@ attacker : {
      theCapabilities : [{name: 'Resources/Funding', value: 'Low'}]} 
   ]
 },
+domainproperty : {
+  theName : "Secure data analysis",
+  theType : "Hypothesis",
+  theOriginator : "Shamal Faily",
+  theDescription : "We assume that the process of analysing data once it has been uploaded to NeuroGrid is secure."
+},
 requirement : {
   theName : "Anonymisation guidelines",
   theReference : "Clinical Data",
