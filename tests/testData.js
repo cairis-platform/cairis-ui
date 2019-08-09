@@ -131,6 +131,23 @@ attacker : {
      theMotives : ["Headlines/press"],
      theCapabilities : [{name: 'Resources/Funding', value: 'Low'}]} 
   ]
+},
+requirement : {
+  theName : "Anonymisation guidelines",
+  theReference : "Clinical Data",
+  theLabel : "1",
+  theType : "Functional",
+  thePriority : "1",
+  theDescription : "Anonymisation guidelines shall comply with the MRC guidelines for secure data handling and anonymisation",
+  theRationale : "None",
+  theFitCriterion : "None",
+  theOriginator : "Interview data"
+},
+role : {
+  theName : 'Data Consumer',
+  theType : 'Stakeholder',
+  theShortCode : 'DCON',
+  theDescription : 'Uses NeuroGrid data'
 }
 
 }
