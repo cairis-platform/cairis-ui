@@ -23,7 +23,7 @@ Authors: Shamal Faily
   <div class="objects">
     <b-breadcrumb :items="breadCrumbItems" />
     <dimension-modal v-if="this.dimension == 'architectural_pattern'" ref="environmentDialog" dimension="environment" v-on:dimension-modal-update="viewWeaknessAnalysis"/> 
-    <dimension-modal v-if="this.dimension == 'countermeasure'" ref="spEnvDialog" dimension="environment" v-on:dimension-modal-update="applySecurityPattern"/> 
+    <dimension-modal v-if="this.dimension == 'security_pattern'" ref="spEnvDialog" dimension="environment" v-on:dimension-modal-update="applySecurityPattern"/> 
     <dimension-modal v-if="this.dimension == 'countermeasure'" ref="spRmDialog" :dimensionUrl="spRmUrl" label="Situated security pattern" v-on:dimension-modal-update="removeSecurityPattern"/> 
     <object-dependency-modal ref="depDialog" :dependencies="objectDependencies" v-on:object-dependency-ok="deleteDependencies" />
     <add-trace-modal v-if="selectedTraceabilityObject != ''" ref="traceDialog" :dimension="dimension" :tobject="selectedTraceabilityObject" :isFrom="isPostTraceability" />
