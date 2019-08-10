@@ -138,6 +138,12 @@ domainproperty : {
   theOriginator : "Shamal Faily",
   theDescription : "We assume that the process of analysing data once it has been uploaded to NeuroGrid is secure."
 },
+environment : {
+  theName : "Default",
+  theShortCode : "DEF",
+  theDescription : "Default environment",
+  theEnvironments : []
+},
 requirement : {
   theName : "Anonymisation guidelines",
   theReference : "Clinical Data",

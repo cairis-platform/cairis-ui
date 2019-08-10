@@ -39,7 +39,6 @@ describe('Asset.vue', () => {
     expect(wrapper.find('#theTypeInput').element.value).to.equal('Information');
     expect(wrapper.find('#theDescription').element.value).to.equal('Clinical Data');
     expect(wrapper.find('#theSignificance').element.value).to.equal('Unanonymised and in the wrong hands, this could be very damaging.');
-
   }); 
 
   it("Add asset environment property", () => {
