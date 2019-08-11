@@ -33,7 +33,7 @@ config.mocks['$store'] = {
 describe('Requirement.vue', () => {
   it('Render requirement', () => {
     const testReq = testData['requirement']; 
-    const wrapper = mount(Requirement,{localVue, propsData : {object: testReq, label: 'Update', domain: {type: 'asset', name: 'Clinical Data'}}});
+    const wrapper = mount(Requirement,{localVue, propsData : {object: testReq, label: 'Update', domain: {domain: 'asset', domainName: 'Clinical Data'}}});
     expect(wrapper.find('#theNameInput').element.value).to.equal('Anonymisation guidelines');
     expect(wrapper.find('#theTypeInput').element.value).to.equal('Functional');
     expect(wrapper.find('#theDescriptionInput').element.value).to.equal('Anonymisation guidelines shall comply with the MRC guidelines for secure data handling and anonymisation');

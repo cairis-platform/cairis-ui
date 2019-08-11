@@ -159,7 +159,7 @@ export default {
       else {
         switch(this.dimension) {
           case 'requirement':
-            this.$router.push({ name: this.dimName, params : {objectName: row.theName, domain: this.$store.state.domain}});
+            this.$router.push({ name: this.dimName, params : {objectName: row.theName, domain:  {domain: this.$store.state.domain, domainName: this.$store.state.domainName}}});
             break;
           case 'kaosassociation':
             this.$router.push({ name: this.dimName, params : {envName: row.theEnvironmentName,goalName : row.theGoal, subGoalName: row.theSubGoal}});

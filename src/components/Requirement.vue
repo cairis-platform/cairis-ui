@@ -54,7 +54,7 @@ Authors: Shamal Faily
               </b-form-group>
             </b-col>
             <b-col md="8">
-              <dimension-select id="reqDomains" ref="reqDomains" :dimension="selectedDomain" :initial="objt.theDomain" v-on:dimension-select-change="domainSelected" />
+              <dimension-select id="reqDomains" ref="reqDomains" :dimension="selectedDomain" :initial="domain.domainName" v-on:dimension-select-change="domainSelected" />
             </b-col>
           </b-row>
         </b-card>

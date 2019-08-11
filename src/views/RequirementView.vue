@@ -80,10 +80,10 @@ export default {
       .then(response => {
         next(vm => {
           vm.commitLabel = 'Update';
-          var objt = response.data;
-          objt['theDomain'] = to.params.domain.name;
+          let objt = response.data;
           vm.objt = objt;
-          vm.selectedDomain = to.params.domain.type;
+          vm.objt.theDomain = to.params.domain.domainName;
+          vm.selectedDomain = to.params.domain.domain;
         });
       })
       .catch((error) => {
