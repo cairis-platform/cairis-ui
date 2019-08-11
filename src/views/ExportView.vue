@@ -40,6 +40,7 @@ Authors: Shamal Faily
                   <b-form-radio value="ModelXML">Model (XML file)</b-form-radio>
                   <b-form-radio value="GRL">GRL</b-form-radio>
                   <b-form-radio value="Architectural Pattern">Architectural Pattern</b-form-radio>
+                  <b-form-radio value="Security Patterns">Security Patterns</b-form-radio>
                 </b-form-radio-group>
               </b-form-group>
             </b-col>
@@ -103,7 +104,10 @@ export default {
      return [{text: 'Home', to: {name: 'home'}},{text: 'Export', to: {name: 'export'}}]
     },
     exportURL() {
-      return this.theModelType == 'Model' || this.theModelType == 'ModelXML' ? '/api/export/file' : (this.theModelType == 'Architectural Pattern' ? '/api/export/file/architectural_pattern/' + this.theArchitecturalPatternName : '/api/export/file/grl/task/' + this.theTaskName + '/persona/' + this.persona + '/environment/' + this.theEnvironmentName);
+      return this.theModelType == 'Model' || this.theModelType == 'ModelXML' ? '/api/export/file' :
+        (this.theModelType == 'Architectural Pattern' ? '/api/export/file/architectural_pattern/' + this.theArchitecturalPatternName : 
+          (this.theModelType == 'Security Patterns' ? '/api/export/file/security_patterns' : 
+            ('/api/export/file/grl/task/' + this.theTaskName + '/persona/' + this.persona + '/environment/' + this.theEnvironmentName)));
     },
     persona() {
       return this.thePersonaName == 'all' ? 'ALL' : this.thePersonaName;
