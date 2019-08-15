@@ -326,6 +326,18 @@ export default {
       if (this.objt.theEnvironmentProperties.length == 0) {
         this.errors.push('No environment properties have been defined');
       }
+      for (let i = 0; i < this.objt.theEnvironmentProperties.length; i++) {
+        const envProps = this.objt.theEnvironmentProperties[i];
+        if (envProps.thePreCond.length == 0) {
+          this.errors.push('No preconditions set for environment ' + envProps.theEnvironmentName);
+        }
+        if (envProps.theSteps.length == 0) {
+          this.errors.push('No steps set for environment ' + envProps.theEnvironmentName);
+        }
+        if (envProps.thePostCond.length == 0) {
+          this.errors.push('No postconditions set for environment ' + envProps.theEnvironmentName);
+        }
+      }
       if (!this.errors.length) {
         return true;
       }

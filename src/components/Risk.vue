@@ -250,6 +250,12 @@ export default {
       if (this.objt.theVulnerabilityName.length == 0) {
         this.errors.push('Vulnerability is required');
       }
+      for (let i = 0; i < this.objt.theMisuseCase.theEnvironmentProperties.length; i++) {
+        const envProps = this.objt.theMisuseCase.theEnvironmentProperties[i];
+        if (envProps.theDescription.length == 0) {
+          this.errors.push('No misuse case defined for environment ' + envProps.theEnvironmentName);
+        }
+      }
       if (!this.errors.length) {
         return true;
       }

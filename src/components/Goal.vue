@@ -400,6 +400,15 @@ export default {
       if (this.objt.theEnvironmentProperties.length == 0) {
         this.errors.push('No environment properties have been defined')
       }
+      for (let i = 0; i < this.objt.theEnvironmentProperties.length; i++) {
+        const envProps = this.objt.theEnvironmentProperties[i];
+        if (envProps.theDefinition.length == 0) {
+          this.errors.push('No definition set for environment ' + envProps.theEnvironmentName);
+        }
+        if (envProps.theFitCriterion.length == 0) {
+          this.errors.push('No fit criterion set for environment ' + envProps.theEnvironmentName);
+        }
+      }
       if (!this.errors.length) {
         return true;
       }

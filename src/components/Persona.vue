@@ -302,6 +302,12 @@ export default {
       if (this.objt.theEnvironmentProperties.length == 0) {
         this.errors.push('No environment properties have been defined')
       }
+      for (let i = 0; i < this.objt.theEnvironmentProperties.length; i++) {
+        const envProps = this.objt.theEnvironmentProperties[i];
+        if (envProps.theRoles.length == 0) {
+          this.errors.push('No roles set for environment ' + envProps.theEnvironmentName);
+        }
+      }
       if (!this.errors.length) {
         return true;
       }

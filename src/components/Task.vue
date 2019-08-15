@@ -272,6 +272,21 @@ export default {
       if (this.objt.theEnvironmentProperties.length == 0) {
         this.errors.push('No environment properties have been defined');
       }
+      for (let i = 0; i < this.objt.theEnvironmentProperties.length; i++) {
+        const envProps = this.objt.theEnvironmentProperties[i];
+        if (envProps.theNarrative.length == 0) {
+          this.errors.push('No narrative set for environment ' + envProps.theEnvironmentName);
+        }
+        if (envProps.thePersonas.length == 0) {
+          this.errors.push('No participants set for environment ' + envProps.theEnvironmentName);
+        }
+        if (envProps.theBenefits.length == 0) {
+          this.errors.push('No benefits set for environment ' + envProps.theEnvironmentName);
+        }
+        if (envProps.theConsequences.length == 0) {
+          this.errors.push('No consequences set for environment ' + envProps.theEnvironmentName);
+        }
+      }
       if (!this.errors.length) {
         return true;
       }

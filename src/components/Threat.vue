@@ -215,6 +215,21 @@ export default {
       if (this.objt.theEnvironmentProperties.length == 0) {
         this.errors.push('No environment properties have been defined')
       }
+      for (let i = 0; i < this.objt.theEnvironmentProperties.length; i++) {
+        const envProps = this.objt.theEnvironmentProperties[i];
+        if (envProps.theLikelihood.length == 0) {
+          this.errors.push('No likelihood set for environment ' + envProps.theEnvironmentName);
+        }
+        if (envProps.theAttackers.length == 0) {
+          this.errors.push('No attackers set for environment ' + envProps.theEnvironmentName);
+        }
+        if (envProps.theAssets.length == 0) {
+          this.errors.push('No assets set for environment ' + envProps.theEnvironmentName);
+        }
+        if (envProps.theProperties.filter(p => p.value != 'None').length ==0) {
+          this.errors.push('At least one property should be not None in environment ' + envProps.theEnvironmentName);
+        }
+      }
       if (!this.errors.length) {
         return true;
       }
