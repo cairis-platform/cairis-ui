@@ -66,7 +66,7 @@ export default {
   ],
   computed : {
     bcItems() {
-      return this.objt != undefined ? [{text: 'Home', to: {name: 'home'}},{text: this.objectsLabel, to: {name: 'objectsview',params: {dimension: this.dimension}}},{text: this.objt.theName, to : {name: 'objectview', params: {dimension: this.dimension, objectName: this.objectName}}}] : [];
+      return this.objt != undefined ? [{text: 'Home', to: {name: 'home'}},{text: this.objectsLabel, to: {name: 'objectsview',params: {dimension: this.dimension}}},{text: this.dimension == 'threat' ? this.objt.theThreatName : this.objt.theName, to : {name: 'objectview', params: {dimension: this.dimension, objectName: this.objectName}}}] : [];
     },
     componentLoader() {
       return () => import(`@/components/${this.componentFile}.vue`);
