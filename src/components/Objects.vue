@@ -427,10 +427,10 @@ export default {
         object : this.objt
       })
       .then(response => {
-        EventBus.$emit('operation-success',response.data.message)
+        EventBus.$emit('operation-success',response.data.message);
       })
       .catch((error) => {
-        EventBus.$emit('operation-failure',error)
+        EventBus.$emit('operation-failure',error.response.data.message);
       });
     },
     situateArchitecturalPattern(index) {
