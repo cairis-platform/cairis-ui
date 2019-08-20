@@ -155,23 +155,25 @@ export default {
   computed : {
     likelihood : {
       get : function() {
-        return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theLikelihood : ''
+        return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 && this.objt.theEnvironmentProperties[this.envPropIndex] != undefined ? this.objt.theEnvironmentProperties[this.envPropIndex].theLikelihood : ''
       },
       set : function(value) {
-        this.objt.theEnvironmentProperties[this.envPropIndex].theLikelihood = value;
+        if (this.objt.theEnvironmentProperties[this.envPropIndex] != undefined) {
+          this.objt.theEnvironmentProperties[this.envPropIndex].theLikelihood = value;
+        }
       }
     },
     assetNames() {
-      return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theAssets : [] ;
+      return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 && this.objt.theEnvironmentProperties[this.envPropIndex] != undefined ? this.objt.theEnvironmentProperties[this.envPropIndex].theAssets : [] ;
     },
     attackerNames() {
-      return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theAttackers : [] ;
+      return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 && this.objt.theEnvironmentProperties[this.envPropIndex] != undefined ? this.objt.theEnvironmentProperties[this.envPropIndex].theAttackers : [] ;
     },
     environmentAssets() {
-      return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theAssets.map(asset => ({name : asset})) : []
+      return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 && this.objt.theEnvironmentProperties[this.envPropIndex] != undefined ? this.objt.theEnvironmentProperties[this.envPropIndex].theAssets.map(asset => ({name : asset})) : []
     },
     environmentAttackers() {
-      return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theAttackers.map(attacker => ({name : attacker})) : []
+      return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 && this.objt.theEnvironmentProperties[this.envPropIndex] != undefined ? this.objt.theEnvironmentProperties[this.envPropIndex].theAttackers.map(attacker => ({name : attacker})) : []
     },
   },
   components : {
