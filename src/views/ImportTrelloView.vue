@@ -162,7 +162,9 @@ export default {
                 });
               }
               else {
-                return;
+                that.errors.forEach(function(msg) {
+                  EventBus.$emit('operation-failure',msg);
+                });
               }
             });
             that.$router.push({ name: 'home'})
