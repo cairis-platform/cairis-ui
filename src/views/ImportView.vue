@@ -140,13 +140,13 @@ export default {
       const url = this.$store.state.url + '/api/import/package?session_id=' + this.$store.state.session
       axios.post(url, fd)
       .then(response => {
-        EventBus.$emit('operation-success',response.data.message)
+        EventBus.$emit('operation-success',response.data.message);
         this.isLoading = false;
         this.$router.push({ name: 'home'})
       })
       .catch((error) => {
         this.isLoading = false;
-        EventBus.$emit('operation-failure',error)
+        EventBus.$emit('operation-failure',error.response.data.message);
       });
     },
     importFile() {
@@ -161,13 +161,13 @@ export default {
           object : importObjt
         })
         .then(response => {
-          EventBus.$emit('operation-success',response.data.message)
+          EventBus.$emit('operation-success',response.data.message);
           this.isLoading = false;
           this.$router.push({ name: 'home'})
         })
         .catch((error) => {
           this.isLoading = false;
-          EventBus.$emit('operation-failure',error)
+          EventBus.$emit('operation-failure',error.response.data.message);
         });
       }
       reader.readAsText(this.theImportFile);
