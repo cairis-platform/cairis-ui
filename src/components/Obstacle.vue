@@ -88,7 +88,7 @@ Authors: Shamal Faily
                     <b-row>
                       <b-col md="6">
                         <b-form-group label="Probability" label-class="font-weight-bold text-md-left" label-for="theProbabilityInput">
-                          <b-form-input id="theProbabilityInput" v-model="probability" type="number" required />
+                          <b-form-input id="theProbabilityInput" v-model="probability" type="number" min="0" max="1" step="0.1" required />
                         </b-form-group>
                       </b-col>
                       <b-col md="6">
@@ -230,12 +230,6 @@ export default {
     subGoalRefinements() {
       return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theSubGoalRefinements : [] 
     }
-/*    existingGoals() {
-      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theGoalRefinements.map(gr => gr.theEndName) : [] 
-    },
-    existingSubGoals() {
-      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theSubGoalRefinements.map(gr => gr.theEndName) : [] 
-    }*/
   },
   data() {
     return {
@@ -380,6 +374,18 @@ export default {
         const envProps = this.objt.theEnvironmentProperties[i];
         if (envProps.theDefinition.length == 0) {
           this.errors.push('No definition set for environment ' + envProps.theEnvironmentName);
+        }
+        if (envProps.theProbability < 0) {
+          this.errors.push('Probability set for environment ' + envProps.theEnvironmentName + ' is less than 0');
+        }
+        if (envProps.theProbability > 1) {
+          this.errors.push('Probability set for environment ' + envProps.theEnvironmentName + ' is greater than 1');
+        }
+        if (isNaN(envProps.theProbability)) {
+          this.errors.push('Probability set for environment ' + envProps.theEnvironmentName + ' is not a number');
+        }
+        if (envProps.theProbability > 0 && envProps.theProbability <= 1 && envProps.theProbabilityRationale.length == 0) {
+          this.errors.push('Probability set for environment ' + envProps.theEnvironmentName + ', but no rationale provided');
         }
       }
       if (!this.errors.length) {
