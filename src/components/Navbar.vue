@@ -20,7 +20,7 @@ under the License.
 Authors: Shamal Faily 
 -->
 
-  <b-navbar toggleable="md" type="dark" variant="dark" fixed="top">
+  <b-navbar toggleable="md" type="dark" variant="dark" fixed="top"> 
     <b-navbar-brand href="#">CAIRIS</b-navbar-brand>
     <b-navbar-nav>
       <b-nav-item :to="{name: 'home'}">Home</b-nav-item>
