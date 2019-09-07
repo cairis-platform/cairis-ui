@@ -20,35 +20,37 @@ Authors: Shamal Faily
   <div class="assetmodel">
     <asset-modal v-if="theEnvironmentName != ''" ref="assetDialog" :environment="this.theEnvironmentName" :asset="this.theSelectedObject"/> 
     <persona-modal v-if="theEnvironmentName != ''" ref="personaDialog" :environment="this.theEnvironmentName" :persona="this.theSelectedObject"/> 
-    <b-card no-body>
-    <b-container fluid>
-      <b-row>
-        <b-col>
-          <b-form-group label="Environment" label-for="assetModelEnvironment" :label-cols="4" >
-            <dimension-select ref="assetModelEnvironment" id="assetModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
-          </b-form-group>
-        </b-col>
-        <b-col v-if="theEnvironmentName != ''">
-          <b-form-group label="Asset" label-for="assetModelAsset" :label-cols="2" >
-            <dimension-select id="assetModelAsset" ref="assetModelAsset" dimension="asset" initial="all" :environment="theEnvironmentName" includeall v-on:dimension-select-change="assetSelected" />
-          </b-form-group>
-        </b-col>
-        <b-col v-if="theEnvironmentName != ''">
-          <b-form-group label="Hide Concerns" label-form="assetModelHideConcerns" :label-cols="3">
-            <b-form-checkbox id="assetModelHideConcerns" v-model="theConcernsHidden" />
-          </b-form-group>
-        </b-col>
-        <b-col v-if="theEnvironmentName != ''">
-          <b-form-group label="Refresh" label-for="amRefresh" :label-cols="3" >
-            <font-awesome-icon id="amRefresh" icon="sync" @click.stop="refreshModel" />
-          </b-form-group>
-        </b-col>
-      </b-row>
-    </b-container>
-    </b-card>
+    <b-navbar sticky>
+      <b-card no-body>
+        <b-container fluid>
+          <b-row>
+            <b-col>
+              <b-form-group label="Environment" label-for="assetModelEnvironment" >
+                <dimension-select ref="assetModelEnvironment" id="assetModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
+              </b-form-group>
+            </b-col>
+            <b-col v-if="theEnvironmentName != ''">
+              <b-form-group label="Asset" label-for="assetModelAsset">
+                <dimension-select id="assetModelAsset" ref="assetModelAsset" dimension="asset" initial="all" :environment="theEnvironmentName" includeall v-on:dimension-select-change="assetSelected" />
+              </b-form-group>
+            </b-col>
+            <b-col v-if="theEnvironmentName != ''">
+              <b-form-group label="Hide Concerns" label-form="assetModelHideConcerns" >
+                <b-form-checkbox id="assetModelHideConcerns" v-model="theConcernsHidden" />
+              </b-form-group>
+            </b-col>
+            <b-col v-if="theEnvironmentName != ''">
+              <b-form-group label="Refresh" label-for="amRefresh" >
+                <font-awesome-icon id="amRefresh" icon="sync" @click.stop="refreshModel" />
+              </b-form-group>
+            </b-col>
+          </b-row>
+        </b-container>
+      </b-card>
+    </b-navbar>
     <b-container fluid>
       <graphical-model v-if="theEnvironmentName != ''" ref="graphicalModel" :api="assetModelURI" :parameters="concernsParameter" v-on:graphical-model-url="nodeClicked"/>
-    </b-container>
+    </b-container> 
   </div>
 </template>
 

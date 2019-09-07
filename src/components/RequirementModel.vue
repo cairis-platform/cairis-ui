@@ -38,7 +38,7 @@ Authors: Shamal Faily
         </b-col>
       </b-row>
     </b-container>
-    </b-card>
+    </b-card> 
     <graphical-model :api="requirementModelURI" :jsonParameters="this.filterParameters" v-on:graphical-model-url="nodeClicked"/>
   </div>
 </template>

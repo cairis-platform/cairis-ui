@@ -29,27 +29,29 @@ Authors: Shamal Faily
     <requirement-modal v-if="theEnvironmentName != ''" ref="reqDialog" :requirement="this.theSelectedObject"/> 
     <role-modal v-if="theEnvironmentName != ''" ref="roleDialog" :role="this.theSelectedObject"/> 
     <task-modal v-if="theEnvironmentName != ''" ref="taskDialog" :environment="this.theEnvironmentName" :task="this.theSelectedObject"/> 
-    <b-card no-body>
-    <b-container fluid>
-      <b-row>
-        <b-col>
-          <b-form-group label="Environment" label-for="obstacleModelEnvironment" :label-cols="4" >
-            <dimension-select id="obstacleModelEnvironment" ref="obstacleModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
-          </b-form-group>
-        </b-col>
-        <b-col v-if="theEnvironmentName != ''">
-          <b-form-group label="Obstacle" label-for="obstacleModelObstacle" :label-cols="2" >
-            <dimension-select id="obstacleModelObstacle" ref="obstacleModelObstacle" dimension="obstacle" :environment="theEnvironmentName" initial="all" includeall v-on:dimension-select-change="obstacleSelected" />
-          </b-form-group>
-        </b-col>
-        <b-col v-if="theEnvironmentName != ''">
-          <b-form-group label="Refresh" label-for="gmRefresh" :label-cols="2">
-            <font-awesome-icon id="gmRefresh" icon="sync" @click.stop="refreshModel" />
-          </b-form-group>
-        </b-col>
-      </b-row>
-    </b-container>
-    </b-card>
+    <b-navbar sticky>
+      <b-card no-body>
+        <b-container fluid>
+          <b-row>
+            <b-col>
+              <b-form-group label="Environment" label-for="obstacleModelEnvironment">
+                <dimension-select id="obstacleModelEnvironment" ref="obstacleModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
+              </b-form-group>
+            </b-col>
+            <b-col v-if="theEnvironmentName != ''">
+              <b-form-group label="Obstacle" label-for="obstacleModelObstacle">
+                <dimension-select id="obstacleModelObstacle" ref="obstacleModelObstacle" dimension="obstacle" :environment="theEnvironmentName" initial="all" includeall v-on:dimension-select-change="obstacleSelected" />
+              </b-form-group>
+            </b-col>
+            <b-col v-if="theEnvironmentName != ''">
+              <b-form-group label="Refresh" label-for="gmRefresh">
+                <font-awesome-icon id="gmRefresh" icon="sync" @click.stop="refreshModel" />
+              </b-form-group>
+            </b-col>
+          </b-row>
+        </b-container>
+      </b-card>
+    </b-navbar>
     <graphical-model v-if="theEnvironmentName != ''" ref="graphicalModel" :api="obstacleModelURI" v-on:graphical-model-url="nodeClicked"/>
   </div>
 </template>

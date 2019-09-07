@@ -134,8 +134,8 @@ export default {
               ref.items.unshift('all')
             }
           }
-          if (ref.initial != '') {
-            ref.selected = ref.initial
+          if (ref.initial != '' && ref.dimensionUrl.indexOf('persona_characteristic') > 0) {
+            ref.selected = ref.initial;
           }
           else {
             if (ref.items > 0) {

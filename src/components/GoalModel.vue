@@ -30,37 +30,39 @@ Authors: Shamal Faily
     <requirement-modal ref="reqDialog" :requirement="this.theSelectedObject"/> 
     <role-modal ref="roleDialog" :role="this.theSelectedObject"/> 
     <task-modal ref="taskDialog" :environment="this.theEnvironmentName" :task="this.theSelectedObject"/> 
-    <b-card no-body>
-    <b-container fluid>
-      <b-row>
-        <b-col>
-          <b-form-group label="Environment" label-for="goalModelEnvironment">
-            <dimension-select id="goalModelEnvironment" ref="goalModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
-          </b-form-group>
-        </b-col>
-        <b-col v-if="theEnvironmentName != ''">
-          <b-form-group label="Goal" label-for="goalModelGoal">
-            <dimension-select id="goalModelGoal" ref="goalModelGoal" dimension="goal" :environment="theEnvironmentName" initial="all" includeall v-on:dimension-select-change="goalSelected" />
-          </b-form-group>
-        </b-col>
-        <b-col v-show="theEnvironmentName != ''">
-          <b-form-group label="Use Case" label-form="goaModelUseCase">
-            <dimension-select id="goalModelUseCase" ref="goalModelUseCase" dimension="usecase" :environment="theEnvironmentName" initial="all" includeall v-on:dimension-select-change="useCaseSelected" />
-          </b-form-group>
-        </b-col>
-        <b-col v-show="theEnvironmentName != ''">
-          <b-form-group label="Top-level goals" label-form="goalModelTopLevel">
-            <b-form-checkbox id="goalModelTopLevel" v-model="theTopLevel" />
-          </b-form-group>
-        </b-col>
-        <b-col v-if="theEnvironmentName != ''">
-          <b-form-group label="Refresh" label-for="gmRefresh">
-            <font-awesome-icon id="gmRefresh" icon="sync" @click.stop="refreshModel" />
-          </b-form-group>
-        </b-col>
-      </b-row>
-    </b-container>
-    </b-card>
+    <b-navbar sticky>
+      <b-card no-body>
+        <b-container fluid>
+          <b-row>
+            <b-col>
+              <b-form-group label="Environment" label-for="goalModelEnvironment">
+                <dimension-select id="goalModelEnvironment" ref="goalModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
+              </b-form-group>
+            </b-col>
+            <b-col v-if="theEnvironmentName != ''">
+              <b-form-group label="Goal" label-for="goalModelGoal">
+                <dimension-select id="goalModelGoal" ref="goalModelGoal" dimension="goal" :environment="theEnvironmentName" initial="all" includeall v-on:dimension-select-change="goalSelected" />
+              </b-form-group>
+            </b-col>
+            <b-col v-show="theEnvironmentName != ''">
+              <b-form-group label="Use Case" label-form="goaModelUseCase">
+                <dimension-select id="goalModelUseCase" ref="goalModelUseCase" dimension="usecase" :environment="theEnvironmentName" initial="all" includeall v-on:dimension-select-change="useCaseSelected" />
+              </b-form-group>
+            </b-col>
+            <b-col v-show="theEnvironmentName != ''">
+              <b-form-group label="Top-level goals" label-form="goalModelTopLevel">
+                <b-form-checkbox id="goalModelTopLevel" v-model="theTopLevel" />
+              </b-form-group>
+            </b-col>
+            <b-col v-if="theEnvironmentName != ''">
+              <b-form-group label="Refresh" label-for="gmRefresh">
+                <font-awesome-icon id="gmRefresh" icon="sync" @click.stop="refreshModel" />
+              </b-form-group>
+            </b-col>
+          </b-row>
+        </b-container>
+      </b-card>
+    </b-navbar>
     <graphical-model v-if="theEnvironmentName != ''" ref="graphicalModel" :api="goalModelURI" :parameters="topParameters" v-on:graphical-model-url="nodeClicked"/>
   </div>
 </template>
