@@ -22,8 +22,9 @@ Authors: Shamal Faily
   <div class="databasemodel">
     <new-database-modal ref="newDbDialog" v-on:new-database-modal-update="createDatabase"/> 
     <new-id-modal ref="newIdDialog" v-on:new-id-modal-update="grantPermissionToId"/> 
-    <b-form class="vld-parent">
-      <loading :active.sync="isLoading" is-full-page />
+      <b-form class="vld-parent"> 
+      <loading :active.sync="isLoading" is-full-page /> 
+      <b-container fluid>
       <b-card bg-variant="light">
         <b-row>
           <b-col md="12">
@@ -63,6 +64,7 @@ Authors: Shamal Faily
           </b-col>
         </b-row>
       </b-card>
+      </b-container>
       <b-container fluid>
         <b-form-row>
           <b-col md="4" offset-md="5" >
@@ -71,7 +73,7 @@ Authors: Shamal Faily
           </b-col>
         </b-form-row>
       </b-container> 
-    </b-form>
+   </b-form> 
   </div>
 </template>
 
