@@ -23,29 +23,27 @@ Authors: Shamal Faily
   <div class="personamodel">
     <external-document-modal v-if="thePersonaName != ''" ref="edDialog" :external_document="this.theSelectedObject"/> 
     <document-reference-modal v-if="thePersonaName != ''" ref="drDialog" :document_reference="this.theSelectedObject"/> 
-    <b-navbar sticky>
-      <b-card no-body>
-        <b-container fluid>
-          <b-row>
-            <b-col>
-              <b-form-group label="Persona" label-for="personaModelPersona">
-                <dimension-select id="personaModelPersona" ref="personaModelPersona" dimension="persona" v-on:dimension-select-change="personaSelected" />
-              </b-form-group>
-            </b-col>
-            <b-col v-if="thePersonaName != ''">
-              <b-form-group label="Behaviour Type" label-for="personaModelBehaviourType">
-                <b-form-select id="personaModelBehaviourType" ref="personaModelBehaviourType" v-model="theBehaviourType" :options="behaviourTypes" class="mb-3" required />
-              </b-form-group>
-            </b-col>
-            <b-col v-if="thePersonaName != ''">
-              <b-form-group label="Characteristic" label-form="personaModelCharacteristic">
-                <dimension-select id="personaModelCharacteristic" ref="personaModelCharacteristic" :dimensionUrl="pcUrl" initial="all" includeall v-on:dimension-select-change="characteristicSelected" />
-              </b-form-group>
-            </b-col>
-          </b-row>
-        </b-container>
-      </b-card>
-    </b-navbar>
+    <b-card no-body>
+      <b-container fluid>
+        <b-row>
+          <b-col>
+            <b-form-group label="Persona" label-for="personaModelPersona">
+              <dimension-select id="personaModelPersona" ref="personaModelPersona" dimension="persona" v-on:dimension-select-change="personaSelected" />
+            </b-form-group>
+          </b-col>
+          <b-col v-if="thePersonaName != ''">
+            <b-form-group label="Behaviour Type" label-for="personaModelBehaviourType">
+              <b-form-select id="personaModelBehaviourType" ref="personaModelBehaviourType" v-model="theBehaviourType" :options="behaviourTypes" class="mb-3" required />
+            </b-form-group>
+          </b-col>
+          <b-col v-if="thePersonaName != ''">
+            <b-form-group label="Characteristic" label-form="personaModelCharacteristic">
+              <dimension-select id="personaModelCharacteristic" ref="personaModelCharacteristic" :dimensionUrl="pcUrl" initial="all" includeall v-on:dimension-select-change="characteristicSelected" />
+            </b-form-group>
+          </b-col>
+        </b-row>
+      </b-container>
+    </b-card>
     <graphical-model v-if="thePersonaName != ''" :api="personaModelURI" v-on:graphical-model-url="nodeClicked" />
   </div>
 </template>
