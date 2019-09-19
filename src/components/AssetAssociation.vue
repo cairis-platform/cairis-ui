@@ -35,14 +35,14 @@ Authors: Shamal Faily
               <b-row>
                 <b-col md="12">
                   <b-form-group label="Environment" label-class="font-weight-bold text-md-left" label-for="theEnvironmentSelect" >
-                    <dimension-select id="theEnvironmentSelect" dimension='environment' :initial="objt.theEnvironmentName" v-on:dimension-select-change="environmentSelected" />
+                    <dimension-select id="theEnvironmentSelect" ref="theEnvironmentSelect" dimension='environment' :initial="objt.theEnvironmentName" v-on:dimension-select-change="environmentSelected" />
                   </b-form-group>
                 </b-col>
               </b-row>
               <b-row>
                 <b-col md="12">
                   <b-form-group label="Head" label-class="font-weight-bold text-sm-left" label-for="theHeadAssetSelect" >
-                    <dimension-select id="theHeadAssetSelect" dimension='asset' :environment="objt.theEnvironmentName" :initial="objt.theHeadAsset" v-on:dimension-select-change="headAssetSelected" />
+                    <dimension-select id="theHeadAssetSelect" ref="theHeadAssetSelect" dimension='asset' :environment="objt.theEnvironmentName" :initial="objt.theHeadAsset" v-on:dimension-select-change="headAssetSelected" />
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -129,7 +129,7 @@ Authors: Shamal Faily
               <b-row>
                 <b-col md="12">
                   <b-form-group label="Tail" label-class="font-weight-bold text-sm-left" label-for="theTailAssetSelect" >
-                    <dimension-select id="theTailAssetSelect" dimension='asset' :environment="objt.theEnvironmentName" :initial="objt.theTailAsset" v-on:dimension-select-change="tailAssetSelected" />
+                    <dimension-select id="theTailAssetSelect" ref="theTailAssetSelect" dimension='asset' :environment="objt.theEnvironmentName" :initial="objt.theTailAsset" v-on:dimension-select-change="tailAssetSelected" />
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -189,6 +189,9 @@ export default {
   methods : {
     setObject() {
       this.objt = this.object;
+      this.$refs.theEnvironmentSelect.selected = this.objt.theEnvironmentName;
+      this.$refs.theHeadAssetSelect.selected = this.objt.theHeadAsset;
+      this.$refs.theTailAssetSelect.selected = this.objt.theTailAsset;
       this.commitLabel = this.label;
     },
     onCommit(evt) {
