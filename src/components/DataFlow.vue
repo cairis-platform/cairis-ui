@@ -41,7 +41,7 @@ Authors: Shamal Faily
                 </b-col>
                 <b-col md="6">
                   <b-form-group label="Environment" label-class="font-weight-bold text-md-left" label-for="theEnvironmentSelect" >
-                    <dimension-select id="theEnvironmentSelect" dimension='environment' :initial="objt.theEnvironmentName" v-on:dimension-select-change="environmentSelected" />
+                    <dimension-select id="theEnvironmentSelect" ref="theEnvironmentSelect" dimension='environment' :initial="objt.theEnvironmentName" v-on:dimension-select-change="environmentSelected" />
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -150,6 +150,9 @@ export default {
     setObject() {
       this.objt = this.object;
       this.theFromType = this.objt.theFromType;
+      this.$refs.theEnvironmentSelect.selected = this.objt.theEnvironmentName;
+      this.$refs.theFromSelect.selected = this.objt.theFromName;
+      this.$refs.theToSelect.selected = this.objt.theToName;
       this.commitLabel = this.label;
     },
     onCancel(evt) {

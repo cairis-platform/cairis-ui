@@ -104,7 +104,7 @@ dataflow : {
     {key: 'theFromName', label : 'From', sortable: true},
     {key: 'theFromType', label : 'Type', sortable: true},
     {key: 'theToName', label : 'To', sortable: true},
-    {key: 'theToTypelabel',label: 'Type', sortable: true}
+    {key: 'theToType',label: 'Type', sortable: true}
   ],
   theGetUrl : '/api/dataflows',
   theDelUrl : '/api/dataflows/name/'
