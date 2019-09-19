@@ -115,10 +115,10 @@ Authors: Shamal Faily
                       <b-col md="12">
                         <b-table striped bordered small hover :items="goalRefinements" :fields=goalRefinementTableFields @row-clicked="viewGoalRefinement">
                           <!-- eslint-disable-next-line -->
-                          <template slot="HEAD_goalrefinementactions" slot-scope="data"> 
+                          <template v-slot:head(goalrefinementactions)="data"> 
                             <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addGoalRefinement"/> 
                           </template> 
-                          <template slot="goalrefinementactions" slot-scope="row">
+                          <template v-slot:cell(goalrefinementactions)="row">
                             <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteGoalRefinement(row.index)"/>
                           </template> 
                         </b-table>
@@ -132,10 +132,10 @@ Authors: Shamal Faily
                       <b-col md="12">
                         <b-table striped bordered small hover :items="subGoalRefinements" :fields=subGoalRefinementTableFields @row-clicked="viewSubGoalRefinement">
                           <!-- eslint-disable-next-line -->
-                          <template slot="HEAD_subgoalrefinementactions" slot-scope="data"> 
+                          <template v-slot:head(subgoalrefinementactions)="data"> 
                             <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addSubGoalRefinement"/> 
                           </template> 
-                          <template slot="subgoalrefinementactions" slot-scope="row">
+                          <template v-slot:cell(subgoalrefinementactions)="row">
                             <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteSubGoalRefinement(row.index)"/>
                           </template> 
                         </b-table>
@@ -149,10 +149,10 @@ Authors: Shamal Faily
                       <b-col md="4">
                         <b-table striped bordered small hover :items="concerns" :fields=concernTableFields>
                           <!-- eslint-disable-next-line -->
-                          <template slot="HEAD_concernactions" slot-scope="data"> 
+                          <template v-slot:head(concernactions)="data"> 
                             <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addConcern"/> 
                           </template> 
-                          <template slot="concernactions" slot-scope="row">
+                          <template v-slot:cell(concernactions)="row">
                             <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteConcern(row.index)"/>
                           </template> 
                         </b-table>
@@ -160,10 +160,10 @@ Authors: Shamal Faily
                       <b-col md="8">
                         <b-table striped bordered small hover :items="concernAssociations" :fields=concernAssociationTableFields @row-clicked="viewConcernAssociation">
                           <!-- eslint-disable-next-line -->
-                          <template slot="HEAD_concernassociationactions" slot-scope="data"> 
+                          <template v-slot:head(concernassociationactions)="data"> 
                             <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addConcernAssociation"/> 
                           </template> 
-                          <template slot="concernassociationactions" slot-scope="row">
+                          <template v-slot:cell(concernassociationactions)="row">
                             <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteConcernAssociation(row.index)"/>
                           </template> 
                         </b-table>
@@ -273,22 +273,22 @@ export default {
       objt : this.object,
       envPropIndex : 0,
       commitLabel : this.label,
-      goalRefinementTableFields : {
-        goalrefinementactions : {label : ''},
-        theEndType : {label : 'Type'},
-        theEndName : {label : 'Goal'},
-        theRefType : {label : 'Refinement'},
-        isAlternate : {label : 'Alternate'},
-        theRationale : {label : 'Rationale'}
-      },
-      subGoalRefinementTableFields : {
-        subgoalrefinementactions : {label : ''},
-        theEndType : {label : 'Type'},
-        theEndName : {label : 'Sub-Goal'},
-        theRefType : {label : 'Refinement'},
-        isAlternate : {label : 'Alternate'},
-        theRationale : {label : 'Rationale'}
-      },
+      goalRefinementTableFields : [
+        {key: 'goalrefinementactions', label : ''},
+        {key: 'theEndType', label : 'Type'},
+        {key: 'theEndName', label : 'Goal'},
+        {key: 'theRefType', label : 'Refinement'},
+        {key: 'isAlternate', label : 'Alternate'},
+        {key: 'theRationale', label : 'Rationale'}
+      ],
+      subGoalRefinementTableFields : [
+        {key: 'subgoalrefinementactions', label : ''},
+        {key: 'theEndType', label : 'Type'},
+        {key: 'theEndName', label : 'Sub-Goal'},
+        {key: 'theRefType', label : 'Refinement'},
+        {key: 'isAlternate', label : 'Alternate'},
+        {key: 'theRationale', label : 'Rationale'}
+      ],
       goalCategories : ['Maintain','Achieve','Avoid','Improve','Increase','Maximise','Minimise'],
       selectedAssociation : {
         environment : '',

@@ -52,35 +52,35 @@ Authors: Shamal Faily
       </b-container>
       <b-table b-table striped small hover :fields="fieldList" :items="items" @row-clicked="objectClicked">
         <!-- eslint-disable-next-line -->
-        <template slot="HEAD_objectsactions" slot-scope="data">
+        <template v-slot:head(objectsactions)= "data">
           <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addObject"/> 
         </template>
-        <template slot="objectsactions" slot-scope="row">
+        <template v-slot:cell(objectsactions)="row">
           <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteObject(row)"/>
         </template>
-        <template slot="pretaction" slot-scope="row">
+        <template v-slot:cell(pretaction)="row">
           <font-awesome-icon icon="arrow-left" :style="{color: 'green'}" @click.stop="addPreTraceabilityLink(row.index)"/>
         </template>
-        <template slot="generategoalaction" slot-scope="row">
+        <template v-slot:cell(generategoalaction)="row">
           <font-awesome-icon icon="angle-down" :style="{color: 'green'}" @click.stop="generateGoal(row.index)"/>
         </template>
-        <template slot="postaction" slot-scope="row">
+        <template v-slot:cell(postaction)="row">
           <font-awesome-icon icon="arrow-right" :style="{color: 'green'}" @click.stop="addPostTraceabilityLink(row.index)"/>
         </template>
-        <template slot="sitapaction" slot-scope="row">
+        <template v-slot:cell(sitapaction)="row">
           <font-awesome-icon icon="angle-down" :style="{color: 'green'}" @click.stop="situateArchitecturalPattern(row.index)"/>
         </template>
-        <template slot="sitspaction" slot-scope="row">
+        <template v-slot:cell(sitspaction)="row">
           <font-awesome-icon icon="angle-down" :style="{color: 'green'}" @click.stop="situateSecurityPattern(row.index)"/>
         </template>
-        <template slot="rmspaction" slot-scope="row">
+        <template v-slot:cell(rmspaction)="row">
           <font-awesome-icon icon="minus" :style="{color: 'green'}" @click.stop="desituateSecurityPattern(row.index)"/>
         </template>
-        <template slot="sitcmaction" slot-scope="row">
+        <template v-slot:cell(sitcmaction)="row">
           <font-awesome-icon icon="angle-down" :style="{color: 'green'}" @click.stop="situateCountermeasure(row.index)"/>
         </template>
         <!-- eslint-disable-next-line -->
-        <template slot="HEAD_introduceaction" slot-scope="data">
+        <template v-slot:head(introduceaction)="data">
           <font-awesome-icon icon="plus" :style="{color: 'blue'}" @click.stop="introduceDirectoryEntry"/> 
         </template>
       </b-table>
@@ -104,7 +104,7 @@ import objectViewParametersFactory from '../utils/objectViewParametersFactory';
 export default {
   props : {
     breadCrumbItems : Array,
-    fieldList : Object,
+    fieldList : Array,
     getUrl: String,
     delUrl: String,
     dimName : String

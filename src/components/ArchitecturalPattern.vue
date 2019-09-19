@@ -90,10 +90,10 @@ Authors: Shamal Faily
                             <b-card bg-variant="light">
                               <b-table striped small hover :items="objt.theComponents[componentIndex].theInterfaces" :fields=interfaceTableFields @row-clicked="viewInterface">
                                 <!-- eslint-disable-next-line -->
-                                <template slot="HEAD_intactions" slot-scope="data"> 
+                                <template v-slot:head(intactions)="data"> 
                                   <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addInterface"/> 
                                 </template>
-                                <template slot="intactions" slot-scope="row">
+                                <template v-slot:cell(intactions)="row">
                                   <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteInterface(row.index)"/>
                                 </template>
                               </b-table>
@@ -103,10 +103,10 @@ Authors: Shamal Faily
                             <b-card bg-variant="light">
                               <b-table striped small hover :items="objt.theComponents[componentIndex].theStructure" :fields="structureTableFields" @row-clicked="viewComponentAssociation">
                                 <!-- eslint-disable-next-line -->
-                                <template slot="HEAD_structureactions" slot-scope="data">
+                                <template v-slot:head(structureactions)="data">
                                   <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addComponentAssociation"/> 
                                 </template>
-                                <template slot="structureactions" slot-scope="row">
+                                <template v-slot:cell(structureactions)="row">
                                   <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteComponentAssociation(row.index)"/>
                                 </template>
                               </b-table> 
@@ -116,10 +116,10 @@ Authors: Shamal Faily
                             <b-card bg-variant="light">
                               <b-table striped small hover :items="requirements" :fields="requirementTableFields">
                                 <!-- eslint-disable-next-line -->
-                                <template slot="HEAD_requirementactions" slot-scope="data">
+                                <template v-slot:head(requirementactions)="data">
                                   <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addRequirement"/> 
                                 </template>
-                                <template slot="requirementactions" slot-scope="row">
+                                <template v-slot:cell(requirementactions)="row">
                                   <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteComponentRequirement(row.index)"/>
                                 </template>
                               </b-table> 
@@ -129,10 +129,10 @@ Authors: Shamal Faily
                             <b-card bg-variant="light">
                               <b-table striped small hover :items="goals" :fields="goalTableFields">
                                 <!-- eslint-disable-next-line -->
-                                <template slot="HEAD_goalactions" slot-scope="data">
+                                <template v-slot:head(goalactions)="data">
                                   <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addGoal"/> 
                                 </template>
-                                <template slot="goalactions" slot-scope="row">
+                                <template v-slot:cell(goalactions)="row">
                                   <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteComponentGoal(row.index)"/>
                                 </template>
                               </b-table> 
@@ -142,10 +142,10 @@ Authors: Shamal Faily
                             <b-card bg-variant="light">
                               <b-table striped small hover :items="goalAssociations" :fields="goalAssociationTableFields" @row-clicked="viewComponentGoalAssociation">
                                 <!-- eslint-disable-next-line -->
-                                <template slot="HEAD_goalassociationactions" slot-scope="data">
+                                <template v-slot:head(goalassociationactions)="data">
                                   <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addComponentGoalAssociation"/> 
                                 </template>
-                                <template slot="goalassociationactions" slot-scope="row">
+                                <template v-slot:cell(goalassociationactions)="row">
                                   <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteComponentGoalAssociation(row.index)"/>
                                 </template>
                               </b-table> 
@@ -163,10 +163,10 @@ Authors: Shamal Faily
                 <b-card bg-variant="light">
                   <b-table striped small hover :items="this.objt.theConnectors" :fields="connectorTableFields" @row-clicked="viewConnector">
                     <!-- eslint-disable-next-line -->
-                    <template slot="HEAD_connectoractions" slot-scope="data">
+                    <template v-slot:head(connectoractions)="data">
                       <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addConnector"/> 
                     </template>
-                    <template slot="connectoractions" slot-scope="row">
+                    <template v-slot:cell(connectoractions)="row">
                       <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteConnector(row.index)"/>
                     </template>
                   </b-table> 
@@ -282,13 +282,13 @@ export default {
           theAccessRight : ''
         }
       },
-      interfaceTableFields : {
-        intactions : {label : ''},
-        theName : {label : 'Interface', sortable: true},
-        theType : {label : 'Type', sortable: true},
-        theAccessRight : {label : 'Access Right', sortable: true},
-        thePrivilege : {label : 'Privilege', sortable: true} 
-      },
+      interfaceTableFields : [
+        {key: 'intactions', label : ''},
+        {key: 'theName', label : 'Interface', sortable: true},
+        {key: 'theType', label : 'Type', sortable: true},
+        {key: 'theAccessRight', label : 'Access Right', sortable: true},
+        {key: 'thePrivilege', label : 'Privilege', sortable: true} 
+      ],
       structureTableFields : [
         {key: 'structureactions', label: ''},
         {key: 'theHeadAsset', label: 'Head Asset'},
@@ -302,34 +302,34 @@ export default {
         {key: 'theTailAdornment', label: 'Type'},
         {key: 'theTailAsset', label: 'Tail Asset'}
       ],
-      requirementTableFields : {
-        requirementactions : {label : ''},
-        name : {label : 'Requirement', sortable: true}
-      },
-      goalTableFields : {
-        goalactions : {label : ''},
-        name : {label : 'Goal', sortable: true}
-      },
-      goalAssociationTableFields : {
-        goalassociationactions: {label : ''},
-        theGoalName : {label : 'Goal', sortable: true},
-        theRefType : {label: 'Ref Type', sortable: true},
-        theSubGoalName: {label: 'Sub goal', sortable: true},
-        theRationale: {label: 'Rationale', sortable: true}
-      },
-      connectorTableFields : {
-        connectoractions: {label : ''},
-        theConnectorName : {label: 'Name', sortable: true},
-        theFromComponent : {label: 'From', sortable: true},
-        theFromRole : {label: 'Role', sortable: true},
-        theFromInterface : {label: 'Interface', sortable: true},
-        theToComponent : {label: 'To', sortable: true},
-        theToRole : {label: 'Role', sortable: true},
-        theToInterface : {label: 'Interface', sortable: true},
-        theAssetName : {label: 'Asset', sortable: true},
-        theProtocol : {label: 'Protocol', sortable: true},
-        theAccessRight : {label: 'Access Right', sortable: true}
-      }
+      requirementTableFields : [
+        {key: 'requirementactions', label : ''},
+        {key: 'name',  label : 'Requirement', sortable: true}
+      ],
+      goalTableFields : [
+        {key: 'goalactions', label : ''},
+        {key: 'name', label : 'Goal', sortable: true}
+      ],
+      goalAssociationTableFields : [
+        {key: 'goalassociationactions', label : ''},
+        {key: 'theGoalName', label : 'Goal', sortable: true},
+        {key: 'theRefType', label: 'Ref Type', sortable: true},
+        {key: 'theSubGoalName', label: 'Sub goal', sortable: true},
+        {key: 'theRationale', label: 'Rationale', sortable: true}
+      ],
+      connectorTableFields : [
+        {key: 'connectoractions', label : ''},
+        {key: 'theConnectorName', label: 'Name', sortable: true},
+        {key: 'theFromComponent', label: 'From', sortable: true},
+        {key: 'theFromRole', label: 'Role', sortable: true},
+        {key: 'theFromInterface', label: 'Interface', sortable: true},
+        {key: 'theToComponent', label: 'To', sortable: true},
+        {key: 'theToRole', label: 'Role', sortable: true},
+        {key: 'theToInterface', label: 'Interface', sortable: true},
+        {key: 'theAssetName', label: 'Asset', sortable: true},
+        {key: 'theProtocol', label: 'Protocol', sortable: true},
+        {key: 'theAccessRight', label: 'Access Right', sortable: true}
+      ]
     }
   }, 
   methods: {

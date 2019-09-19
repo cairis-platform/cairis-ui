@@ -97,10 +97,10 @@ Authors: Shamal Faily
                       <b-col md="12">
                         <b-table striped bordered small hover :items="participants" :fields=participantTableFields @row-clicked="viewParticipant">
                            <!-- eslint-disable-next-line -->
-                          <template slot="HEAD_participantsactions" slot-scope="data"> 
+                          <template v-slot:head(participantsactions)="data"> 
                             <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addParticipant"/> 
                           </template> 
-                          <template slot="participantsactions" slot-scope="row">
+                          <template v-slot:cell(participantsactions)="row">
                             <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteParticipant(row.index)"/>
                           </template> 
                         </b-table>
@@ -125,10 +125,10 @@ Authors: Shamal Faily
                         <b-col md="4">
                           <b-table striped bordered small hover :items="concerns" :fields=concernTableFields>
                             <!-- eslint-disable-next-line -->
-                            <template slot="HEAD_concernactions" slot-scope="data"> 
+                            <template v-slot:head(concernactions)="data"> 
                               <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addConcern"/> 
                             </template> 
-                            <template slot="concernactions" slot-scope="row">
+                            <template v-slot:cell(concernactions)="row">
                               <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteConcern(row.index)"/>
                             </template> 
                           </b-table>
@@ -136,10 +136,10 @@ Authors: Shamal Faily
                         <b-col md="8">
                           <b-table striped bordered small hover :items="concernAssociations" :fields=concernAssociationTableFields @row-clicked="viewConcernAssociation">
                             <!-- eslint-disable-next-line -->
-                            <template slot="HEAD_concernassociationactions" slot-scope="data"> 
+                            <template v-slot:head(concernassociationactions)="data"> 
                               <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addConcernAssociation"/> 
                             </template> 
-                            <template slot="concernassociationactions" slot-scope="row">
+                            <template v-slot:cell(concernassociationactions)="row">
                               <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteConcernAssociation(row.index)"/>
                             </template> 
                           </b-table>
@@ -207,14 +207,14 @@ export default {
       commitLabel : this.label,
       envPropIndex : 0,
       errors : [],
-      participantTableFields : {
-        participantsactions : {label : ''},
-        thePersona : {label : 'Persona'},
-        theDuration : {label : 'Duration'},
-        theFrequency : {label : 'Frequency'},
-        theDemands : {label : 'Demands'},
-        theGoalConflict : {label : 'Goal Conflict'}
-      },
+      participantTableFields : [
+        {key: 'participantsactions', label : ''},
+        {key: 'thePersona', label : 'Persona'},
+        {key: 'theDuration', label : 'Duration'},
+        {key: 'theFrequency',label : 'Frequency'},
+        {key: 'theDemands', label : 'Demands'},
+        {key: 'theGoalConflict', label : 'Goal Conflict'}
+      ],
       durationLookup : {
         'Low' : 'Seconds',
         'Medium' : 'Minutes',

@@ -20,12 +20,12 @@
 export default {
   data() {
     return {
-      propTableFields : {
-        propactions : {label : ''},
-        name : {label : 'Property'},
-        value : {label : 'Value'},
-        rationale : {label : 'Rationale'} 
-      },
+      propTableFields : [
+        {key: 'propactions', label : ''},
+        {key: 'name' , label : 'Property'},
+        {key: 'value', label : 'Value'},
+        {key: 'rationale', label : 'Rationale'} 
+      ],
       selectedProperty : {}
     }
   },

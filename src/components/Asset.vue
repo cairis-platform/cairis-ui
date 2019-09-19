@@ -95,10 +95,10 @@ Authors: Shamal Faily
             <b-card bg-variant="light">
               <b-table striped small hover :items="objt.theInterfaces" :fields=interfaceTableFields @row-clicked="viewInterface">
                 <!-- eslint-disable-next-line -->
-                <template slot="HEAD_intactions" slot-scope="data"> 
+                <template v-slot:head(intactions)="data"> 
                   <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addInterface"/> 
                 </template>
-                <template slot="intactions" slot-scope="row">
+                <template v-slot:cell(intactions)="row">
                   <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteInterface(row.index)"/>
                 </template>
               </b-table>
@@ -127,10 +127,10 @@ Authors: Shamal Faily
                   <b-tab title="Definition" active>
                     <b-table striped small hover :items="notNone" :fields=propTableFields @row-clicked="viewProperty">
                       <!-- eslint-disable-next-line -->
-                      <template slot="HEAD_propactions" slot-scope="data"> 
+                      <template v-slot:head(propactions)="data"> 
                         <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addProperty"/> 
                       </template> 
-                      <template slot="propactions" slot-scope="row">
+                      <template v-slot:cell(propactions)="row">
                         <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="clearProperty(row.item)"/>
                       </template> 
                     </b-table>
@@ -138,10 +138,10 @@ Authors: Shamal Faily
                   <b-tab title="Associations">
                     <b-table striped small hover :items="assetAssociations" :fields="assocTableFields" @row-clicked="viewAssetAssociation">
                       <!-- eslint-disable-next-line -->
-                      <template slot="HEAD_assocactions" slot-scope="data">
+                      <template v-slot:head(assocactions)="data">
                         <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addAssetAssociation"/> 
                       </template>
-                      <template slot="assocactions" slot-scope="row">
+                      <template v-slot:cell(assocactions)="row">
                         <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteAssetAssociation(row.index)"/>
                       </template>
                     </b-table> 
@@ -238,13 +238,13 @@ export default {
         envactions : {label : ''},
         theName : {label : 'Environment'}
       },
-      interfaceTableFields : {
-        intactions : {label : ''},
-        theInterfaceName : {label : 'Interface'},
-        theInterfaceType : {label : 'Type'},
-        theAccessRight : {label : 'Access Right'},
-        thePrivilege : {label : 'Privilege'} 
-      },
+      interfaceTableFields : [
+        {key: 'intactions', label: ''},
+        {key: 'theInterfaceName', label : 'Interface'},
+        {key: 'theInterfaceType' ,label : 'Type'},
+        {key: 'theAccessRight' , label : 'Access Right'},
+        {key: 'thePrivilege', label : 'Privilege'} 
+      ],
       assocTableFields : [
         {key: 'assocactions', label: ''},
         {key: 'theHeadNav', label: 'Nav'},

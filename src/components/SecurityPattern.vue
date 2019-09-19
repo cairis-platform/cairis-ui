@@ -69,10 +69,10 @@ Authors: Shamal Faily
                   <b-col md="12">
                     <b-table striped bordered small hover :items="objt.theConcernAssociations" :fields=structureTableFields @row-clicked="viewStructure">
                       <!-- eslint-disable-next-line -->
-                      <template slot="HEAD_structureactions" slot-scope="data"> 
+                      <template v-slot:head(structureactions)="data"> 
                         <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addStructure"/> 
                       </template>
-                      <template slot="structureactions" slot-scope="row">
+                      <template v-slot:cell(structureactions)="row">
                         <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteStructure(row.index)"/>
                       </template>
                     </b-table>
@@ -88,10 +88,10 @@ Authors: Shamal Faily
                   <b-col md="12">
                     <b-table striped bordered small hover :items="objt.theRequirements" :fields=requirementTableFields >
                       <!-- eslint-disable-next-line -->
-                      <template slot="HEAD_requirementactions" slot-scope="data"> 
+                      <template v-slot:head(requirementactions)="data"> 
                         <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addRequirement"/> 
                       </template>
-                      <template slot="requirementactions" slot-scope="row">
+                      <template v-slot:cell(requirementactions)="row">
                         <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteRequirement(row.index)"/>
                       </template>
                     </b-table>
@@ -144,10 +144,10 @@ export default {
       commitLabel : this.label,
       envPropIndex : 0,
       errors : [],
-      requirementTableFields : {
-        requirementactions : {label : ''},
-        theName : {label : 'Name'}
-      },
+      requirementTableFields : [
+        {key: 'requirementactions', label : ''},
+        {key: 'theName', label : 'Name'}
+      ],
       structureTableFields : [
         {key: 'structureactions', label: ''},
         {key: 'theHeadAsset', label: 'Head Asset'},

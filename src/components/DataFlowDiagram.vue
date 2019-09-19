@@ -38,7 +38,7 @@ Authors: Shamal Faily
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
-          <b-form-group label="Refresh" label-for="refreshCtrl" :label-cols="2" >
+          <b-form-group label="Refresh" label-for="refreshCtrl" >
             <font-awesome-icon id="refreshCtrl" icon="sync" @click.stop="refreshModel" />
           </b-form-group>
         </b-col>

@@ -30,15 +30,15 @@ Authors: Shamal Faily
           <b-col md="12">
             <b-table striped hover small bordered :fields="dbTableFields" :items="theDatabases" @row-clicked="openDatabase">
               <!-- eslint-disable-next-line -->
-              <template slot="HEAD_dbactions" slot-scope="data"> 
+              <template v-slot:head(dbactions)="data"> 
                 <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addDatabase"/> 
               </template>
               <!-- eslint-disable-next-line -->
-              <template slot="dbactions" slot-scope="row">
+              <template v-slot:cell(dbactions)="row">
                 <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteDatabase(row)"/>
               </template>
               <!-- eslint-disable-next-line -->
-              <template slot="permissions" slot-scope="row">
+              <template v-slot:cell(permissions)="row">
                   <b-button size="sm" v-if="row.item.permissioned == 'Y'" @click="showPermissions(row)" class="mr-2">
                     {{ row.detailsShowing ? 'Hide' : 'Show'}} Permissions
                   </b-button>
@@ -49,11 +49,11 @@ Authors: Shamal Faily
                   <b-row class="mb-12">
                     <b-table striped hover small bordered :fields="permissionTableFields" :items="ids">
                       <!-- eslint-disable-next-line -->
-                      <template slot="HEAD_permittedactions" slot-scope="data"> 
+                      <template v-slot:head(permittedactions)="data"> 
                         <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="grantPermission"/> 
                       </template>
                       <!-- eslint-disable-next-line -->
-                      <template slot="permittedactions" slot-scope="row">
+                      <template v-slot:cell(permittedactions)="row">
                         <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="revokePermission(row)"/>
                       </template>
                     </b-table>
@@ -114,16 +114,16 @@ export default {
       isLoading : false,
       theDatabases : this.databases,
       theCurrentDatabase : '',
-      dbTableFields : {
-        dbactions : {label : ''},
-        database : {label : 'Database', sortable: true},
-        permissions : {label: ''}
-      },
+      dbTableFields : [
+        {key: 'dbactions', label : ''},
+        {key: 'database', label : 'Database', sortable: true},
+        {key: 'permissions', label: ''}
+      ],
       thePermittedIds : [],
-      permissionTableFields : {
-        permittedactions : {label : ''},
-        name : {label : 'Account', sortable: true},
-      }
+      permissionTableFields : [
+        {key: 'permittedactions', label : ''},
+        {key: 'name',  label : 'Account', sortable: true},
+      ]
     }
   },
   methods : {

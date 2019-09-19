@@ -74,10 +74,10 @@ Authors: Shamal Faily
               </b-form-group>
               <b-table striped bordered small :fields="componentTableFields" :items="components">
                 <!-- eslint-disable-next-line -->
-                <template slot="HEAD_componentactions" slot-scope="data"> 
+                <template v-slot:head(componentactions)="data"> 
                   <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addComponent"/> 
                 </template>
-                <template slot="componentactions" slot-scope="row">
+                <template v-slot:cell(componentactions)="row">
                   <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteComponent(row.index)"/>
                 </template>
               </b-table>
@@ -139,15 +139,15 @@ export default {
       commitLabel : this.label,
       envPropIndex : 0,
       errors : [],
-      envFields : {
-        envactions : {label : ''},
-        theName : {label : 'Environment'}
-      },
-      componentTableFields : {
-        componentactions : {label : ''},
-        theName : {label : 'Component', sortable: true},
-        theType : {label : 'Type', sortable: true}
-      }
+      envFields : [
+        {key: 'envactions', label : ''},
+        {key: 'theName', label : 'Environment'}
+      ],
+      componentTableFields : [
+        {key: 'componentactions', label : ''},
+        {key: 'theName', label : 'Component', sortable: true},
+        {key: 'theType', label : 'Type', sortable: true}
+      ]
     }
   }, 
   methods: {

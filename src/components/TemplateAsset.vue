@@ -88,10 +88,10 @@ Authors: Shamal Faily
             <b-card bg-variant="light">
               <b-table striped small hover :items="objt.theInterfaces" :fields=interfaceTableFields @row-clicked="viewInterface">
                 <!-- eslint-disable-next-line -->
-                <template slot="HEAD_intactions" slot-scope="data"> 
+                <template v-slot:head(intactions)="data"> 
                   <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addInterface"/> 
                 </template>
-                <template slot="intactions" slot-scope="row">
+                <template v-slot:cell(intactions)="row">
                   <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteInterface(row.index)"/>
                 </template>
               </b-table>
@@ -101,10 +101,10 @@ Authors: Shamal Faily
         <b-container fluid>
           <b-table striped small hover :items="notNone" :fields=propTableFields @row-clicked="viewProperty">
             <!-- eslint-disable-next-line -->
-            <template slot="HEAD_propactions" slot-scope="data"> 
+            <template v-slot:head(propactions)="data"> 
               <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addProperty"/> 
             </template> 
-            <template slot="propactions" slot-scope="row">
+            <template v-slot:cell(propactions)="row">
               <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="clearProperty(row.item)"/>
             </template> 
           </b-table>
@@ -168,13 +168,13 @@ export default {
         }
       },
       assetTypes: ['Hardware','Information','People','Software','Systems','Systems - General','System of Systems'],
-      interfaceTableFields : {
-        intactions : {label : ''},
-        theInterfaceName : {label : 'Interface'},
-        theInterfaceType : {label : 'Type'},
-        theAccessRight : {label : 'Access Right'},
-        thePrivilege : {label : 'Privilege'} 
-      }
+      interfaceTableFields : [
+        {key: 'intactions', label : ''},
+        {key: 'theInterfaceName', label : 'Interface'},
+        {key: 'theInterfaceType', label : 'Type'},
+        {key: 'theAccessRight', label : 'Access Right'},
+        {key: 'thePrivilege', label : 'Privilege'} 
+      ]
     }
   }, 
   methods: {

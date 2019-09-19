@@ -58,10 +58,10 @@ Authors: Shamal Faily
                 <b-col md="12">
                   <b-table striped bordered small hover :items="actors" :fields=actorTableFields>
                     <!-- eslint-disable-next-line -->
-                    <template slot="HEAD_actorsactions" slot-scope="data"> 
+                    <template v-slot:head(actorsactions)="data"> 
                       <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addActor"/> 
                     </template> 
-                    <template slot="actorsactions" slot-scope="row">
+                    <template v-slot:cell(actorsactions)="row">
                       <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteActor(row.index)"/>
                     </template> 
                   </b-table>
@@ -88,10 +88,10 @@ Authors: Shamal Faily
               <b-col md="12">
                 <b-table striped bordered small hover :items="contributions" :fields=contributionTableFields @row-clicked="viewContribution">
                   <!-- eslint-disable-next-line -->
-                  <template slot="HEAD_contributionactions" slot-scope="data"> 
+                  <template v-slot:head(contributionactions)="data"> 
                     <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addContribution"/> 
                   </template> 
-                  <template slot="contributionactions" slot-scope="row">
+                  <template v-slot:cell(contributionactions)="row">
                     <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteContribution(row.index)"/>
                   </template> 
                 </b-table>
@@ -129,16 +129,16 @@ Authors: Shamal Faily
                   <b-col md="12">
                     <b-table striped bordered small hover :items="steps" :fields=stepTableFields @row-clicked="viewStep">
                       <!-- eslint-disable-next-line -->
-                      <template slot="HEAD_stepsactions" slot-scope="data"> 
+                      <template v-slot:head(stepsactions)="data"> 
                         <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addStep"/> 
                       </template> 
-                      <template slot="stepsactions" slot-scope="row">
+                      <template v-slot:cell(stepsactions)="row">
                         <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteStep(row.index)"/>
                       </template> 
-                      <template slot="theExceptions" slot-scope="row">
+                      <template v-slot:cell(theExceptions)="row">
                         {{ objt.theEnvironmentProperties.length > 0 && objt.theEnvironmentProperties[envPropIndex].theSteps.length > 0 && row.index != -1 && objt.theEnvironmentProperties[envPropIndex].theSteps[row.index].theExceptions.length > 0 ? objt.theEnvironmentProperties[envPropIndex].theSteps[row.index].theExceptions.map(exc => exc.theName).toString() : 'None' }} 
                       </template> 
-                      <template slot="show_details" slot-scope="row">
+                      <template v-slot:cell(show_details)="row">
                         <b-button size="sm" @click="toggleExceptionDetails(row)" class="mr-2">
                           {{ row.detailsShowing ? 'Hide' : 'Show'}} Exceptions 
                         </b-button>
@@ -149,10 +149,10 @@ Authors: Shamal Faily
                           <b-row class="mb-12">
                             <b-table striped bordered small hover :items="exceptions" :fields=exceptionTableFields @row-clicked="viewException">
                               <!-- eslint-disable-next-line -->
-                              <template slot="HEAD_exceptionsactions" slot-scope="data"> 
+                              <template v-slot:head(exceptionsactions)="data"> 
                                 <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addException"/> 
                               </template> 
-                              <template slot="exceptionsactions" slot-scope="row">
+                              <template v-slot:cell(exceptionsactions)="row">
                                 <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteException(row.index)"/>
                               </template> 
                             </b-table>
@@ -165,8 +165,7 @@ Authors: Shamal Faily
                 </b-container>
               </b-tab>
               <b-tab title="Postconditions">
-                <b-form-textarea id="thePostconditionsInput" v-model="postconditions" type="text" :rows=4 :max-rows=4 required>
-                </b-form-textarea>
+                <b-form-textarea id="thePostconditionsInput" v-model="postconditions" type="text" :rows=4 :max-rows=4 required />
               </b-tab>
             </b-tabs>
             </b-container>
@@ -253,26 +252,26 @@ export default {
       envPropIndex : 0,
       theStepIndex : -1,
       errors : [],
-      actorTableFields : {
-        actorsactions : {label : ''},
-        name : {label : 'Actor'},
-      },
-      contributionTableFields : {
-        contributionactions : {label : ''},
-        theContributionTo : {label: 'Intention', sortable: true},
-        'theReferenceContribution.theMeansEnd': {label: 'Means/End', sortable: true},
-        'theReferenceContribution.theContribution' : {label: 'Contribution', sortable: true}
-      },
-      stepTableFields : {
-        stepsactions : {label : ''},
-        theStepText : {label: 'Step'},
-        theExceptions : {label: 'Exceptions'},
-        show_details : {label: ''}
-      },
-      exceptionTableFields : {
-        exceptionsactions : {label : ''},
-        theName : {label: 'Exception'}
-      },
+      actorTableFields : [
+        {key: 'actorsactions', label : ''},
+        {key: 'name', label : 'Actor'},
+      ],
+      contributionTableFields : [
+        {key: 'contributionactions', label : ''},
+        {key: 'theContributionTo', label: 'Intention', sortable: true},
+        {key: 'theReferenceContribution.theMeansEnd', label: 'Means/End', sortable: true},
+        {key: 'theReferenceContribution.theContribution', label: 'Contribution', sortable: true}
+      ],
+      stepTableFields : [
+        {key: 'stepsactions', label : ''},
+        {key: 'theStepText', label: 'Step'},
+        {key: 'theExceptions', label: 'Exceptions'},
+        {key: 'show_details', label: ''}
+      ],
+      exceptionTableFields : [
+        {key: 'exceptionsactions', label : ''},
+        {key: 'theName', label: 'Exception'}
+      ],
       selectedStep : {
         update : false,
         step : {

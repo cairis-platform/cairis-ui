@@ -36,8 +36,7 @@ Authors: Shamal Faily
               <b-row>
                 <b-col md="6">
                   <b-form-group label="Dataflow" label-class="font-weight-bold text-md-left" label-for="theDataflowInput" >
-                    <b-form-input id="theDataFlowInput" v-model="objt.theName" type="text" required>
-                    </b-form-input>
+                    <b-form-input id="theDataFlowInput" v-model="objt.theName" type="text" required />
                   </b-form-group>
                 </b-col>
                 <b-col md="6">
@@ -75,10 +74,10 @@ Authors: Shamal Faily
                 <b-col md="12">
                   <b-table striped bordered small :fields="assetTableFields" :items="dataFlowAssets">
                     <!-- eslint-disable-next-line -->
-                    <template slot="HEAD_assetactions" slot-scope="data"> 
+                    <template v-slot:head(assetactions)="data"> 
                       <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addAsset"/> 
                     </template>
-                    <template slot="assetactions" slot-scope="row">
+                    <template v-slot:cell(assetactions)="row">
                       <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteAsset(row.index)"/>
                     </template>
                   </b-table>
@@ -141,10 +140,10 @@ export default {
       toTypeOptions : [
         {'text' : 'Process', 'value' : 'process'}
       ],
-      assetTableFields : {
-        assetactions : {label : ''},
-        name : {label : 'Asset'}
-      }
+      assetTableFields : [
+        {key: 'assetactions', label : ''},
+        {key: 'name', label : 'Asset'}
+      ]
     }
   },
   methods : {

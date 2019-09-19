@@ -85,10 +85,10 @@ Authors: Shamal Faily
             <b-col sm="4">
               <b-table striped bordered small :fields="attackerTableFields" :items="environmentAttackers">
                 <!-- eslint-disable-next-line -->
-                <template slot="HEAD_attackeractions" slot-scope="data"> 
+                <template v-slot:head(attackeractions)="data"> 
                   <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addAttacker"/> 
                 </template>
-                <template slot="attackeractions" slot-scope="row">
+                <template v-slot:cell(attackeractions)="row">
                   <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteAttacker(row.index)"/>
                 </template>
               </b-table>
@@ -96,10 +96,10 @@ Authors: Shamal Faily
             <b-col sm="4">
               <b-table striped bordered small :fields="assetTableFields" :items="environmentAssets">
                 <!-- eslint-disable-next-line -->
-                <template slot="HEAD_assetactions" slot-scope="data"> 
+                <template v-slot:head(assetactions)="data"> 
                   <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addAsset"/> 
                 </template>
-                <template slot="assetactions" slot-scope="row">
+                <template v-slot:cell(assetactions)="row">
                   <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteAsset(row.index)"/>
                 </template>
               </b-table>
@@ -107,10 +107,10 @@ Authors: Shamal Faily
             <b-col sm="4">
               <b-table striped bordered small hover :items="notNone" :fields=propTableFields @row-clicked="viewProperty">
                 <!-- eslint-disable-next-line -->
-                <template slot="HEAD_propactions" slot-scope="data"> 
+                <template v-slot:head(propactions)="data"> 
                   <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addProperty"/> 
                 </template> 
-                <template slot="propactions" slot-scope="row">
+                <template v-slot:cell(propactions)="row">
                   <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="clearProperty(row.item)"/>
                 </template> 
               </b-table>
@@ -188,18 +188,18 @@ export default {
       envPropIndex : 0,
       errors : [],
       likelihoodTypes: ['Incredible','Improbable','Remote','Occasional','Probable','Frequent'],
-      envFields : {
-        envactions : {label : ''},
-        theName : {label : 'Environment'}
-      },
-      assetTableFields : {
-        assetactions : {label : ''},
-        name : {label : 'Asset'}
-      },
-      attackerTableFields : {
-        attackeractions : {label : ''},
-        name : {label : 'Attacker'}
-      },
+      envFields : [
+        {key: 'envactions', label : ''},
+        {key: 'theName', label : 'Environment'}
+      ],
+      assetTableFields : [
+        {key: 'assetactions', label : ''},
+        {key: 'name', label : 'Asset'}
+      ],
+      attackerTableFields : [
+        {key: 'attackeractions', label : ''},
+        {key: 'name', label : 'Attacker'}
+      ],
     }
   }, 
   methods: {

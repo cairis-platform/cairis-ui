@@ -54,10 +54,10 @@ Authors: Shamal Faily
         <b-row>
           <b-table striped bordered small hover :items="concerns" :fields=concernTableFields>
             <!-- eslint-disable-next-line -->
-            <template slot="HEAD_concernactions" slot-scope="data"> 
+            <template v-slot:head(concernactions)="data"> 
               <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addConcern"/> 
             </template> 
-            <template slot="concernactions" slot-scope="row">
+            <template v-slot:cell(concernactions)="row">
               <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteConcern(row.index)"/>
             </template> 
           </b-table>
@@ -65,10 +65,10 @@ Authors: Shamal Faily
         <b-row>
           <b-table striped bordered small hover :items="responsibilities" :fields=responsibilityTableFields>
             <!-- eslint-disable-next-line -->
-            <template slot="HEAD_responsibilityactions" slot-scope="data"> 
+            <template v-slot:head(responsibilityactions)="data"> 
               <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addRole"/> 
             </template> 
-            <template slot="responsibilityactions" slot-scope="row">
+            <template v-slot:cell(responsibilityactions)="row">
               <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteRole(row.index)"/>
             </template> 
           </b-table>
@@ -121,10 +121,10 @@ export default {
       objt : this.object,
       envPropIndex : 0,
       commitLabel : this.label,
-      responsibilityTableFields : {
-        responsibilityactions : {label : ''},
-        name : {label : 'Responsibility'}
-      }
+      responsibilityTableFields : [
+        {key: 'responsibilityactions', label : ''},
+        {key: 'name', label : 'Responsibility'}
+      ]
     }
   },
   methods : {

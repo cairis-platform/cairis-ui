@@ -44,20 +44,17 @@ Authors: Shamal Faily
                   <b-row>
                     <b-col md="6">
                       <b-form-group label="Persona" label-class="font-weight-bold text-md-left" label-for="thePersonaInput">
-                        <b-form-input id="thePersonaInput" v-model="objt.theName" type="text" required>
-                        </b-form-input>
+                        <b-form-input id="thePersonaInput" v-model="objt.theName" type="text" required />
                       </b-form-group>
                     </b-col>
                     <b-col md="6">
                       <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-for="theTypeInput">
-                        <b-form-select id="theTypeInput" v-model="objt.thePersonaType" :options="personaTypes" class="mb-3" required>
-                        </b-form-select>
+                        <b-form-select id="theTypeInput" v-model="objt.thePersonaType" :options="personaTypes" class="mb-3" required />
                       </b-form-group>
                     </b-col>
                   </b-row>
                   <b-form-group label="Tags" label-class="font-weight-bold text-md-left" label-for="theTagsInput">
-                    <b-form-input id="theTagsInput" v-model="objt.theTags" type="text">
-                    </b-form-input>
+                    <b-form-input id="theTagsInput" v-model="objt.theTags" type="text" />
                   </b-form-group>
                 </b-card>
               </b-tab>
@@ -115,10 +112,10 @@ Authors: Shamal Faily
                        <b-col>
                          <b-table striped small bordered :fields="roleTableFields" :items="environmentRoles">
                            <!-- eslint-disable-next-line -->
-                           <template slot="HEAD_roleactions" slot-scope="data"> 
+                           <template v-slot:head(roleactions)="data"> 
                              <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addRole(data)"/> 
                            </template>
-                           <template slot="roleactions" slot-scope="row">
+                           <template v-slot:cell(roleactions)="row">
                              <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteRole(row.item)"/>
                            </template>
                          </b-table>
@@ -209,10 +206,10 @@ export default {
         "Served",
         "Supplemental"
       ],
-      roleTableFields : {
-        roleactions : {label : ''},
-        name : {label : 'Role'}
-      }
+      roleTableFields : [
+        {key: 'roleactions',  label : ''},
+        {key: 'name', label : 'Role'}
+      ]
     }
   },
   methods : {

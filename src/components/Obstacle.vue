@@ -101,10 +101,10 @@ Authors: Shamal Faily
                       <b-col md="12">
                         <b-table striped bordered small hover :items="concerns" :fields=concernTableFields>
                           <!-- eslint-disable-next-line -->
-                          <template slot="HEAD_concernactions" slot-scope="data"> 
+                          <template v-slot:head(concernactions)="data"> 
                             <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addConcern"/> 
                           </template> 
-                          <template slot="concernactions" slot-scope="row">
+                          <template v-slot:cell(concernactions)="row">
                             <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteConcern(row.index)"/>
                           </template> 
                         </b-table>
@@ -118,10 +118,10 @@ Authors: Shamal Faily
                       <b-col md="12">
                         <b-table striped bordered small hover :items="goalRefinements" :fields=goalRefinementTableFields @row-clicked="viewObstacleRefinement">
                           <!-- eslint-disable-next-line -->
-                          <template slot="HEAD_obstaclerefinementactions" slot-scope="data"> 
+                          <template v-slot:head(obstaclerefinementactions)="data"> 
                             <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addObstacleRefinement"/> 
                           </template> 
-                          <template slot="obstaclerefinementactions" slot-scope="row">
+                          <template v-slot:cell(obstaclerefinementactions)="row">
                             <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteObstacleRefinement(row.index)"/>
                           </template> 
                         </b-table>
@@ -135,10 +135,10 @@ Authors: Shamal Faily
                       <b-col md="12">
                         <b-table striped bordered small hover :items="subGoalRefinements" :fields=subGoalRefinementTableFields @row-clicked="viewSubObstacleRefinement">
                           <!-- eslint-disable-next-line -->
-                          <template slot="HEAD_subobstaclerefinementactions" slot-scope="data"> 
+                          <template v-slot:head(subobstaclerefinementactions)="data"> 
                             <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addSubObstacleRefinement"/> 
                           </template> 
-                          <template slot="subobstaclerefinementactions" slot-scope="row">
+                          <template v-slot:cell(subobstaclerefinementactions)="row">
                             <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteSubObstacleRefinement(row.index)"/>
                           </template> 
                         </b-table>
@@ -237,26 +237,26 @@ export default {
       objt : this.object,
       envPropIndex : 0,
       commitLabel : this.label,
-      concernTableFields : {
-        concernactions : {label : ''},
-        name : {label : 'Concern'}
-      },
-      goalRefinementTableFields : {
-        obstaclerefinementactions : {label : ''},
-        theEndType : {label : 'Type'},
-        theEndName : {label : 'Goal'},
-        theRefType : {label : 'Refinement'},
-        isAlternate : {label : 'Alternate'},
-        theRationale : {label : 'Rationale'}
-      },
-      subGoalRefinementTableFields : {
-        subobstaclerefinementactions : {label : ''},
-        theEndType : {label : 'Type'},
-        theEndName : {label : 'Sub-Goal'},
-        theRefType : {label : 'Refinement'},
-        isAlternate : {label : 'Alternate'},
-        theRationale : {label : 'Rationale'}
-      },
+      concernTableFields : [
+        {key: 'concernactions', label : ''},
+        {key: 'name', label : 'Concern'}
+      ],
+      goalRefinementTableFields : [
+        {key: 'obstaclerefinementactions', label : ''},
+        {key: 'theEndType', label : 'Type'},
+        {key: 'theEndName', label : 'Goal'},
+        {key: 'theRefType', label : 'Refinement'},
+        {key: 'isAlternate', label : 'Alternate'},
+        {key: 'theRationale', label : 'Rationale'}
+      ],
+      subGoalRefinementTableFields : [
+        {key: 'subobstaclerefinementactions' , label : ''},
+        {key: 'theEndType', label : 'Type'},
+        {key: 'theEndName', label : 'Sub-Goal'},
+        {key: 'theRefType', label : 'Refinement'},
+        {key: 'isAlternate', label : 'Alternate'},
+        {key: 'theRationale', label : 'Rationale'}
+      ],
       selectedAssociation : {
         environment : '',
         update : false,

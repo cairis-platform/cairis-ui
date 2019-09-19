@@ -30,18 +30,18 @@ export default {
   },
   data() {
     return {
-      concernTableFields : {
-        concernactions : {label : ''},
-        name : {label : 'Concern'}
-      },
-      concernAssociationTableFields : {
-        concernassociationactions : {label : ''},
-        theSource : {label : 'Source'},
-        theSourceNry : {label : 'n'},
-        theLinkVerb : {label : 'Link Verb'},
-        theTargetNry : {label : 'n'},
-        theTarget : {label : 'Target'}
-      },
+      concernTableFields : [
+        {key: 'concernactions', label : ''},
+        {key: 'name', label : 'Concern'}
+      ],
+      concernAssociationTableFields : [
+        {key: 'concernassociationactions', label : ''},
+        {key: 'theSource', label : 'Source'},
+        {key: 'theSourceNry',label : 'n'},
+        {key: 'theLinkVerb', label : 'Link Verb'},
+        {key: 'theTargetNry', label : 'n'},
+        {key: 'theTarget', label : 'Target'}
+      ],
       selectedConcernAssociation : {
         update : false,
         association : {

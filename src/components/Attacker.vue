@@ -41,16 +41,13 @@ Authors: Shamal Faily
           <b-col md=10>
             <b-container fluid>
               <b-form-group label="Attacker" label-class="font-weight-bold text-md-left" label-for="theAttackerInput">
-                <b-form-input id="theAttackerInput" v-model="objt.theName" type="text" required>
-                </b-form-input>
+                <b-form-input id="theAttackerInput" v-model="objt.theName" type="text" required />
               </b-form-group>
               <b-form-group label="Tags" label-class="font-weight-bold text-md-left" label-for="theTagsInput">
-                <b-form-input id="theTagsInput" v-model="objt.theTags" type="text">
-                </b-form-input>
+                <b-form-input id="theTagsInput" v-model="objt.theTags" type="text" />
               </b-form-group>
               <b-form-group label="Description" label-class="font-weight-bold text-md-left" label-for="theDescription">
-                <b-form-textarea id="theDescriptionInput" v-model="objt.theDescription" type="text" :rows=5 :max-rows=7 required>
-                </b-form-textarea>
+                <b-form-textarea id="theDescriptionInput" v-model="objt.theDescription" type="text" :rows=5 :max-rows=7 required />
               </b-form-group>
             </b-container>
           </b-col>
@@ -76,10 +73,10 @@ Authors: Shamal Faily
                 <b-col sm="4">
                   <b-table striped small bordered :fields="roleTableFields" :items="environmentRoles">
                     <!-- eslint-disable-next-line -->
-                    <template slot="HEAD_roleactions" slot-scope="data"> 
+                    <template v-slot:head(roleactions)="data"> 
                       <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addRole"/> 
                     </template>
-                    <template slot="roleactions" slot-scope="row">
+                    <template v-slot:cell(roleactions)="row">
                       <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteRole(row.item)"/>
                     </template>
                   </b-table>
@@ -87,10 +84,10 @@ Authors: Shamal Faily
                 <b-col sm="4">
                   <b-table striped small bordered :fields="motiveTableFields" :items="environmentMotives">
                     <!-- eslint-disable-next-line -->
-                    <template slot="HEAD_motiveactions" slot-scope="data"> 
+                    <template v-slot:head(motiveactions)="data"> 
                       <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addMotive"/> 
                     </template>
-                    <template slot="motiveactions" slot-scope="row">
+                    <template v-slot:cell(motiveactions)="row">
                       <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteMotive(row.item)"/>
                     </template>
                   </b-table>
@@ -98,10 +95,10 @@ Authors: Shamal Faily
                 <b-col sm="4">
                   <b-table striped small bordered :fields="capabilityTableFields" :items="environmentCapabilities">
                     <!-- eslint-disable-next-line -->
-                    <template slot="HEAD_capabilityactions" slot-scope="data"> 
+                    <template v-slot:head(capabilityactions)="data"> 
                       <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addCapability"/> 
                     </template>
-                    <template slot="capabilityactions" slot-scope="row">
+                    <template v-slot:cell(capabilityactions)="row">
                       <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteCapability(row.item)"/>
                     </template>
                   </b-table>
@@ -182,19 +179,19 @@ export default {
       objt : this.object,
       envPropIndex : 0,
       commitLabel : this.label,
-      roleTableFields : {
-        roleactions : {label : ''},
-        name : {label : 'Role'}
-      },
-      motiveTableFields : {
-        motiveactions : {label : ''},
-        name : {label : 'Motivation'}
-      },
-      capabilityTableFields : {
-        capabilityactions : {label : ''},
-        name : {label : 'Capability'},
-        value : {label : 'Value'}
-      }
+      roleTableFields : [
+        {key: 'roleactions', label : ''},
+        {key: 'name', label : 'Role'}
+      ],
+      motiveTableFields : [
+        {key: 'motiveactions', label : ''},
+        {key: 'name', label : 'Motivation'}
+      ],
+      capabilityTableFields : [
+        {key: 'capabilityactions', label : ''},
+        {key: 'name', label : 'Capability'},
+        {key: 'value', label : 'Value'}
+      ]
     }
   },
   methods : {

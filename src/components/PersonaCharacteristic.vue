@@ -65,10 +65,10 @@ Authors: Shamal Faily
                 <b-col md="4">
                   <b-table striped bordered small :fields="groundTableFields" :items="objt.theGrounds" @row-clicked="viewGrounds">
                     <!-- eslint-disable-next-line -->
-                    <template slot="HEAD_gwractions" slot-scope="data"> 
+                    <template v-slot:head(gwractions)="data"> 
                       <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addGrounds"/> 
                     </template>
-                    <template slot="gwractions" slot-scope="row">
+                    <template v-slot:cell(gwractions)="row">
                       <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteGrounds(row.index)"/>
                     </template>
                   </b-table>
@@ -76,10 +76,10 @@ Authors: Shamal Faily
                 <b-col md="4">
                   <b-table striped bordered small :fields="warrantTableFields" :items="objt.theWarrant" @row-clicked="viewWarrant">
                     <!-- eslint-disable-next-line -->
-                    <template slot="HEAD_gwractions" slot-scope="data"> 
+                    <template v-slot:head(gwractions)="data"> 
                       <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addWarrant"/> 
                     </template>
-                    <template slot="gwractions" slot-scope="row">
+                    <template v-slot:cell(gwractions)="row">
                       <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteWarrant(row.index)"/>
                     </template>
                   </b-table>
@@ -87,10 +87,10 @@ Authors: Shamal Faily
                 <b-col md="4">
                   <b-table striped bordered small :fields="rebuttalTableFields" :items="objt.theRebuttal" @row-clicked="viewRebuttal">
                     <!-- eslint-disable-next-line -->
-                    <template slot="HEAD_gwractions" slot-scope="data"> 
+                    <template v-slot:head(gwractions)="data"> 
                       <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addRebuttal"/> 
                     </template>
-                    <template slot="gwractions" slot-scope="row">
+                    <template v-slot:cell(gwractions)="row">
                       <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteRebuttal(row.index)"/>
                     </template>
                   </b-table>
@@ -115,8 +115,7 @@ Authors: Shamal Faily
               <b-row>
                 <b-col md="12">
                   <b-form-group label="Intention" label-class="font-weight-bold text-md-left" label-for="thePCIntentionInput">
-                    <b-form-input id="thePCIntentionInput" v-model="objt.theCharacteristicSynopsis.theSynopsis" type="text" required>
-                    </b-form-input>
+                    <b-form-input id="thePCIntentionInput" v-model="objt.theCharacteristicSynopsis.theSynopsis" type="text" required />
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -164,18 +163,18 @@ export default {
       envPropIndex : 0,
       errors : [],
       variableTypes: ['Activities','Attitudes','Aptitudes','Motivations','Skills','Environment Narrative','Intrinsic','Contextual'],
-      groundTableFields : {
-        gwractions : {label : ''},
-        theReferenceName : {label : 'Grounds'},
-      },
-      warrantTableFields : {
-        gwractions : {label : ''},
-        theReferenceName : {label : 'Warrant'},
-      },
-      rebuttalTableFields : {
-        gwractions : {label : ''},
-        theReferenceName : {label : 'Rebuttal'},
-      },
+      groundTableFields : [
+        {key: 'gwractions', label : ''},
+        {key: 'theReferenceName', label : 'Grounds'},
+      ],
+      warrantTableFields : [
+        {key: 'gwractions', label : ''},
+        {key: 'theReferenceName', label : 'Warrant'},
+      ],
+      rebuttalTableFields : [
+        {key: 'gwractions', label : ''},
+        {key: 'theReferenceName', label : 'Rebuttal'},
+      ],
       selectedCharacteristicReference : {
         update : false,
         characteristicReference : this.templateCharacteristicReference

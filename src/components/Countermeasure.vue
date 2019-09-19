@@ -101,10 +101,10 @@ Authors: Shamal Faily
                       <b-col md="4">
                         <b-table striped bordered small hover :items="requirements" :fields=requirementTableFields>
                            <!-- eslint-disable-next-line -->
-                          <template slot="HEAD_requirementsactions" slot-scope="data"> 
+                          <template v-slot:head(requirementsactions)="data"> 
                             <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addRequirement"/> 
-                          </template> 
-                          <template slot="requirementsactions" slot-scope="row">
+                          </template>
+                          <template v-slot:cell(requirementsactions)="row">
                             <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteRequirement(row.index)"/>
                           </template> 
                         </b-table>
@@ -112,10 +112,10 @@ Authors: Shamal Faily
                       <b-col md="4">
                         <b-table striped bordered small hover :items="targets" :fields=targetTableFields @row-clicked="viewTarget">
                            <!-- eslint-disable-next-line -->
-                          <template slot="HEAD_targetsactions" slot-scope="data"> 
+                          <template v-slot:head(targetsactions)="data"> 
                             <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addTarget"/> 
                           </template> 
-                          <template slot="targetsactions" slot-scope="row">
+                          <template v-slot:cell(targetsactions)="row">
                             <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteTarget(row.index)"/>
                           </template> 
                         </b-table>
@@ -123,10 +123,10 @@ Authors: Shamal Faily
                       <b-col md="4">
                         <b-table striped bordered small hover :items="notNone" :fields=propTableFields @row-clicked="viewProperty">
                           <!-- eslint-disable-next-line -->
-                          <template slot="HEAD_propactions" slot-scope="data"> 
+                          <template v-slot:head(propactions)="data"> 
                             <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addProperty"/> 
                           </template> 
-                          <template slot="propactions" slot-scope="row">
+                          <template v-slot:cell(propactions)="row">
                             <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="clearProperty(row.item)"/>
                           </template> 
                         </b-table>
@@ -139,10 +139,10 @@ Authors: Shamal Faily
                     <b-row>
                       <b-col md="3">
                         <b-table striped small bordered :fields="roleTableFields" :items="roles">
-                          <template slot="HEAD_roleactions" slot-scope="data"> 
+                          <template v-slot:head(roleactions)="data"> 
                             <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addRole(data)"/> 
                           </template>
-                          <template slot="roleactions" slot-scope="row">
+                          <template v-slot:cell(roleactions)="row">
                             <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteRole(row.item)"/>
                           </template>
                         </b-table>
@@ -234,29 +234,29 @@ export default {
       envPropIndex : 0,
       errors : [],
       countermeasureTypes: ['Hardware','Information','People','Systems','Software'],
-      requirementTableFields : {
-        requirementsactions : {label : ''},
-        name : {label : 'Requirement'}
-      },
-      roleTableFields : {
-        roleactions : {label : ''},
-        name : {label : 'Role'}
-      },
-      targetTableFields : {
-        targetsactions : {label : ''},
-        theName : {label : 'Name'},
-        theEffectiveness : {label : 'Effectiveness'},
-        theRationale : {label : 'Rationale'},
-      },
-      participantTableFields : {
-        participantsactions : {label : ''},
-        theTask : {label : 'Task'},
-        thePersona : {label : 'Persona'},
-        theDuration : {label : 'Duration'},
-        theFrequency : {label : 'Frequency'},
-        theDemands : {label : 'Demands'},
-        theGoalConflict : {label : 'Goal Conflict'}
-      },
+      requirementTableFields : [
+        {key: 'requirementsactions', label : ''},
+        {key: 'name', label : 'Requirement'}
+      ],
+      roleTableFields : [
+        {key: 'roleactions', label : ''},
+        {key: 'name', label : 'Role'}
+      ],
+      targetTableFields : [
+        {key: 'targetsactions', label : ''},
+        {key: 'theName', label : 'Name'},
+        {key: 'theEffectiveness', label : 'Effectiveness'},
+        {key: 'theRationale', label : 'Rationale'},
+      ],
+      participantTableFields : [
+        {key: 'participantsactions', label : ''},
+        {key: 'theTask', label : 'Task'},
+        {key: 'thePersona', label : 'Persona'},
+        {key: 'theDuration', label : 'Duration'},
+        {key: 'theFrequency', label : 'Frequency'},
+        {key: 'theDemands', label : 'Demands'},
+        {key: 'theGoalConflict', label : 'Goal Conflict'}
+      ],
       selectedParticipant : {
         participant : {
           theTask : '', 

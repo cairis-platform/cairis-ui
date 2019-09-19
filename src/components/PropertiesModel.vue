@@ -74,10 +74,10 @@ Authors: Shamal Faily
             <b-container fluid>
               <b-table striped small bordered :fields="conventionTableFields" :items="objt.definitions" @row-clicked="viewDefinition">
                 <!-- eslint-disable-next-line -->
-                <template slot="HEAD_conventionactions" slot-scope="data"> 
+                <template v-slot:head(conventionactions)="data"> 
                   <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addDefinition"/> 
                 </template>
-                <template slot="conventionactions" slot-scope="row">
+                <template v-slot:cell(conventionactions)="row">
                   <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteDefinition(row.item)"/>
                 </template>
               </b-table>
@@ -87,10 +87,10 @@ Authors: Shamal Faily
             <b-container fluid>
               <b-table striped small bordered :fields="contributorTableFields" :items="objt.contributions" @row-clicked="viewContributor">
                 <!-- eslint-disable-next-line -->
-                <template slot="HEAD_contributionactions" slot-scope="data"> 
+                <template v-slot:head(contributionactions)="data"> 
                   <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addContributor"/> 
                 </template>
-                <template slot="contributionactions" slot-scope="row">
+                <template v-slot:cell(contributionactions)="row">
                   <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteContributor(row.item)"/>
                 </template>
               </b-table>
@@ -100,7 +100,7 @@ Authors: Shamal Faily
             <b-container fluid>
               <b-table striped small bordered :fields="revisionTableFields" :items="objt.revisions">
                 <!-- eslint-disable-next-line -->
-                <template slot="HEAD_revisionactions" slot-scope="data"> 
+                <template v-slot:head(revisionactions)="data"> 
                   <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addRevision"/> 
                 </template>
               </b-table>
@@ -147,24 +147,24 @@ export default {
       errors : [],
       objt : this.object,
       commitLabel : 'Update',
-      conventionTableFields : {
-        conventionactions : {label : ''},
-        name : {label : 'Name', sortable: true},
-        value : {label : 'Definition'}
-      },
-      contributorTableFields : {
-        contributionactions : {label : ''},
-        firstName : {label : 'Firstname', sortable: true},
-        surname : {label : 'Surname', sortable: true},
-        affiliation : {label : 'Affiliation', sortable: true},
-        role : {label : 'Role', sortable: true}
-      },
-      revisionTableFields : {
-        revisionactions : {label : ''},
-        id : {label : 'Version', sortable: true},
-        date : {label : 'Date'},
-        description : {label : 'Description'}
-      },
+      conventionTableFields : [
+        {key: 'conventionactions', label : ''},
+        {key: 'name', label : 'Name', sortable: true},
+        {key: 'value', label : 'Definition'}
+      ],
+      contributorTableFields : [
+        {key: 'contributionactions', label : ''},
+        {key: 'firstName',  label : 'Firstname', sortable: true},
+        {key: 'surname', label : 'Surname', sortable: true},
+        {key: 'affiliation', label : 'Affiliation', sortable: true},
+        {key: 'role', label : 'Role', sortable: true}
+      ],
+      revisionTableFields : [
+        {key: 'revisionactions', label : ''},
+        {key: 'id', label : 'Version', sortable: true},
+        {key: 'date', label : 'Date'},
+        {key: 'description', label : 'Description'}
+      ],
       selectedDefinition : {
         update : false,
         definition : {

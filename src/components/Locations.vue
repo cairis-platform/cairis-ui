@@ -70,10 +70,10 @@ Authors: Shamal Faily
                                 <b-col md="12">
                                   <b-table striped bordered small hover :items="objects" :fields="objectTableFields" @row-clicked="viewObject">
                                     <!-- eslint-disable-next-line -->
-                                    <template slot="HEAD_objectactions" slot-scope="data">
+                                    <template v-slot:head(objectactions)="data">
                                       <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addObject"/> 
                                     </template>
-                                    <template slot="objectactions" slot-scope="row">
+                                    <template v-slot:cell(objectactions)="row">
                                       <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteObject(row.index)"/>
                                     </template>
                                   </b-table> 
@@ -87,10 +87,10 @@ Authors: Shamal Faily
                                 <b-col md="12">
                                   <b-table striped bordered small hover :items="people" :fields="personTableFields" @row-clicked="viewPerson">
                                     <!-- eslint-disable-next-line -->
-                                    <template slot="HEAD_personactions" slot-scope="data">
+                                    <template v-slot:head(personactions)="data">
                                       <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addPerson"/> 
                                     </template>
-                                    <template slot="personactions" slot-scope="row">
+                                    <template v-slot:cell(personactions)="row">
                                       <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deletePerson(row.index)"/>
                                     </template>
                                   </b-table> 
@@ -104,10 +104,10 @@ Authors: Shamal Faily
                                 <b-col md="12">
                                   <b-table striped bordered small hover :items="links" :fields="linkTableFields">
                                     <!-- eslint-disable-next-line -->
-                                    <template slot="HEAD_linkactions" slot-scope="data">
+                                    <template v-slot:head(linkactions)="data">
                                       <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addLink"/> 
                                     </template>
-                                    <template slot="linkactions" slot-scope="row">
+                                    <template v-slot:cell(linkactions)="row">
                                       <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteLink(row.index)"/>
                                     </template>
                                   </b-table> 
@@ -175,20 +175,20 @@ export default {
       commitLabel : this.label,
       locationIndex : 0,
       errors : [],
-      objectTableFields : {
-        objectactions : {label : ''},
-        theName : {label : 'Name', sortable: true},
-        theAsset : {label : 'Asset', sortable: true},
-      },
-      personTableFields : {
-        personactions : {label : ''},
-        theName : {label : 'Name', sortable: true},
-        thePersona : {label : 'Persona', sortable: true},
-      },
-      linkTableFields : {
-        linkactions : {label : ''},
-        name : {label : 'Link', sortable: true}
-      },
+      objectTableFields : [
+        {key: 'objectactions', label : ''},
+        {key: 'theName', label : 'Name', sortable: true},
+        {key: 'theAsset', label : 'Asset', sortable: true},
+      ],
+      personTableFields : [
+        {key: 'personactions', label : ''},
+        {key: 'theName', label : 'Name', sortable: true},
+        {key: 'thePersona', label : 'Persona', sortable: true},
+      ],
+      linkTableFields : [
+        {key: 'linkactions', label : ''},
+        {key: 'name', label : 'Link', sortable: true}
+      ],
       selectedAssetInstance : {
         update : false,
         instance : {

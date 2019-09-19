@@ -50,16 +50,14 @@ Authors: Shamal Faily
             </b-col>
             <b-col md="4">
               <b-form-group label="Response" label-class="font-weight-bold text-md-left" label-for="theResponseInput">
-                <b-form-input id="theResponseInput" v-model="objt.theName" type="text" readonly>
-                </b-form-input>
+                <b-form-input id="theResponseInput" v-model="objt.theName" type="text" readonly />
               </b-form-group>
             </b-col>
           </b-row>
           <b-row>
             <b-col md="12">
               <b-form-group label="Tags" label-class="font-weight-bold text-md-left" label-for="theTagsInput">
-                <b-form-input id="theTagsInput" v-model="objt.theTags" type="text">
-                </b-form-input>
+                <b-form-input id="theTagsInput" v-model="objt.theTags" type="text" />
               </b-form-group>
             </b-col>
           </b-row>
@@ -118,10 +116,10 @@ Authors: Shamal Faily
               <b-col md="12">
                 <b-table striped small bordered :fields="roleTableFields" :items="transferRoles">
                   <!-- eslint-disable-next-line -->
-                  <template slot="HEAD_roleactions" slot-scope="data"> 
+                  <template v-slot:head(roleactions)="data"> 
                     <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addRole"/> 
                   </template>
-                  <template slot="roleactions" slot-scope="row">
+                  <template v-slot:cell(roleactions)="row">
                     <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteRole(row.index)"/>
                   </template>
                 </b-table>
@@ -313,11 +311,11 @@ export default {
         {text : 'Transfer', value : 'Transfer'},
         {text : 'Mitigate', value : 'Mitigate'}
       ],
-      roleTableFields : {
-        roleactions : {label : ''},
-        roleName : {label : 'Role'},
-        cost : {label : 'Cost'}
-      }
+      roleTableFields : [
+        {key: 'roleactions', label : ''},
+        {key: 'roleName', label : 'Role'},
+        {key: 'cost', label : 'Cost'}
+      ]
     }
   }, 
   methods: {

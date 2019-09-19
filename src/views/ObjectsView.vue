@@ -66,7 +66,7 @@ export default {
     return {
       bcItems : [],
       items: [],
-      objectsFields : {}, 
+      objectsFields : [], 
       theGetUrl : '',
       theDelUrl : ''
     }
