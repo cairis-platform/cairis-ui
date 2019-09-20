@@ -83,7 +83,7 @@ Authors: Shamal Faily
                     <b-row>
                       <b-col md="12">
                         <b-table striped bordered small :fields="responseTableFields" :items="responses">
-                          <template slot="show_details" slot-scope="row">
+                          <template v-slot:cell(show_details)="row">
                             <b-button size="sm" @click="row.toggleDetails" class="mr-2">
                               {{ row.detailsShowing ? 'Hide' : 'Show'}} Details
                             </b-button>
@@ -230,12 +230,12 @@ export default {
       commitLabel : this.label,
       envPropIndex : 0,
       errors : [],
-      responseTableFields : {
-        responseName : {label : 'Name'},
-        unmitScore : {label : 'Score (Pre Mitigation)'},
-        mitScore : {label : 'Score (Post Mitigation)'},
-        show_details : {label: ''}
-      }
+      responseTableFields : [
+        {key: 'responseName', label: 'Name'},
+        {key: 'unmitScore', label: 'Score (Pre Mitigation)'},
+        {key: 'mitScore', label: 'Score (Post Mitigation)'},
+        {key: 'show_details', label: ''}
+      ]
     }
   },
   methods: {
