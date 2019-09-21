@@ -37,7 +37,7 @@ Authors: Shamal Faily
             <b-form-radio-group buttons size="md" id="theDomainRadio" v-model="$store.state.domain" :options="domainOptions" class="sm-3" required name="theDomainRadio"/>
           </b-col>
           <b-col md="5">
-            <dimension-select id="domainFilter" ref="domainFilter" :dimension="$store.state.domain" v-on:dimension-select-change="domainSelected" />
+            <dimension-select id="domainFilter" ref="domainFilter" :dimension="$store.state.domain" v-on:dimension-select-change="domainSelected" v-on:dimension-items-updated="itemsUpdated" />
           </b-col> 
         </b-row>
       </b-container>
@@ -45,7 +45,7 @@ Authors: Shamal Faily
         <b-row>
           <b-col>
             <b-form-group label="Environment" label-class="font-weight-bold" label-for="reqEnvironment" >
-              <dimension-select ref="envFilter" id="vtEnvironment" dimension="environment" v-on:dimension-select-change="vtEnvironmentSelected" />
+              <dimension-select ref="envFilter" id="vtEnvironment" dimension="environment" :initial="this.theEnvironnmentName" v-on:dimension-select-change="vtEnvironmentSelected" />
             </b-form-group>
           </b-col>
         </b-row>
@@ -125,6 +125,7 @@ export default {
       theGetUrl : this.getUrl,
       objectDependencies : [],
       selectedObject : '',
+      selectedDomain: 'asset',
       selectedIndex : -1,
       selectedTraceabilityObject : '',
       isPostTraceability : 1,
@@ -398,6 +399,9 @@ export default {
           params : {'session_id' : this.$store.state.session}
          })
         .then(response => {
+          if (this.dimension == 'requirement') {
+            this.$refs.domainFilter.selected = this.$store.state.domainName;
+          }
           this.items = response.data;
         })
         .catch((error) => {
@@ -410,6 +414,13 @@ export default {
         this.$store.state.domainName = domName;
         this.$refs.domainFilter.selected = domName;
         this.theGetUrl = '/api/requirements/' + this.$store.state.domain + '/' + domName;
+        this.loadObjects();
+      }
+    },
+    itemsUpdated(domName) {
+      if (this.dimension == 'requirement') {
+        this.$store.state.domainName = domName;
+        this.theGetUrl = '/api/requirements/' + this.$store.state.domain + '/' + this.$store.state.domainName;
         this.loadObjects();
       }
     },

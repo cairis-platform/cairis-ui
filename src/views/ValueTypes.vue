@@ -53,11 +53,11 @@ export default {
     return {
       bcItems : [{text: 'Home', to: {name: 'home'}},{text: this.valueTypeLabel(), to: {name: 'valuetypes',params : {dimension : this.dimension}}}],
       items: [],
-      objectsFields : {
-        objectsactions : {label : ''},
-        theName : {label : 'Name', sortable: true},
-        theDescription : {label : 'Description', sortable: true}
-      }
+      objectsFields : [
+        {key: 'objectsactions', label : ''},
+        {key: 'theName', label : 'Name', sortable: true},
+        {key: 'theDescription', label : 'Description', sortable: true}
+      ]
     }
   },
   methods : {

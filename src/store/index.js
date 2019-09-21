@@ -26,7 +26,7 @@ export default new Vuex.Store({
     session : undefined ,
     user : 'User',
     url : window.location.protocol + "//" + window.location.host,
-    domain : 'environment',
+    domain : 'asset',
     domainName : ''
   }
 });

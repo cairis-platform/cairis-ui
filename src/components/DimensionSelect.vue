@@ -134,12 +134,17 @@ export default {
               ref.items.unshift('all')
             }
           }
-          if (ref.initial != '' && ref.dimensionUrl.indexOf('persona_characteristic') > 0) {
+          if (ref.initial != '') {
             ref.selected = ref.initial;
+            this.$emit('dimension-items-updated',ref.selected);
           }
           else {
-            if (ref.items > 0) {
+            if (ref.items.length > 0) {
               ref.selected = ref.items[0];
+              this.$emit('dimension-items-updated',ref.selected);
+            }
+            else {
+              this.$emit('dimension-items-updated','');
             }
           }
         })
