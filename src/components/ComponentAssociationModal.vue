@@ -32,7 +32,7 @@ Authors: Shamal Faily
         <b-row>
           <b-col md="12">
             <b-form-group label="Asset" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theHeadAssetSelect" >
-              <dimension-select ref="theHeadAssetSelect" id="theHeadAssetSelect" dimension='template_asset' :initial="association.association.theHeadAsset" v-on:dimension-select-change="headAssetSelected" />
+              <dimension-select ref="theHeadAssetSelect" id="theHeadAssetSelect" dimension='template_asset' :initial="association.association.theHeadAsset" v-on:dimension-select-change="headAssetSelected" v-on:dimension-items-updated="headAssetsLoaded" />
             </b-form-group>
           </b-col>
         </b-row>

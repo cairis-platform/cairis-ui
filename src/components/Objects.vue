@@ -274,6 +274,7 @@ export default {
       }
       else if (this.dimName == 'assetassociation') {
         this.selectedObject = {'envName' : row.item.theEnvironmentName,'headName' : row.item.theHeadAsset,'tailName' : row.item.theTailAsset};
+        this.selectedIndex = this.items.findIndex(o => o.theEnvironmentName == row.item.theEnvironmentName && o.theHeadAsset == row.item.theHeadAsset && o.theTailAsset == row.item.theTailAsset);
       }
       else if (this.dimName == 'dependency') {
         this.selectedObject = {'envName' : row.item.theEnvironmentName,'theDepender' : row.item.theDepender,'theDependee' : row.item.theDependee, 'theDependency' : row.item.theDependency };

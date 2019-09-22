@@ -35,17 +35,17 @@ Authors: Shamal Faily
         <b-row>
           <b-col>
             <b-form-group label="Environment" label-for="goalModelEnvironment">
-              <dimension-select id="goalModelEnvironment" ref="goalModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
+              <dimension-select id="goalModelEnvironment" ref="goalModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
             </b-form-group>
           </b-col>
           <b-col v-if="theEnvironmentName != ''">
             <b-form-group label="Goal" label-for="goalModelGoal">
-              <dimension-select id="goalModelGoal" ref="goalModelGoal" dimension="goal" :environment="theEnvironmentName" initial="all" includeall v-on:dimension-select-change="goalSelected" />
+              <dimension-select id="goalModelGoal" ref="goalModelGoal" dimension="goal" :environment="theEnvironmentName" initial="all" includeall v-on:dimension-select-change="goalSelected" v-on:dimension-items-loaded="goalsLoaded" />
             </b-form-group>
           </b-col>
           <b-col v-show="theEnvironmentName != ''">
             <b-form-group label="Use Case" label-form="goaModelUseCase">
-              <dimension-select id="goalModelUseCase" ref="goalModelUseCase" dimension="usecase" :environment="theEnvironmentName" initial="all" includeall v-on:dimension-select-change="useCaseSelected" />
+              <dimension-select id="goalModelUseCase" ref="goalModelUseCase" dimension="usecase" :environment="theEnvironmentName" initial="all" includeall v-on:dimension-select-change="useCaseSelected" v-on:dimension-items-updated="useCasesLoaded" />
             </b-form-group>
           </b-col>
           <b-col v-show="theEnvironmentName != ''">
@@ -159,7 +159,7 @@ export default {
         EventBus.$emit('operation-failure',error)
       })
     },
-    environmentSelected(envName) {
+    environmentChanged(envName) {
       this.theEnvironmentName = envName;
       this.$refs.goalModelEnvironment.selected = envName;
       if (this.$refs.goalModelGoal != undefined) {
@@ -169,15 +169,33 @@ export default {
         this.$refs.goalModelUseCase.selected = this.theUseCaseName;
       }
     },
-    goalSelected(goalName) {
+    environmentSelected(envName) {
+      this.environmentChanged(envName);
+    },
+    environmentsLoaded(envName) {
+      this.environmentChanged(envName);
+    },
+    goalChanged(goalName) {
       this.theGoalName = goalName
       this.theUseCaseName = 'all';
       this.$refs.goalModelUseCase.selected = 'all';
     },
-    useCaseSelected(ucName) {
+    goalSelected(goalName) {
+      this.goalChanged(goalName);
+    },
+    goalsLoaded(goalName) {
+      this.goalChanged(goalName);
+    },
+    useCaseChanged(ucName) {
       this.theUseCaseName = ucName;
       this.theGoalName = 'all';
       this.$refs.goalModelGoal.selected = 'all';
+    },
+    useCaseSelected(ucName) {
+      this.useCaseChanged(ucName);
+    },
+    useCasesLoaded(ucName) {
+      this.useCaseChanged(ucName);
     },
     refreshModel() {
       this.$refs.graphicalModel.loadModel();

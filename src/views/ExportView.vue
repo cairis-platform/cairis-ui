@@ -48,30 +48,29 @@ Authors: Shamal Faily
           <b-row>
             <b-col md="12">
               <b-form-group v-if="theModelType == 'Architectural Pattern'" label="Architectural Pattern" label-class="text-md-left font-weight-bold" label-for="thePatternSelect">
-                <dimension-select ref="patternSelect" id="patternSelect" dimension="component_view" v-on:dimension-select-change="patternSelected" />
+                <dimension-select ref="patternSelect" id="patternSelect" dimension="component_view" v-on:dimension-select-change="patternSelected" v-on:dimension-items-updated="patternsLoaded" />
               </b-form-group>
             </b-col>
           </b-row>
           <b-row>
             <b-col md="4">
               <b-form-group v-if="theModelType == 'GRL'" label="Environment" label-class="text-md-left font-weight-bold" label-for="theEnvironmentSelect">
-                <dimension-select ref="environmentSelect" id="environmentSelect" dimension="environment" v-on:dimension-select-change="environmentSelected" />
+                <dimension-select ref="environmentSelect" id="environmentSelect" dimension="environment" v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
               </b-form-group>
             </b-col>
             <b-col md="4">
               <b-form-group v-if="theModelType == 'GRL'" label="Task" label-class="text-md-left font-weight-bold" label-for="theTaskSelect">
-                <dimension-select ref="taskSelect" id="taskSelect" dimension="task" v-on:dimension-select-change="taskSelected" />
+                <dimension-select ref="taskSelect" id="taskSelect" dimension="task" v-on:dimension-select-change="taskSelected" v-on:dimension-items-updated="tasksLoaded" />
               </b-form-group>
             </b-col>
             <b-col md="4">
               <b-form-group v-if="theModelType == 'GRL'" label="Persona" label-class="text-md-left font-weight-bold" label-for="thePersonaSelect">
-                <dimension-select ref="personaSelect" id="personaSelect" dimension="persona" includeall="true" v-on:dimension-select-change="personaSelected" />
+                <dimension-select ref="personaSelect" id="personaSelect" dimension="persona" includeall="true" v-on:dimension-select-change="personaSelected" v-on:dimension-items-updated="personasLoaded" />
               </b-form-group>
             </b-col>
           </b-row>
           <b-form-group label="File name" label-class="text-md-left font-weight-bold" label-for="theFileName">
-            <b-form-input id="theModelFile" v-model="theExportParameters.filename" type="text" required>
-            </b-form-input>
+            <b-form-input id="theModelFile" v-model="theExportParameters.filename" type="text" required />
           </b-form-group>
 
         </b-card>
@@ -201,13 +200,25 @@ export default {
     patternSelected(patternName) {
       this.theArchitecturalPatternName = patternName;
     },
+    patternsLoaded(patternName) {
+      this.theArchitecturalPatternName = patternName;
+    },
     environmentSelected(envName) {
+      this.theEnvironmentName = envName;
+    },
+    environmentsLoaded(envName) {
       this.theEnvironmentName = envName;
     },
     taskSelected(taskName) {
       this.theTaskName = taskName;
     },
+    tasksLoaded(taskName) {
+      this.theTaskName = taskName;
+    },
     personaSelected(personaName) {
+      this.thePersonaName = personaName;
+    },
+    personasLoaded(personaName) {
       this.thePersonaName = personaName;
     }
   }

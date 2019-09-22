@@ -35,7 +35,7 @@ Authors: Shamal Faily
               <b-row>
                 <b-col md="12">
                   <b-form-group label="Environment" label-class="font-weight-bold text-sm-left" label-for="theEnvironmentSelect" >
-                    <dimension-select id="theEnvironmentSelect" ref="theEnvironmentSelect" dimension='environment' :is_disabled="disable" :initial="objt.theEnvironmentName" v-on:dimension-select-change="environmentSelected" />
+                    <dimension-select id="theEnvironmentSelect" ref="theEnvironmentSelect" dimension='environment' :is_disabled="disable" :initial="objt.theEnvironmentName" v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -48,7 +48,7 @@ Authors: Shamal Faily
               </b-row>
               <b-row> 
                 <b-col md="12">
-                  <dimension-select id="theGoalSelect" ref="theGoalSelect" :is_disabled="disable" :environment='objt.theEnvironmentName' :dimension='theGoalType' :initial="objt.theGoal" v-on:dimension-select-change="goalSelected" />
+                  <dimension-select id="theGoalSelect" ref="theGoalSelect" :is_disabled="disable" :environment='objt.theEnvironmentName' :dimension='theGoalType' :initial="objt.theGoal" v-on:dimension-select-change="goalSelected" v-on:dimension-items-updated="goalsLoaded" />
                 </b-col>
               </b-row>
               <b-row>
@@ -61,7 +61,7 @@ Authors: Shamal Faily
               <b-row>
                 <b-col md="12">
                   <div v-if="objt.theSubGoalDimension != 'role'">
-                    <dimension-select id="theSubGoalSelect" ref="theSubGoalSelect" :is_disabled="disable" :environment='objt.theEnvironmentName' :dimension='objt.theSubGoalDimension' :initial="objt.theSubGoal" v-on:dimension-select-change="subGoalSelected" />
+                    <dimension-select id="theSubGoalSelect" ref="theSubGoalSelect" :is_disabled="disable" :environment='objt.theEnvironmentName' :dimension='objt.theSubGoalDimension' :initial="objt.theSubGoal" v-on:dimension-select-change="subGoalSelected" v-on:dimension-items-updated="subGoalsLoaded" />
                   </div>
                   <div v-if="objt.theSubGoalDimension == 'role'">
                     <dimension-select id="theSubGoalSelect" ref="theSubGoalSelect" :is_disabled="disable" :dimension='objt.theSubGoalDimension' :initial="objt.theSubGoal" v-on:dimension-select-change="subGoalSelected" />
@@ -421,15 +421,24 @@ export default {
         this.objt.theEnvironmentName = item;
       }
     },
+    environmentsLoaded(item) {
+      this.objt.theEnvironmentName = item;
+    },
     goalSelected(item) {
       if (item != undefined) {
         this.objt.theGoal = item;
       }
     },
+    goalsLoaded(item) {
+      this.objt.theGoal = item;
+    },
     subGoalSelected(item) {
       if (item != undefined) {
         this.objt.theSubGoal = item;
       }
+    },
+    subGoalsLoaded(item) {
+      this.objt.theSubGoal = item;
     }
   }
 }

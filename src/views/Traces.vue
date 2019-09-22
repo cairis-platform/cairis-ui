@@ -26,13 +26,13 @@ Authors: Shamal Faily
         <b-row>
           <b-col>
             <b-form-group label="Environment" label-for="reqEnvironment" :label-cols="5" >
-              <dimension-select ref="traceEnvFilter" id="traceEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
+              <dimension-select ref="traceEnvFilter" id="traceEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
             </b-form-group>
           </b-col>
         </b-row>
       </b-container>
       <b-table b-table striped small hover :fields="traceFields" :items="traces">
-        <template slot="traceaction" slot-scope="row">
+        <template v-slot:cell(traceaction)="row">
           <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteTrace(row.index)"/>
         </template>
       </b-table>
@@ -54,18 +54,18 @@ export default {
     return {
       bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Traces', to: {name: 'traces'}}],
       traces: [],
-      traceFields : {
-        traceaction : {label : ''},
-        theFromObject : {label : 'From', sortable: true},
-        theFromName : {label : 'Name', sortable: true},
-        theToObject : {label : 'To', sortable: true},
-        theToName : {label : 'Name', sortable: true},
-        theLabel : {label: 'Label', sortable: true}
-      }
+      traceFields : [
+        {key: 'traceaction', label : ''},
+        {key: 'theFromObject', label : 'From', sortable: true},
+        {key: 'theFromName', label : 'Name', sortable: true},
+        {key: 'theToObject', label : 'To', sortable: true},
+        {key: 'theToName', label : 'Name', sortable: true},
+        {key: 'theLabel', label: 'Label', sortable: true}
+      ]
     }
   },
   methods : {
-    environmentSelected(envName) {
+    loadTraces(envName) {
       const traceUrl = '/api/traces/environment/' + envName;
       axios.get(traceUrl,{
         baseURL : this.$store.state.url,
@@ -77,6 +77,13 @@ export default {
       .catch((error) => {
         EventBus.$emit('operation-failure',error)
       });
+
+    },
+    environmentSelected(envName) {
+      this.loadTraces(envName);
+    },
+    environmentsLoaded(envName) {
+      this.loadTraces(envName);
     },
     deleteTrace(idx) {
       const traceObjt = this.traces[idx];

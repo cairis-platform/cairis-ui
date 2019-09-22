@@ -24,7 +24,7 @@ Authors: Shamal Faily
       <b-row>
         <b-col>
           <b-form-group label="Component" label-for="componentAssetModelComponent" :label-cols="4" >
-            <dimension-select id="componentAssetModelComponent" dimension="component" v-on:dimension-select-change="componentSelected" />
+            <dimension-select id="componentAssetModelComponent" dimension="component" v-on:dimension-select-change="componentSelected" v-on:dimension-items-updated="componentsLoaded" />
           </b-form-group>
         </b-col>
       </b-row>
@@ -80,6 +80,9 @@ export default {
       })
     },
     componentSelected(cName) {
+      this.theComponentName = cName
+    },
+    componentsLoaded(cName) {
       this.theComponentName = cName
     }
   }

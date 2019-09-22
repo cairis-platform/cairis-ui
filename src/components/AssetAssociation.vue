@@ -35,14 +35,14 @@ Authors: Shamal Faily
               <b-row>
                 <b-col md="12">
                   <b-form-group label="Environment" label-class="font-weight-bold text-md-left" label-for="theEnvironmentSelect" >
-                    <dimension-select id="theEnvironmentSelect" ref="theEnvironmentSelect" dimension='environment' :initial="objt.theEnvironmentName" v-on:dimension-select-change="environmentSelected" />
+                    <dimension-select id="theEnvironmentSelect" ref="theEnvironmentSelect" dimension='environment' :initial="objt.theEnvironmentName" v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
                   </b-form-group>
                 </b-col>
               </b-row>
               <b-row>
                 <b-col md="12">
                   <b-form-group label="Head" label-class="font-weight-bold text-sm-left" label-for="theHeadAssetSelect" >
-                    <dimension-select id="theHeadAssetSelect" ref="theHeadAssetSelect" dimension='asset' :environment="objt.theEnvironmentName" :initial="objt.theHeadAsset" v-on:dimension-select-change="headAssetSelected" />
+                    <dimension-select id="theHeadAssetSelect" ref="theHeadAssetSelect" dimension='asset' :environment="objt.theEnvironmentName" :initial="objt.theHeadAsset" v-on:dimension-select-change="headAssetSelected" v-on:dimension-items-updated="headAssetsLoaded" />
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -129,7 +129,7 @@ Authors: Shamal Faily
               <b-row>
                 <b-col md="12">
                   <b-form-group label="Tail" label-class="font-weight-bold text-sm-left" label-for="theTailAssetSelect" >
-                    <dimension-select id="theTailAssetSelect" ref="theTailAssetSelect" dimension='asset' :environment="objt.theEnvironmentName" :initial="objt.theTailAsset" v-on:dimension-select-change="tailAssetSelected" />
+                    <dimension-select id="theTailAssetSelect" ref="theTailAssetSelect" dimension='asset' :environment="objt.theEnvironmentName" :initial="objt.theTailAsset" v-on:dimension-select-change="tailAssetSelected" v-on:dimension-items-updated="tailAssetsLoaded" />
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -248,15 +248,24 @@ export default {
         this.objt.theEnvironmentName = item;
       }
     },
+    environmentsLoaded(item) {
+      this.objt.theEnvironmentName = item;
+    },
     headAssetSelected(item) {
       if (item != undefined) {
         this.objt.theHeadAsset = item;
       }
     },
+    headAssetsLoaded(item) {
+      this.objt.theHeadAsset = item;
+    },
     tailAssetSelected(item) {
       if (item != undefined) {
         this.objt.theTailAsset = item;
       }
+    },
+    tailAssetsLoaded(item) {
+      this.objt.theTailAsset = item;
     }
   }
 }

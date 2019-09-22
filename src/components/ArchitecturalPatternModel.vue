@@ -26,7 +26,7 @@ Authors: Shamal Faily
       <b-row>
         <b-col>
           <b-form-group label="Architectural Pattern" label-for="apModelAp" :label-cols="3" >
-            <dimension-select id="apModelAp" ref="apModelAp" dimension="component_view" v-on:dimension-select-change="architecturalPatternSelected" />
+            <dimension-select id="apModelAp" ref="apModelAp" dimension="component_view" v-on:dimension-select-change="architecturalPatternSelected" v-on:dimension-items-updated="architecturalPatternsLoaded" />
           </b-form-group>
         </b-col>
       </b-row>
@@ -58,6 +58,9 @@ export default {
   },
   methods : {
     architecturalPatternSelected(apName) {
+      this.theArchitecturalPattern = apName;
+    },
+    architecturalPatternsLoaded(apName) {
       this.theArchitecturalPattern = apName;
     }
   }

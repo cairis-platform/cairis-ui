@@ -25,12 +25,12 @@ Authors: Shamal Faily
         <b-row>
           <b-col>
             <b-form-group label="Environment" label-for="assetModelEnvironment" >
-              <dimension-select ref="assetModelEnvironment" id="assetModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
+              <dimension-select ref="assetModelEnvironment" id="assetModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
             </b-form-group>
           </b-col>
           <b-col v-if="theEnvironmentName != ''">
             <b-form-group label="Asset" label-for="assetModelAsset">
-              <dimension-select id="assetModelAsset" ref="assetModelAsset" dimension="asset" initial="all" :environment="theEnvironmentName" includeall v-on:dimension-select-change="assetSelected" />
+              <dimension-select id="assetModelAsset" ref="assetModelAsset" dimension="asset" initial="all" :environment="theEnvironmentName" includeall v-on:dimension-select-change="assetSelected" v-on:dimension-items-updated="assetsLoaded" />
             </b-form-group>
           </b-col>
           <b-col v-if="theEnvironmentName != ''">
@@ -113,7 +113,15 @@ export default {
       this.$refs.assetModelEnvironment.selected = envName;
       this.theAssetName = 'all';
     },
+    environmentsLoaded(envName) {
+      this.theEnvironmentName = envName;
+      this.$refs.assetModelEnvironment.selected = envName;
+      this.theAssetName = 'all';
+    },
     assetSelected(assetName) {
+      this.theAssetName = assetName;
+    },
+    assetsLoaded(assetName) {
       this.theAssetName = assetName;
     },
     refreshModel() {

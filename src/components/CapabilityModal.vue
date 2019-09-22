@@ -23,11 +23,10 @@ Authors: Shamal Faily
   <b-modal ref="capabilityDialog" title="Select capability"  @ok="onOk">
     <b-card>
       <b-form-group label="Capability" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theCapabilityInput">
-        <dimension-select id="theCapabilityInput" dimension='capability' :existing="existingCapabilities" v-on:dimension-select-change="capabilitySelected" />
+        <dimension-select id="theCapabilityInput" dimension='capability' :existing="existingCapabilities" v-on:dimension-select-change="capabilitySelected" v-on:dimension-items-updated="capabilitiesLoaded" />
       </b-form-group>
       <b-form-group label="Value" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theValueInput">
-        <b-form-select id="theValueInput" v-model="value" :options="valueTypes" class="mb-3" required>
-        </b-form-select>
+        <b-form-select id="theValueInput" v-model="value" :options="valueTypes" class="mb-3" required />
       </b-form-group>
     </b-card>
   </b-modal>
@@ -63,6 +62,9 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
         this.$refs.capabilityDialog.show();
       },
       capabilitySelected(item) {
+        this.theCapability = item;
+      },
+      capabilitiesLoaded(item) {
         this.theCapability = item;
       },
       onOk(evt) {

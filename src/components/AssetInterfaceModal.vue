@@ -35,10 +35,10 @@ Authors: Shamal Faily
         <b-form-select id="theType" v-model="assetinterface.assetinterface.theInterfaceType" :options="typeValues" class="mb-3" required></b-form-select>
       </b-form-group>
       <b-form-group label="Access Right" label-class="text-sm-left" label-cols="3" label-for="theAccessRight" >
-        <dimension-select id="theAccessRight" dimension='access_right' :initial="this.assetinterface.assetinterface.theAccessRight" v-on:dimension-select-change="accessRightSelected" required />
+        <dimension-select id="theAccessRight" dimension='access_right' :initial="this.assetinterface.assetinterface.theAccessRight" v-on:dimension-select-change="accessRightSelected" v-on:dimension-items-updated="accessRightsLoaded" required />
       </b-form-group>
       <b-form-group label="Privilege" label-class="text-sm-left" label-cols="3" label-for="thePrivilege" >
-        <dimension-select id="thePrivilege" dimension='privilege' :initial="this.assetinterface.assetinterface.thePrivilege" v-on:dimension-select-change="privilegeSelected" required />
+        <dimension-select id="thePrivilege" dimension='privilege' :initial="this.assetinterface.assetinterface.thePrivilege" v-on:dimension-select-change="privilegeSelected" v-on:dimension-items-updated="privilegesLoaded" required />
       </b-form-group>
     </b-card>
   </b-modal> 
@@ -96,7 +96,13 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
       accessRightSelected(item) {
         this.assetinterface.assetinterface.theAccessRight = item;
       },
+      accessRightsLoaded(item) {
+        this.assetinterface.assetinterface.theAccessRight = item;
+      },
       privilegeSelected(item) {
+        this.assetinterface.assetinterface.thePrivilege = item;
+      },
+      privilegesLoaded(item) {
         this.assetinterface.assetinterface.thePrivilege = item;
       },
       onOk(evt) {

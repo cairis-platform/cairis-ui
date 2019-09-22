@@ -22,8 +22,8 @@ Authors: Shamal Faily
 
   <b-modal ref="dimensionDialog" :title="this.dialogTitle"  @ok="onOk">
     <b-card>
-      <dimension-select v-if="environment == ''" :dimensionUrl=this.dimensionUrl :dimension=this.dimension :existing=this.existing :initial=this.initial v-on:dimension-select-change="dimensionSelected" />
-      <dimension-select v-if="environment != ''" :dimensionUrl=this.dimensionUrl :environment=this.environment :dimension=this.dimension :existing=this.existing :initial=this.initial v-on:dimension-select-change="dimensionSelected" />
+      <dimension-select v-if="environment == ''" :dimensionUrl=this.dimensionUrl :dimension=this.dimension :existing=this.existing :initial=this.initial v-on:dimension-select-change="dimensionSelected" v-on:dimension-items-updated="dimensionsLoaded" />
+      <dimension-select v-if="environment != ''" :dimensionUrl=this.dimensionUrl :environment=this.environment :dimension=this.dimension :existing=this.existing :initial=this.initial v-on:dimension-select-change="dimensionSelected" v-on:dimension-items-updated="dimensionsLoaded" />
     </b-card>
   </b-modal>
 </template>
@@ -85,6 +85,9 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
         this.$refs.dimensionDialog.show();
       },
       dimensionSelected(item) {
+        this.selected = item;
+      },
+      dimensionsLoaded(item) {
         this.selected = item;
       },
       onOk(evt) {

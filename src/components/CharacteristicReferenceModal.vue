@@ -35,7 +35,7 @@ Authors: Shamal Faily
               <b-col md="12">
                 <div v-if="this.characteristic_type == 'persona'">
                   <b-form-group label="Reference" label-class="font-weight-bold text-sm-left" label-for="theCReferenceSelect" >
-                    <dimension-select id="theCReferenceSelect" :dimension='referenceDimension' :initial="reference.theReferenceName" v-on:dimension-select-change="referenceSelected" />
+                    <dimension-select id="theCReferenceSelect" :dimension='referenceDimension' :initial="reference.theReferenceName" v-on:dimension-select-change="referenceSelected" v-on:dimension-items-updated="referencesLoaded" />
                   </b-form-group>
                 </div>
                 <div v-if="this.characteristic_type != 'persona'">
@@ -211,6 +211,10 @@ import DimensionSelect from './DimensionSelect';
         }
       },
       referenceSelected(refName) {
+        this.reference.theReferenceName = refName;
+        this.updateReferenceDescription(refName);
+      },
+      referencesLoaded(refName) {
         this.reference.theReferenceName = refName;
         this.updateReferenceDescription(refName);
       },

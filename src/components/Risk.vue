@@ -33,26 +33,24 @@ Authors: Shamal Faily
           <b-row>
             <b-col md="8">
               <b-form-group label="Risk" label-class="font-weight-bold text-md-left" label-for="theRiskInput">
-                <b-form-input id="theRiskInput" v-model="objt.theName" type="text">
-                </b-form-input>
+                <b-form-input id="theRiskInput" v-model="objt.theName" type="text" />
               </b-form-group>
             </b-col>
             <b-col md="4">
               <b-form-group label="Tags" label-class="font-weight-bold text-md-left" label-for="theTagsInput">
-                <b-form-input id="theTagsInput" v-model="objt.theTags" type="text">
-                </b-form-input>
+                <b-form-input id="theTagsInput" v-model="objt.theTags" type="text" />
               </b-form-group>
             </b-col>
           </b-row>
           <b-row>
             <b-col md="6">
               <b-form-group label="Threat" label-class="font-weight-bold text-md-left" label-for="theThreatSelect">
-                <dimension-select id="theThreatSelect" dimension='threat' :initial="objt.theThreatName" v-on:dimension-select-change="threatSelected" />
+                <dimension-select id="theThreatSelect" dimension='threat' :initial="objt.theThreatName" v-on:dimension-select-change="threatSelected" v-on:dimension-items-updated="threatsLoaded" />
               </b-form-group>
             </b-col>
             <b-col md="6">
               <b-form-group label="Vulnerability" label-class="font-weight-bold text-md-left" label-for="theVulnerabilitySelect">
-                <dimension-select id="theVulnerabilitySelect" dimension='vulnerability' :initial="objt.theVulnerabilityName" v-on:dimension-select-change="vulnerabilitySelected" />
+                <dimension-select id="theVulnerabilitySelect" dimension='vulnerability' :initial="objt.theVulnerabilityName" v-on:dimension-select-change="vulnerabilitySelected" v-on:dimension-items-updated="vulnerabilitiesLoaded" />
               </b-form-group>
             </b-col>
           </b-row>
@@ -287,9 +285,15 @@ export default {
       this.objt.theThreatName = item;
       this.getRiskImpact();
     },
+    threatsLoaded(item) {
+      this.objt.theThreatName = item;
+    },
     vulnerabilitySelected(item) {
       this.objt.theVulnerabilityName = item;
       this.getRiskImpact();
+    },
+    vulnerabilitiesLoaded(item) {
+      this.objt.theVulnerabilityName = item;
     },
     getRiskImpact() {
       if (this.envUrl == '') {

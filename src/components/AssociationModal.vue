@@ -56,7 +56,7 @@ Authors: Shamal Faily
         <b-form-select id="theTailNavInput" v-model="association.association.theTailNav" :options="navValues" class="mb-3" required></b-form-select>
       </b-form-group>
       <b-form-group label="Tail" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theTailAssetInput" >
-        <dimension-select id="theTailAssetInput" dimension='asset' :environment=this.assetAssociation.environment :existing=[this.assetAssociation.asset] :initial="this.assetAssociation.initial" v-on:dimension-select-change="tailAssetSelected" />
+        <dimension-select id="theTailAssetInput" dimension='asset' :environment=this.assetAssociation.environment :existing=[this.assetAssociation.asset] :initial="this.assetAssociation.initial" v-on:dimension-select-change="tailAssetSelected" v-on:dimension-items-updated="tailAssetsLoaded" />
       </b-form-group>
     </b-card>
   </b-modal> 
@@ -117,6 +117,9 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
         this.$refs.associationDialog.show();
       },
       tailAssetSelected(item) {
+        this.association.association.theTailName = item;
+      },
+      tailAssetsLoaded(item) {
         this.association.association.theTailName = item;
       },
       onOk(evt) {
