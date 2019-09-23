@@ -38,7 +38,7 @@ Authors: Shamal Faily
           </b-col>
           <b-col v-if="thePersonaName != ''">
             <b-form-group label="Characteristic" label-form="personaModelCharacteristic">
-              <dimension-select id="personaModelCharacteristic" ref="personaModelCharacteristic" :dimensionUrl="pcUrl" initial="all" includeall v-on:dimension-select-change="characteristicSelected" v-on:dimension-items-updated="characteristicsLoaded" />
+              <dimension-select id="personaModelCharacteristic" ref="personaModelCharacteristic" :dimensionUrl="pcUrl" :initial="theCharacteristic" includeall v-on:dimension-select-change="characteristicSelected" v-on:dimension-items-updated="characteristicsLoaded" />
             </b-form-group>
           </b-col>
         </b-row>
