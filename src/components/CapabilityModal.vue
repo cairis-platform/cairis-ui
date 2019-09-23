@@ -50,7 +50,7 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
       return {
         theCapability  : '',
         existingCapabilities : this.existing,
-        value : '',
+        value : 'Low',
         valueTypes : ['Low','Medium','High']
       }
     },
