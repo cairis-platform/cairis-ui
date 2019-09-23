@@ -29,11 +29,11 @@ Authors: Shamal Faily
           <b-form-radio-group buttons size="md" id="theDimensionRadio" v-model="theDimensionName" :options="dimensionOptions" class="sm-3" required name="theDimensionRadio"/>
         </b-col>
         <b-col md="5">
-          <dimension-select id="requirementModelDimension" ref="requirementModelDimension" :dimension="theDimensionName" initial="all" includeall v-on:dimension-select-change="dimensionSelected" />
+          <dimension-select id="requirementModelDimension" ref="requirementModelDimension" :dimension="theDimensionName" initial="all" includeall v-on:dimension-select-change="dimensionSelected" v-on:dimension-items-updated="dimensionsLoaded" />
         </b-col> 
         <b-col md="5">
           <b-form-group label="Requirement" label-for="requirementModelRequirement" label-cols="3" >
-            <dimension-select id="requirementModelRequirement" ref="requirementModelRequirement" :dimensionUrl="requirementsNameURI" initial="all" includeall v-on:dimension-select-change="requirementSelected" />
+            <dimension-select id="requirementModelRequirement" ref="requirementModelRequirement" :dimensionUrl="requirementsNameURI" initial="all" includeall v-on:dimension-select-change="requirementSelected" v-on:dimension-items-updated="requirementsLoaded" />
           </b-form-group>
         </b-col>
       </b-row>
@@ -106,7 +106,19 @@ export default {
         this.$refs.requirementModelRequirement.selected = this.theRequirementName;
       }
     },
+    dimensionsLoaded(dimName) {
+      this.theDimensionValue = dimName
+      this.theRequirementName = 'all'
+      this.filterParameters.asset = (this.theDimensionName == 'asset' ? '1' : '0');
+      if (this.$refs.requirementsModelRequirement != undefined) {
+        this.$refs.requirementModelRequirement.selected = this.theRequirementName;
+      }
+    },
     requirementSelected(reqName) {
+      this.filterParameters.asset = (this.theDimensionName == 'asset' ? '1' : '0');
+      this.theRequirementName = reqName
+    },
+    requirementsLoaded(reqName) {
       this.filterParameters.asset = (this.theDimensionName == 'asset' ? '1' : '0');
       this.theRequirementName = reqName
     }

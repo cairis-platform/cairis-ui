@@ -28,12 +28,12 @@ Authors: Shamal Faily
       <b-row>
         <b-col>
           <b-form-group label="Misusability Case" label-for="misusabilityModelMisusabilityCase" :label-cols="3" >
-            <dimension-select id="misusabilityModelMisusabilityCase" ref="misusabilityModelMisusabilityCase" dimension="misusability_case" v-on:dimension-select-change="misusabilityCaseSelected" />
+            <dimension-select id="misusabilityModelMisusabilityCase" ref="misusabilityModelMisusabilityCase" dimension="misusability_case" v-on:dimension-select-change="misusabilityCaseSelected" v-on:dimension-items-updated="misusabilityCasesLoaded" />
           </b-form-group>
         </b-col>
         <b-col v-if="theMisusabilityCase != ''">
           <b-form-group label="Characteristic" label-form="misusabilityModelCharacteristic" :label-cols="4" >
-            <dimension-select id="misusabilityModelCharacteristic" ref="misusabilityModelCharacteristic" :dimensionUrl="tcUrl" initial="all" includeall v-on:dimension-select-change="characteristicSelected" />
+            <dimension-select id="misusabilityModelCharacteristic" ref="misusabilityModelCharacteristic" :dimensionUrl="tcUrl" initial="all" includeall v-on:dimension-select-change="characteristicSelected" v-on:dimension-items-updated="characteristicsLoaded" />
           </b-form-group>
         </b-col>
       </b-row>
@@ -99,9 +99,6 @@ export default {
         if (dimName == 'backings') {
           this.$refs.edDialog.show();  
         }
-//        else {
-//          this.$refs.crDialog.show();  
-//        }
       })
       .catch((error) => {
         EventBus.$emit('operation-failure',error)
@@ -114,7 +111,17 @@ export default {
         this.$refs.misusabilityModelCharacteristic.selected = this.theCharacteristic;
       }
     },
+    misusabilityCasesLoaded(mucName) {
+      this.theMisusabilityCase = mucName
+      if (this.$refs.misusabilityModelCharacteristic != undefined) {
+        this.theCharacteristic = 'all'
+        this.$refs.misusabilityModelCharacteristic.selected = this.theCharacteristic;
+      }
+    },
     characteristicSelected(charName) {
+      this.theCharacteristic = charName
+    },
+    characteristicsLoaded(charName) {
       this.theCharacteristic = charName
     }
   }

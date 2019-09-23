@@ -29,12 +29,12 @@ Authors: Shamal Faily
       <b-row>
         <b-col>
           <b-form-group label="Environment" label-for="dfdEnvironment" :label-cols="4" >
-            <dimension-select ref="dfdEnvironment" id="dfdEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
+            <dimension-select ref="dfdEnvironment" id="dfdEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
           <b-form-group label="Filter" label-for="dfdFilter" :label-cols="2" >
-            <dimension-select ref="dfdFilter" id="dfdFilter" dimension="dfd_filter" :environment="theEnvironmentName" initial="None" :includeall="true" v-on:dimension-select-change="filterSelected" />
+            <dimension-select ref="dfdFilter" id="dfdFilter" dimension="dfd_filter" :environment="theEnvironmentName" initial="None" :includeall="true" v-on:dimension-select-change="filterSelected" v-on:dimension-items-updated="filtersLoaded" />
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
@@ -111,7 +111,14 @@ export default {
       this.theEnvironmentName = envName;
       this.$refs.dfdEnvironment.selected = envName;
     },
+    environmentsLoaded(envName) {
+      this.theEnvironmentName = envName;
+      this.$refs.dfdEnvironment.selected = envName;
+    },
     filterSelected(filterName) {
+      this.theFilterName = filterName;
+    },
+    filtersLoaded(filterName) {
       this.theFilterName = filterName;
     },
     refreshModel() {

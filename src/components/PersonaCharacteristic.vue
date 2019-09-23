@@ -37,27 +37,24 @@ Authors: Shamal Faily
               <b-row>
                 <b-col md="12">
                   <b-form-group label="Definition" label-class="font-weight-bold text-md-left" label-for="theDefinitionInput">
-                    <b-form-input id="theDefinitionInput" v-model="objt.theName" type="text" required>
-                    </b-form-input>
+                    <b-form-input id="theDefinitionInput" v-model="objt.theName" type="text" required />
                   </b-form-group>
                 </b-col>
               </b-row>
               <b-row>
                 <b-col md="4">
                   <b-form-group label="Persona" label-class="font-weight-bold text-md-left" label-for="thePersonaSelect">
-                    <dimension-select id="thePersonaSelect" dimension='persona' :initial="objt.thePersonaName" v-on:dimension-select-change="personaSelected" />
+                    <dimension-select id="thePersonaSelect" dimension='persona' :initial="objt.thePersonaName" v-on:dimension-select-change="personaSelected" v-on:dimension-items-updated="personasLoaded" />
                   </b-form-group>
                 </b-col>
                 <b-col md="4">
                   <b-form-group label="Variable" label-class="font-weight-bold text-md-left" label-for="theVariableSelect">
-                    <b-form-select id="theTypeInput" v-model="objt.theVariable" :options="variableTypes" class="mb-3" required>
-                    </b-form-select>
+                    <b-form-select id="theTypeInput" v-model="objt.theVariable" :options="variableTypes" class="mb-3" required />
                   </b-form-group>
                 </b-col>
                 <b-col md="4">
                   <b-form-group label="Modal Qualifier" label-class="font-weight-bold text-md-left" label-for="theModalQualifierInput">
-                    <b-form-input id="theModalQualifierInput" v-model="objt.theModQual" type="text" required>
-                    </b-form-input>
+                    <b-form-input id="theModalQualifierInput" v-model="objt.theModQual" type="text" required />
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -291,6 +288,9 @@ export default {
       this.objt.theRebuttal.splice(index,1);
     },
     personaSelected(pName) {
+      this.objt.thePersonaName = pName;
+    },
+    personasLoaded(pName) {
       this.objt.thePersonaName = pName;
     },
     updateCharacteristicReference : function(updCr) {

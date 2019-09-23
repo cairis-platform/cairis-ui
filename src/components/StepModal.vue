@@ -30,8 +30,7 @@ Authors: Shamal Faily
     <b-card no-body>
       <b-tabs card>
         <b-tab title="Step" active>
-          <b-form-textarea id="theStep" v-model="objt.theStepText" type="text" :rows=2 :max-rows=4 required>
-          </b-form-textarea>
+          <b-form-textarea id="theStep" v-model="objt.theStepText" type="text" :rows=2 :max-rows=4 required />
         </b-tab>
         <b-tab title="Intentional Elements">
           <b-container fluid>
@@ -53,7 +52,7 @@ Authors: Shamal Faily
                 </b-form-group>
               </b-col>
               <b-col md="6">
-                <dimension-select id="theActorTypeSelect" :environment='environment' :dimension='actorType' :initial="objt.theActor" v-on:dimension-select-change="actorSelected" />
+                <dimension-select id="theActorTypeSelect" :environment='environment' :dimension='actorType' :initial="objt.theActor" v-on:dimension-select-change="actorSelected" v-on:dimension-items-updated="actorsLoaded" />
               </b-col>
             </b-row>
           </b-container>
@@ -133,6 +132,9 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
         if (item != undefined) {
           this.objt.theActor = item;
         }
+      },
+      actorsLoaded(item) {
+        this.objt.theActor = item;
       }
     }
   }

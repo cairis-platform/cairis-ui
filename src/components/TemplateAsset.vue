@@ -66,12 +66,12 @@ Authors: Shamal Faily
               <b-row>
                 <b-col md="6">
                   <b-form-group label="Surface Type" label-class="font-weight-bold text-md-left" label-for="theSurfaceTypeSelect">
-                    <dimension-select id="theSurfaceTypeSelect" dimension='surface_type' :initial="objt.theSurfaceType" v-on:dimension-select-change="surfaceTypeSelected" />
+                    <dimension-select id="theSurfaceTypeSelect" dimension='surface_type' :initial="objt.theSurfaceType" v-on:dimension-select-change="surfaceTypeSelected" v-on:dimension-items-updated="surfaceTypesLoaded" />
                   </b-form-group>
                 </b-col>
                 <b-col md="6">
                   <b-form-group label="Access Right" label-class="font-weight-bold text-md-left" label-for="theAccessRightSelect">
-                    <dimension-select id="theAccessRightSelect" dimension='access_right' :initial="objt.theAccessRight" v-on:dimension-select-change="accessRightSelected" />
+                    <dimension-select id="theAccessRightSelect" dimension='access_right' :initial="objt.theAccessRight" v-on:dimension-select-change="accessRightSelected" v-on:dimension-items-updated="accessRightsLoaded" />
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -213,10 +213,16 @@ export default {
         this.objt.theAccessRight = item;
       }
     },
+    accessRightsLoaded(item) {
+      this.objt.theAccessRight = item;
+    },
     surfaceTypeSelected(item) {
       if (item != undefined) {
         this.objt.theSurfaceType = item;
       }
+    },
+    surfaceTypesLoaded(item) {
+      this.objt.theSurfaceType = item;
     },
     setObject() {
       this.objt = this.object;

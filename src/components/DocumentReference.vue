@@ -36,7 +36,7 @@ Authors: Shamal Faily
                 <b-form-input id="theNameInput" v-model="objt.theName" type="text" required />
               </b-form-group>
               <b-form-group label="External Document" label-class="font-weigh-bold text-md-left" label-for="theDocumentSelect">
-                <dimension-select id="theDocumentSelect" dimension='external_document' :initial="this.objt.theDocName" v-on:dimension-select-change="docNameSelected" />
+                <dimension-select id="theDocumentSelect" dimension='external_document' :initial="this.objt.theDocName" v-on:dimension-select-change="docNameSelected" v-on:dimension-items-updated="docNamesLoaded" />
               </b-form-group>
               <b-form-group label="Contributor" label-class="font-weight-bold text-md-left" label-for="theContributorInput">
                 <b-form-input id="theContributorInput" v-model="objt.theContributor" type="text" required />
@@ -126,6 +126,9 @@ export default {
       }
     },
     docNameSelected(item) {
+      this.objt.theDocName = item;
+    },
+    docNamesLoaded(item) {
       this.objt.theDocName = item;
     }
   }

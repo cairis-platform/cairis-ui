@@ -39,10 +39,10 @@ Authors: Shamal Faily
     },
     data() {
       return {
-        odTableFields : {
-          theDimensionName : {label: 'Dimension'},
-          theObjectName : {label: 'Name'}
-        }
+        odTableFields : [
+          {key: 'theDimensionName', label: 'Dimension'},
+          {key: 'theObjectName', label: 'Name'}
+        ]
       }
     },
     methods : {

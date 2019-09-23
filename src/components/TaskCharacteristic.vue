@@ -41,7 +41,7 @@ Authors: Shamal Faily
           <b-row>
             <b-col md="6">
               <b-form-group label="Task" label-class="font-weight-bold text-md-left" label-for="theTaskSelect">
-                <dimension-select id="theTaskSelect" dimension='task' :initial="objt.theTaskName" v-on:dimension-select-change="taskSelected" />
+                <dimension-select id="theTaskSelect" dimension='task' :initial="objt.theTaskName" v-on:dimension-select-change="taskSelected" v-on:dimension-items-updated="tasksLoaded" />
               </b-form-group>
             </b-col>
             <b-col md="6">
@@ -246,6 +246,9 @@ export default {
       this.objt.theRebuttal.splice(index,1);
     },
     taskSelected(pName) {
+      this.objt.theTaskName = pName;
+    },
+    tasksLoaded(pName) {
       this.objt.theTaskName = pName;
     },
     updateCharacteristicReference : function(updCr) {

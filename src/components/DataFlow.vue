@@ -41,7 +41,7 @@ Authors: Shamal Faily
                 </b-col>
                 <b-col md="6">
                   <b-form-group label="Environment" label-class="font-weight-bold text-md-left" label-for="theEnvironmentSelect" >
-                    <dimension-select id="theEnvironmentSelect" ref="theEnvironmentSelect" dimension='environment' :initial="objt.theEnvironmentName" v-on:dimension-select-change="environmentSelected" />
+                    <dimension-select id="theEnvironmentSelect" ref="theEnvironmentSelect" dimension='environment' :initial="objt.theEnvironmentName" v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -56,7 +56,7 @@ Authors: Shamal Faily
                   </b-form-group>
                 </b-col>
                 <b-col md="8">
-                  <dimension-select id="theFromSelect" ref="theFromSelect" :environment='objt.theEnvironmentName' :dimension='objt.theFromType' :initial="objt.theFromName" v-on:dimension-select-change="fromNameSelected" />
+                  <dimension-select id="theFromSelect" ref="theFromSelect" :environment='objt.theEnvironmentName' :dimension='objt.theFromType' :initial="objt.theFromName" v-on:dimension-select-change="fromNameSelected" v-on:dimension-items-updated="fromNamesLoaded" />
                 </b-col>
               </b-row>
               <b-row>
@@ -67,7 +67,7 @@ Authors: Shamal Faily
                   </b-form-group>
                 </b-col>
                 <b-col md="8">
-                  <dimension-select id="theToSelect" ref="theToSelect" :environment='objt.theEnvironmentName' :dimension='objt.theToType' :initial="objt.theToName" v-on:dimension-select-change="toNameSelected" />
+                  <dimension-select id="theToSelect" ref="theToSelect" :environment='objt.theEnvironmentName' :dimension='objt.theToType' :initial="objt.theToName" v-on:dimension-select-change="toNameSelected" v-on:dimension-items-updated="toNamesLoaded" />
                 </b-col>
               </b-row>
               <b-row>
@@ -214,6 +214,9 @@ export default {
         this.objt.theEnvironmentName = item;
       }
     },
+    environmentsLoaded(item) {
+      this.objt.theEnvironmentName = item;
+    },
     goalSelected(item) {
       if (item != undefined) {
         this.objt.theGoal = item;
@@ -224,10 +227,16 @@ export default {
         this.objt.theFromName = item;
       }
     },
+    fromNamesLoaded(item) {
+      this.objt.theFromName = item;
+    },
     toNameSelected(item) {
       if (item != undefined) {
         this.objt.theToName = item;
       }
+    },
+    toNamesLoaded(item) {
+      this.objt.theToName = item;
     },
     addAsset(evt) {
       evt.preventDefault();

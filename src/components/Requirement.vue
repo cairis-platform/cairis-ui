@@ -39,8 +39,7 @@ Authors: Shamal Faily
             </b-col>
             <b-col md="6">
               <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-for="theType">
-                <b-form-select id="theTypeInput" v-model="objt.theType" :options="reqTypes" class="mb-3" required>
-                </b-form-select>
+                <b-form-select id="theTypeInput" v-model="objt.theType" :options="reqTypes" class="mb-3" required />
               </b-form-group>
             </b-col>
           </b-row>
@@ -54,7 +53,7 @@ Authors: Shamal Faily
               </b-form-group>
             </b-col>
             <b-col md="8">
-              <dimension-select id="reqDomains" ref="reqDomains" :dimension="selectedDomain" :initial="domain.domainName" v-on:dimension-select-change="domainSelected" />
+              <dimension-select id="reqDomains" ref="reqDomains" :dimension="selectedDomain" :initial="domain.domainName" v-on:dimension-select-change="domainSelected" v-on:dimension-items-updated="domainsLoaded" />
             </b-col>
           </b-row>
         </b-card>
@@ -182,6 +181,17 @@ export default {
       this.$router.push({ name: 'objectsview', params: {dimension: 'requirement'}});
     },
     domainSelected(domainName) {
+      this.objt.theDomain = domainName
+      this.$store.state.domain = this.selectedDomain;
+      this.$store.state.domainName = this.objt.theDomain;
+      if (this.selectedDomain == 'asset') {
+        this.axiosParameters = {post : {'asset' : domainName}, put : {}}
+      }
+      else {
+        this.axiosParameters = {post : {'environment' : domainName}, put : {}}
+      }
+    },
+    domainsLoaded(domainName) {
       this.objt.theDomain = domainName
       this.$store.state.domain = this.selectedDomain;
       this.$store.state.domainName = this.objt.theDomain;

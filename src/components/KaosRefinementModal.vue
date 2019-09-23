@@ -33,10 +33,10 @@ Authors: Shamal Faily
       </b-form-group>
       <b-form-group :label="theTargetType" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theObjectSelect" >
         <div v-if="association.association.theEndType != 'role'">
-          <dimension-select v-if="this.association.environment !=''" id="theObjectSelect" :dimension='association.association.theEndType' :environment="this.association.environment" :initial="association.association.theEndName" :existing="[this.source]" v-on:dimension-select-change="endSelected" />
+          <dimension-select v-if="this.association.environment !=''" id="theObjectSelect" :dimension='association.association.theEndType' :environment="this.association.environment" :initial="association.association.theEndName" :existing="[this.source]" v-on:dimension-select-change="endSelected" v-on:dimension-items-updated="endsLoaded" />
         </div>
         <div v-if="association.association.theEndType == 'role'">
-          <dimension-select v-if="this.association.environment !=''" id="theObjectSelect" :dimension='association.association.theEndType' :initial="association.association.theEndName" :existing="[this.source]" v-on:dimension-select-change="endSelected" />
+          <dimension-select v-if="this.association.environment !=''" id="theObjectSelect" :dimension='association.association.theEndType' :initial="association.association.theEndName" :existing="[this.source]" v-on:dimension-select-change="endSelected" v-on:dimension-items-updated="endsLoaded" />
         </div>
       </b-form-group>
       <b-form-group label="Refinement" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theRefinementSelect" >
@@ -110,6 +110,9 @@ Authors: Shamal Faily
         this.$refs.refinementDialog.show();
       },
       endSelected(item) {
+        this.association.association.theEndName = item;
+      },
+      endsLoaded(item) {
         this.association.association.theEndName = item;
       },
       onOk(evt) {

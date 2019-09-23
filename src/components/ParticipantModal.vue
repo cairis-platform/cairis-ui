@@ -29,7 +29,7 @@ Authors: Shamal Faily
     </p> 
     <b-card>
       <b-form-group label="Persona" label-class="font-weight-bold text-sm-left" label-for="thePersonaSelect" >
-        <dimension-select id="thePersonaSelect" dimension='persona' :environment=this.taskParticipant.environment :existing="taskParticipants" :initial="this.taskParticipant.participant.thePersona" v-on:dimension-select-change="personaSelected" />
+        <dimension-select id="thePersonaSelect" dimension='persona' :environment=this.taskParticipant.environment :existing="taskParticipants" :initial="this.taskParticipant.participant.thePersona" v-on:dimension-select-change="personaSelected" v-on:dimension-items-updated="personasLoaded" />
       </b-form-group>
       <b-form-group label="Duration" label-class="font-weight-bold text-sm-left" label-for="theDurationRadio" >
         <b-form-radio-group id="theDurationRadio" v-model="participant.participant.theDuration">
@@ -118,6 +118,9 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
         this.$refs.participantDialog.show();
       },
       personaSelected(item) {
+        this.participant.participant.thePersona = item;
+      },
+      personasLoaded(item) {
         this.participant.participant.thePersona = item;
       },
       onOk(evt) {

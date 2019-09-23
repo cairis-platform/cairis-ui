@@ -35,16 +35,14 @@ Authors: Shamal Faily
           <b-row>
             <b-col md="12">
               <b-form-group label="Trust Boundary" label-class="font-weight-bold text-md-left" label-for="theTrustBoundaryInput">
-                <b-form-input id="theTrustBoundaryInput" v-model="objt.theName" type="text" required>
-                </b-form-input>
+                <b-form-input id="theTrustBoundaryInput" v-model="objt.theName" type="text" required />
               </b-form-group>
             </b-col>
           </b-row>
           <b-row>
             <b-col md="12">
             <b-form-group label="Description" label-class="font-weight-bold text-md-left" label-for="theDescriptionInput">
-              <b-form-textarea id="theDescriptionInput" v-model="objt.theDescription" type="text" :rows=2 :max-rows=4 required>
-              </b-form-textarea>
+              <b-form-textarea id="theDescriptionInput" v-model="objt.theDescription" type="text" :rows=2 :max-rows=4 required />
             </b-form-group>
             </b-col>
           </b-row>
@@ -70,7 +68,7 @@ Authors: Shamal Faily
           <b-row v-if="this.objt.theEnvironmentProperties.length">
             <b-col sm="12">
               <b-form-group label="Privilege" label-class="font-weight-bold text-md-left" label-for="thePrivilegeSelect">
-                <dimension-select id="thePrivilegeSelect" dimension='privilege' :initial="privilege" v-on:dimension-select-change="privilegeSelected" />
+                <dimension-select id="thePrivilegeSelect" dimension='privilege' :initial="privilege" v-on:dimension-select-change="privilegeSelected" v-on:dimension-items-updated="privilegesLoaded" />
               </b-form-group>
               <b-table striped bordered small :fields="componentTableFields" :items="components">
                 <!-- eslint-disable-next-line -->
@@ -205,6 +203,9 @@ export default {
       this.objt.theEnvironmentProperties[this.envPropIndex].theComponents.push(compName);
     },
     privilegeSelected(priv) {
+      this.objt.theEnvironmentProperties[this.envPropIndex].thePrivilege = priv;
+    },
+    privilegesLoaded(priv) {
       this.objt.theEnvironmentProperties[this.envPropIndex].thePrivilege = priv;
     }
   }

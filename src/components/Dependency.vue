@@ -35,14 +35,14 @@ Authors: Shamal Faily
               <b-row>
                 <b-col md="12">
                   <b-form-group label="Environment" label-class="font-weight-bold text-sm-left" label-for="theEnvironmentSelect" >
-                    <dimension-select id="theEnvironmentSelect" ref="theEnvironmentSelect" dimension='environment' :initial="objt.theEnvironmentName" v-on:dimension-select-change="environmentSelected" />
+                    <dimension-select id="theEnvironmentSelect" ref="theEnvironmentSelect" dimension='environment' :initial="objt.theEnvironmentName" v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
                   </b-form-group>
                 </b-col>
               </b-row>
               <b-row>
                 <b-col md="12">
                   <b-form-group label="Depender" label-class="font-weight-bold text-sm-left" label-for="theDependerSelect" >
-                    <dimension-select id="theDependerSelect" ref="theDependerSelect" dimension='role' :initial="objt.theDepender" v-on:dimension-select-change="dependerSelected" />
+                    <dimension-select id="theDependerSelect" ref="theDependerSelect" dimension='role' :initial="objt.theDepender" v-on:dimension-select-change="dependerSelected" v-on:dimension-items-updated="dependersLoaded" />
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -58,14 +58,14 @@ Authors: Shamal Faily
                 </b-col>
                 <b-col md="6">
                   <b-form-group label="Name" label-class="font-weight-bold text-md-left" label-for="theDependencyName" >
-                  <dimension-select id="theDependencySelect" ref="theDependencySelect" :environment='objt.theEnvironmentName' :dimension='objt.theDependencyType' :initial="objt.theDependency" v-on:dimension-select-change="dependencySelected" />
+                  <dimension-select id="theDependencySelect" ref="theDependencySelect" :environment='objt.theEnvironmentName' :dimension='objt.theDependencyType' :initial="objt.theDependency" v-on:dimension-select-change="dependencySelected" v-on:dimension-items-updated="dependenciesLoaded" />
                   </b-form-group>
                 </b-col>
               </b-row>
               <b-row>
                 <b-col md="12">
                   <b-form-group label="Dependee" label-class="font-weight-bold text-sm-left" label-for="theDependeeSelect" >
-                    <dimension-select id="theDependeeSelect" ref="theDependeeSelect" dimension='role' :initial="objt.theDependee" v-on:dimension-select-change="dependeeSelected" />
+                    <dimension-select id="theDependeeSelect" ref="theDependeeSelect" dimension='role' :initial="objt.theDependee" v-on:dimension-select-change="dependeeSelected" v-on:dimension-items-updated="dependeesLoaded" />
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -173,21 +173,33 @@ export default {
         this.objt.theEnvironmentName = item;
       }
     },
+    environmentsLoaded(item) {
+      this.objt.theEnvironmentName = item;
+    },
     dependerSelected(item) {
       if (item != undefined) {
         this.objt.theDepender = item;
       }
+    },
+    dependersLoaded(item) {
+      this.objt.theDepender = item;
     },
     dependencySelected(item) {
       if (item != undefined) {
         this.objt.theDependency = item;
       }
     },
+    dependenciesLoaded(item) {
+      this.objt.theDependency = item;
+    },
     dependeeSelected(item) {
       if (item != undefined) {
         this.objt.theDependee = item;
       }
     },
+    dependeesLoaded(item) {
+      this.objt.theDependee = item;
+    }
   }
 }
 </script>

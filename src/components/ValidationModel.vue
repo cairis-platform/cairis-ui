@@ -26,7 +26,7 @@ Authors: Shamal Faily
       <b-row>
         <b-col md="12">
           <b-form-group label="Environment" label-for="validationModelEnvironment" :label-cols="4" >
-            <dimension-select id="validationModelEnvironment" ref="validationModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
+            <dimension-select id="validationModelEnvironment" ref="validationModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
           </b-form-group>
         </b-col>
       </b-row>
@@ -57,17 +57,17 @@ export default {
     return {
       theEnvironmentName : '',
       validationResults : [],
-      validationTableFields : {
-        theLabel : {label : 'Type'},
-        theMessage : {label : 'Description'},
-      }
+      validationTableFields : [
+        {key: 'theLabel', label : 'Type'},
+        {key: 'theMessage', label : 'Description'},
+      ]
     }
   },
   components : {
     DimensionSelect
   },
   methods : {
-    environmentSelected(envName) {
+    environmentChanged(envName) {
       this.theEnvironmentName = envName;
       axios.get(this.validationModelURI,{
         baseURL : this.$store.state.url,
@@ -79,6 +79,12 @@ export default {
       .catch((error) => {
         EventBus.$emit('operation-failure',error.response.data);
       });
+    },
+    environmentSelected(envName) {
+      this.environmentChanged(envName);
+    },
+    environmentsLoaded(envName) {
+      this.environmentChanged(envName);
     }
   }
 }

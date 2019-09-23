@@ -34,7 +34,7 @@ Authors: Shamal Faily
       </b-row>
       <b-row>
         <b-col md="12">
-          <dimension-select :environment="this.environment" :dimension="theComponentType" v-on:dimension-select-change="dimensionSelected" />
+          <dimension-select :environment="this.environment" :dimension="theComponentType" v-on:dimension-select-change="dimensionSelected" v-on:dimension-items-updated="dimensionsLoaded" />
         </b-col>
       </b-row>
     </b-card>
@@ -64,6 +64,9 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
         this.$refs.tbCompDialog.show();
       },
       dimensionSelected(item) {
+        this.theName = item;
+      },
+      dimensionsLoaded(item) {
         this.theName = item;
       },
       onOk(evt) {

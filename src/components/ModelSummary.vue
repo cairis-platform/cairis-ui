@@ -23,7 +23,7 @@ Authors: Shamal Faily
   <div class="modelsummary">
     <b-card>
       <b-form-group id="modelSummaryToolbar" label="Environments" label-for="modelSummary">
-        <dimension-select ref="modelSummaryEnvironment" id="modelSummary" dimension= "environment" v-on:dimension-select-change="onEnvironmentSelected" />
+        <dimension-select ref="modelSummaryEnvironment" id="modelSummary" dimension= "environment" v-on:dimension-select-change="onEnvironmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
       </b-form-group>
       <b-card bg-variant="light">
       <b-tabs card pill>
@@ -213,6 +213,9 @@ export default {
       });
     },
     onEnvironmentSelected(item) {
+      this.selectedEnvironment = item;
+    },
+    environmentsLoaded(item) {
       this.selectedEnvironment = item;
     },
     reloadModels() {

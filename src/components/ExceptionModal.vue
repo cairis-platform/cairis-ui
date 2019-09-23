@@ -31,8 +31,7 @@ Authors: Shamal Faily
       <b-row>
         <b-col md="12">
           <b-form-group label="Name" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theExcNameInput">
-            <b-form-input id="theExcNameInput" v-model="objt.theName" type="text" required>
-            </b-form-input>
+            <b-form-input id="theExcNameInput" v-model="objt.theName" type="text" required />
           </b-form-group>
         </b-col>
       </b-row>
@@ -47,22 +46,20 @@ Authors: Shamal Faily
           </b-form-group>
         </b-col>
         <b-col md="6">
-          <dimension-select v-if="objt.theDimensionType != 'none'" id="theDimensionSelect" ref="dimensionSelect" :environment='environment' :dimensionUrl='objtUrl' :initial="objt.theDimensionValue" v-on:dimension-select-change="dimensionSelected" />
+          <dimension-select v-if="objt.theDimensionType != 'none'" id="theDimensionSelect" ref="dimensionSelect" :environment='environment' :dimensionUrl='objtUrl' :initial="objt.theDimensionValue" v-on:dimension-select-change="dimensionSelected" v-on:dimension-items-updated="dimensionsLoaded" />
         </b-col>
       </b-row>
       <b-row>
         <b-col md="12">
           <b-form-group label="Category" label-class="font-weight-bold text-sm-left" label-cols="4" label-for="theCategorySelect" >
-            <b-form-select id="theCategoryName" v-model="objt.theCategoryName" :options="categoryTypes" class="mb-3" required>
-            </b-form-select>
+            <b-form-select id="theCategoryName" v-model="objt.theCategoryName" :options="categoryTypes" class="mb-3" required />
           </b-form-group>
         </b-col>
       </b-row>
       <b-row>
         <b-col md="12">
           <b-form-group label="Description" label-class="font-weight-bold text-sm-left" label-cols="4" label-for="theExceptionDescription" >
-            <b-form-textarea id="theExceptionDescription" v-model="objt.theDescription" type="text" :rows=2 :max-rows=4 required>
-            </b-form-textarea>
+            <b-form-textarea id="theExceptionDescription" v-model="objt.theDescription" type="text" :rows=2 :max-rows=4 required />
           </b-form-group>
         </b-col>
       </b-row>
@@ -148,6 +145,9 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
         if (item != undefined) {
           this.objt.theDimensionValue = item;
         }
+      },
+      dimensionsLoaded(item) {
+        this.objt.theDimensionValue = item;
       }
     }
   }

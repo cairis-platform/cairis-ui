@@ -34,12 +34,12 @@ Authors: Shamal Faily
         <b-row>
           <b-col>
             <b-form-group label="Environment" label-for="obstacleModelEnvironment">
-              <dimension-select id="obstacleModelEnvironment" ref="obstacleModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
+              <dimension-select id="obstacleModelEnvironment" ref="obstacleModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
             </b-form-group>
           </b-col>
           <b-col v-if="theEnvironmentName != ''">
             <b-form-group label="Obstacle" label-for="obstacleModelObstacle">
-              <dimension-select id="obstacleModelObstacle" ref="obstacleModelObstacle" dimension="obstacle" :environment="theEnvironmentName" initial="all" includeall v-on:dimension-select-change="obstacleSelected" />
+              <dimension-select id="obstacleModelObstacle" ref="obstacleModelObstacle" dimension="obstacle" :environment="theEnvironmentName" initial="all" includeall v-on:dimension-select-change="obstacleSelected" v-on:dimension-items-updated="obstaclesLoaded" />
             </b-form-group>
           </b-col>
           <b-col v-if="theEnvironmentName != ''">
@@ -143,7 +143,18 @@ export default {
         this.$refs.obstacleModelObstacle.selected = this.theObstacleName;
       }
     },
+    environmentsLoaded(envName) {
+      this.theEnvironmentName = envName;
+      this.$refs.obstacleModelEnvironment.selected = envName;
+      if (this.$refs.obstacleModelObstacle != undefined) {
+        this.theObstacleName = 'all';
+        this.$refs.obstacleModelObstacle.selected = this.theObstacleName;
+      }
+    },
     obstacleSelected(obsName) {
+      this.theObstacleName = obsName
+    },
+    obstaclesLoaded(obsName) {
       this.theObstacleName = obsName
     },
     refreshModel() {

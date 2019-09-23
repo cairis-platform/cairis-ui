@@ -36,23 +36,22 @@ Authors: Shamal Faily
     <b-container fluid>
       <b-row>
         <b-col>
-          <b-form-group label="Environment" label-for="riskModelEnvironment" :label-cols="4" >
-            <dimension-select ref="riskModelEnvironment" id="riskModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
+          <b-form-group label="Environment" label-for="riskModelEnvironment">
+            <dimension-select ref="riskModelEnvironment" id="riskModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
-          <b-form-group label="Type" label-for="riskModelType" :label-cols="2" >
-            <b-form-select id="riskModelType" ref="riskModelType" v-model="filterParameters.dimension_name" :options="dimensionTypes" class="mb-3" v-on:change="typeSelected" required>
-            </b-form-select>
+          <b-form-group label="Type" label-for="riskModelType">
+            <b-form-select id="riskModelType" ref="riskModelType" v-model="filterParameters.dimension_name" :options="dimensionTypes" class="mb-3" v-on:change="typeSelected" required />
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
-          <b-form-group label="Name" label-form="riskModelName" :label-cols="4" >
-            <dimension-select id="riskModelName" ref="riskModelName" :environment="theEnvironmentName" :dimensionUrl="nameURI" includeall v-on:dimension-select-change="nameSelected" />
+          <b-form-group label="Name" label-form="riskModelName">
+            <dimension-select id="riskModelName" ref="riskModelName" :environment="theEnvironmentName" :dimensionUrl="nameURI" includeall v-on:dimension-select-change="nameSelected" v-on:dimension-items-updated="namesLoaded" />
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
-          <b-form-group label="Tags" label-form="riskModelTagGroups" :label-cols="2">
+          <b-form-group label="Tags" label-form="riskModelTagGroups">
             <b-form-checkbox id="riskModelTagGroups" v-model="isTagged" v-on:change="tagUpdated" />
           </b-form-group>
         </b-col>
@@ -239,7 +238,7 @@ export default {
         EventBus.$emit('operation-failure',error)
       })
     },
-    environmentSelected(envName) {
+    environmentChanged(envName) {
       this.theEnvironmentName = envName;
       this.$refs.riskModelEnvironment.selected = envName;
       this.filterParameters.dimension_name = 'all';
@@ -251,18 +250,30 @@ export default {
         this.$refs.riskModelName.selected = 'all';
       }
     },
+    environmentSelected(envName) {
+      this.environmentChanged(envName);
+    },
+    environmentsLoaded(envName) {
+      this.environmentChanged(envName);
+    },
     typeSelected() {
       if (this.$refs.riskModelName != undefined) {
         this.filterParameters.tagged = (this.isTagged == true ? '1' : '0');
         this.$refs.riskModelName.selected = 'all';
       }
     }, 
-    nameSelected(objtName) {
+    nameChanged(objtName) {
       this.filterParameters.object_name = objtName;
       this.filterParameters.tagged = (this.isTagged == true ? '1' : '0');
       if (this.$refs.riskModelName != undefined) {
         this.$refs.riskModelName.$emit('dimension-select-change',objtName);
       }
+    },
+    nameSelected(objtName) {
+      this.nameChanged(objtName);
+    },
+    namesLoaded(objtName) {
+      this.nameChanged(objtName);
     },
     tagUpdated(v) {
       this.filterParameters.tagged = (v == true ? '1' : '0');

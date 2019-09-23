@@ -29,12 +29,12 @@ Authors: Shamal Faily
       <b-row>
         <b-col>
           <b-form-group label="Location" label-for="locationsModelLocation" :label-cols="4" >
-            <dimension-select id="locationsModelLocation" ref="locationsModelLocation" dimension="locations" v-on:dimension-select-change="locationsSelected" />
+            <dimension-select id="locationsModelLocation" ref="locationsModelLocation" dimension="locations" v-on:dimension-select-change="locationsSelected" v-on:dimension-items-updated="locationsLoaded" />
           </b-form-group>
         </b-col>
         <b-col v-if="theLocationsName != ''">
           <b-form-group label="Environment" label-for="locationsModelEnvironment" :label-cols="4" >
-            <dimension-select id="locationsModelEnvironment" ref="locationsModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
+            <dimension-select id="locationsModelEnvironment" ref="locationsModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
           </b-form-group>
         </b-col>
       </b-row>
@@ -114,7 +114,13 @@ export default {
     locationsSelected(locsName) {
       this.theLocationsName = locsName
     },
+    locationsLoaded(locsName) {
+      this.theLocationsName = locsName
+    },
     environmentSelected(envName) {
+      this.theEnvironmentName = envName
+    },
+    environmentsLoaded(envName) {
       this.theEnvironmentName = envName
     }
   }

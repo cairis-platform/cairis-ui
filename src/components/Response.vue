@@ -45,7 +45,7 @@ Authors: Shamal Faily
             </b-col>
             <b-col md="4">
               <b-form-group label="Risk" label-class="font-weight-bold text-md-left" label-for="theRiskSelect">
-                <dimension-select id="theRiskSelect" dimension='risk' :initial="objt.theRisk" v-on:dimension-select-change="riskSelected" /> 
+                <dimension-select id="theRiskSelect" dimension='risk' :initial="objt.theRisk" v-on:dimension-select-change="riskSelected" v-on:dimension-items-updated="risksLoaded" /> 
               </b-form-group>
             </b-col>
             <b-col md="4">
@@ -94,8 +94,7 @@ Authors: Shamal Faily
             <b-row v-if="this.objt.theEnvironmentProperties.accept.length > 0">
               <b-col md="12">
                 <b-form-group label="Rationale" label-class="font-weight-bold text-md-left" label-for="theAcceptRationaleInput">
-                  <b-form-textarea id="theAcceptRationaleInput" v-model="acceptRationale" type="text" :rows=4 :max-rows=4 required>
-                  </b-form-textarea>
+                  <b-form-textarea id="theAcceptRationaleInput" v-model="acceptRationale" type="text" :rows=4 :max-rows=4 required />
                 </b-form-group>
               </b-col>
             </b-row> 
@@ -387,6 +386,12 @@ export default {
       }
     },
     riskSelected(rName) {
+      if (rName != undefined) {
+        this.objt.theRisk = rName;
+        this.updateResponseName();
+      }
+    },
+    risksLoaded(rName) {
       if (rName != undefined) {
         this.objt.theRisk = rName;
         this.updateResponseName();

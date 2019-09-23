@@ -28,7 +28,7 @@ Authors: Shamal Faily
         <b-row>
           <b-col>
             <b-form-group label="Persona" label-for="personaModelPersona">
-              <dimension-select id="personaModelPersona" ref="personaModelPersona" dimension="persona" v-on:dimension-select-change="personaSelected" />
+              <dimension-select id="personaModelPersona" ref="personaModelPersona" dimension="persona" v-on:dimension-select-change="personaSelected" v-on:dimension-items-updated="personasLoaded" />
             </b-form-group>
           </b-col>
           <b-col v-if="thePersonaName != ''">
@@ -38,7 +38,7 @@ Authors: Shamal Faily
           </b-col>
           <b-col v-if="thePersonaName != ''">
             <b-form-group label="Characteristic" label-form="personaModelCharacteristic">
-              <dimension-select id="personaModelCharacteristic" ref="personaModelCharacteristic" :dimensionUrl="pcUrl" initial="all" includeall v-on:dimension-select-change="characteristicSelected" />
+              <dimension-select id="personaModelCharacteristic" ref="personaModelCharacteristic" :dimensionUrl="pcUrl" initial="all" includeall v-on:dimension-select-change="characteristicSelected" v-on:dimension-items-updated="characteristicsLoaded" />
             </b-form-group>
           </b-col>
         </b-row>
@@ -129,9 +129,19 @@ export default {
         this.theCharacteristic = 'all';
       }
     },
+    personasLoaded(personaName) {
+      this.thePersonaName = personaName
+      this.$refs.personaModelPersona.selected = this.thePersonaName;
+      if (this.$refs.personaModelBehaviourType != undefined) {
+        this.theBehaviourType = 'all';
+        this.theCharacteristic = 'all';
+      }
+    },
     characteristicSelected(charName) {
       this.theCharacteristic = charName;
-//      this.$refs.personaModelCharacteristic.selected = this.theCharacteristic;
+    },
+    characteristicsLoaded(charName) {
+      this.theCharacteristic = charName;
     }
   }
 }

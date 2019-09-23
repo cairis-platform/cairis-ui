@@ -37,23 +37,20 @@ Authors: Shamal Faily
           <b-row>
             <b-col md="6">
               <b-form-group label="Threat" label-class="font-weight-bold text-md-left" label-for="theThreatInput">
-                <b-form-input id="theThreatInput" v-model="objt.theThreatName" type="text" required>
-                </b-form-input>
+                <b-form-input id="theThreatInput" v-model="objt.theThreatName" type="text" required />
               </b-form-group>
             </b-col>
             <b-col md="6">
               <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-for="theThreatType">
-                <dimension-select id="theThreatType" dimension='threat_type' :initial="this.objt.theType" v-on:dimension-select-change="threatTypeSelected" />
+                <dimension-select id="theThreatType" dimension='threat_type' :initial="this.objt.theType" v-on:dimension-select-change="threatTypeSelected" v-on:dimension-items-updated="threatTypesLoaded" />
               </b-form-group>
             </b-col>
           </b-row>
         <b-form-group label="Method" label-class="font-weight-bold text-md-left" label-for="theMethodInput">
-          <b-form-textarea id="theMethodInput" v-model="objt.theMethod" type="text" rows=2 max-rows=4 required>
-          </b-form-textarea>
+          <b-form-textarea id="theMethodInput" v-model="objt.theMethod" type="text" rows=2 max-rows=4 required />
         </b-form-group>
         <b-form-group label="Tags" label-class="font-weight-bold text-md-left" label-for="theTagsInput">
-          <b-form-input id="theTagsInput" v-model="objt.theTags" type="text">
-          </b-form-input>
+          <b-form-input id="theTagsInput" v-model="objt.theTags" type="text" />
         </b-form-group>
         </b-card>
       </b-container>
@@ -290,6 +287,9 @@ export default {
       this.objt.theEnvironmentProperties[this.envPropIndex].theAttackers.push(attackerName);
     },
     threatTypeSelected(tType) {
+      this.objt.theType = tType;
+    },
+    threatTypesLoaded(tType) {
       this.objt.theType = tType;
     }
   }

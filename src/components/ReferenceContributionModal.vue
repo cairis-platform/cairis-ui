@@ -32,7 +32,7 @@ Authors: Shamal Faily
       <b-row>
         <b-col md="12">
           <b-form-group label="Contributes to" label-class="font-weight-bold text-md-left" label-for="theContributesToSelect">
-            <dimension-select id="theContributesToSelect" dimension="persona_characteristic_synopsis" :initial="referenceContribution.referenceContribution.theContributionTo" v-on:dimension-select-change="contributesToSelected" />
+            <dimension-select id="theContributesToSelect" dimension="persona_characteristic_synopsis" :initial="referenceContribution.referenceContribution.theContributionTo" v-on:dimension-select-change="contributesToSelected" v-on:dimension-items-updated="contributesToLoaded" />
           </b-form-group>
         </b-col>
       </b-row>
@@ -109,6 +109,9 @@ Authors: Shamal Faily
         this.$refs.rcModal.show();
       },
       contributesToSelected(item) {
+        this.objt.theContributionTo = item;
+      },
+      contributesToLoaded(item) {
         this.objt.theContributionTo = item;
       },
       onOk(evt) {

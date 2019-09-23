@@ -95,7 +95,7 @@ Authors: Shamal Faily
         <b-row>
           <b-col md="12">
             <b-form-group label="Tail" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theTailAssetSelect" >
-              <dimension-select id="theTailAssetSelect" ref="theTailAssetSelect" dimension='template_asset' :initial="this.association.association.theTailAsset" v-on:dimension-select-change="tailAssetSelected" />
+              <dimension-select id="theTailAssetSelect" ref="theTailAssetSelect" dimension='template_asset' :initial="this.association.association.theTailAsset" v-on:dimension-select-change="tailAssetSelected" v-on:dimension-items-updated="tailAssetsLoaded" />
             </b-form-group>
           </b-col>
         </b-row>
@@ -168,7 +168,13 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
       headAssetSelected(item) {
         this.association.association.theHeadAsset = item;
       },
+      headAssetsLoaded(item) {
+        this.association.association.theHeadAsset = item;
+      },
       tailAssetSelected(item) {
+        this.association.association.theTailAsset = item;
+      },
+      tailAssetsLoaded(item) {
         this.association.association.theTailAsset = item;
       },
       onOk(evt) {

@@ -29,7 +29,7 @@ Authors: Shamal Faily
     </p> 
     <b-card>
       <b-form-group label="Target" label-class="font-weight-bold text-sm-left" label-for="theTargetSelect" >
-        <dimension-select v-if="countermeasureTargetUrl != ''" :dimensionUrl="countermeasureTargetUrl" :initial="this.countermeasureTarget.target.theName" v-on:dimension-select-change="targetSelected" />
+        <dimension-select v-if="countermeasureTargetUrl != ''" :dimensionUrl="countermeasureTargetUrl" :initial="this.countermeasureTarget.target.theName" v-on:dimension-select-change="targetSelected" v-on:dimension-items-updated="targetsLoaded" />
       </b-form-group>
       <b-form-group label="Effectiveness" label-class="font-weight-bold text-sm-left" label-for="theEffectivenessRadio" >
         <b-form-radio-group id="theEffectivenessRadio" v-model="objt.theEffectiveness">
@@ -105,6 +105,9 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
         this.$refs.targetDialog.show();
       },
       targetSelected(tName) {
+        this.objt.theName = tName;
+      },
+      targetsLoaded(tName) {
         this.objt.theName = tName;
       },
       onOk(evt) {

@@ -45,7 +45,7 @@ Authors: Shamal Faily
             </b-col>
             <b-col md="4">
               <b-form-group label="Asset" label-class="font-weight-bold text-md-left">
-                <dimension-select dimension="template_asset" :initial="objt.theAssetName" v-on:dimension-select-change="assetSelected" />
+                <dimension-select dimension="template_asset" :initial="objt.theAssetName" v-on:dimension-select-change="assetSelected" v-on:dimension-items-updated="assetsLoaded" />
               </b-form-group>
             </b-col>
           </b-row>
@@ -155,6 +155,9 @@ export default {
       this.$router.push({ name: 'objectsview', params: {dimension: 'templaterequirement'}});
     },
     assetSelected(assetName) {
+      this.objt.theAssetName = assetName
+    },
+    assetsLoaded(assetName) {
       this.objt.theAssetName = assetName
     }
   }

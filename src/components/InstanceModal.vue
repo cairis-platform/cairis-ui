@@ -39,8 +39,8 @@ Authors: Shamal Faily
         <b-row>
           <b-col md="12">
             <b-form-group :label="instanceTypeLabel" label-class="font-weight-bold text-md-left" label-for="theObjectSelect" >
-              <dimension-select v-if="instanceType == 'persona'" id="theObjectSelect" ref="theObjectSelect" :dimension='instanceType' :initial="this.instance.instance.thePersona" v-on:dimension-select-change="objectSelected" />
-              <dimension-select v-if="instanceType == 'asset'" id="theObjectSelect" ref="theObjectSelect" :dimension='instanceType' :initial="this.instance.instance.theAsset" v-on:dimension-select-change="objectSelected" />
+              <dimension-select v-if="instanceType == 'persona'" id="theObjectSelect" ref="theObjectSelect" :dimension='instanceType' :initial="this.instance.instance.thePersona" v-on:dimension-select-change="objectSelected" v-on:dimension-items-updated="objectsLoaded" />
+              <dimension-select v-if="instanceType == 'asset'" id="theObjectSelect" ref="theObjectSelect" :dimension='instanceType' :initial="this.instance.instance.theAsset" v-on:dimension-select-change="objectSelected" v-on:dimension-items-updated="objectsLoaded" />
             </b-form-group>
           </b-col>
         </b-row>
@@ -100,6 +100,14 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
         this.$refs.instanceDialog.show();
       },
       objectSelected(item) {
+        if (this.instanceType == 'persona') {
+          this.instance.instance.thePersona = item;
+        }
+        else {
+          this.instance.instance.theAsset = item;
+        }
+      },
+      objectsLoaded(item) {
         if (this.instanceType == 'persona') {
           this.instance.instance.thePersona = item;
         }

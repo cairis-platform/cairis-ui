@@ -33,8 +33,7 @@ Authors: Shamal Faily
           <b-col md=12>
             <b-container fluid>
               <b-form-group label="Name" label-class="font-weight-bold text-md-left" label-for="theNameInput">
-                <b-form-input id="theNameInput" v-model="objt.theName" type="text" required>
-                </b-form-input>
+                <b-form-input id="theNameInput" v-model="objt.theName" type="text" required />
               </b-form-group>
               <b-form-group label="Dimension" label-class="font-weigh-bold text-md-left" label-for="theDimensionRadio">
                 <b-form-radio-group id="theDimensionRadio" v-model="objt.theDimName">
@@ -45,7 +44,7 @@ Authors: Shamal Faily
                 </b-form-radio-group>
               </b-form-group>
               <b-form-group label="Object" label-class="font-weigh-bold text-md-left" label-for="theObjectSelect">
-                <dimension-select id="theObjectSelect" ref="theObjectSelect" :dimension='objt.theDimName' :initial="objt.theObjtName" v-on:dimension-select-change="objectNameSelected" />
+                <dimension-select id="theObjectSelect" ref="theObjectSelect" :dimension='objt.theDimName' :initial="objt.theObjtName" v-on:dimension-select-change="objectNameSelected" v-on:dimension-items-updated="objectNamesLoaded" />
               </b-form-group>
               <b-form-group label="Description" label-class="font-weight-bold text-md-left" label-for="theDescriptionText">
                 <b-form-textarea id="theDescriptionText" v-model="objt.theDescription" type="text" rows="4" max-rows="6" required />
@@ -133,6 +132,9 @@ export default {
       }
     },
     objectNameSelected(item) {
+      this.objt.theObjtName = item;
+    },
+    objectNamesLoaded(item) {
       this.objt.theObjtName = item;
     }
   }

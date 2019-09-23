@@ -33,12 +33,12 @@ Authors: Shamal Faily
         <b-row>
           <b-col md="12" v-if="objt.situateType == 'template_asset' || objt.situateType == 'securitypattern'">
             <b-form-group>
-              <dimension-select :dimension='situateDimension' v-on:dimension-select-change="situateTypeSelected" /> 
+              <dimension-select :dimension='situateDimension' v-on:dimension-select-change="situateTypeSelected" v-on:dimension-items-updated="situateTypesLoaded" /> 
             </b-form-group>
           </b-col>
           <b-col md="12" v-if="objt.situateType == 'securitypattern-existing'">
             <b-form-group>
-              <dimension-select :dimensionUrl='cspUrl' v-on:dimension-select-change="situateTypeSelected" /> 
+              <dimension-select :dimensionUrl='cspUrl' v-on:dimension-select-change="situateTypeSelected" v-on:dimension-items-updated="situateTypesLoaded" /> 
             </b-form-group>
           </b-col>
         </b-row>
@@ -90,6 +90,9 @@ import DimensionSelect from './DimensionSelect';
         this.$refs.scDialog.show()
       },
       situateTypeSelected(item) {
+        this.objt.situateValue = item;
+      },
+      situateTypesLoaded(item) {
         this.objt.situateValue = item;
       },
       onOk() {

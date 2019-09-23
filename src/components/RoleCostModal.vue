@@ -23,7 +23,7 @@ Authors: Shamal Faily
   <b-modal ref="rcDialog" title="Select role"  @ok="onOk">
     <b-card>
       <b-form-group label="Role" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theRoleInput">
-        <dimension-select id="theRoleInput" dimension='role' :existing="existingRoles" v-on:dimension-select-change="roleSelected" />
+        <dimension-select id="theRoleInput" dimension='role' :existing="existingRoles" v-on:dimension-select-change="roleSelected" v-on:dimension-items-updated="rolesLoaded" />
       </b-form-group>
       <b-form-group label="Cost" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theCostRadio">
         <b-form-radio-group id="theCostRadio" v-model="cost">
@@ -65,6 +65,9 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
         this.$refs.rcDialog.show();
       },
       roleSelected(item) {
+        this.theRole = item;
+      },
+      rolesLoaded(item) {
         this.theRole = item;
       },
       onOk(evt) {

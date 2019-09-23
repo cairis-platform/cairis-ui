@@ -84,14 +84,14 @@ Authors: Shamal Faily
         <b-row>
           <b-col md="12">
             <b-form-group label="Protocol" label-class="font-weight-bold text-md-left" label-for="theProtocolSelect" >
-              <dimension-select id="theProtocolSelect" dimension='protocol' :initial="connector.connector.theProtocol" v-on:dimension-select-change="protocolSelected" />
+              <dimension-select id="theProtocolSelect" dimension='protocol' :initial="connector.connector.theProtocol" v-on:dimension-select-change="protocolSelected" v-on:dimension-items-updated="protocolsLoaded" />
             </b-form-group>
           </b-col>
         </b-row>
         <b-row>
           <b-col md="12">
             <b-form-group label="Access Right" label-class="font-weight-bold text-md-left" label-for="theAccessRightSelect" >
-              <dimension-select id="theAccessRightSelect" dimension='access_right' :initial="connector.connector.theAccessRight" v-on:dimension-select-change="accessRightSelected" />
+              <dimension-select id="theAccessRightSelect" dimension='access_right' :initial="connector.connector.theAccessRight" v-on:dimension-select-change="accessRightSelected" v-on:dimension-items-updated="accessRightsLoaded" />
             </b-form-group>
           </b-col>
         </b-row>
@@ -186,7 +186,13 @@ Authors: Shamal Faily
       protocolSelected(item) {
         this.connector.connector.theProtocol = item;
       },
+      protocolsLoaded(item) {
+        this.connector.connector.theProtocol = item;
+      },
       accessRightSelected(item) {
+        this.connector.connector.theAccessRight = item;
+      },
+      accessRightsLoaded(item) {
         this.connector.connector.theAccessRight = item;
       },
       onOk(evt) {
