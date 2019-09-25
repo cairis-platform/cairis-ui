@@ -49,7 +49,7 @@ Authors: Shamal Faily
                 </b-col>
                 <b-col md="4">
                   <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-for="theTypeInput">
-                    <b-form-select id="theTypeInput" v-model="objt.theType" :options="assetTypes" class="mb-3" required />
+                    <dimension-select id="theTypeInput" ref="assetTypeInput" dimension="asset_type" v-on:dimension-select-change="assetTypeSelected" v-on:dimension-items-updated="assetTypesLoaded" />
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -171,6 +171,7 @@ import objectMixin from '../mixins/objectMixin'
 import propertiesMixin from '../mixins/propertiesMixin'
 import PropertyModal from './PropertyModal'
 import DimensionModal from './DimensionModal'
+import DimensionSelect from './DimensionSelect'
 import AssociationModal from './AssociationModal'
 import AssetInterfaceModal from './AssetInterfaceModal'
 
@@ -199,7 +200,8 @@ export default {
     PropertyModal,
     DimensionModal,
     AssociationModal,
-    AssetInterfaceModal
+    AssetInterfaceModal,
+    DimensionSelect
   },
   data() {
     return {
@@ -368,6 +370,12 @@ export default {
       this.selectedAssociation['update'] = true;
       this.selectedAssociation['initial'] = this.selectedAssociation['association'].theTailName
       this.$refs.assetAssociationDialog.show();  
+    },
+    assetTypeSelecterd(vtName) {
+      this.objt.theType = vtName;
+    },
+    assetTypesLoaded(vtName) {
+      this.objt.theType = vtName;
     }
   }
 }
