@@ -35,6 +35,11 @@ Authors: Shamal Faily
           <b-form-group label="Model" label-class="text-md-left" label-cols="3" label-for="theModelSelect">
             <b-form-select id="theModelSelect" v-model="theModelType" :options="modelTypes" class="mb-3" required />
           </b-form-group>
+          <div v-show="theModelType == 'Model'">
+            <b-form-group>
+              <b-form-checkbox v-model="isOverwrite" >Overwrite existing</b-form-checkbox>
+            </b-form-group>
+          </div>
           <b-form-group label="File" label-class="text-md-left" label-cols="3" label-for="theImportFileInput">
             <b-form-file accept="text/xml+vnd.graphviz" v-model="theImportFile" class="mt-3" plain />
           </b-form-group>
@@ -83,6 +88,9 @@ export default {
   computed : {
     bcItems() {
      return [{text: 'Home', to: {name: 'home'}},{text: 'Import', to: {name: 'import'}}]
+    },
+    overwriteFlag() {
+      return this.isOverwrite == true ? 1 : 0;
     }
   },
   components : {
@@ -92,6 +100,7 @@ export default {
   data() {
     return {
       isLoading : false,
+      isOverwrite : true,
       errors : [],
       theModelType : 'Model Package',
       modelTypes : ['Model Package','Model','Project data','Requirements','Risk Analysis','Usability','Misusability','Associations','Threat and Vulnerability Types','Domain Values','Threat and Vulnerability Directory','Security Pattern','Architectural Pattern','Attack Pattern','Synopses','Assets','Processes','Locations','Dataflows','Attack Tree (Dot)'],
@@ -154,7 +163,7 @@ export default {
       reader.onload = e => {
         this.isLoading = true;
         this.theModelContent = e.target.result;
-        const importObjt = {'urlenc_file_contents' : this.theModelContent,'overwrite' : 1, 'type': this.theModelType, 'environment' : this.theEnvironment, 'contributor' : this.theContributor};
+        const importObjt = {'urlenc_file_contents' : this.theModelContent,'overwrite' : this.overwriteFlag, 'type': this.theModelType, 'environment' : this.theEnvironment, 'contributor' : this.theContributor};
         const importUrl = this.$store.state.url + '/api/import/text';
         axios.post(importUrl,{
           session_id : store.state.session,
