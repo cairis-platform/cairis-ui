@@ -371,7 +371,7 @@ export default {
       this.selectedAssociation['initial'] = this.selectedAssociation['association'].theTailName
       this.$refs.assetAssociationDialog.show();  
     },
-    assetTypeSelecterd(vtName) {
+    assetTypeSelected(vtName) {
       this.objt.theType = vtName;
     },
     assetTypesLoaded(vtName) {

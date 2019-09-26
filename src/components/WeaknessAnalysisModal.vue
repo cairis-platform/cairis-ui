@@ -80,24 +80,24 @@ import EventBus from '../utils/event-bus';
     data() {
       return {
         objt : undefined,
-        threatTableFields : {
-          theTarget : {label : 'Target'},
-          theComponent : {label: 'Component'},
-          theAssets : {label: 'Assets'}
-        },
-        vulTableFields : {
-          theTarget : {label : 'Target'},
-          theComponent : {label: 'Component'},
-          theAssets : {label: 'Assets'}
-        },
-        paTableFields : {
-          thePersonaName : {label: 'Persona', sortable: true},
-          theImpactScore : {label: 'Score', sortable: true}
-        },
-        obsTableFields : {
-          theGoalName : {label: 'Goal', sortable: true},
-          theObstacleName : {label: 'Obstacle', sortable: true}
-        }
+        threatTableFields : [
+          {key: 'theTarget',label : 'Target'},
+          {key: 'theComponent', label: 'Component'},
+          {key: 'theAsset', label: 'Assets'}
+        ],
+        vulTableFields : [
+          {key: 'theTarget', label : 'Target'},
+          {key: 'theComponent', label: 'Component'},
+          {key: 'theAssets', label: 'Assets'}
+        ],
+        paTableFields : [
+          {key: 'thePersonaName', label: 'Persona', sortable: true},
+          {key: 'theImpactScore', label: 'Score', sortable: true}
+        ],
+        obsTableFields : [
+          {key: 'theGoalName', label: 'Goal', sortable: true},
+          {key: 'theObstacleName', label: 'Obstacle', sortable: true}
+        ]
       }
     },
     watch : {

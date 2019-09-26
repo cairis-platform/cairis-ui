@@ -41,11 +41,11 @@ Authors: Shamal Faily
       return {
         objt : undefined,
         items : [],
-        directoryFields : {
-          theLabel: {label: 'Label', sortable: true}, 
-          theName:  {label: 'Name', sortable: true},
-          theType:  {label: 'Type', sortable: true} 
-        }
+        directoryFields : [
+          {key: 'theLabel', label: 'Label', sortable: true}, 
+          {key: 'theName', label: 'Name', sortable: true},
+          {key: 'theType', label: 'Type', sortable: true} 
+        ]
       }
     },
     methods : {
