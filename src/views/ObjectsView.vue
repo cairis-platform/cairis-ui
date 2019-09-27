@@ -229,14 +229,14 @@ export default {
           dimensionCheck('usecase',this.setData);
         });
       }
-      else if (this.dimension == 'template_asset') {
+      else if (this.dimension == 'templateasset') {
         dimensionCheck('surface_type',() => {
           dimensionCheck('access_right',() => {
             dimensionCheck('privilege',this.setData);
           });
         });
       }
-      else if (this.dimension == 'template_requirement') {
+      else if (this.dimension == 'templaterequirement') {
         dimensionCheck('template_asset',this.setData);
       }
       else if (this.dimension == 'architecturalpattern') {
@@ -262,7 +262,7 @@ export default {
           dimensionCheck('asset',this.setData);
         });
       }
-      else if (['environment','externaldocument','conceptreference','domainproperty','template_goal','template_asset','taskcharacteristic'].indexOf(this.dimension) > -1) {
+      else if (['environment','externaldocument','conceptreference','domainproperty','templategoal','taskcharacteristic'].indexOf(this.dimension) > -1) {
         this.setData();
       }
     },
