@@ -92,6 +92,13 @@ Authors: Shamal Faily
       },
       displayModel() {
         if (this.theSvgData != null) {
+          let dp = new DOMParser();
+          let doc = dp.parseFromString(this.theSvgData,'image/svg+xml');
+          doc.getElementById('svg-id').setAttribute('height','100vh');
+          doc.getElementById('svg-id').setAttribute('width','100%');
+          doc.getElementById('svg-id').setAttribute('preserveAspectRatio','none');
+          let xp = new XMLSerializer();
+          this.theSvgData = xp.serializeToString(doc);
           svg_pan_zoom('#svg-id', {
             zoomEnabled: true,
             controlIconsEnabled: true,

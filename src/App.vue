@@ -21,7 +21,7 @@ Authors: Shamal Faily
 -->
 
   <b-container id="app" fluid>
-    <div id="content">
+    <div id="content" style="heigh:100%; width: 100%;">
     <b-row>
       <b-col>
         <navbar/>
