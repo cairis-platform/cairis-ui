@@ -154,11 +154,11 @@ export default {
         object : traceObjt
       })
       .then(response => {
-        EventBus.$emit('operation-success',response.data.message)
+        EventBus.$emit('operation-success',response.data.message);
         this.$refs.traceDialog.hide();
       })
       .catch((error) => {
-        EventBus.$emit('operation-failure',error)
+        EventBus.$emit('operation-failure',error.response.data.message);
       });
     },
     dimensionClicked(dimRow) {
