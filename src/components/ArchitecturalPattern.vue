@@ -61,6 +61,7 @@ Authors: Shamal Faily
             </template> 
               <b-container fluid v-if="objt.theComponents.length > 0">
                 <b-row md="12">
+                  <b-container fluid>
                   <b-card no-body>
                     <b-tabs card v-model="componentIndex">
                       <b-tab v-for="comp in this.objt.theComponents" :key="comp.theName" :title=comp.theName>
@@ -155,6 +156,7 @@ Authors: Shamal Faily
                       </b-tab>
                     </b-tabs>
                   </b-card>
+                  </b-container>
                 </b-row>
               </b-container>
             </b-tab>

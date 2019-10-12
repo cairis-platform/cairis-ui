@@ -83,7 +83,7 @@ import EventBus from '../utils/event-bus';
         threatTableFields : [
           {key: 'theTarget',label : 'Target'},
           {key: 'theComponent', label: 'Component'},
-          {key: 'theAsset', label: 'Assets'}
+          {key: 'theAssets', label: 'Assets'}
         ],
         vulTableFields : [
           {key: 'theTarget', label : 'Target'},
