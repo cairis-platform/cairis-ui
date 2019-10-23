@@ -51,6 +51,11 @@ Authors: Shamal Faily
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
+          <b-form-group label="Layout">
+            <b-form-radio-group id="riskModelRadioLayout" v-model="filterParameters.orientation" :options="orientationOptions" />
+          </b-form-group>
+        </b-col>
+        <b-col v-if="theEnvironmentName != ''">
           <b-form-group label="Tags" label-form="riskModelTagGroups">
             <b-form-checkbox id="riskModelTagGroups" v-model="isTagged" v-on:change="tagUpdated" />
           </b-form-group>
@@ -131,12 +136,17 @@ export default {
         dimension_name : 'all',
         object_name : 'all',
         layout : 'Hierarchical',
+        orientation: 'Vertical',
         tagged : '0'
       },
       dimensionTypes : ['all','asset','attacker','countermeasure','obstacle','requirement','response','risk','role','task','threat','vulnerability'],
       theSelectedObject: null,
       theSelectedDimension : '',
-      isTagged : false
+      isTagged : false,
+      orientationOptions: [
+        {text: 'Vertical', value: 'Vertical'},
+        {text: 'Horizontal', value: 'Horizontal'}
+      ]
     }
   },
   components : {
