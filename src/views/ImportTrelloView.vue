@@ -157,7 +157,7 @@ export default {
                   that.isLoading = false;
                 })
                 .catch((error) => {
-                  EventBus.$emit('operation-failure',error)
+                  EventBus.$emit('operation-failure',error.response.data.message);
                   that.isLoading = false;
                 });
               }
