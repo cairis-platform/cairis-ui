@@ -49,7 +49,7 @@ Authors: Shamal Faily
                 </b-col>
                 <b-col md="4">
                   <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-for="theTypeInput">
-                    <dimension-select id="theTypeInput" ref="assetTypeInput" dimension="asset_type" v-on:dimension-select-change="assetTypeSelected" v-on:dimension-items-updated="assetTypesLoaded" />
+                    <dimension-select id="theTypeInput" ref="assetTypeInput" :initial="objt.theType" dimension="asset_type" v-on:dimension-select-change="assetTypeSelected" v-on:dimension-items-updated="assetTypesLoaded" />
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -84,8 +84,7 @@ Authors: Shamal Faily
                 </b-row>
                 <b-row>
                   <b-col>
-                    <b-form-textarea v-model="objt.theCriticalRationale" type="text" :rows=2 :max-rows=4 v-if="objt.isCritical">
-                    </b-form-textarea>
+                    <b-form-textarea v-model="objt.theCriticalRationale" type="text" :rows=2 :max-rows=4 v-if="objt.isCritical" />
                   </b-col>
                 </b-row>
               </b-container> 
