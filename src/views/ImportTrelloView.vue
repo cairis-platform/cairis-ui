@@ -118,11 +118,19 @@ export default {
         that.isLoading = true;
         data.forEach(function(item) {
           const itemArray = item.name.split(':');
-          const variableName = itemArray[1].trim();
-          if (varList.indexOf(variableName) != -1) {
+          const variableName = itemArray.length < 2 ? 'none' : itemArray[1].trim();
+          if (variableName == 'none') {
+            that.errors.push("No behavioural variable set for list " + item.name);
+            return;
+          }
+          else if (varList.indexOf(variableName) != -1) {
             let pc = {'thePersonaName' : that.thePersonaName, 'theModQual' : 'Perhaps', 'theVariable' : variableName, 'theName' : itemArray[0].trim(), 'theCharacteristicSynopsis' : {'theActor' : '','theSynopsis' : '','theDimension' : '','theActorType' : ''}, 'theGrounds' : [], 'theWarrant' : [], 'theRebuttal' : [], 'theBacking' : []};
             // eslint-disable-next-line
             Trello.get('/lists/' + item.id + '/cards',function(cards) {
+              if (cards.length == 0) {
+                that.errors.push("List " + item.name + " contains no cards");
+                return;
+              }
               cards.forEach(function(card) {
                 const cardName = card.name;
                 let cardDesc = card.desc;
