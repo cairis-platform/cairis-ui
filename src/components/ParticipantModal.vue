@@ -40,7 +40,7 @@ Authors: Shamal Faily
       </b-form-group>
       <b-form-group label="Frequency" label-class="font-weight-bold text-sm-left" label-for="theFrequencyRadio" >
         <b-form-radio-group id="theFrequencyRadio" v-model="participant.participant.theFrequency">
-          <b-form-radio value="Low">Hours or more</b-form-radio>
+          <b-form-radio value="Low">Hourly or more</b-form-radio>
           <b-form-radio value="Medium">Daily-Weekly</b-form-radio>
           <b-form-radio value="High">Monthly or less</b-form-radio>
         </b-form-radio-group>

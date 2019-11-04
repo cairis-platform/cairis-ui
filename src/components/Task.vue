@@ -226,12 +226,12 @@ export default {
         'Hours or longer' : 'High'
       },
       frequencyLookup : {
-        'Low' : 'Hours or more',
+        'Low' : 'Hourly or more',
         'Medium' : 'Daily - Weekly',
         'High' : 'Monthly or less'
       },
       reverseFrequencyLookup : {
-        'Hours or more' : 'Low',
+        'Hourly or more' : 'Low',
         'Daily - Weekly' : 'Medium',
         'Monthly or less' : 'High'
       },
