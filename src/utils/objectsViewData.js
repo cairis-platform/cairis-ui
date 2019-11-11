@@ -245,7 +245,7 @@ requirement : {
   objectsFields : [
     {key: 'objectsactions', label : ''},
     {key: 'theName', label : 'Name', sortable: true},
-    {key: 'theDescription', label : 'Description'},
+    {key: 'theDescription', label : 'Specification'},
     {key: 'thePriority', label : 'Priority', sortable: true},
     {key: 'theRationale', label : 'Rationale'},
     {key: 'theFitCriterion', label : 'Fit Criterion'},
