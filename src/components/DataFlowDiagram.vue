@@ -64,7 +64,7 @@ import EventBus from '../utils/event-bus';
 export default {
   computed : {
     dfdURI() {
-      return "/api/dataflows/diagram/environment/" + this.theEnvironmentName + "/filter/" + this.theFilterName ;
+      return "/api/dataflows/diagram/environment/" + this.theEnvironmentName + "/filter_type/None/filter_name/" + this.theFilterName ;
     }
   },
   data() {
