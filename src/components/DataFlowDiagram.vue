@@ -33,8 +33,16 @@ Authors: Shamal Faily
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
+          <b-form-radio-group id="theFilterTypeRadio" v-model="theFilterType" v-on:change="filterTypeChanged">
+            <b-form-radio value="None">None</b-form-radio>
+            <b-form-radio value="diagramEntity">Entity</b-form-radio>
+            <b-form-radio value="diagramProcess">Process</b-form-radio>
+            <b-form-radio value="diagramDatastore">Datastore</b-form-radio>
+          </b-form-radio-group>
+        </b-col>
+        <b-col v-if="theEnvironmentName != ''">
           <b-form-group label="Filter" label-for="dfdFilter" :label-cols="2" >
-            <dimension-select ref="dfdFilter" id="dfdFilter" dimension="dfd_filter" :environment="theEnvironmentName" initial="None" :includeall="true" v-on:dimension-select-change="filterSelected" v-on:dimension-items-updated="filtersLoaded" />
+            <dimension-select ref="dfdFilter" id="dfdFilter" :dimension="dfdFilter" :environment="theEnvironmentName" initial="all" includeall v-on:dimension-select-change="filterSelected" v-on:dimension-items-updated="filtersLoaded" />
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
@@ -64,14 +72,21 @@ import EventBus from '../utils/event-bus';
 export default {
   computed : {
     dfdURI() {
-      return "/api/dataflows/diagram/environment/" + this.theEnvironmentName + "/filter_type/None/filter_name/" + this.theFilterName ;
+      return "/api/dataflows/diagram/environment/" + this.theEnvironmentName + "/filter_type/" + this.filterType + "/filter_name/" + this.theFilterName ;
+    },
+    filterType() {
+      return this.theFilterType == 'diagramEntity' ? 'entity' : (this.theFilterType == 'diagramProcess' ? 'process' : (this.theFilterType == 'diagramDatastore' ? 'datastore' : 'None'));
+    },
+    dfdFilter() {
+      return this.theFilterType == 'None' ? 'dfd_filter' : this.theFilterType;
     }
   },
   data() {
     return {
       theEnvironmentName : '',
-      theFilterName : 'None',
-      theSelectedObject: null
+      theFilterName : 'all',
+      theSelectedObject: null,
+      theFilterType : 'None'
     }
   },
   components : {
@@ -123,6 +138,11 @@ export default {
     },
     refreshModel() {
       this.$refs.graphicalModel.loadModel();
+    },
+    filterTypeChanged(ftName) {
+      if (ftName == 'None') {
+        this.theFilterName = 'all'
+      }
     }
   }
 }

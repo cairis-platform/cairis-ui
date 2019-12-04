@@ -124,10 +124,7 @@ export default {
             ref.$emit('dimension-select-change',ref.items[0]);
           } 
           if (ref.includeall) {
-            if (ref.dimension == 'dfd_filter') {
-              ref.items.unshift('None')
-            }
-            else if (ref.dimension == 'persona_characteristic') {
+            if (ref.dimension == 'persona_characteristic') {
               ref.items.unshift('All')
             }
             else {
