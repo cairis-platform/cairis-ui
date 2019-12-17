@@ -237,6 +237,7 @@ export default {
       this.selectedCharacteristicReference['characteristicReference'] = JSON.parse(JSON.stringify(this.templateCharacteristicReference));
       this.selectedCharacteristicReference.characteristicReference.theCharacteristicType = 'grounds';
       this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theActor = this.objt.thePersonaName;
+      this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theActorType = 'persona';
       this.selectedCharacteristicReference['update'] = false;
       this.$refs.crDialog.show();  
     },
@@ -263,6 +264,8 @@ export default {
     viewWarrant(data,index) {
       this.selectedCharacteristicReference['index'] = index
       this.selectedCharacteristicReference['characteristicReference'] = JSON.parse(JSON.stringify(data));
+      this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theActor = this.objt.thePersonaName;
+      this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theActorType = 'persona';
       this.selectedCharacteristicReference['update'] = true;
       this.$refs.crDialog.show();  
     },
@@ -273,6 +276,7 @@ export default {
       this.selectedCharacteristicReference['characteristicReference'] = JSON.parse(JSON.stringify(this.templateCharacteristicReference));
       this.selectedCharacteristicReference.characteristicReference.theCharacteristicType = 'rebuttal';
       this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theActor = this.objt.thePersonaName;
+      this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theActorType = 'persona';
       this.selectedCharacteristicReference['update'] = false;
       this.$refs.crDialog.show();  
     },
