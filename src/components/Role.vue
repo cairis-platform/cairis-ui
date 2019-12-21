@@ -71,7 +71,7 @@ export default {
     return {
       errors : [],
       objt : this.object,
-      commitLabel : 'Create',
+      commitLabel : this.label,
     }
   },
   components : {
