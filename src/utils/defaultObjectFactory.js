@@ -109,6 +109,14 @@ goal : {
   theTags : '',
   theEnvironmentProperties : []
 },
+goal_contribution : {
+  theSource : '',
+  theSourceType : 'document_reference',
+  theDestination: '',
+  theDestinationType: 'document_reference',
+  theMeansEnd : 'means',
+  theContribution : 'Help'
+},
 locations : {
   theName : '',
   theDiagram : '',

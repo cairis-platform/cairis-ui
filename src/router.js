@@ -63,6 +63,11 @@ export default new Router({
       component: () => import('./views/DataFlowDiagramView.vue')
     },
     {
+      path: '/model/user_goals',
+      name: 'usergoalmodel',
+      component: () => import('./views/UserGoalModelView.vue')
+    },
+    {
       path: '/databases',
       name: 'databases',
       component: () => import('./views/DatabaseView.vue')
@@ -98,6 +103,12 @@ export default new Router({
       path: '/find/:findTxt',
       name: 'findview',
       component: () => import('./views/FindView.vue'),
+      props: true
+    },
+    {
+      path: '/goal_contribution/source/:sourceName/target/:targetName',
+      name: 'goal_contribution',
+      component: () => import('./views/GoalContributionView.vue'),
       props: true
     },
     {

@@ -25,6 +25,7 @@ Authors: Shamal Faily
     <dimension-modal v-if="objt.theEnvironmentProperties.length" ref="assetDialog" dimension="asset" :environment="environmentName" :existing="concernNames" v-on:dimension-modal-update="addTaskConcern"/> 
     <concern-association-modal v-if="objt.theEnvironmentProperties.length" ref="concernAssociationDialog" :concernAssociation="selectedConcernAssociation" :concerns="concernNames" v-on:concern-association-update="updateConcernAssociation"/> 
     <participant-modal v-if="objt.theEnvironmentProperties.length" ref="participantDialog" :taskParticipant="selectedParticipant" :taskParticipants="participantNames" v-on:participant-update="updateParticipant"/>
+    <task-contribution-modal v-if="objt.theEnvironmentProperties.length" ref="tcDialog" :taskContribution="selectedContribution" :taskContributions="contributionNames" v-on:task-contribution-update="updateContribution"/>
     <p v-if="errors.length">
       <b>Please correct the following error(s):</b>
       <ul>
@@ -133,7 +134,7 @@ Authors: Shamal Faily
                             </template> 
                           </b-table>
                         </b-col>
-                        <b-col md="8">
+                        <b-col md="4">
                           <b-table striped bordered small hover :items="concernAssociations" :fields=concernAssociationTableFields @row-clicked="viewConcernAssociation">
                             <!-- eslint-disable-next-line -->
                             <template v-slot:head(concernassociationactions)="data"> 
@@ -141,6 +142,17 @@ Authors: Shamal Faily
                             </template> 
                             <template v-slot:cell(concernassociationactions)="row">
                               <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteConcernAssociation(row.index)"/>
+                            </template> 
+                          </b-table>
+                        </b-col>
+                        <b-col md="4">
+                          <b-table striped bordered small hover :items="contributions" :fields=contributionTableFields @row-clicked="viewContribution">
+                            <!-- eslint-disable-next-line -->
+                            <template v-slot:head(contributionactions)="data"> 
+                              <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addContribution"/> 
+                            </template> 
+                            <template v-slot:cell(contributionactions)="row">
+                              <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteContribution(row.index)"/>
                             </template> 
                           </b-table>
                         </b-col>
@@ -195,11 +207,18 @@ export default {
     },
     participantNames() {
       return this.objt.theEnvironmentProperties.length > 0 ? (this.objt.theEnvironmentProperties[this.envPropIndex].thePersonas.length > 1 ? this.objt.theEnvironmentProperties[this.envPropIndex].thePersonas.map(p => p.thePersona) : []) : [];
+    },
+    contributions() {
+      return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theContributions : [] ;
+    },
+    contributionNames() {
+      return this.objt.theEnvironmentProperties.length > 0 ? (this.objt.theEnvironmentProperties[this.envPropIndex].theContributions.length > 1 ? this.objt.theEnvironmentProperties[this.envPropIndex].theContributions.map(p => p.theDestination) : []) : [];
     }
   },
   components : {
     ConcernAssociationModal : () => import('@/components/ConcernAssociationModal'),
-    ParticipantModal : () => import('@/components/ParticipantModal')
+    ParticipantModal : () => import('@/components/ParticipantModal'),
+    TaskContributionModal : () => import('@/components/TaskContributionModal')
   },
   data() {
     return {
@@ -214,6 +233,11 @@ export default {
         {key: 'theFrequency',label : 'Frequency'},
         {key: 'theDemands', label : 'Demands'},
         {key: 'theGoalConflict', label : 'Goal Conflict'}
+      ],
+      contributionTableFields : [
+        {key: 'contributionactions', label : ''},
+        {key: 'theDestination', label : 'User Goal'},
+        {key: 'theContribution', label : 'Contribution'}
       ],
       durationLookup : {
         'Low' : 'Seconds',
@@ -245,6 +269,15 @@ export default {
           theDemands : '', 
           theGoalConflict : '' 
          }
+      },
+      selectedContribution : {
+        update : false,
+        contribution : {
+          theSource : '',
+          theDestination : '',
+          theEnvironment : '',
+          theContribution : ''
+        }
       }
     }
   }, 
@@ -320,7 +353,8 @@ export default {
         theConsequences : '',
         theDependencies : '',
         theNarrative : '',
-        thePersonas : []
+        thePersonas : [],
+        theContributions : []
       });
     },
     viewParticipant(data,index) {
@@ -333,11 +367,23 @@ export default {
       this.selectedParticipant['update'] = true;
       this.$refs.participantDialog.show();  
     },
+    viewContribution(data,index) {
+      this.selectedContribution['index'] = index;
+      let cObjt = JSON.parse(JSON.stringify(data));
+      this.selectedContribution['contribution'] = cObjt;
+      this.selectedContribution['update'] = true;
+      this.$refs.tcDialog.show();
+    },
     addParticipant() {
       this.selectedParticipant['environment'] = this.objt.theEnvironmentProperties[this.envPropIndex].theEnvironmentName;
       this.selectedParticipant['participant'] = {thePersona : '', theDuration : '', theFrequency : '', theDemands : '', theGoalConflict : ''};
       this.selectedParticipant['update'] = false;
       this.$refs.participantDialog.show();  
+    },
+    addContribution() {
+      this.selectedContribution['contribution'] = {theSource : this.objt.theName, theDestination : '',theEnvironment : this.environmentName, theContribution : 'Help'};
+      this.selectedContribution['update'] = false;
+      this.$refs.tcDialog.show();  
     },
     updateParticipant : function(updPart) {
       if (updPart.update) {
@@ -352,6 +398,17 @@ export default {
     },
     deleteConcernAssociation(index) {
       this.objt.theEnvironmentProperties[this.envPropIndex].theConcernAssociations.splice(index,1);
+    },
+    deleteContribution(index) {
+      this.objt.theEnvironmentProperties[this.envPropIndex].theContributions.splice(index,1);
+    },
+    updateContribution : function(updCont) {
+      if (updCont.update) {
+        this.$set(this.objt.theEnvironmentProperties[this.envPropIndex].theContributions,updCont.index,updCont.contribution);
+      }
+      else {
+        this.objt.theEnvironmentProperties[this.envPropIndex].theContributions.push(updCont.contribution);
+      }
     }
   }
 }

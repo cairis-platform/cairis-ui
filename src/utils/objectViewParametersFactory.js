@@ -177,6 +177,12 @@ usecase : {
   updatePath : '/api/usecases/name/',
   createPath : '/api/usecases'
 },
+user_goal : {
+  objectsLabel : 'User goals',
+  componentFile : 'UserGoal',
+  updatePath : '/api/user_goals/name/',
+  createPath : '/api/user_goals'
+},
 vulnerability : {
   objectsLabel : 'Vulnerabilities',
   componentFile : 'Vulnerability',

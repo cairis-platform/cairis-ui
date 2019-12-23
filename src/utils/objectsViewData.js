@@ -175,6 +175,18 @@ goal : {
   theGetUrl : '/api/goals/summary',
   theDelUrl : '/api/goals/name/'
 },
+goal_contribution : {
+  bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Goal contributions', to: {name: 'objectsview', params: {dimension: 'goal_contribution'}}}],
+  objectsFields : [
+    {key: 'objectsactions',  label : ''},
+    {key: 'theSource', label : 'Source', sortable: true},
+    {key: 'theDestination', label : 'Target', sortable: true},
+    {key: 'theMeansEnd', label : 'Means/End', sortable: true},
+    {key: 'theContribution', label : 'Contribution', sortable: true}
+  ],
+  theGetUrl : '/api/goal_contributions',
+  theDelUrl : '/api/goal_contributions/'
+},
 kaosassociation : {
   bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'KAOS associations', to: {name: 'objectsview', params : {dimension: 'kaosassociation'}}}],
   objectsFields : [
@@ -376,6 +388,17 @@ usecase : {
   ],
   theGetUrl : '/api/usecases/summary',
   theDelUrl : '/api/usecases/name/'
+},
+user_goal : {
+  bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Use goals', to: {name: 'objectsview', params: {dimension: 'user_goal'}}}],
+  objectsFields : [
+    {key: 'objectsactions', label : ''},
+    {key: 'theSynopsis', label : 'Name', sortable: true},
+    {key: 'theDimension', label : 'Type', sortable: true},
+    {key: 'theActor', label : 'Persona', sortable: true}
+  ],
+  theGetUrl : '/api/user_goals',
+  theDelUrl : '/api/user_goals/name/'
 },
 vulnerability : {
   bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Vulnerabilities', to: {name: 'objectsview', params: {dimension: 'vulnerability'}}}],

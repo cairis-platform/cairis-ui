@@ -114,7 +114,7 @@ export default {
         dimensionCheck('task',next);
       });
     }
-    else if (to.params.dimension == 'task') {
+    else if (to.params.dimension == 'task' || to.params.dimension == 'user_goal') {
       dimensionCheck('persona',() => {
         dimensionCheck('role',next);
       });
@@ -154,6 +154,11 @@ export default {
       dimensionCheck('external_document',next);
     }
     else if (to.params.dimension == 'personacharacteristic') {
+      dimensionCheck('external_document',() => {
+        dimensionCheck('document_reference',next);
+      });
+    }
+    else if (to.params.dimension == 'goal_contribution') {
       dimensionCheck('external_document',() => {
         dimensionCheck('document_reference',next);
       });
@@ -211,7 +216,7 @@ export default {
           dimensionCheck('task',this.setData);
         });
       }
-      else if (this.dimension == 'task') {
+      else if (this.dimension == 'task' || this.dimension == 'user_goal') {
         dimensionCheck('persona',() => {
           dimensionCheck('role',this.setData);
         });
@@ -253,6 +258,11 @@ export default {
         dimensionCheck('external_document',this.setData);
       }
       else if (this.dimension == 'personacharacteristic') {
+        dimensionCheck('external_document',() => {
+          dimensionCheck('document_reference',this.setData);
+        });
+      }
+      else if (this.dimension == 'goal_contribution') {
         dimensionCheck('external_document',() => {
           dimensionCheck('document_reference',this.setData);
         });

@@ -60,6 +60,8 @@ Authors: Shamal Faily
         <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'environment'}}">Environments</b-dropdown-item>
         <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'persona'}}">Personas</b-dropdown-item>
         <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'task'}}">Tasks</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'user_goal'}}">User Goals</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'goal_contribution'}}">User Goal Contributions</b-dropdown-item>
         <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'dataflow'}}">Data Flows</b-dropdown-item>
         <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'trustboundary'}}">Trust Boundaries</b-dropdown-item>
         <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'externaldocument'}}">External Documents</b-dropdown-item>
@@ -86,6 +88,7 @@ Authors: Shamal Faily
         <b-dropdown-item :to="{name: 'responsibilitymodel'}">Responsibility</b-dropdown-item>
         <b-dropdown-item :to="{name: 'riskmodel'}">Risk</b-dropdown-item>
         <b-dropdown-item :to="{name: 'taskmodel'}">Task</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'usergoalmodel'}">User Goal</b-dropdown-item>
       </b-nav-item-dropdown>
       <b-nav-item-dropdown text="Options">
         <b-dropdown-item :to="{name: 'valuetypes', params: {dimension: 'asset_value'}}">Asset Values</b-dropdown-item>

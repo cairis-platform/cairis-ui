@@ -191,6 +191,14 @@ import DimensionSelect from './DimensionSelect';
         if (this.reference.theReferenceName.length == 0) {
           this.errors.push('Name is required');
         }
+        if (this.reference.theReferenceSynopsis.theSynopsis.length > 0) {
+          if (this.reference.theReferenceContribution.theMeansEnd.length == 0) {
+            this.errors.push('Means/End is required');
+          }
+          if (this.reference.theReferenceContribution.theContribution.length == 0) {
+            this.errors.push('Contribution is required');
+          }
+        }
         if (!this.errors.length) {
           return true;
         }

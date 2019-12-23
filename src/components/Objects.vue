@@ -171,8 +171,14 @@ export default {
           case 'dependency':
             this.$router.push({ name: this.dimName, params : {envName: row.theEnvironmentName,depName : row.theDepender, deeName: row.theDependee, dpyName : row.theDependency}});
             break;
+          case 'goal_contribution':
+            this.$router.push({ name: this.dimName, params : {sourceName : row.theSource, targetName: row.theDestination}});
+            break;
           case 'dataflow':
             this.$router.push({ name: this.dimName, params : {objectName: row.theName, envName: row.theEnvironmentName}});
+            break;
+          case 'user_goal':
+            this.$router.push({ name: 'objectview', params: {dimension: this.dimension, objectName: row.theSynopsis, objectsLabel: this.theObjectViewParameters.objectsLabel, componentFile: this.theObjectViewParameters.componentFile, updatePath: this.theObjectViewParameters.updatePath, createPath: this.theObjectViewParameters.createPath}});
             break;
           case 'asset':
           case 'attacker':
@@ -226,6 +232,9 @@ export default {
           case 'dependency':
             this.$router.push({ name: this.dimName, params : {envName: 'To set', depName : 'To set', deeName : 'To set', dpyName : 'To set'}});
             break;
+          case 'goal_contribution':
+            this.$router.push({ name: this.dimName, params : {sourceName : 'To set', targetName: 'To set'}});
+            break;
           case 'dataflow':
             this.$router.push({ name: this.dimName, params : {objectName: 'New ' + this.dimName, envName : 'To set'}});
             break;
@@ -247,6 +256,7 @@ export default {
           case 'templateasset':
           case 'threat':
           case 'usecase':
+          case 'user_goal':
           case 'vulnerability':
             this.$router.push({ name: 'objectview', params: {dimension: this.dimension, objectName: 'New ' + this.dimName, objectsLabel: this.theObjectViewParameters.objectsLabel, componentFile: this.theObjectViewParameters.componentFile, updatePath: this.theObjectViewParameters.updatePath, createPath: this.theObjectViewParameters.createPath}});
             break;
@@ -280,9 +290,17 @@ export default {
         this.selectedObject = {'envName' : row.item.theEnvironmentName,'theDepender' : row.item.theDepender,'theDependee' : row.item.theDependee, 'theDependency' : row.item.theDependency };
         this.selectedIndex = this.items.findIndex(o => o.theEnvironmentName == row.item.theEnvironmentName && o.theDepender == row.item.theDepender && o.theDependee == row.item.theDependee && o.theDependency == row.item.theDependency);
       }
+      else if (this.dimName == 'goal_contribution') {
+        this.selectedObject = {'theSource' : row.item.theSource,'theDestination' : row.item.theDestination};
+        this.selectedIndex = this.items.findIndex(o => o.theSource == row.item.theSource && o.theDestination == row.item.theDestination);
+      }
       else if (this.dimName == 'dataflow') {
         this.selectedObject = {'envName' : row.item.theEnvironmentName,'objectName' : row.item.theName};
         this.selectedIndex = this.items.findIndex(o => o.theEnvironmentName == row.item.theEnvironmentName && o.theName == row.item.theName);
+      }
+      else if (this.dimName == 'user_goal') {
+        this.selectedObject = row.item.theSynopsis;
+        this.selectedIndex = this.items.findIndex(o => o.theSynopsis == row.item.theSynopsis);
       }
       else {
         this.selectedObject = row.item.theName;
@@ -290,7 +308,7 @@ export default {
       }
       const that = this;
 
-      if (this.dimension != 'kaosassociation' && this.dimension != 'assetassociation' && this.dimension != 'dependency' && this.dimension != 'dataflow' && this.dimension != 'valuetype') {
+      if (this.dimension != 'kaosassociation' && this.dimension != 'assetassociation' && this.dimension != 'dependency' && this.dimension != 'goal_contribution' && this.dimension != 'dataflow' && this.dimension != 'valuetype') {
         let objectDimension = this.dimension;
         if (objectDimension == 'personacharacteristic') {
           objectDimension = 'persona_characteristic';
@@ -334,6 +352,9 @@ export default {
           break;
         case 'dependency':
           deleteUrl += this.selectedObject.envName + '/depender/' + this.selectedObject.theDepender + '/dependee/' + this.selectedObject.theDependee + '/dependency/' + this.selectedObject.theDependency;
+          break;
+        case 'goal_contribution':
+          deleteUrl += 'source/' + this.selectedObject.theSource + '/target/' + this.selectedObject.theDestination;
           break;
         case 'dataflow':
           deleteUrl += this.selectedObject.objectName + '/environment/' + this.selectedObject.envName;
