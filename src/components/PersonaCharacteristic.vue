@@ -102,6 +102,7 @@ Authors: Shamal Faily
                 <b-col md="12">
                   <b-form-group label="Element Type" label-class="font-weight-bold text-md-left" label-for="theElementTypeRadio">
                     <b-form-radio-group id="theElementTypeRadio" v-model="objt.theCharacteristicSynopsis.theDimension">
+                      <b-form-radio value="belief">Belief</b-form-radio>
                       <b-form-radio value="goal">Goal</b-form-radio>
                       <b-form-radio value="softgoal">Soft Goal</b-form-radio>
                       <b-form-radio value="task">Task</b-form-radio>

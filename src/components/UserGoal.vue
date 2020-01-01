@@ -34,6 +34,7 @@ Authors: Shamal Faily
         </b-form-group>
         <b-form-group label="Element Type" label-class="font-weight-bold text-md-left" label-for="theElementTypeRadio">
           <b-form-radio-group id="theElementTypeRadio" v-model="objt.theDimension">
+            <b-form-radio value="belief">Belief</b-form-radio>
             <b-form-radio value="goal">Goal</b-form-radio>
             <b-form-radio value="softgoal">Soft Goal</b-form-radio>
           </b-form-radio-group>
