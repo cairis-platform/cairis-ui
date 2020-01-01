@@ -67,9 +67,6 @@ Authors: Shamal Faily
             this.$emit('graphical-model-url',url);
           }
         }
-        else {
-          console.log('undefined href');
-        }
       },
       loadModel() {
         this.isLoading = true;
