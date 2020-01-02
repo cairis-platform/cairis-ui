@@ -278,6 +278,14 @@ usecase : {
   theTags : '',
   theEnvironmentProperties : []
 },
+user_goal : {
+  theActor : '',
+  theActorType : 'persona',
+  theDimension : 'goal',
+  theReference : '',
+  theSynopsis : '',
+  theSynopsisDimension : 'document_reference'
+},
 vulnerability : {
   theName : '',
   theType : '',

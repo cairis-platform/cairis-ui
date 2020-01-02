@@ -32,6 +32,9 @@ Authors: Shamal Faily
         <b-form-group label="User Goal" label-class="font-weight-bold text-md-left" label-for="theUserGoalInput">
           <b-form-input id="theUserGoalInput" v-model="objt.theSynopsis" type="text" required />
         </b-form-group>
+        <b-form-group label="Persona" label-class="font-weight-bold text-sm-left" label-for="thePersonaSelect" >
+          <dimension-select id="theReferenceSelect" dimension='persona' :initial="object.theActor" v-on:dimension-select-change="personaSelected" v-on:dimension-items-updated="personasLoaded" />
+        </b-form-group>
         <b-form-group label="Element Type" label-class="font-weight-bold text-md-left" label-for="theElementTypeRadio">
           <b-form-radio-group id="theElementTypeRadio" v-model="objt.theDimension">
             <b-form-radio value="belief">Belief</b-form-radio>
@@ -104,12 +107,18 @@ export default {
       this.$router.push({ name: 'objectsview', params: {dimension: 'user_goal'}});
     },
     referenceSelected(refName) {
-      this.theReference = refName;
+      this.objt.theReference = refName;
       this.updateReferenceDescription(refName);
     },
     referencesLoaded(refName) {
-      this.theReference = refName;
+      this.objt.theReference = refName;
       this.updateReferenceDescription(refName);
+    },
+    personaSelected(pName) {
+      this.objt.theActor = pName;
+    },
+    personasLoaded(pName) {
+      this.objt.theActor = pName;
     },
     updateReferenceDescription(refName) {
       const dcUrl = '/api/' + this.objt.theSynopsisDimension + 's/name/' + refName;
