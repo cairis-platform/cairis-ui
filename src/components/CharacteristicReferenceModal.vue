@@ -61,7 +61,7 @@ Authors: Shamal Faily
             </b-row>
           </b-card>
         </b-tab>
-        <b-tab title="GRL Elements" v-if="characteristic_type == 'persona'">
+        <b-tab title="User Goal Elements" v-if="characteristic_type == 'persona'">
           <b-card bg-variant="light">
             <b-row>
               <b-col md="12">

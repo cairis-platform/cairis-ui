@@ -52,6 +52,9 @@ Authors: Shamal Faily
           <dimension-select id="theReferenceSelect" :dimension='objt.theSynopsisDimension' :initial="object.theReference" v-on:dimension-select-change="referenceSelected" v-on:dimension-items-updated="referencesLoaded" />
         </b-form-group>
         <b-form-textarea v-model="theReferenceDescription" type="text" :rows=4 :max-rows=4 readonly />
+        <b-form-group label="Initial Satisfaction" label-class="font-weight-bold text-sm-left" label-for="theSatisfactionSelect" >
+          <b-form-select id="theSatisfactionSelect" v-model="objt.theInitialSatisfaction" :options="satisfactionValues" class="mb-3" required></b-form-select>
+        </b-form-group>
       </b-card>
       </b-container>
       <b-container fluid>
@@ -85,7 +88,8 @@ export default {
       errors : [],
       objt : this.object,
       commitLabel : this.label,
-      theReferenceDescription : ''
+      theReferenceDescription : '',
+      satisfactionValues: ['Satisfied','Weakly Satisfied','None','Weakly Denied','Denied']
     }
   },
   components : {
@@ -146,6 +150,9 @@ export default {
       }
       if (this.objt.theReference.length == 0) {
         this.errors.push('Reference is required');
+      }
+      if (this.objt.theInitialSatisfaction.length == 0) {
+        this.errors.push('Initial satisfaction is required');
       }
       if (!this.errors.length) {
         return true;

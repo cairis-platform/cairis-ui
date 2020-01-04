@@ -96,7 +96,7 @@ Authors: Shamal Faily
               </b-card>
             </b-container>
           </b-tab>
-          <b-tab title="GRL Elements">
+          <b-tab title="User Goal Elements">
             <b-container fluid>
               <b-row>
                 <b-col md="12">
