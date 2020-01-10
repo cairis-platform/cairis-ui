@@ -20,6 +20,7 @@ under the License.
 Authors: Shamal Faily 
 -->
   <div class="user_goal">
+    <dimension-modal ref="goalDialog" dimension="goal" :existing="objt.theRelatedGoals" v-on:dimension-modal-update="addRelatedGoal"/> 
     <p v-if="errors.length">
       <b>Please correct the following error(s):</b>
       <ul>
@@ -55,6 +56,15 @@ Authors: Shamal Faily
         <b-form-group label="Initial Satisfaction" label-class="font-weight-bold text-sm-left" label-for="theSatisfactionSelect" >
           <b-form-select id="theSatisfactionSelect" v-model="objt.theInitialSatisfaction" :options="satisfactionValues" class="mb-3" required></b-form-select>
         </b-form-group>
+        <b-table striped small bordered :fields="goalTableFields" :items="systemGoals">
+          <!-- eslint-disable-next-line -->
+          <template v-slot:head(goalactions)="data"> 
+            <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addGoal"/> 
+          </template>
+          <template v-slot:cell(goalactions)="row">
+            <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteRelatedGoal(row.item)"/>
+          </template>
+        </b-table>
       </b-card>
       </b-container>
       <b-container fluid>
@@ -74,6 +84,7 @@ Authors: Shamal Faily
 import axios from 'axios';
 import EventBus from '../utils/event-bus';
 import DimensionSelect from '@/components/DimensionSelect.vue'
+import DimensionModal from '@/components/DimensionModal.vue'
 
 export default {
   props : {
@@ -83,16 +94,26 @@ export default {
   watch : {
     object: 'setObject'
   },
+  computed : {
+    systemGoals() {
+      return this.objt.theRelatedGoals.length > 0 ? this.objt.theRelatedGoals.map(g => ({name : g})): []
+    }
+  },
   data() {
     return {
       errors : [],
       objt : this.object,
       commitLabel : this.label,
       theReferenceDescription : '',
-      satisfactionValues: ['Satisfied','Weakly Satisfied','None','Weakly Denied','Denied']
+      satisfactionValues: ['Satisfied','Weakly Satisfied','None','Weakly Denied','Denied'],
+      goalTableFields : [
+        {key: 'goalactions', label : ''},
+        {key: 'name', label : 'System Goal'}
+      ]
     }
   },
   components : {
+    DimensionModal,
     DimensionSelect
   },
   methods : {
@@ -160,6 +181,15 @@ export default {
       else {
         return false;
       }
+    },
+    addGoal(){
+      this.$refs.goalDialog.show();  
+    },
+    addRelatedGoal(item) {
+      this.objt.theRelatedGoals.push(item);
+    },
+    deleteRelatedGoal(item) {
+      this.objt.theRelatedGoals = this.objt.theRelatedGoals.filter(g => (g != item.name));
     }
   }
 }
