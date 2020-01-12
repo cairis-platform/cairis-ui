@@ -31,7 +31,7 @@ yarn run lint
 
 ### Installing into CAIRIS
 
-Normally, all you have to do is go to cairis/cairis/bin on the server and run ```sudo -E ./installUI.sh'''.
+Normally, all you have to do is go to cairis/cairis/bin on the server and run ```sudo -E ./installUI.sh```.
 
 If you want to manually deploy latest version of the UI then do the following:
 
