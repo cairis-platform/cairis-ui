@@ -31,7 +31,9 @@ yarn run lint
 
 ### Installing into CAIRIS
 
-To deploy latest version of the CAIRIS 2 UI:
+Normally, all you have to do is go to cairis/cairis/bin on the server and run ```sudo -E ./installUI.sh'''.
+
+If you want to manually deploy latest version of the UI then do the following:
 
 1.  Run ```yarn run build``` to create a deployable dist directory.  Copy this to the cairis/cairis directory on your server.
 2.  Set the web_static_dir and web_asset_dir entries in your cairis.cnf to point to this dist directory.

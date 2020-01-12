@@ -65,7 +65,7 @@ Authors: Shamal Faily
           <b-card bg-variant="light">
             <b-row>
               <b-col md="12">
-                <b-form-group label="Characteristic Intention" label-class="font-weight-bold text-md-left" label-for="theCharacteristicInput">
+                <b-form-group label="Characteristic User Goal" label-class="font-weight-bold text-md-left" label-for="theCharacteristicInput">
                   <b-form-input id="theCharacteristicInput" v-model="characteristic" type="text" readonly>
                   </b-form-input>
                 </b-form-group>
@@ -73,8 +73,8 @@ Authors: Shamal Faily
             </b-row>
             <b-row>
               <b-col md="12">
-                <b-form-group label="Reference Intention" label-class="font-weight-bold text-md-left" label-for="theSynopsisInput">
-                  <b-form-input id="theSynopsisInput" v-model="reference.theReferenceSynopsis.theSynopsis" type="text" >
+                <b-form-group label="Reference User Goal" label-class="font-weight-bold text-md-left" label-for="theSynopsisInput">
+                  <b-form-input id="theSynopsisInput" v-model="reference.theReferenceSynopsis.theSynopsis" type="text" :readonly="isSynopsisReadOnly">
                   </b-form-input>
                 </b-form-group>
               </b-col>
@@ -172,7 +172,8 @@ import DimensionSelect from './DimensionSelect';
         contributionTypes : ['','Make','SomePositive','Help','Hurt','SomeNegative','Break'],
         errors : [],
         theConceptReferenceDimension : '',
-        theFilteredConceptReferences : []
+        theFilteredConceptReferences : [],
+        isSynopsisReadOnly : false
       }
     },
     computed : {
@@ -181,6 +182,9 @@ import DimensionSelect from './DimensionSelect';
       },
       referenceDimension() {
         return this.reference.theDimensionName == 'document' ? 'document_reference' : 'concept_reference';
+      },
+      isReadOnly() {
+        return this.characteristicReference.update && this.characteristicReference.characteristicReference.theReferenceSynopsis.theSynopsis.length > 0  ? true : false;
       }
     },
     components : {

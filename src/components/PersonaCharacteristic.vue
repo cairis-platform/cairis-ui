@@ -112,7 +112,7 @@ Authors: Shamal Faily
               </b-row>
               <b-row>
                 <b-col md="12">
-                  <b-form-group label="Intention" label-class="font-weight-bold text-md-left" label-for="thePCIntentionInput">
+                  <b-form-group label="User Goal" label-class="font-weight-bold text-md-left" label-for="thePCIntentionInput">
                     <b-form-input id="thePCIntentionInput" v-model="objt.theCharacteristicSynopsis.theSynopsis" type="text" required />
                   </b-form-group>
                 </b-col>
@@ -249,6 +249,9 @@ export default {
       this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theActor = this.objt.thePersonaName;
       this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theActorType = 'persona';
       this.selectedCharacteristicReference['update'] = true;
+      if (this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theSynopsis.length > 0) {
+        this.$refs.crDialog.isSynopsisReadOnly = true;
+      }
       this.$refs.crDialog.show();  
     },
     deleteGrounds(index) {
@@ -268,6 +271,9 @@ export default {
       this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theActor = this.objt.thePersonaName;
       this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theActorType = 'persona';
       this.selectedCharacteristicReference['update'] = true;
+      if (this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theSynopsis.length > 0) {
+        this.$refs.crDialog.isSynopsisReadOnly = true;
+      }
       this.$refs.crDialog.show();  
     },
     deleteWarrant(index) {
@@ -287,6 +293,9 @@ export default {
       this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theActor = this.objt.thePersonaName;
       this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theActorType = 'persona';
       this.selectedCharacteristicReference['update'] = true;
+      if (this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theSynopsis.length > 0) {
+        this.$refs.crDialog.isSynopsisReadOnly = true;
+      }
       this.$refs.crDialog.show();  
     },
     deleteRebuttal(index) {
