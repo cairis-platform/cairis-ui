@@ -252,6 +252,9 @@ export default {
       if (this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theSynopsis.length > 0) {
         this.$refs.crDialog.isSynopsisReadOnly = true;
       }
+      else {
+        this.$refs.crDialog.isSynopsisReadOnly = false;
+      }
       this.$refs.crDialog.show();  
     },
     deleteGrounds(index) {
@@ -274,6 +277,9 @@ export default {
       if (this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theSynopsis.length > 0) {
         this.$refs.crDialog.isSynopsisReadOnly = true;
       }
+      else {
+        this.$refs.crDialog.isSynopsisReadOnly = false;
+      }
       this.$refs.crDialog.show();  
     },
     deleteWarrant(index) {
@@ -295,6 +301,9 @@ export default {
       this.selectedCharacteristicReference['update'] = true;
       if (this.selectedCharacteristicReference.characteristicReference.theReferenceSynopsis.theSynopsis.length > 0) {
         this.$refs.crDialog.isSynopsisReadOnly = true;
+      }
+      else {
+        this.$refs.crDialog.isSynopsisReadOnly = false;
       }
       this.$refs.crDialog.show();  
     },
