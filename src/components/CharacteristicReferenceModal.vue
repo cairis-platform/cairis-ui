@@ -182,9 +182,6 @@ import DimensionSelect from './DimensionSelect';
       },
       referenceDimension() {
         return this.reference.theDimensionName == 'document' ? 'document_reference' : 'concept_reference';
-      },
-      isReadOnly() {
-        return this.characteristicReference.update && this.characteristicReference.characteristicReference.theReferenceSynopsis.theSynopsis.length > 0  ? true : false;
       }
     },
     components : {
