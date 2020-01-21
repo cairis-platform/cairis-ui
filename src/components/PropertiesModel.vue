@@ -124,6 +124,8 @@ Authors: Shamal Faily
 
 import axios from 'axios'
 import EventBus from '../utils/event-bus';
+const mime = require('mime-types');
+const randomstring = require('randomstring');
 
 export default {
   props : {
@@ -254,16 +256,18 @@ export default {
     },
     imageSelected(evt) {
       evt.preventDefault();
-      const fd = new FormData();
-      fd.append('file',this.$refs.richpictureupload.files[0])
+      let fd = new FormData();
+      const imageFile = this.$refs.richpictureupload.files[0];
+      const imageName = randomstring.generate() + '.' + mime.extension(imageFile.type);
+      fd.append('file',imageFile,imageName);
       const url = this.$store.state.url + '/api/upload/image?session_id=' + this.$store.state.session
       axios.post(url, fd)
       .then(response => {
-        this.objt.richPicture = response.data.filename;
-        EventBus.$emit('operation-success',response.data.message)
+        this.objt.richPicture = imageName;
+        EventBus.$emit('operation-success',response.data.message);
       })
       .catch((error) => {
-        EventBus.$emit('operation-failure',error)
+        EventBus.$emit('operation-failure',error.response.data.message);
       })
     },
     checkForm() {

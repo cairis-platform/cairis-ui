@@ -19,6 +19,8 @@
     "d3": "^5.9.1",
     "global": "^4.3.2",
     "jslint": "^0.12.1",
+    "mime-types": "^2.1.26",
+    "randomstring": "^1.1.5",
     "svg-pan-zoom": "^3.6.0",
     "vue": "^2.6.8",
     "vue-axios": "^2.1.4",
