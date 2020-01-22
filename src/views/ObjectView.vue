@@ -99,10 +99,7 @@ export default {
         next(vm => {
           vm.commitLabel = 'Update';
           vm.objt = response.data;
-          if (vm.objt.theTags != undefined) {
-            vm.objt.theTags = response.data.theTags.join(', ');
-          }
-        })
+        });
       })
       .catch((error) => {
         EventBus.$emit('operation-failure',error)

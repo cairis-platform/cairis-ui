@@ -50,7 +50,7 @@ Authors: Shamal Faily
           <b-form-textarea id="theMethodInput" v-model="objt.theMethod" type="text" rows=2 max-rows=4 required />
         </b-form-group>
         <b-form-group label="Tags" label-class="font-weight-bold text-md-left" label-for="theTagsInput">
-          <b-form-input id="theTagsInput" v-model="objt.theTags" type="text" />
+          <b-form-tags v-model="objt.theTags" separator="," placeholder="Enter new tags separated by comma" remove-on-delete tag-variant="primary" tag-pills class="md-8"></b-form-tags>
         </b-form-group>
         </b-card>
       </b-container>
@@ -243,9 +243,6 @@ export default {
     onCommit(evt) {
       evt.preventDefault();
       if (this.checkForm()) {
-        if (this.objt.theTags != '') {
-          this.objt.theTags = this.objt.theTags.split(',').map(t => t.trim());
-        }
         this.$emit('object-commit',this.objt);
       }
     },
