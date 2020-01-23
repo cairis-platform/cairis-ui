@@ -71,7 +71,7 @@ Authors: Shamal Faily
               <b-row>
                 <b-col md="2">
                   <b-form-group label="Association" label-class="font-weight-bold text-md-left" label-for="theAssociationRadio" >
-                    <b-form-radio-group buttons button-variant="outline-primary" size="md" id="theAssociationRadio" v-model="objt.theAssociationType" :options="refTypeOptions" class="mb-3" required name="theAssociationRadio">
+                    <b-form-radio-group buttons button-variant="outline-primary" size="md" id="theAssociationRadio" v-model="objt.theAssociationType" :options="refTypes" class="mb-3" required name="theAssociationRadio">
                     </b-form-radio-group>
                   </b-form-group>
                 </b-col>
@@ -110,6 +110,7 @@ Authors: Shamal Faily
 <script>
 
 import objectMixin from '../mixins/objectMixin'
+import kaosAssociationMixin from '../mixins/kaosAssociationMixin'
 import DimensionSelect from '@/components/DimensionSelect.vue'
 
 export default {
@@ -125,7 +126,8 @@ export default {
     theSubGoalType : 'setAssociationTypes'
   },
   mixins : [
-    objectMixin
+    objectMixin,
+    kaosAssociationMixin
   ],
   components : {
     DimensionSelect
@@ -133,6 +135,9 @@ export default {
   computed : {
     disable() {
       return this.isUpdating == true ? true : false;
+    },
+    refTypes() {
+      return this.refTypeOptions[this.theGoalType + ',' + this.theSubGoalType];
     }
   },
   data() {
@@ -157,10 +162,6 @@ export default {
         {text : 'Domain Property', value : 'domainproperty'},
         {text : 'Role', value : 'role'},
         {text : 'Requirement', value : 'requirement'}
-      ],
-      refTypeOptions : [
-        {text : 'And', value : 'and'},
-        {text : 'Or', value : 'or'}
       ]
     }
   },
@@ -229,147 +230,72 @@ export default {
     setAssociationTypes() {
       this.objt.theSubGoalDimension = this.theSubGoalType;
       if (this.theGoalType == 'goal' && this.theSubGoalType == 'domainproperty') {
-        this.refTypeOptions = [
-          {'text' : 'And', 'value' : 'and'},
-          {'text' : 'Or', 'value' : 'or'}
-        ];
         this.objt.theAssociationType = 'and';
       }
       else if (this.theGoalType == 'goal' && this.theSubGoalType == 'goal') {
-        this.refTypeOptions = [
-          {'text' : 'And', 'value' : 'and'},
-          {'text' : 'Or', 'value' : 'or'}
-        ];
         this.objt.theAssociationType = 'and';
       }
       else if (this.theGoalType == 'goal' && this.theSubGoalType == 'obstacle') {
-        this.refTypeOptions = [
-          {'text' : 'Obstruct', 'value' : 'obstruct'}
-        ];
         this.objt.theAssociationType = 'obstruct';
       }
       else if (this.theGoalType == 'goal' && this.theSubGoalType == 'requirement') {
-        this.refTypeOptions = [
-          {'text' : 'And', 'value' : 'and'},
-          {'text' : 'Or', 'value' : 'or'}
-        ];
         this.objt.theAssociationType = 'and';
       }
       else if (this.theGoalType == 'goal' && this.theSubGoalType == 'role') {
-        this.refTypeOptions = [
-          {'text' : 'Responsible', 'value' : 'responsible'}
-        ];
         this.objt.theAssociationType = 'responsible';
       }
       else if (this.theGoalType == 'goal' && this.theSubGoalType == 'task') {
-        this.refTypeOptions = [
-          {'text' : 'And', 'value' : 'and'}
-        ];
         this.objt.theAssociationType = 'and';
       }
       else if (this.theGoalType == 'goal' && this.theSubGoalType == 'usecase') {
-        this.refTypeOptions = [
-          {'text' : 'And', 'value' : 'and'}
-        ];
         this.objt.theAssociationType = 'and';
       }
       else if (this.theGoalType == 'obstacle' && this.theSubGoalType == 'domainproperty') {
-        this.refTypeOptions = [
-          {'text' : 'Resolve', 'value' : 'resolve'}
-        ];
         this.objt.theAssociationType = 'resolve';
       }
       else if (this.theGoalType == 'obstacle' && this.theSubGoalType == 'goal') {
-        this.refTypeOptions = [
-          {'text' : 'Resolve', 'value' : 'resolve'}
-        ];
         this.objt.theAssociationType = 'resolve';
       }
       else if (this.theGoalType == 'obstacle' && this.theSubGoalType == 'task') {
-        this.refTypeOptions = [
-          {'text' : 'And', 'value' : 'and'}
-        ];
         this.objt.theAssociationType = 'and';
       }
       else if (this.theGoalType == 'obstacle' && this.theSubGoalType == 'misusecase') {
-        this.refTypeOptions = [
-          {'text' : 'And', 'value' : 'and'}
-        ];
         this.objt.theAssociationType = 'and';
       }
       else if (this.theGoalType == 'obstacle' && this.theSubGoalType == 'obstacle') {
-        this.refTypeOptions = [
-          {'text' : 'And', 'value' : 'and'},
-          {'text' : 'Or', 'value' : 'or'}
-        ];
         this.objt.theAssociationType = 'and';
       }
       else if (this.theGoalType == 'obstacle' && this.theSubGoalType == 'requirement') {
-        this.refTypeOptions = [
-          {'text' : 'Resolve', 'value' : 'resolve'}
-        ];
         this.objt.theAssociationType = 'resolve';
       }
       else if (this.theGoalType == 'obstacle' && this.theSubGoalType == 'role') {
-        this.refTypeOptions = [
-          {'text' : 'Responsible', 'value' : 'responsible'}
-        ];
         this.objt.theAssociationType = 'responsible';
       }
       else if (this.theGoalType == 'obstacle' && this.theSubGoalType == 'threat') {
-        this.refTypeOptions = [
-          {'text' : 'And', 'value' : 'and'}
-        ];
         this.objt.theAssociationType = 'and';
       }
       else if (this.theGoalType == 'obstacle' && this.theSubGoalType == 'usecase') {
-        this.refTypeOptions = [
-          {'text' : 'And', 'value' : 'and'}
-        ];
         this.objt.theAssociationType = 'and';
       }
       else if (this.theGoalType == 'obstacle' && this.theSubGoalType == 'vulnerability') {
-        this.refTypeOptions = [
-          {'text' : 'And', 'value' : 'and'}
-        ];
         this.objt.theAssociationType = 'and';
       }
       else if (this.theGoalType == 'domainproperty' && this.theSubGoalType == 'obstacle') {
-        this.refTypeOptions = [
-          {'text' : 'Obstruct', 'value' : 'obstruct'}
-        ];
         this.objt.theAssociationType = 'obstruct';
       }
       else if (this.theGoalType == 'requirement' && this.theSubGoalType == 'goal') {
-        this.refTypeOptions = [
-          {'text' : 'And', 'value' : 'and'},
-          {'text' : 'Or', 'value' : 'or'}
-        ];
         this.objt.theAssociationType = 'and';
       }
       else if (this.theGoalType == 'requirement' && this.theSubGoalType == 'requirement') {
-        this.refTypeOptions = [
-          {'text' : 'And', 'value' : 'and'},
-          {'text' : 'Or', 'value' : 'or'}
-        ];
         this.objt.theAssociationType = 'and';
       }
       else if (this.theGoalType == 'requirement' && this.theSubGoalType == 'role') {
-        this.refTypeOptions = [
-          {'text' : 'Responsible', 'value' : 'responsible'}
-        ];
         this.objt.theAssociationType = 'responsible';
       }
       else if (this.theGoalType == 'requirement' && this.theSubGoalType == 'obstacle') {
-        this.refTypeOptions = [
-          {'text' : 'Obstruct', 'value' : 'obstruct'}
-        ];
         this.objt.theAssociationType = 'obstruct';
       }
       else if (this.theGoalType == 'countermeasure' && this.theSubGoalType == 'task') {
-        this.refTypeOptions = [
-          {'text' : 'And', 'value' : 'and'}
-        ];
         this.objt.theAssociationType = 'and';
       }
     },
