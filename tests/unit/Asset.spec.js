@@ -34,7 +34,6 @@ describe('Asset.vue', () => {
     const testAsset = testData['asset']; 
     const wrapper = mount(Asset,{localVue, propsData : {object: testAsset, label: 'Update'}});
     expect(wrapper.find('#theAssetInput').element.value).to.equal('Clinical Data');
-    expect(wrapper.find('#theTagsInput').element.value).to.equal('');
     expect(wrapper.find('#theShortCodeInput').element.value).to.equal('CD');
     expect(wrapper.find('#theTypeInput').element.value).to.equal('');
     expect(wrapper.find('#theDescription').element.value).to.equal('Clinical Data');

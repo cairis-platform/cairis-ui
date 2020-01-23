@@ -44,7 +44,7 @@ Authors: Shamal Faily
                 <b-form-input id="theAttackerInput" v-model="objt.theName" type="text" required />
               </b-form-group>
               <b-form-group label="Tags" label-class="font-weight-bold text-md-left" label-for="theTagsInput">
-                <b-form-tags v-model="objt.theTags" separator="," placeholder="Enter new tags separated by comma" remove-on-delete tag-variant="primary" tag-pills class="md-8"></b-form-tags>
+                <b-form-tags id="theTagsInput" v-model="objt.theTags" separator="," placeholder="Enter new tags separated by comma" remove-on-delete tag-variant="primary" tag-pills class="md-8"></b-form-tags>
               </b-form-group>
               <b-form-group label="Description" label-class="font-weight-bold text-md-left" label-for="theDescription">
                 <b-form-textarea id="theDescriptionInput" v-model="objt.theDescription" type="text" :rows=5 :max-rows=7 required />

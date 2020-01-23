@@ -124,7 +124,7 @@ attacker : {
   theName : 'Carol',
   theImage : 'Carol.jpg',
   theDescription : 'Carol is a freelance journalist working in the South East of England.  Having heard stories about data theft, she is currently investigating a number of e-Science projects, including NeuroGrid, to see if she can find a story.',
-  theTags : '',
+  theTags : [],
   theEnvironmentProperties : [
     {theEnvironmentName : 'Psychosis',
      theRoles : ['Social Engineer'],
