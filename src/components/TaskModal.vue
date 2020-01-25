@@ -68,16 +68,16 @@ Authors: Shamal Faily
       return {
         theEnvironmentName : this.environment,
         objt : this.task,
-        concernTableFields : {
-          concern : {label : 'Asset'}
-        },
-        participantTableFields : {
-          thePersona : {label : 'Persona'},
-          theDuration : {label : 'Duration'},
-          theFrequency : {label : 'Frequency'},
-          theDemands : {label : 'Demands'},
-          theGoalConflict : {label : 'Goal Conflict'}
-        },
+        concernTableFields : [
+          {key: 'concerni', label : 'Asset'}
+        ],
+        participantTableFields : [
+          {key: 'thePersona', label : 'Persona'},
+          {key: 'theDuration', label : 'Duration'},
+          {key: 'theFrequency', label : 'Frequency'},
+          {key: 'theDemands', label : 'Demands'},
+          {key: 'theGoalConflict', label : 'Goal Conflict'}
+        ],
         durationLookup : {
           'Low' : 'Seconds',
           'Medium' : 'Minutes',

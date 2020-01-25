@@ -54,17 +54,17 @@ Authors: Shamal Faily
       return {
         theEnvironmentName : this.environment,
         objt : this.threat,
-        assetTableFields : {
-          name : {label : 'Asset'}
-        },
-        attackerTableFields : {
-          name : {label : 'Attacker'}
-        },
-        propTableFields : {
-          name : {label : 'Property'},
-          value : {label : 'Value'},
-          rationale : {label : 'Rationale'} 
-        }
+        assetTableFields : [
+          {key: 'name', label : 'Asset'}
+        ],
+        attackerTableFields : [
+          {key: 'name', label : 'Attacker'}
+        ],
+        propTableFields : [
+          {key: 'name', label : 'Property'},
+          {key: 'value', label : 'Value'},
+          {key: 'rationale', label : 'Rationale'} 
+        ]
       }
     },
     watch : {

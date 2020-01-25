@@ -58,11 +58,11 @@ export default {
       theEnvironmentName : this.environment,
       objt : this.risk,
       responses : this.responseList,
-      responseTableFields : {
-        responseName : {label : 'Response'},
-        unmitScore : {label : 'Unmitigated Score'},
-        mitScore : {label : 'Mitigated Score'},
-      }
+      responseTableFields : [
+        {key: 'responseName', label : 'Response'},
+        {key: 'unmitScore', label : 'Unmitigated Score'},
+        {key: 'mitScore', label : 'Mitigated Score'}
+      ]
     }
   },
   watch : {

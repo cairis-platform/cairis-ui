@@ -57,13 +57,13 @@ Authors: Shamal Faily
       return {
         theEnvironmentName : this.environment,
         objt : this.usecase,
-        actorTableFields : {
-          actor : {label : 'Actor'}
-        },
-        stepTableFields : {
-          no : {label : 'No'},
-          step : {label : 'Step'}
-        }
+        actorTableFields : [
+          {key: 'actor', label : 'Actor'}
+        ],
+        stepTableFields : [
+          {key: 'no', label : 'No'},
+          {key: 'step', label : 'Step'}
+        ]
       }
     },
     watch : {
@@ -74,7 +74,7 @@ Authors: Shamal Faily
         return (this.objt != undefined ? this.objt.theName : '') + ' Use Case';
       },
       actors() {
-        return this.objt != undefined ? this.objt.theActors.map(actor => ({'actor': actor})) : []
+        return this.objt != undefined && this.objt.theActors != undefined ? this.objt.theActors.map(actor => ({'actor': actor})) : []
       },
       preconditions() {
         return this.objt != undefined && this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.theEnvironmentName)[0].thePreCond : '';

@@ -76,10 +76,9 @@ Authors: Shamal Faily
           </b-tab>
           <b-tab title="Criticality">
             <b-card bg-variant="light">
-              <b-container>
                 <b-row>
-                  <b-col sm="2">
-                    <b-form-checkbox v-model="objt.isCritical" >Critical Asset</b-form-checkbox>
+                  <b-col md="12">
+                    <b-form-checkbox v-model="critical" >Critical Asset</b-form-checkbox>
                   </b-col>
                 </b-row>
                 <b-row>
@@ -87,7 +86,6 @@ Authors: Shamal Faily
                     <b-form-textarea v-model="objt.theCriticalRationale" type="text" :rows=2 :max-rows=4 v-if="objt.isCritical" />
                   </b-col>
                 </b-row>
-              </b-container> 
             </b-card>
           </b-tab>
           <b-tab title="Interfaces">
@@ -193,6 +191,19 @@ export default {
     },
     unusedProperties() {
       return this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theProperties.filter(prop => (prop.value == 'None')).map(prop => prop.name) : [];
+    },
+    critical : {
+      get : function() {
+        return this.objt.isCritical == 1 ? true : false;
+      },
+      set : function(value) {
+        if (value == true) {
+          this.objt.isCritical = 1;
+        }
+        else {
+          this.objt.isCritical = 0;
+        }
+      }
     }
   },
   components : {

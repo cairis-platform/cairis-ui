@@ -51,11 +51,11 @@ Authors: Shamal Faily
       return {
         theEnvironmentName : this.environment,
         objt : this.asset,
-        propTableFields : {
-          name : {label : 'Property'},
-          value : {label : 'Value'},
-          rationale : {label : 'Rationale'} 
-        }
+        propTableFields : [
+          {key: 'name', label : 'Property'},
+          {key: 'value', label : 'Value'},
+          {key: 'rationale', label : 'Rationale'} 
+        ]
       }
     },
     watch : {

@@ -37,7 +37,7 @@ Authors: Shamal Faily
       <b-row>
         <b-col>
           <b-form-group label="Environment" label-for="riskModelEnvironment">
-            <dimension-select ref="riskModelEnvironment" id="riskModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
+            <dimension-select ref="riskModelEnvironment" id="riskModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" /> 
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
@@ -47,7 +47,7 @@ Authors: Shamal Faily
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
           <b-form-group label="Name" label-form="riskModelName">
-            <dimension-select id="riskModelName" ref="riskModelName" :environment="theEnvironmentName" :dimensionUrl="nameURI" includeall v-on:dimension-select-change="nameSelected" v-on:dimension-items-updated="namesLoaded" />
+            <dimension-select id="riskModelName" ref="riskModelName" :environment="theEnvironmentName" :dimensionUrl="nameURI" includeall v-on:dimension-select-change="nameSelected" v-on:dimension-items-updated="namesLoaded" /> 
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
@@ -275,9 +275,6 @@ export default {
     nameChanged(objtName) {
       this.filterParameters.object_name = objtName;
       this.filterParameters.tagged = (this.isTagged == true ? '1' : '0');
-      if (this.$refs.riskModelName != undefined) {
-        this.$refs.riskModelName.$emit('dimension-select-change',objtName);
-      }
     },
     nameSelected(objtName) {
       this.nameChanged(objtName);

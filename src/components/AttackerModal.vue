@@ -48,16 +48,16 @@ Authors: Shamal Faily
       return {
         theEnvironmentName : this.environment,
         objt : this.attacker,
-        roleTableFields : {
-          name : {label : 'Role'}
-        },
-        motiveTableFields : {
-          name : {label : 'Motivation'}
-        },
-        capabilityTableFields : {
-          name : {label : 'Capability'},
-          value : {label : 'Value'}
-        }
+        roleTableFields : [
+          {key: 'name', label : 'Role'}
+        ],
+        motiveTableFields : [
+          {key: 'name', label : 'Motivation'}
+        ],
+        capabilityTableFields : [
+          {key: 'name', label : 'Capability'},
+          {key: 'value', label : 'Value'}
+        ]
       }
     },
     watch : {

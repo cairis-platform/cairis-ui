@@ -58,9 +58,9 @@ Authors: Shamal Faily
       return {
         theEnvironmentName : this.environment,
         objt : this.obstacle,
-        concernTableFields : {
-          concern : {label : 'Concern'}
-        }
+        concernTableFields : [
+          {key: 'concern', label : 'Concern'}
+        ]
       }
     },
     watch : {

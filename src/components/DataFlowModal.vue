@@ -39,9 +39,9 @@ Authors: Shamal Faily
       return {
         theEnvironmentName : this.environment,
         objt : this.dataflow,
-        assetTableFields : {
-          name : {label : 'Asset'}
-        }
+        assetTableFields : [
+          {key: 'name', label : 'Asset'}
+        ]
       }
     },
     watch : {
@@ -52,7 +52,7 @@ Authors: Shamal Faily
         return (this.objt != undefined ? this.objt.theName : '') + ' Data flow';
       },
       assets() {
-        return this.objt != undefined ? this.objt.theAssets.map(asset => ({name : asset})): [];
+        return this.objt != undefined && this.objt.theAssets != undefined ? this.objt.theAssets.map(asset => ({name : asset})): [];
       },
     },
     methods : {
