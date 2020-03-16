@@ -168,7 +168,7 @@ export default {
         dimensionCheck('asset',next);
       });
     }
-    else if (['environment','externaldocument','domainproperty','templategoal','taskcharacteristic'].indexOf(to.params.dimension) > -1) {
+    else if (['environment','externaldocument','domainproperty','templategoal','taskcharacteristic','conceptreference'].indexOf(to.params.dimension) > -1) {
       next();
     }
   },
