@@ -46,11 +46,11 @@ Authors: Shamal Faily
             <template slot="header">
               <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addLocation"/> Location
             </template> 
-            <b-container fluid v-show="this.objt != undefined && this.objt.theLocations.length > 0">
+            <b-container fluid v-if="objt.theLocations.length > 0">
               <b-row md="12">
                 <b-container fluid>
                   <b-tabs card v-model="locationIndex">
-                    <b-tab v-for="loc in this.objt.theLocations" :key="loc.theName" :title=loc.theName>
+                    <b-tab v-for="loc in objt.theLocations" :key="loc.theName" :title=loc.theName>
                       <template slot="title">
                         <font-awesome-icon icon="minus" :style="{color: 'red'}" @click="deleteLocation(loc.theName)"/>  {{loc.theName}}
                       </template> 
@@ -162,7 +162,7 @@ export default {
       return this.objt != undefined && this.objt.theLocations.length > 0 ? this.objt.theLocations[this.locationIndex].theLinks.map(l => ({name : l})) : [];
     },
     locationNames() {
-      return this.objt != undefined && this.objt.theLocations.length > 0 ? this.objt.theLocations.filter(l => (l.theName != this.objt.theLocations[this.locationIndex].theName)).map(l => l.theName) : [];
+      return this.objt != undefined && this.objt.theLocations.length > 0 && this.locationIndex != -1 ? this.objt.theLocations.filter(l => (l.theName != this.objt.theLocations[this.locationIndex].theName)).map(l => l.theName) : [];
     }
   },
   components : {
@@ -235,14 +235,9 @@ export default {
     deleteLocation(locName) {
       this.objt.theLocations = this.objt.theLocations.filter(l => (l.theName != locName));
     },
-    addLocation(evt) {
-      evt.preventDefault();
-      this.objt.theLocations.push({
-        theName : 'New location',
-        theAssetInstances : [],
-        thePersonaInstances : [],
-        theLinks : []
-      });
+    addLocation() {
+      let l = {theName: 'New location', theAssetInstances: [], thePersonaInstances : [], theLinks : []};
+      this.objt.theLocations.push(l);
     },
     addObject() {
       this.selectedAssetInstance['instance'] = {theName: '', theAsset: ''};
