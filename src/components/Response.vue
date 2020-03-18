@@ -236,7 +236,7 @@ export default {
     },
     cost : {
       get : function() {
-        return this.objt.theEnvironmentProperties.cost != undefined && this.objt.theEnvironmentProperties.accept.length > 0 ? this.objt.theEnvironmentProperties.accept[this.envPropIndex].theCost : ''
+        return this.objt.theEnvironmentProperties.accept != undefined && this.objt.theEnvironmentProperties.accept.length > 0 ? this.objt.theEnvironmentProperties.accept[this.envPropIndex].theCost : ''
       },
       set : function(value) {
         this.objt.theEnvironmentProperties.accept[this.envPropIndex].theCost = value;
