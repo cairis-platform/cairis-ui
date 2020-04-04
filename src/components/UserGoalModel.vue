@@ -21,8 +21,7 @@ Authors: Shamal Faily
 -->
 
   <div class="usergoalmodel">
-    <task-modal v-if="taskSelected" ref="taskDialog" :environment="this.theEnvironmentName" :task="this.theSelectedObject"/> 
-    <user-goal-modal v-if="userGoalSelected" ref="ugDialog" :userGoal="this.theSelectedObject"/> 
+    <side-bar :dimension="theSelectedDimension" :panelParameters="panelParameters" :panelObject="theSelectedObject" />
     <b-card no-body>
     <b-container fluid>
       <b-row>
@@ -53,10 +52,9 @@ Authors: Shamal Faily
 <script>
 
 import axios from 'axios';
-import GraphicalModel from '@/components/GraphicalModel.vue'
-import DimensionSelect from '@/components/DimensionSelect.vue'
-import TaskModal from '@/components/TaskModal.vue'
-import UserGoalModal from '@/components/UserGoalModal.vue'
+import GraphicalModel from '@/components/GraphicalModel.vue';
+import DimensionSelect from '@/components/DimensionSelect.vue';
+import SideBar from '@/components/SideBar.vue';
 import EventBus from '../utils/event-bus';
 
 export default {
@@ -64,11 +62,11 @@ export default {
     dfdURI() {
       return "/api/user_goals/model/environment/" + this.theEnvironmentName + "/filter_name/" + this.theFilterName ;
     },
-    taskSelected() {
-      return this.theSelectedObject != null && this.theSelectedDimension == 'tasks' ? true : false;
+    sidebarTitle() {
+      return this.theSelectedObject != undefined ? this.theSelectedObject.theName : '';
     },
-    userGoalSelected() {
-      return this.theSelectedObject != null && this.theSelectedDimension == 'user_goals' ? true : false;
+    panelParameters() {
+      return this.theEnvironmentName != '' ? {'environment' : this.theEnvironmentName} : undefined;
     }
   },
   data() {
@@ -82,14 +80,12 @@ export default {
   components : {
     GraphicalModel,
     DimensionSelect,
-    TaskModal,
-    UserGoalModal
+    SideBar
   },
   methods : {
     nodeClicked(url) {
       const dimName = url.slice(5).substring(0, url.slice(5).indexOf('/'))
       this.theSelectedDimension = dimName;
-      let that = this;
       if (['tasks','user_goals'].indexOf(dimName) == -1) {
         return;
       }
@@ -99,16 +95,6 @@ export default {
       })
       .then(response => {
         this.theSelectedObject = response.data;
-        if (dimName == 'tasks') {
-          if (that.$refs.taskDialog != undefined) {
-            that.$refs.taskDialog.show();  
-          }
-        }
-        else if (dimName == 'user_goals') {
-          if (that.$refs.ugDialog != undefined) {
-            that.$refs.ugDialog.show();  
-          }
-        }
       })
       .catch((error) => {
         EventBus.$emit('operation-failure',error)

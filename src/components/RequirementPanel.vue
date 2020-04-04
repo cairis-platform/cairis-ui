@@ -20,62 +20,37 @@ under the License.
 Authors: Shamal Faily 
 -->
 
-  <b-modal ref="reqDialog" ok-only :title="dialogTitle">
-    <b-container v-if="objt != undefined">
+  <div class="requirementpanel">
+    <b-container v-if="panelObject != undefined">
       <b-form-group label="Description" label-class="font-weight-bold text-sm-left" label-for="theDescription" >
-        <b-form-textarea id="theDescription" v-model="objt.theDescription" type="text" :rows=2 :max-rows="4" readonly>
-        </b-form-textarea>
+        <b-form-textarea id="theDescription" v-model="panelObject.theDescription" type="text" :rows=2 :max-rows="4" readonly />
       </b-form-group>
       <b-form-group label="Priority" label-class="font-weight-bold text-sm-left" label-for="thePriority" >
-        <b-form-input readonly id="thePriority" v-model="objt.thePriority"></b-form-input>
+        <b-form-input readonly id="thePriority" v-model="panelObject.thePriority" />
       </b-form-group>
       <b-form-group label="Type" label-class="font-weight-bold text-sm-left" label-for="theType" >
-        <b-form-input readonly id="theType" v-model="objt.theType"></b-form-input>
+        <b-form-input readonly id="theType" v-model="panelObject.theType" />
       </b-form-group>
       <b-form-group label="Originator" label-class="font-weight-bold text-sm-left" label-for="theOriginator" >
-        <b-form-input readonly id="theOriginator" v-model="objt.theOriginator"></b-form-input>
+        <b-form-input readonly id="theOriginator" v-model="panelObject.theOriginator" />
       </b-form-group>
       <b-form-group label="Rationale" label-class="font-weight-bold text-sm-left" label-for="theRationale" >
-        <b-form-textarea id="theRationale" v-model="objt.theRationale" type="text" :rows=2 :max-rows="4" readonly>
-        </b-form-textarea>
+        <b-form-textarea id="theRationale" v-model="panelObject.theRationale" type="text" :rows=2 :max-rows="4" readonly />
       </b-form-group>
       <b-form-group label="Fit Criterion" label-class="font-weight-bold text-sm-left" label-for="theFitCriterion" >
-        <b-form-textarea id="theFitCriterion" v-model="objt.theFitCriterion" type="text" :rows=2 :max-rows="4" readonly>
-        </b-form-textarea>
+        <b-form-textarea id="theFitCriterion" v-model="panelObject.theFitCriterion" type="text" :rows=2 :max-rows="4" readonly />
       </b-form-group>
     </b-container>
-  </b-modal>
+  </div>
 </template>
 
 <script>
 
 export default {
-  name: 'requirement-modal',
+  name: 'requirement-panel',
   props : {
-    requirement : Object
-  },
-  data() {
-    return {
-      objt : this.requirement
-    }
-  },
-  watch : {
-    requirement : 'updateData'
-  },
-  computed : {
-    dialogTitle() {
-      return (this.objt != undefined ? this.objt.theName : '') + ' Requirement';
-    }
-  },
-  methods : {
-    show() {
-      if (this.$refs.reqDialog != undefined) {
-        this.$refs.reqDialog.show();
-      }
-    },
-    updateData() {
-      this.objt = this.requirement
-    }
+    panelParameters : Object,
+    panelObject : Object
   }
 };
 </script>

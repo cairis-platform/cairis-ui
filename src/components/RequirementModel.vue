@@ -21,7 +21,7 @@ Authors: Shamal Faily
 -->
 
   <div class="requirementmodel">
-    <requirement-modal ref="reqDialog" :requirement="this.theSelectedObject"/> 
+    <side-bar :dimension="theSelectedDimension" :panelParameters="panelParameters" :panelObject="theSelectedObject" />
     <b-card no-body>
     <b-container fluid>
       <b-row class="justify-content-md-left">
@@ -46,9 +46,9 @@ Authors: Shamal Faily
 <script>
 
 import axios from 'axios';
-import GraphicalModel from '@/components/GraphicalModel.vue'
-import DimensionSelect from '@/components/DimensionSelect.vue'
-import RequirementModal from '@/components/RequirementModal.vue'
+import GraphicalModel from '@/components/GraphicalModel.vue';
+import DimensionSelect from '@/components/DimensionSelect.vue';
+import SideBar from '@/components/SideBar.vue';
 import EventBus from '../utils/event-bus';
 
 export default {
@@ -58,6 +58,9 @@ export default {
     },
     requirementsNameURI() {
       return (this.theDimensionValue == 'all' ? "/api/dimensions/table/requirement" : "/api/requirements/" + this.theDimensionName + "/" + this.theDimensionValue + "/names");
+    },
+    panelParameters() {
+      return undefined;
     }
   },
   data() {
@@ -73,17 +76,18 @@ export default {
         {text : 'Environment', value : 'environment'},
         {text : 'Asset', value : 'asset'}
       ],
+      theSelectedDimension : ''
     }
   },
   components : {
     DimensionSelect,
     GraphicalModel,
-    RequirementModal
+    SideBar
   },
   methods : {
     nodeClicked(url) {
-      const dimName = url.slice(5).substring(0, url.slice(5).indexOf('/'))
-      if (['requirements'].indexOf(dimName) == -1) {
+      this.theSelectedDimension = url.slice(5).substring(0, url.slice(5).indexOf('/'))
+      if (['requirements'].indexOf(this.theSelectedDimension) == -1) {
         return;
       }
       axios.get(url,{
@@ -92,7 +96,6 @@ export default {
       })
       .then(response => {
         this.theSelectedObject = response.data;
-        this.$refs.reqDialog.show();  
       })
       .catch((error) => {
         EventBus.$emit('operation-failure',error)

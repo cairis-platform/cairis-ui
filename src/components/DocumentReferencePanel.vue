@@ -20,55 +20,35 @@ under the License.
 Authors: Shamal Faily 
 -->
 
-  <b-modal ref="documentReferenceDialog" ok-only :title="dialogTitle">
-    <b-container v-if="objt != undefined">
+  <div class="documentreferencepanel">
+    <b-container v-if="panelObject != undefined">
       <b-form-group label="Name" label-class="font-weight-bold text-md-left">
-        <b-form-input readonly v-model="objt.theName" type="text">
+        <b-form-input readonly v-model="panelObject.theName" type="text">
         </b-form-input>
       </b-form-group>
       <b-form-group label="External Document" label-class="font-weigh-bold text-md-left">
-        <b-form-input readonly v-model="objt.theDocName" type="text">
+        <b-form-input readonly v-model="panelObject.theDocName" type="text">
         </b-form-input>
       </b-form-group>
       <b-form-group label="Contributor" label-class="font-weight-bold text-md-left">
-        <b-form-input readonly v-model="objt.theContributor" type="text">
+        <b-form-input readonly v-model="panelObject.theContributor" type="text">
         </b-form-input>
       </b-form-group>
       <b-form-group label="Excerpt" label-class="font-weight-bold text-md-left">
-        <b-form-textarea readonly v-model="objt.theExcerpt" type="text" :rows=4 :max-rows=6>
+        <b-form-textarea readonly v-model="panelObject.theExcerpt" type="text" :rows=4 :max-rows=6>
         </b-form-textarea>
       </b-form-group>
     </b-container>
-  </b-modal>
+  </div>
 </template>
 
 <script>
 
   export default {
-    name: 'document-reference-modal',
+    name: 'documentreference-panel',
     props : {
-      document_reference : Object
-    },
-    data() {
-      return {
-        objt : this.document_reference
-      }
-    },
-    watch : {
-      document_reference : 'updateData'
-    },
-    computed : {
-      dialogTitle() {
-        return (this.objt != undefined ? this.objt.theName : '') + ' Document Reference';
-      },
-    },
-    methods : {
-      show() {
-        this.$refs.documentReferenceDialog.show();
-      },
-      updateData() {
-        this.objt = this.document_reference;
-      }
+      panelParameters : Object,
+      panelObject : Object
     }
   };
 </script>

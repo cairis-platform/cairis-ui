@@ -20,54 +20,31 @@ under the License.
 Authors: Shamal Faily 
 -->
 
-  <b-modal ref="roleDialog" ok-only :title="dialogTitle">
-    <b-container v-if="objt != undefined">
-      <b-form-group label="Name" label-class="font-weight-bold text-sm-left" label-for="theName" >
-        <b-form-input readonly id="theName" v-model="objt.theName"></b-form-input>
+  <div class="rolepanel">
+    <b-container v-if="panelObject != undefined">
+      <b-form-group label="Name" label-class="font-weight-bold text-sm-left" label-for="theName">
+        <b-form-input readonly id="theName" v-model="panelObject.theName" />
       </b-form-group>
       <b-form-group label="Type" label-class="font-weight-bold text-sm-left" label-for="theType" >
-        <b-form-input readonly id="theType" v-model="objt.theType"></b-form-input>
+        <b-form-input readonly id="theType" v-model="panelObject.theType" />
       </b-form-group>
       <b-form-group label="Short Code" label-class="font-weight-bold text-sm-left" label-for="theShortCode" >
-        <b-form-input readonly id="theShortCode" v-model="objt.theShortCode"></b-form-input>
+        <b-form-input readonly id="theShortCode" v-model="panelObject.theShortCode" />
       </b-form-group>
       <b-form-group label="Description" label-class="font-weight-bold text-sm-left" label-for="theDescription" >
-        <b-form-textarea id="theDescription" v-model="objt.theDescription" type="text" :rows=2 :max-rows="4" readonly>
-        </b-form-textarea>
+        <b-form-textarea id="theDescription" v-model="panelObject.theDescription" type="text" :rows=2 :max-rows="4" readonly />
       </b-form-group>
     </b-container>
-  </b-modal>
+  </div>
 </template>
 
 <script>
 
   export default {
-    name: 'role-modal',
+    name: 'role-panel',
     props : {
-      role : Object
-    },
-    data() {
-      return {
-        objt : this.role
-      }
-    },
-    watch : {
-      role : 'updateData'
-    },
-    computed : {
-      dialogTitle() {
-        return (this.objt != undefined ? this.objt.theName : '') + ' Role';
-      }
-    },
-    methods : {
-      show() {
-        if (this.$refs.roleDialog != undefined) {
-          this.$refs.roleDialog.show();
-        }
-      },
-      updateData() {
-        this.objt = this.role;
-      }
+      panelParameters : Object,
+      panelObject : Object
     }
   };
 </script>

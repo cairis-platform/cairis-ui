@@ -21,13 +21,7 @@ Authors: Shamal Faily
 -->
 
   <div class="responsibilitymodel">
-    <asset-modal v-if="theEnvironmentName != ''" ref="assetDialog" :environment="this.theEnvironmentName" :asset="this.theSelectedObject"/> 
-    <domain-property-modal v-if="theEnvironmentName !=''" ref="dpDialog" :environment="this.theEnvironmentName" :domainproperty="this.theSelectedObject"/> 
-    <goal-modal v-if="theEnvironmentName != ''" ref="goalDialog" :environment="this.theEnvironmentName" :goal="this.theSelectedObject"/> 
-    <obstacle-modal v-if="theEnvironmentName !=''" ref="obsDialog" :environment="this.theEnvironmentName" :obstacle="this.theSelectedObject"/> 
-    <requirement-modal v-if="theEnvironmentName != ''" ref="reqDialog" :requirement="this.theSelectedObject"/> 
-    <role-modal v-if="theEnvironmentName != ''" ref="roleDialog" :role="this.theSelectedObject"/> 
-    <task-modal v-if="theEnvironmentName != ''" ref="taskDialog" :environment="this.theEnvironmentName" :task="this.theSelectedObject"/> 
+    <side-bar :dimension="theSelectedDimension" :panelParameters="panelParameters" :panelObject="theSelectedObject" />
     <b-card no-body>
     <b-container fluid>
       <b-row>
@@ -51,45 +45,37 @@ Authors: Shamal Faily
 <script>
 
 import axios from 'axios';
-import GraphicalModel from '@/components/GraphicalModel.vue'
-import DimensionSelect from '@/components/DimensionSelect.vue'
-import AssetModal from '@/components/AssetModal.vue'
-import DomainPropertyModal from '@/components/DomainPropertyModal.vue'
-import GoalModal from '@/components/GoalModal.vue'
-import ObstacleModal from '@/components/ObstacleModal.vue'
-import RequirementModal from '@/components/RequirementModal.vue'
-import RoleModal from '@/components/RoleModal.vue'
-import TaskModal from '@/components/TaskModal.vue'
+import GraphicalModel from '@/components/GraphicalModel.vue';
+import DimensionSelect from '@/components/DimensionSelect.vue';
+import SideBar from '@/components/SideBar.vue';
 import EventBus from '../utils/event-bus';
 
 export default {
   computed : {
     responsibilityModelURI() {
       return "/api/responsibility/model/environment/" + this.theEnvironmentName + "/role/" + this.theRoleName;
+    },
+    panelParameters() {
+      return this.theEnvironmentName != '' ? {'environment' : this.theEnvironmentName} : undefined;
     }
   },
   data() {
     return {
       theEnvironmentName : '',
       theRoleName : 'all',
-      theSelectedObject: null
+      theSelectedObject: null,
+      theSelectedDimension : ''
     }
   },
   components : {
-    AssetModal,
     DimensionSelect,
-    DomainPropertyModal,
-    GoalModal,
     GraphicalModel,
-    ObstacleModal,
-    RequirementModal,
-    RoleModal,
-    TaskModal
+    SideBar
   },
   methods : {
     nodeClicked(url) {
-      const dimName = url.slice(5).substring(0, url.slice(5).indexOf('/'))
-      if (['goals','assets','obstacles','domainproperties','requirements','roles','tasks'].indexOf(dimName) == -1) {
+      this.theSelectedDimension = url.slice(5).substring(0, url.slice(5).indexOf('/'))
+      if (['goals','assets','obstacles','domainproperties','requirements','responses','roles','tasks'].indexOf(this.theSelectedDimension) == -1) {
         return;
       }
       axios.get(url,{
@@ -98,27 +84,6 @@ export default {
       })
       .then(response => {
         this.theSelectedObject = response.data;
-        if (dimName == 'goals') {
-          this.$refs.goalDialog.show();  
-        }
-        else if (dimName == 'assets') {
-          this.$refs.assetDialog.show();  
-        }
-        else if (dimName == 'obstacles') {
-          this.$refs.obsDialog.show();  
-        }
-        else if (dimName == 'domainproperties') {
-          this.$refs.dpDialog.show();  
-        }
-        else if (dimName == 'requirements') {
-          this.$refs.reqDialog.show();  
-        }
-        else if (dimName == 'roles') {
-          this.$refs.roleDialog.show();  
-        }
-        else if (dimName == 'tasks') {
-          this.$refs.taskDialog.show();  
-        }
       })
       .catch((error) => {
         EventBus.$emit('operation-failure',error)

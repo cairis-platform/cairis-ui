@@ -21,17 +21,7 @@ Authors: Shamal Faily
 -->
 
   <div class="riskmodel">
-    <asset-modal v-if="assetSelected" ref="assetDialog" :environment="this.theEnvironmentName" :asset="this.theSelectedObject"/> 
-    <attacker-modal v-if="attackerSelected" ref="attackerDialog" :environment="this.theEnvironmentName" :attacker="this.theSelectedObject"/> 
-    <countermeasure-modal v-if="countermeasureSelected" ref="cmDialog" :environment="this.theEnvironmentName" :countermeasure="this.theSelectedObject"/> 
-    <obstacle-modal v-if="obstacleSelected" ref="obsDialog" :environment="this.theEnvironmentName" :obstacle="this.theSelectedObject"/> 
-    <requirement-modal v-if="requirementSelected" ref="reqDialog" :requirement="this.theSelectedObject"/> 
-    <response-modal v-if="responseSelected" ref="responseDialog" :environment="this.theEnvironmentName" :response="this.theSelectedObject"/> 
-    <risk-modal v-if="riskSelected" ref="riskDialog" :environment="this.theEnvironmentName" :risk="this.theSelectedObject" :responseList="this.theResponseList"/> 
-    <role-modal v-if="roleSelected" ref="roleDialog" :role="this.theSelectedObject"/> 
-    <task-modal v-if="taskSelected" ref="taskDialog" :environment="this.theEnvironmentName" :task="this.theSelectedObject"/> 
-    <threat-modal v-if="threatSelected" ref="threatDialog" :environment="this.theEnvironmentName" :threat="this.theSelectedObject"/> 
-    <vulnerability-modal v-if="vulnerabilitySelected" ref="vulDialog" :environment="this.theEnvironmentName" :vulnerability="this.theSelectedObject"/> 
+    <side-bar :dimension="theSelectedDimension" :panelParameters="panelParameters" :panelObject="theSelectedObject" />
     <b-card no-body>
     <b-container fluid>
       <b-row>
@@ -70,19 +60,9 @@ Authors: Shamal Faily
 <script>
 
 import axios from 'axios';
-import AssetModal from '@/components/AssetModal.vue'
-import AttackerModal from '@/components/AttackerModal.vue'
-import CountermeasureModal from '@/components/CountermeasureModal.vue'
-import DimensionSelect from '@/components/DimensionSelect.vue'
-import GraphicalModel from '@/components/GraphicalModel.vue'
-import ObstacleModal from '@/components/ObstacleModal.vue'
-import RequirementModal from '@/components/RequirementModal.vue'
-import ResponseModal from '@/components/ResponseModal.vue'
-import RiskModal from '@/components/RiskModal.vue'
-import RoleModal from '@/components/RoleModal.vue'
-import TaskModal from '@/components/TaskModal.vue'
-import ThreatModal from '@/components/ThreatModal.vue'
-import VulnerabilityModal from '@/components/VulnerabilityModal.vue'
+import SideBar from '@/components/SideBar.vue';
+import DimensionSelect from '@/components/DimensionSelect.vue';
+import GraphicalModel from '@/components/GraphicalModel.vue';
 import EventBus from '../utils/event-bus';
 
 export default {
@@ -93,38 +73,8 @@ export default {
     nameURI() {
       return "api/risks/model/environment/" + this.theEnvironmentName + "/names"
     },
-    assetSelected() {
-      return this.theSelectedObject != null && this.theSelectedDimension == 'assets' ? true : false;
-    },
-    attackerSelected() {
-      return this.theSelectedObject != null && this.theSelectedDimension == 'attackers' ? true : false;
-    },
-    countermeasureSelected() {
-      return this.theSelectedObject != null && this.theSelectedDimension == 'countermeasures' ? true : false;
-    },
-    obstacleSelected() {
-      return this.theSelectedObject != null && this.theSelectedDimension == 'obstacles' ? true : false;
-    },
-    requirementSelected() {
-      return this.theSelectedObject != null && this.theSelectedDimension == 'requirements' ? true : false;
-    },
-    responseSelected() {
-      return this.theSelectedObject != null && this.theSelectedDimension == 'responses' ? true : false;
-    },
-    riskSelected() {
-      return this.theSelectedObject != null && this.theSelectedDimension == 'risks' ? true : false;
-    },
-    roleSelected() {
-      return this.theSelectedObject != null && this.theSelectedDimension == 'roles' ? true : false;
-    },
-    taskSelected() {
-      return this.theSelectedObject != null && this.theSelectedDimension == 'tasks' ? true : false;
-    },
-    threatSelected() {
-      return this.theSelectedObject != null && this.theSelectedDimension == 'threats' ? true : false;
-    },
-    vulnerabilitySelected() {
-      return this.theSelectedObject != null && this.theSelectedDimension == 'vulnerabilities' ? true : false;
+    panelParameters() {
+      return this.theEnvironmentName != '' ? {'environment' : this.theEnvironmentName, 'responses' : this.theResponseList} : undefined;
     }
   },
   data() {
@@ -152,24 +102,12 @@ export default {
   components : {
     GraphicalModel,
     DimensionSelect,
-    AssetModal,
-    AttackerModal,
-    CountermeasureModal,
-    ObstacleModal,
-    RequirementModal,
-    ResponseModal,
-    RiskModal,
-    RoleModal,
-    TaskModal,
-    ThreatModal,
-    VulnerabilityModal
+    SideBar
   },
   methods : {
     nodeClicked(url) {
-      const dimName = url.slice(5).substring(0, url.slice(5).indexOf('/'))
-      this.theSelectedDimension = dimName;
-      let that = this;
-      if (['assets','attackers','countermeasures','misusecases','obstacles','requirements','responses','risks','roles','tasks','threats','vulnerabilities'].indexOf(dimName) == -1) {
+      this.theSelectedDimension = url.slice(5).substring(0, url.slice(5).indexOf('/'))
+      if (['assets','attackers','countermeasures','misusecases','obstacles','requirements','responses','risks','roles','tasks','threats','vulnerabilities'].indexOf(this.theSelectedDimension) == -1) {
         return;
       }
       axios.get(url,{
@@ -177,71 +115,22 @@ export default {
         params : {'session_id' : this.$store.state.session}
       })
       .then(response => {
-        this.theSelectedObject = response.data;
-        if (dimName == 'assets') {
-          if (that.$refs.assetDialog != undefined) {
-            that.$refs.assetDialog.show();  
-          }
-        }
-        else if (dimName == 'attackers') {
-          if (that.$refs.attackerDialog != undefined) {
-            that.$refs.attackerDialog.show();  
-          }
-        }
-        else if (dimName == 'countermeasures') {
-          if (that.$refs.cmDialog != undefined) {
-            that.$refs.cmDialog.show();  
-          }
-        }
-        else if (dimName == 'obstacles') {
-          if (that.$refs.obsDialog != undefined) {
-            that.$refs.obsDialog.show();  
-          }
-        }
-        else if (dimName == 'requirements') {
-          if (that.$refs.reqDialog != undefined) {
-            that.$refs.reqDialog.show();  
-          }
-        }
-        else if (dimName == 'responses') {
-          if (that.$refs.responseDialog != undefined) {
-            that.$refs.responseDialog.show();  
-          }
-        }
-        else if (dimName == 'risks') {
-          axios.get('/api/risks/name/' + this.theSelectedObject.theName + '/threat/' + this.theSelectedObject.theThreatName + '/vulnerability/' + this.theSelectedObject.theVulnerabilityName + '/environment/' + this.theEnvironmentName,{
+        let dimObjt = response.data;
+        if (this.theSelectedDimension == 'risks') {
+          axios.get('/api/risks/name/' + dimObjt.theName + '/threat/' + dimObjt.theThreatName + '/vulnerability/' + dimObjt.theVulnerabilityName + '/environment/' + this.theEnvironmentName,{
             baseURL : this.$store.state.url,
             params : {'session_id' : this.$store.state.session}
           })
           .then(response => {
             this.theResponseList = response.data;
-            if (that.$refs.riskDialog != undefined) {
-              that.$refs.riskDialog.show();  
-            }
+            this.theSelectedObject = dimObjt;
           })
           .catch((error) => {
             EventBus.$emit('operation-failure',error)
           })
         }
-        else if (dimName == 'roles') {
-          if (that.$refs.roleDialog != undefined) {
-            that.$refs.roleDialog.show();  
-          }
-        }
-        else if (dimName == 'tasks') {
-          if (that.$refs.taskDialog != undefined) {
-            that.$refs.taskDialog.show();  
-          }
-        }
-        else if (dimName == 'threats') {
-          if (that.$refs.threatDialog != undefined) {
-            that.$refs.threatDialog.show();  
-          }
-        }
-        else if (dimName == 'vulnerabilities') {
-          if (that.$refs.vulDialog != undefined) {
-            that.$refs.vulDialog.show();  
-          }
+        else {
+          this.theSelectedObject = dimObjt;
         }
       })
       .catch((error) => {

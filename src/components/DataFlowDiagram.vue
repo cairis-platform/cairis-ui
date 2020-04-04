@@ -21,9 +21,7 @@ Authors: Shamal Faily
 -->
 
   <div class="dataflowdiagram">
-    <asset-modal ref="assetDialog" :environment="this.theEnvironmentName" :asset="this.theSelectedObject"/> 
-    <use-case-modal ref="ucDialog" :environment="this.theEnvironmentName" :usecase="this.theSelectedObject"/> 
-    <data-flow-modal ref="dfDialog" :environment="this.theEnvironmentName" :dataflow="this.theSelectedObject"/> 
+    <side-bar :dimension="theSelectedDimension" :panelParameters="panelParameters" :panelObject="theSelectedObject" />
     <b-card no-body>
     <b-container fluid>
       <b-row>
@@ -64,9 +62,7 @@ Authors: Shamal Faily
 import axios from 'axios';
 import GraphicalModel from '@/components/GraphicalModel.vue'
 import DimensionSelect from '@/components/DimensionSelect.vue'
-import AssetModal from '@/components/AssetModal.vue'
-import UseCaseModal from '@/components/UseCaseModal.vue'
-import DataFlowModal from '@/components/DataFlowModal.vue'
+import SideBar from '@/components/SideBar.vue'
 import EventBus from '../utils/event-bus';
 
 export default {
@@ -79,6 +75,9 @@ export default {
     },
     dfdFilter() {
       return this.theFilterType == 'None' ? 'dfd_filter' : this.theFilterType;
+    },
+    panelParameters() {
+      return this.theEnvironmentName != '' ? {'environment' : this.theEnvironmentName} : undefined;
     }
   },
   data() {
@@ -86,20 +85,19 @@ export default {
       theEnvironmentName : '',
       theFilterName : 'all',
       theSelectedObject: null,
-      theFilterType : 'None'
+      theFilterType : 'None',
+      theSelectedDimension : ''
     }
   },
   components : {
     GraphicalModel,
     DimensionSelect,
-    AssetModal,
-    DataFlowModal,
-    UseCaseModal
+    SideBar
   },
   methods : {
     nodeClicked(url) {
-      const dimName = url.slice(5).substring(0, url.slice(5).indexOf('/'))
-      if (['assets','usecases','dataflows'].indexOf(dimName) == -1) {
+      this.theSelectedDimension = url.slice(5).substring(0, url.slice(5).indexOf('/'))
+      if (['assets','usecases','dataflows'].indexOf(this.theSelectedDimension) == -1) {
         return;
       }
       axios.get(url,{
@@ -108,15 +106,6 @@ export default {
       })
       .then(response => {
         this.theSelectedObject = response.data;
-        if (dimName == 'assets') {
-          this.$refs.assetDialog.show();  
-        }
-        else if (dimName == 'usecases') {
-          this.$refs.ucDialog.show();  
-        }
-        else if (dimName == 'dataflows') {
-          this.$refs.dfDialog.show();  
-        }
       })
       .catch((error) => {
         EventBus.$emit('operation-failure',error)

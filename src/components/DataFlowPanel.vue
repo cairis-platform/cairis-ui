@@ -20,42 +20,32 @@ under the License.
 Authors: Shamal Faily 
 -->
 
-  <b-modal ref="assocDialog" ok-only :title="dialogTitle">
-    <b-container v-if="objt != undefined">
-      <b-form-group label="Rationale" label-class="font-weight-bold text-sm-left" label-for="theRationale" >
-        <b-form-textarea id="theRationale" v-model="objt.theRationale" type="text" :rows=2 :max-rows="4" readonly />
-      </b-form-group>
+  <div class="dataflowpanel">
+    <b-container v-if="panelObject != undefined">
+      <b-table bordered small :items="assets" :fields="assetTableFields" />
     </b-container>
-  </b-modal>
+  </div>
 </template>
 
 <script>
 
   export default {
-    name: 'goal-association-modal',
+    name: 'dataflow-panel',
     props : {
-      association : Object
+      panelParameters : Object,
+      panelObject : Object
     },
     data() {
       return {
-        objt : this.association,
+        assetTableFields : [
+          {key: 'name', label : 'Asset'}
+        ]
       }
-    },
-    watch : {
-      association: 'updateData'
     },
     computed : {
-      dialogTitle() {
-        return (this.objt != undefined ? this.objt.theEnvironmentName +'/' + this.objt.theGoal + '/' + this.objt.theSubGoal : '') + ' association';
+      assets() {
+        return this.panelObject != undefined && this.panelObject.theAssets != undefined ? this.panelObject.theAssets.map(asset => ({name : asset})): [];
       },
-    },
-    methods : {
-      show() {
-        this.$refs.assocDialog.show();
-      },
-      updateData() {
-        this.objt = this.association;
-      }
     }
   };
 </script>

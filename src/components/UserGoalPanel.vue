@@ -20,47 +20,25 @@ under the License.
 Authors: Shamal Faily 
 -->
 
-  <b-modal ref="ugDialog" ok-only :title="dialogTitle">
-    <b-container v-if="objt != undefined">
+  <div class="usergoalpanel">
+    <b-container v-if="panelObject != undefined">
       <b-form-group label="Persona" label-class="font-weight-bold text-sm-left" label-for="thePersona" >
-        <b-form-input readonly id="thePersona" v-model="objt.theActor"></b-form-input>
+        <b-form-input readonly id="thePersona" v-model="panelObject.theActor" />
       </b-form-group>
       <b-form-group label="Reference" label-class="font-weight-bold text-sm-left" label-for="theReference" >
-        <b-form-input readonly id="theReference" v-model="objt.theReference"></b-form-input>
+        <b-form-input readonly id="theReference" v-model="panelObject.theReference" />
       </b-form-group>
     </b-container>
-  </b-modal>
+  </div>
 </template>
 
 <script>
 
   export default {
-    name: 'user-goal-modal',
+    name: 'usergoal-panel',
     props : {
-      userGoal : Object
-    },
-    data() {
-      return {
-        objt : this.userGoal
-      }
-    },
-    watch : {
-      userGoal : 'updateData'
-    },
-    computed : {
-      dialogTitle() {
-        return (this.objt != undefined ? this.objt.theSynopsis : '') + ' User Goal';
-      }
-    },
-    methods : {
-      show() {
-        if (this.$refs.ugDialog != undefined) {
-          this.$refs.ugDialog.show();
-        }
-      },
-      updateData() {
-        this.objt = this.userGoal;
-      }
+      panelParameters : Object,
+      panelObject : Object
     }
   };
 </script>

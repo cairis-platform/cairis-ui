@@ -18,7 +18,7 @@ Authors: Shamal Faily
 -->
 
   <div class="componentassetmodel">
-    <template-asset-modal v-if="theComponentName != ''" ref="templateAssetDialog" :asset="this.theSelectedObject"/> 
+    <side-bar :dimension="theSelectedDimension" :panelParameters="panelParameters" :panelObject="theSelectedObject" />
     <b-card no-body>
     <b-container fluid>
       <b-row>
@@ -40,29 +40,33 @@ Authors: Shamal Faily
 import axios from 'axios';
 import GraphicalModel from '@/components/GraphicalModel.vue'
 import DimensionSelect from '@/components/DimensionSelect.vue'
-import TemplateAssetModal from '@/components/TemplateAssetModal.vue'
+import SideBar from '@/components/SideBar.vue'
 import EventBus from '../utils/event-bus';
 export default {
   computed : {
     componentAssetModelURI() {
       return "/api/architectural_patterns/component/asset/model/" + this.theComponentName ;
+    },
+    panelParameters() {
+      return undefined;
     }
   },
   data() {
     return {
       theComponentName : '',
-      theSelectedObject: null
+      theSelectedObject: null,
+      theSelectedDimension : ''
     }
   },
   components : {
     GraphicalModel,
     DimensionSelect,
-    TemplateAssetModal
+    SideBar
   },
   methods : {
     nodeClicked(url) {
-      const dimName = url.slice(5).substring(0, url.slice(5).indexOf('/'))
-      if (['template_assets'].indexOf(dimName) == -1) {
+      this.theSelectedDimension = url.slice(5).substring(0, url.slice(5).indexOf('/'))
+      if (['template_assets'].indexOf(this.theSelectedDimension) == -1) {
         return;
       }
       axios.get(url,{
@@ -71,9 +75,6 @@ export default {
       })
       .then(response => {
         this.theSelectedObject = response.data;
-        if (dimName == 'template_assets') {
-          this.$refs.templateAssetDialog.show();  
-        }
       })
       .catch((error) => {
         EventBus.$emit('operation-failure',error)

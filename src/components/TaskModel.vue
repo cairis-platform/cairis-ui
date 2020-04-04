@@ -21,13 +21,7 @@ Authors: Shamal Faily
 -->
 
   <div class="taskmodel">
-    <asset-modal v-if="assetSelected" ref="assetDialog" :environment="this.theEnvironmentName" :asset="this.theSelectedObject"/> 
-    <attacker-modal v-if="attackerSelected" ref="attackerDialog" :environment="this.theEnvironmentName" :attacker="this.theSelectedObject"/> 
-    <misuse-case-modal v-if="misuseCaseNodeSelected" ref="mcDialog" :environment="this.theEnvironmentName" :misusecase="this.theSelectedObject"/> 
-    <persona-modal v-if="personaSelected" ref="personaDialog" :environment="this.theEnvironmentName" :persona="this.theSelectedObject"/> 
-    <role-modal v-if="roleSelected" ref="roleDialog" :role="this.theSelectedObject"/> 
-    <task-modal v-if="taskNodeSelected" ref="taskDialog" :environment="this.theEnvironmentName" :task="this.theSelectedObject"/> 
-    <use-case-modal v-if="useCaseSelected" ref="ucDialog" :environment="this.theEnvironmentName" :usecase="this.theSelectedObject"/> 
+    <side-bar :dimension="theSelectedDimension" :panelParameters="panelParameters" :panelObject="theSelectedObject" />
     <b-card no-body>
     <b-container fluid>
       <b-row>
@@ -56,15 +50,9 @@ Authors: Shamal Faily
 <script>
 
 import axios from 'axios';
-import GraphicalModel from '@/components/GraphicalModel.vue'
-import DimensionSelect from '@/components/DimensionSelect.vue'
-import AssetModal from '@/components/AssetModal.vue'
-import AttackerModal from '@/components/AttackerModal.vue'
-import MisuseCaseModal from '@/components/MisuseCaseModal.vue'
-import PersonaModal from '@/components/PersonaModal.vue'
-import RoleModal from '@/components/RoleModal.vue'
-import TaskModal from '@/components/TaskModal.vue'
-import UseCaseModal from '@/components/UseCaseModal.vue'
+import GraphicalModel from '@/components/GraphicalModel.vue';
+import DimensionSelect from '@/components/DimensionSelect.vue';
+import SideBar from '@/components/SideBar.vue';
 import EventBus from '../utils/event-bus';
 
 export default {
@@ -72,26 +60,11 @@ export default {
     taskModelURI() {
       return "/api/tasks/model/environment/" + this.theEnvironmentName + "/task/" + this.theTaskName + "/misusecase/" + this.theMisuseCaseName;
     },
-    assetSelected() {
-      return this.theSelectedObject != null && this.theSelectedDimension == 'assets' ? true : false;
+    sidebarTitle() {
+      return this.theSelectedObject != undefined ? this.theSelectedObject.theName : '';
     },
-    attackerSelected() {
-      return this.theSelectedObject != null && this.theSelectedDimension == 'attackers' ? true : false;
-    },
-    misuseCaseNodeSelected() {
-      return this.theSelectedObject != null && this.theSelectedDimension == 'misusecases' ? true : false;
-    },
-    personaSelected() {
-      return this.theSelectedObject != null && this.theSelectedDimension == 'personas' ? true : false;
-    },
-    roleSelected() {
-      return this.theSelectedObject != null && this.theSelectedDimension == 'roles' ? true : false;
-    },
-    taskNodeSelected() {
-      return this.theSelectedObject != null && this.theSelectedDimension == 'tasks' ? true : false;
-    },
-    useCaseSelected() {
-      return this.theSelectedObject != null && this.theSelectedDimension == 'usecases' ? true : false;
+    panelParameters() {
+      return this.theEnvironmentName != '' ? {'environment' : this.theEnvironmentName} : undefined;
     }
   },
   data() {
@@ -106,20 +79,12 @@ export default {
   components : {
     DimensionSelect,
     GraphicalModel,
-    AssetModal,
-    AttackerModal,
-    MisuseCaseModal,
-    PersonaModal,
-    RoleModal,
-    TaskModal,
-    UseCaseModal
+    SideBar
   },
   methods : {
     nodeClicked(url) {
-      const dimName = url.slice(5).substring(0, url.slice(5).indexOf('/'))
-      this.theSelectedDimension = dimName;
-      let that = this;
-      if (['assets','attackers','misusecases','personas','roles','tasks','usecases'].indexOf(dimName) == -1) {
+      this.theSelectedDimension = url.slice(5).substring(0, url.slice(5).indexOf('/'))
+      if (['assets','attackers','misusecases','personas','roles','tasks','usecases'].indexOf(this.theSelectedDimension) == -1) {
         return;
       }
       axios.get(url,{
@@ -128,41 +93,6 @@ export default {
       })
       .then(response => {
         this.theSelectedObject = response.data;
-        if (dimName == 'assets') {
-          if (that.$refs.assetDialog != undefined) {
-            that.$refs.assetDialog.show();  
-          }
-        }
-        else if (dimName == 'attackers') {
-          if (that.$refs.attackerDialog != undefined) {
-            that.$refs.attackerDialog.show();  
-          }
-        }
-        else if (dimName == 'misusecases') {
-          if (that.$refs.mcDialog != undefined) {
-            that.$refs.mcDialog.show();  
-          }
-        }
-        else if (dimName == 'personas') {
-          if (that.$refs.personaDialog != undefined) {
-            that.$refs.personaDialog.show();  
-          }
-        }
-        else if (dimName == 'roles') {
-          if (that.$refs.roleDialog != undefined) {
-            that.$refs.roleDialog.show();  
-          }
-        }
-        else if (dimName == 'tasks') {
-          if (that.$refs.taskDialog != undefined) {
-            that.$refs.taskDialog.show();  
-          }
-        }
-        else if (dimName == 'usecases') {
-          if (that.$refs.ucDialog != undefined) {
-            that.$refs.ucDialog.show();  
-          }
-        }
       })
       .catch((error) => {
         EventBus.$emit('operation-failure',error)

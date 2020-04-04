@@ -20,57 +20,47 @@ under the License.
 Authors: Shamal Faily 
 -->
 
-  <b-modal ref="templateGoalDialog" ok-only :title="dialogTitle">
-    <b-container v-if="objt != undefined">
+  <div class="templategoalpanel">
+    <b-container v-if="panelObject != undefined">
       <b-form-group label="Name" label-class="font-weight-bold text-md-left" label-cols="3" label-for="theName" >
-        <b-form-input readonly id="theName" v-model="objt.theName" />
+        <b-form-input readonly id="theName" v-model="panelObject.theName" />
       </b-form-group>
       <b-form-group label="Definition" label-class="font-weight-bold text-md-left" label-for="theDefinition" >
-        <b-form-textarea id="theDefinition" v-model="objt.theDefinition" type="text" :rows=2 :max-rows="4" readonly />
+        <b-form-textarea id="theDefinition" v-model="panelObject.theDefinition" type="text" :rows=2 :max-rows="4" readonly />
       </b-form-group>
       <b-form-group label="Rationale" label-class="font-weight-bold text-md-left" label-for="theFitCriterion" >
-        <b-form-textarea id="theFitCriterion" v-model="objt.theRationale" type="text" :rows=2 :max-rows="4" readonly />
+        <b-form-textarea id="theFitCriterion" v-model="panelObject.theRationale" type="text" :rows=2 :max-rows="4" readonly />
       </b-form-group>
-      <b-table bordered small :items="objt.theConcerns.map(c => ({name: c}))" :fields="concernTableFields" />
-      <b-table bordered small :items="objt.theResponsibilities.map(r => ({name: r}))" :fields="responsibilityTableFields" />
+      <b-table bordered small :items="concerns" :fields="concernTableFields" />
+      <b-table bordered small :items="responsibilities" :fields="responsibilityTableFields" />
     </b-container>
-  </b-modal>
+  </div>
 </template>
 
 <script>
 
   export default {
-    name: 'template-goal-modal',
+    name: 'templategoal-panel',
     props : {
-      environment : String,
-      goal : Object
+      panelParameters : Object,
+      panelObject : Object
+    },
+    computed : {
+      concerns() {
+        return this.panelObject != undefined && this.panelObject.theConcerns != undefined ? this.panelObject.theConcerns.map(c => ({name: c})) : [];
+      },
+      responsibilities() {
+        return this.panelObject != undefined && this.panelObject.theResponsibilities != undefined ? this.panelObject.theResponsibilities.map(r => ({name: r})) : [];
+      }
     },
     data() {
       return {
-        theEnvironmentName : this.environment,
-        objt : this.goal,
-        concernTableFields : {
-          name : {label : 'Concern'}
-        },
-        responsibilityTableFields : {
-          name : {label : 'Responsibility'}
-        }
-      }
-    },
-    watch : {
-      goal: 'updateData'
-    },
-    computed : {
-      dialogTitle() {
-        return (this.objt != undefined ? this.objt.theName : '') + ' Template Goal';
-      }
-    },
-    methods : {
-      show() {
-        this.$refs.templateGoalDialog.show();
-      },
-      updateData() {
-        this.objt = this.goal;
+        concernTableFields : [
+          {key: 'name', label : 'Concern'}
+        ],
+        responsibilityTableFields : [
+          {key: 'name', label : 'Responsibility'}
+        ]
       }
     }
   };

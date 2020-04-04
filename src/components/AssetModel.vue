@@ -18,9 +18,8 @@ Authors: Shamal Faily
 -->
 
   <div class="assetmodel">
-    <asset-modal v-if="theEnvironmentName != ''" ref="assetDialog" :environment="this.theEnvironmentName" :asset="this.theSelectedObject"/> 
-    <persona-modal v-if="theEnvironmentName != ''" ref="personaDialog" :environment="this.theEnvironmentName" :persona="this.theSelectedObject"/> 
     <b-card no-body>
+      <side-bar :dimension="theSelectedDimension" :panelParameters="panelParameters" :panelObject="theSelectedObject" />
       <b-container fluid>
         <b-row>
           <b-col>
@@ -54,10 +53,9 @@ Authors: Shamal Faily
 
 <script>
 import axios from 'axios';
-import GraphicalModel from '@/components/GraphicalModel.vue'
-import DimensionSelect from '@/components/DimensionSelect.vue'
-import AssetModal from '@/components/AssetModal.vue'
-import PersonaModal from '@/components/PersonaModal.vue'
+import GraphicalModel from '@/components/GraphicalModel.vue';
+import DimensionSelect from '@/components/DimensionSelect.vue';
+import SideBar from '@/components/SideBar.vue';
 import EventBus from '../utils/event-bus';
 export default {
   computed : {
@@ -69,6 +67,9 @@ export default {
     },
     asset() {
       return this.theAssetName == undefined || this.theAssetName.length == 0 ? 'all' : this.theAssetName;
+    },
+    panelParameters() {
+      return this.theEnvironmentName != '' ? {'environment' : this.theEnvironmentName} : undefined;
     }
   },
   data() {
@@ -76,19 +77,19 @@ export default {
       theEnvironmentName : '',
       theAssetName : 'all',
       theConcernsHidden : true,
-      theSelectedObject: null
+      theSelectedObject: null,
+      theSelectedDimension : ''
     }
   },
   components : {
     GraphicalModel,
     DimensionSelect,
-    AssetModal,
-    PersonaModal
+    SideBar
   },
   methods : {
     nodeClicked(url) {
-      const dimName = url.slice(5).substring(0, url.slice(5).indexOf('/'))
-      if (['assets','personas'].indexOf(dimName) == -1) {
+      this.theSelectedDimension = url.slice(5).substring(0, url.slice(5).indexOf('/'))
+      if (['assets','personas'].indexOf(this.theSelectedDimension) == -1) {
         return;
       }
       axios.get(url,{
@@ -97,12 +98,6 @@ export default {
       })
       .then(response => {
         this.theSelectedObject = response.data;
-        if (dimName == 'assets') {
-          this.$refs.assetDialog.show();  
-        }
-        else if (dimName == 'personas') {
-          this.$refs.personaDialog.show();  
-        }
       })
       .catch((error) => {
         EventBus.$emit('operation-failure',error)

@@ -20,45 +20,24 @@ under the License.
 Authors: Shamal Faily 
 -->
 
-  <b-modal ref="mcDialog" ok-only :title="dialogTitle">
-    <b-container v-if="objt != undefined">
+  <div class="misusecasepanel">
+    <b-container v-if="panelObject != undefined">
       <b-form-textarea id="theNarrative" v-model="narrative" type="text" rows="10" readonly />
     </b-container>
-  </b-modal>
+  </div>
 </template>
 
 <script>
 
   export default {
-    name: 'misuse-case-modal',
+    name: 'misusecase-panel',
     props : {
-      environment : String,
-      misusecase : Object
-    },
-    data() {
-      return {
-        theEnvironmentName : this.environment,
-        objt : this.misusecase
-      }
-    },
-    watch : {
-      misusecase: 'updateData'
+      panelParameters : Object,
+      panelObject : Object
     },
     computed : {
-      dialogTitle() {
-        return (this.objt != undefined ? this.objt.theName : '') + ' Misuse Case';
-      },
       narrative() {
-        return this.objt != undefined && this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.theEnvironmentName)[0].theDescription : '';
-      }
-    },
-    methods : {
-      show() {
-        this.$refs.mcDialog.show();
-      },
-      updateData() {
-        this.objt = this.misusecase
-        this.theEnvironmentName = this.environment
+        return this.panelObject != undefined && this.panelObject.theEnvironmentProperties != undefined && this.panelObject.theEnvironmentProperties.length > 0 ? this.panelObject.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.panelParameters.environment)[0].theDescription : '';
       }
     }
   };

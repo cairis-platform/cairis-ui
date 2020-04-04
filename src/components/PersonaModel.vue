@@ -21,8 +21,7 @@ Authors: Shamal Faily
 -->
 
   <div class="personamodel">
-    <external-document-modal v-if="thePersonaName != ''" ref="edDialog" :external_document="this.theSelectedObject"/> 
-    <document-reference-modal v-if="thePersonaName != ''" ref="drDialog" :document_reference="this.theSelectedObject"/> 
+    <side-bar :nodeClicked="isNodeClicked" :title="sidebarTitle" :dimension="theSelectedDimension" :panelParameters="panelParameters" :panelObject="theSelectedObject" />
     <b-card no-body>
       <b-container fluid>
         <b-row>
@@ -51,10 +50,9 @@ Authors: Shamal Faily
 <script>
 
 import axios from 'axios';
-import GraphicalModel from '@/components/GraphicalModel.vue'
-import DimensionSelect from '@/components/DimensionSelect.vue'
-import ExternalDocumentModal from '@/components/ExternalDocumentModal.vue'
-import DocumentReferenceModal from '@/components/DocumentReferenceModal.vue'
+import GraphicalModel from '@/components/GraphicalModel.vue';
+import DimensionSelect from '@/components/DimensionSelect.vue';
+import SideBar from '@/components/SideBar.vue';
 import EventBus from '../utils/event-bus';
 
 export default {
@@ -64,6 +62,12 @@ export default {
     },
     pcUrl() {
       return this.thePersonaName != '' ? '/api/personas/characteristics/name/' + this.thePersonaName + '/variable/' + this.theBehaviourType + '/characteristic/' + this.theCharacteristic : '';
+    },
+    sidebarTitle() {
+      return this.theSelectedObject != undefined ? this.theSelectedObject.theName : '';
+    },
+    panelParameters() {
+      return undefined;
     }
   },
   data() {
@@ -72,7 +76,9 @@ export default {
       theBehaviourType : 'all',
       theCharacteristic : 'all',
       behaviourTypes : ['all','Activities','Aptitudes','Attitudes','Motivations','Skills','Environment Narrative','Intrinsic','Contextual'],
-      theSelectedObject: null
+      theSelectedObject: null,
+      theSelectedDimension : '',
+      isNodeClicked : false
     }
   },
   watch : {
@@ -84,8 +90,7 @@ export default {
   },
   components : {
     DimensionSelect,
-    ExternalDocumentModal,
-    DocumentReferenceModal,
+    SideBar,
     GraphicalModel
   },
   methods : {
@@ -111,11 +116,12 @@ export default {
       .then(response => {
         this.theSelectedObject = response.data;
         if (dimName == 'backings') {
-          this.$refs.edDialog.show();  
+          this.theSelectedDimension = 'external_documents';  
         }
         else {
-          this.$refs.drDialog.show();  
+          this.theSelectedDimension = 'document_references';  
         }
+        this.isNodeClicked = true;
       })
       .catch((error) => {
         EventBus.$emit('operation-failure',error)

@@ -18,8 +18,7 @@ Authors: Shamal Faily
 -->
 
   <div class="componentgoalmodel">
-    <template-goal-modal v-if="theComponentName != ''" ref="templateGoalDialog" :goal="this.theSelectedObject"/> 
-    <role-modal ref="roleDialog" :role="this.theSelectedObject"/> 
+    <side-bar :dimension="theSelectedDimension" :panelParameters="panelParameters" :panelObject="theSelectedObject" />
     <b-card no-body>
     <b-container fluid>
       <b-row>
@@ -39,33 +38,36 @@ Authors: Shamal Faily
 
 <script>
 import axios from 'axios';
-import GraphicalModel from '@/components/GraphicalModel.vue'
-import DimensionSelect from '@/components/DimensionSelect.vue'
-import TemplateGoalModal from '@/components/TemplateGoalModal.vue'
-import RoleModal from '@/components/RoleModal.vue'
+import GraphicalModel from '@/components/GraphicalModel.vue';
+import DimensionSelect from '@/components/DimensionSelect.vue';
+import SideBar from '@/components/SideBar.vue';
 import EventBus from '../utils/event-bus';
+
 export default {
   computed : {
     componentGoalModelURI() {
       return "/api/architectural_patterns/component/goal/model/" + this.theComponentName ;
+    },
+    panelParameters() {
+      return undefined;
     }
   },
   data() {
     return {
       theComponentName : '',
-      theSelectedObject: null
+      theSelectedObject: null,
+      theSelectedDimension : ''
     }
   },
   components : {
     GraphicalModel,
     DimensionSelect,
-    TemplateGoalModal,
-    RoleModal
+    SideBar
   },
   methods : {
     nodeClicked(url) {
-      const dimName = url.slice(5).substring(0, url.slice(5).indexOf('/'))
-      if (['template_goals','roles'].indexOf(dimName) == -1) {
+      this.theSelectedDimension = url.slice(5).substring(0, url.slice(5).indexOf('/'))
+      if (['template_goals','roles'].indexOf(this.theSelectedDimension) == -1) {
         return;
       }
       axios.get(url,{
@@ -74,12 +76,6 @@ export default {
       })
       .then(response => {
         this.theSelectedObject = response.data;
-        if (dimName == 'template_goals') {
-          this.$refs.templateGoalDialog.show();  
-        }
-        else if (dimName == 'roles') {
-          this.$refs.roleDialog.show();  
-        }
       })
       .catch((error) => {
         EventBus.$emit('operation-failure',error);

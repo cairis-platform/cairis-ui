@@ -20,59 +20,39 @@ under the License.
 Authors: Shamal Faily 
 -->
 
-  <b-modal ref="externalDocumentDialog" ok-only :title="dialogTitle">
-    <b-container v-if="objt != undefined">
+  <div class="externaldocumentpanel">
+    <b-container v-if="panelObject != undefined">
       <b-form-group label="Name" label-class="font-weight-bold text-md-left">
-        <b-form-input v-model="objt.theName" type="text" readonly>
+        <b-form-input v-model="panelObject.theName" type="text" readonly>
         </b-form-input>
       </b-form-group>
       <b-form-group label="Authors" label-class="font-weight-bold text-md-left">
-        <b-form-input v-model="objt.theAuthors" type="text" readonly>
+        <b-form-input v-model="panelObject.theAuthors" type="text" readonly>
         </b-form-input>
       </b-form-group>
       <b-form-group label="Version" label-class="font-weight-bold text-md-left">
-        <b-form-input v-model="objt.theVersion" type="text" readonly>
+        <b-form-input v-model="panelObject.theVersion" type="text" readonly>
         </b-form-input>
       </b-form-group>
       <b-form-group label="Publication Date" label-class="font-weight-bold text-md-left">
-        <b-form-input v-model="objt.thePublicationDate" type="text" readonly>
+        <b-form-input v-model="panelObject.thePublicationDate" type="text" readonly>
         </b-form-input>
       </b-form-group>
       <b-form-group label="Description" label-class="font-weight-bold text-md-left">
-        <b-form-textarea v-model="objt.theDescription" type="text" :rows=4 :max-rows=6 readonly>
+        <b-form-textarea v-model="panelObject.theDescription" type="text" :rows=4 :max-rows=6 readonly>
         </b-form-textarea>
       </b-form-group>
     </b-container>
-  </b-modal>
+  </div>
 </template>
 
 <script>
 
   export default {
-    name: 'external-document-modal',
+    name: 'externaldocument-panel',
     props : {
-      external_document : Object
-    },
-    data() {
-      return {
-        objt : this.external_document
-      }
-    },
-    watch : {
-      external_document : 'updateData'
-    },
-    computed : {
-      dialogTitle() {
-        return (this.objt != undefined ? this.objt.theName : '') + ' External Document';
-      },
-    },
-    methods : {
-      show() {
-        this.$refs.externalDocumentDialog.show();
-      },
-      updateData() {
-        this.objt = this.external_document;
-      }
+      panelParameters : Object,
+      panelObject : Object
     }
   };
 </script>

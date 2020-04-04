@@ -20,59 +20,42 @@ under the License.
 Authors: Shamal Faily 
 -->
 
-  <b-modal ref="templateAssetDialog" ok-only :title="dialogTitle">
-    <b-container v-if="objt != undefined">
+  <div class="templateassetpanel">
+    <b-container v-if="panelObject != undefined">
       <b-form-group label="Type" label-class="font-weight-bold text-sm-left" label-cols="3" label-for="theType" >
-        <b-form-input readonly id="theType" v-model="objt.theType"></b-form-input>
+        <b-form-input readonly id="theType" v-model="panelObject.theType" />
       </b-form-group>
       <b-form-group label="Description" label-class="font-weight-bold text-sm-left" label-for="theDescription" >
-        <b-form-textarea id="theDescription" v-model="objt.theDescription" type="text" :rows=2 :max-rows="4" readonly>
-        </b-form-textarea>
+        <b-form-textarea id="theDescription" v-model="panelObject.theDescription" type="text" :rows=2 :max-rows="4" readonly />
       </b-form-group>
       <b-form-group label="Significance" label-class="font-weight-bold text-sm-left" label-for="theSignificance" >
-        <b-form-textarea id="theSignificance" v-model="objt.theSignificance" type="text" :rows=2 :max-rows="4" readonly>
-        </b-form-textarea>
+        <b-form-textarea id="theSignificance" v-model="panelObject.theSignificance" type="text" :rows=2 :max-rows="4" readonly />
       </b-form-group>
-      <b-table bordered small :items="notNone" :fields="propTableFields">
-      </b-table>
+      <b-table bordered small :items="notNone" :fields="propTableFields" />
     </b-container>
-  </b-modal>
+  </div>
 </template>
 
 <script>
 
   export default {
-    name: 'template-asset-modal',
+    name: 'templateasset-panel',
     props : {
-      asset : Object
+      panelParameters : Object,
+      panelObject : Object
     },
     data() {
       return {
-        objt : this.asset,
-        propTableFields : {
-          name : {label : 'Property'},
-          value : {label : 'Value'},
-          rationale : {label : 'Rationale'} 
-        }
+        propTableFields : [
+          {key: 'name', label : 'Property'},
+          {key: 'value', label : 'Value'},
+          {key: 'rationale', label : 'Rationale'} 
+        ]
       }
-    },
-    watch : {
-      asset: 'updateData'
     },
     computed : {
-      dialogTitle() {
-        return (this.objt != undefined ? this.objt.theName : '') + ' Template Asset';
-      },
       notNone() {
-        return this.objt != undefined ? this.objt.theProperties.filter(prop => prop.value != 'None') : [];
-      }
-    },
-    methods : {
-      show() {
-        this.$refs.templateAssetDialog.show();
-      },
-      updateData() {
-        this.objt = this.asset;
+        return this.panelObject != undefined && this.panelObject.theProperties != undefined ? this.panelObject.theProperties.filter(prop => prop.value != 'None') : [];
       }
     }
   };

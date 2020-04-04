@@ -21,9 +21,7 @@ Authors: Shamal Faily
 -->
 
   <div class="locationsmodel">
-    <asset-modal ref="assetDialog" :environment="this.theEnvironmentName" :asset="this.theSelectedObject"/> 
-    <risk-modal ref="riskDialog" :environment="this.theEnvironmentName" :risk="this.theSelectedObject" :responseList="this.theResponseList"/> 
-    <persona-modal ref="personaDialog" :environment="this.theEnvironmentName" :persona="this.theSelectedObject" /> 
+    <side-bar :dimension="theSelectedDimension" :panelParameters="panelParameters" :panelObject="theSelectedObject" />
     <b-card no-body>
     <b-container fluid>
       <b-row>
@@ -49,15 +47,16 @@ Authors: Shamal Faily
 import axios from 'axios';
 import GraphicalModel from '@/components/GraphicalModel.vue'
 import DimensionSelect from '@/components/DimensionSelect.vue'
-import AssetModal from '@/components/AssetModal.vue'
-import RiskModal from '@/components/RiskModal.vue'
-import PersonaModal from '@/components/PersonaModal.vue'
+import SideBar from '@/components/SideBar.vue'
 import EventBus from '../utils/event-bus';
 
 export default {
   computed : {
     locationsModelURI() {
       return "/api/locations/model/locations/" + this.theLocationsName + "/environment/" + this.theEnvironmentName;
+    },
+    panelParameters() {
+      return this.theEnvironmentName != '' ? {'environment' : this.theEnvironmentName, 'responses' : this.theResponseList} : undefined;
     }
   },
   data() {
@@ -65,20 +64,19 @@ export default {
       theLocationsName : '',
       theEnvironmentName : '',
       theResponseList : [],
-      theSelectedObject: null
+      theSelectedObject: null,
+      theSelectedDimension : ''
     }
   },
   components : {
     DimensionSelect,
     GraphicalModel,
-    AssetModal,
-    RiskModal,
-    PersonaModal,
+    SideBar
   },
   methods : {
     nodeClicked(url) {
-      const dimName = url.slice(5).substring(0, url.slice(5).indexOf('/'))
-      if (['assets','risks','personas'].indexOf(dimName) == -1) {
+      this.theSelectedDimension = url.slice(5).substring(0, url.slice(5).indexOf('/'))
+      if (['assets','risks','personas'].indexOf(this.theSelectedDimension) == -1) {
         return;
       }
       axios.get(url,{
@@ -86,42 +84,38 @@ export default {
         params : {'session_id' : this.$store.state.session}
       })
       .then(response => {
-        this.theSelectedObject = response.data;
-        if (dimName == 'assets') {
-          this.$refs.assetDialog.show();  
-        }
-        else if (dimName == 'personas') {
-          this.$refs.personaDialog.show();  
-        }
-        else if (dimName == 'risks') {
+        if (this.theSelectedDimension == 'risks') {
           axios.get('/api/risks/name/' + this.theSelectedObject.theName + '/threat/' + this.theSelectedObject.theThreatName + '/vulnerability/' + this.theSelectedObject.theVulnerabilityName + '/environment/' + this.theEnvironmentName,{
             baseURL : this.$store.state.url,
             params : {'session_id' : this.$store.state.session}
           })
           .then(response => {
             this.theResponseList = response.data;
-            this.$refs.riskDialog.show();  
+            this.theSelectedObject = response.data;
           })
           .catch((error) => {
             EventBus.$emit('operation-failure',error)
           })
         }
+        else {
+          this.theSelectedObject = response.data;
+        }
       })
       .catch((error) => {
-        EventBus.$emit('operation-failure',error)
+        EventBus.$emit('operation-failure',error);
       })
     },
     locationsSelected(locsName) {
-      this.theLocationsName = locsName
+      this.theLocationsName = locsName;
     },
     locationsLoaded(locsName) {
-      this.theLocationsName = locsName
+      this.theLocationsName = locsName;
     },
     environmentSelected(envName) {
-      this.theEnvironmentName = envName
+      this.theEnvironmentName = envName;
     },
     environmentsLoaded(envName) {
-      this.theEnvironmentName = envName
+      this.theEnvironmentName = envName;
     }
   }
 }

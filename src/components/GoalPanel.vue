@@ -20,13 +20,13 @@ under the License.
 Authors: Shamal Faily 
 -->
 
-  <b-modal ref="goalDialog" ok-only :title="dialogTitle">
-    <b-container v-if="objt != undefined">
+  <div class="goalpanel">
+    <b-container v-if="panelObject != undefined">
       <b-form-group label="Name" label-class="font-weight-bold text-sm-left" label-for="theName" >
-        <b-form-input readonly id="theName" v-model="objt.theName"></b-form-input>
+        <b-form-input readonly id="theName" v-model="panelObject.theName"></b-form-input>
       </b-form-group>
       <b-form-group label="Originator" label-class="font-weight-bold text-sm-left" label-for="theOriginator" >
-        <b-form-input readonly id="theOriginator" v-model="objt.theOriginator"></b-form-input>
+        <b-form-input readonly id="theOriginator" v-model="panelObject.theOriginator"></b-form-input>
       </b-form-group>
       <b-form-group label="Category" label-class="font-weight-bold text-sm-left" label-for="theCategory" >
         <b-form-input readonly id="theCategory" v-model="category"></b-form-input>
@@ -45,56 +45,39 @@ Authors: Shamal Faily
       <b-table bordered small :items="concerns" :fields="concernTableFields">
       </b-table> 
     </b-container>
-  </b-modal>
+  </div>
 </template>
 
 <script>
 
   export default {
-    name: 'goal-modal',
+    name: 'goal-panel',
     props : {
-      environment : String,
-      goal : Object
+      panelParameters : Object,
+      panelObject : Object
     },
     data() {
       return {
-        theEnvironmentName : this.environment,
-        objt : this.goal,
-        concernTableFields : {
-          concern : {label : 'Concern'}
-        }
+        concernTableFields : [
+          {key: 'concern', label : 'Concern'}
+        ]
       }
-    },
-    watch : {
-      goal: 'updateData'
     },
     computed : {
-      dialogTitle() {
-        return (this.objt != undefined ? this.objt.theName : '') + ' Goal';
-      },
       definition() {
-        return this.objt != undefined && this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.theEnvironmentName)[0].theDefinition : '';
+        return this.panelObject != undefined && this.panelObject.theEnvironmentProperties != undefined && this.panelObject.theEnvironmentProperties.length > 0 ? this.panelObject.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.panelParameters.environment)[0].theDefinition : '';
       },
       category() {
-        return this.objt != undefined && this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.theEnvironmentName)[0].theCategory : '';
+        return this.panelObject != undefined && this.panelObject.theEnvironmentProperties != undefined && this.panelObject.theEnvironmentProperties.length > 0 ? this.panelObject.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.panelParameters.environment)[0].theCategory : '';
       },
       fitCriterion() {
-        return this.objt != undefined && this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.theEnvironmentName)[0].theFitCriterion : '';
+        return this.panelObject != undefined && this.panelObject.theEnvironmentProperties != undefined && this.panelObject.theEnvironmentProperties.length > 0 ? this.panelObject.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.panelParameters.environment)[0].theFitCriterion : '';
       },
       priority() {
-        return this.objt != undefined && this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.theEnvironmentName)[0].thePriority : '';
+        return this.panelObject != undefined && this.panelObject.theEnvironmentProperties != undefined && this.panelObject.theEnvironmentProperties.length > 0 ? this.panelObject.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.panelParameters.environment)[0].thePriority : '';
       },
       concerns() {
-        return this.objt != undefined && this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.theEnvironmentName)[0].theConcerns.map(concern => ({'concern' : concern})) : []
-      }
-    },
-    methods : {
-      show() {
-        this.$refs.goalDialog.show();
-      },
-      updateData() {
-        this.objt = this.goal
-        this.theEnvironmentName = this.environment
+        return this.panelObject != undefined && this.panelObject.theEnvironmentProperties != undefined && this.panelObject.theEnvironmentProperties.length > 0 ? this.panelObject.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.panelParameters.environment)[0].theConcerns.map(concern => ({'concern' : concern})) : []
       }
     }
   };

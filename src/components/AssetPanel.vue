@@ -20,37 +20,32 @@ under the License.
 Authors: Shamal Faily 
 -->
 
-  <b-modal ref="assetDialog" ok-only :title="dialogTitle">
-    <b-container v-if="objt != undefined">
+  <div class="assetpanel">
+    <b-container v-if="panelObject != undefined">
       <b-form-group label="Type" label-class="font-weight-bold text-sm-left" label-for="theType" >
-        <b-form-input readonly id="theType" v-model="objt.theType"></b-form-input>
+        <b-form-input readonly id="theType" v-model="panelObject.theType" />
       </b-form-group>
       <b-form-group label="Description" label-class="font-weight-bold text-sm-left" label-for="theDescription" >
-        <b-form-textarea id="theDescription" v-model="objt.theDescription" type="text" :rows=2 :max-rows="4" readonly>
-        </b-form-textarea>
+        <b-form-textarea id="theDescription" v-model="panelObject.theDescription" type="text" :rows=2 :max-rows="4" readonly />
       </b-form-group>
       <b-form-group label="Significance" label-class="font-weight-bold text-sm-left" label-for="theSignificance" >
-        <b-form-textarea id="theSignificance" v-model="objt.theSignificance" type="text" :rows=2 :max-rows="4" readonly>
-        </b-form-textarea>
+        <b-form-textarea id="theSignificance" v-model="panelObject.theSignificance" type="text" :rows=2 :max-rows="4" readonly />
       </b-form-group>
-      <b-table bordered small :items="notNone" :fields="propTableFields">
-      </b-table>
+      <b-table bordered small :items="notNone" :fields="propTableFields" />
     </b-container>
-  </b-modal>
+  </div>
 </template>
 
 <script>
 
   export default {
-    name: 'asset-modal',
+    name: 'asset-panel',
     props : {
-      environment : String,
-      asset : Object
+      panelParameters : Object,
+      panelObject : Object
     },
     data() {
       return {
-        theEnvironmentName : this.environment,
-        objt : this.asset,
         propTableFields : [
           {key: 'name', label : 'Property'},
           {key: 'value', label : 'Value'},
@@ -58,26 +53,9 @@ Authors: Shamal Faily
         ]
       }
     },
-    watch : {
-      asset: 'updateData'
-    },
     computed : {
-      dialogTitle() {
-        return (this.objt != undefined ? this.objt.theName : '') + ' Asset';
-      },
       notNone() {
-        return this.objt != undefined && this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.theEnvironmentName)[0].theProperties.filter(prop => prop.value != 'None') : [];
-      }
-    },
-    methods : {
-      show() {
-        if (this.$refs.assetDialog != undefined) {
-          this.$refs.assetDialog.show();
-        }
-      },
-      updateData() {
-        this.objt = this.asset
-        this.theEnvironmentName = this.environment
+        return this.panelObject != undefined && this.panelObject.theEnvironmentProperties != undefined && this.panelObject.theEnvironmentProperties.length > 0 && this.panelObject.theEnvironmentProperties[0].theProperties != undefined ? this.panelObject.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.panelParameters.environment)[0].theProperties.filter(prop => prop.value != 'None') : [];
       }
     }
   };

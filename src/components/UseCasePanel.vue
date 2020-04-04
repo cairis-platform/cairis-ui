@@ -20,43 +20,38 @@ under the License.
 Authors: Shamal Faily 
 -->
 
-  <b-modal ref="ucDialog" ok-only :title="dialogTitle">
-    <b-container v-if="objt != undefined">
+  <div class="usecasepanel">
+    <b-container v-if="panelObject != undefined">
       <b-form-group label="Name" label-class="font-weight-bold text-sm-left" label-for="theName" >
-        <b-form-input readonly id="theName" v-model="objt.theName"></b-form-input>
+        <b-form-input readonly id="theName" v-model="panelObject.theName" />
       </b-form-group>
       <b-form-group label="Description" label-class="font-weight-bold text-sm-left" label-for="theDescription" >
-        <b-form-textarea id="theDescription" v-model="objt.theDescription" type="text" :rows=2 :max-rows="4" readonly>
-        </b-form-textarea>
+        <b-form-textarea id="theDescription" v-model="panelObject.theDescription" type="text" :rows=2 :max-rows="4" readonly />
       </b-form-group>
       <b-table bordered small :items="actors" :fields="actorTableFields">
       </b-table>
       <b-form-group label="Preconditions" label-class="font-weight-bold text-sm-left" label-for="thePreconditions" >
-        <b-form-textarea id="thePreconditions" v-model="preconditions" type="text" :rows=2 :max-rows="4" readonly>
-        </b-form-textarea>
+        <b-form-textarea id="thePreconditions" v-model="preconditions" type="text" :rows=2 :max-rows="4" readonly />
       </b-form-group>
       <b-table bordered small :items="steps" :fields="stepTableFields">
       </b-table> 
       <b-form-group label="Postconditions" label-class="font-weight-bold text-sm-left" label-for="thePostconditions" >
-        <b-form-textarea id="thePostconditions" v-model="postconditions" type="text" :rows=2 :max-rows="4" readonly>
-        </b-form-textarea>
+        <b-form-textarea id="thePostconditions" v-model="postconditions" type="text" :rows=2 :max-rows="4" readonly />
       </b-form-group>
     </b-container>
-  </b-modal>
+  </div>
 </template>
 
 <script>
 
   export default {
-    name: 'use-case-modal',
+    name: 'usecase-panel',
     props : {
-      environment : String,
-      usecase : Object
+      panelParameters : Object,
+      panelObject : Object
     },
     data() {
       return {
-        theEnvironmentName : this.environment,
-        objt : this.usecase,
         actorTableFields : [
           {key: 'actor', label : 'Actor'}
         ],
@@ -66,33 +61,18 @@ Authors: Shamal Faily
         ]
       }
     },
-    watch : {
-      usecase: 'updateData'
-    },
     computed : {
-      dialogTitle() {
-        return (this.objt != undefined ? this.objt.theName : '') + ' Use Case';
-      },
       actors() {
-        return this.objt != undefined && this.objt.theActors != undefined ? this.objt.theActors.map(actor => ({'actor': actor})) : []
+        return this.panelObject != undefined && this.panelObject.theActors != undefined ? this.panelObject.theActors.map(actor => ({'actor': actor})) : [];
       },
       preconditions() {
-        return this.objt != undefined && this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.theEnvironmentName)[0].thePreCond : '';
+        return this.panelObject != undefined && this.panelObject.theEnvironmentProperties != undefined && this.panelObject.theEnvironmentProperties.length > 0 && this.panelObject.theEnvironmentProperties[0].thePreCond != undefined ? this.panelObject.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.panelParameters.environment)[0].thePreCond : '';
       },
       postconditions() {
-        return this.objt != undefined && this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.theEnvironmentName)[0].thePostCond : '';
+        return this.panelObject != undefined && this.panelObject.theEnvironmentProperties != undefined && this.panelObject.theEnvironmentProperties.length > 0 && this.panelObject.theEnvironmentProperties[0].thePostCond != undefined ? this.panelObject.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.panelParameters.environment)[0].thePostCond : '';
       },
       steps() {
-        return this.objt != undefined && this.objt.theEnvironmentProperties.length > 0 ? this.objt.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.theEnvironmentName)[0].theSteps.map((step,idx) => ({'no' : idx + 1, 'step' : step.theStepText})) : []
-      }
-    },
-    methods : {
-      show() {
-        this.$refs.ucDialog.show();
-      },
-      updateData() {
-        this.objt = this.usecase
-        this.theEnvironmentName = this.environment
+        return this.panelObject != undefined && this.panelObject.theEnvironmentProperties != undefined && this.panelObject.theEnvironmentProperties.length > 0 && this.panelObject.theEnvironmentProperties[0].theSteps != undefined ? this.panelObject.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.panelParameters.environment)[0].theSteps.map((step,idx) => ({'no' : idx + 1, 'step' : step.theStepText})) : [];
       }
     }
   };

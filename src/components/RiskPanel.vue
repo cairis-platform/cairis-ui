@@ -20,44 +20,40 @@ under the License.
 Authors: Shamal Faily 
 -->
 
-  <b-modal ref="riskDialog" ok-only :title="dialogTitle">
-    <b-container v-if="objt != undefined">
+  <div class="riskpanel">
+    <b-container v-if="panelObject != undefined">
       <b-tabs>
         <b-tab title="Impact" active>
           <b-form-group label="Threat" label-class="font-weight-bold text-sm-left" label-for="theThreat" >
-            <b-form-input readonly id="theThreat" v-model="objt.theThreatName"></b-form-input>
+            <b-form-input readonly id="theThreat" v-model="panelObject.theThreatName" />
           </b-form-group>
           <b-form-group label="Vulnerability" label-class="font-weight-bold text-sm-left" label-for="theVulnerability" >
-            <b-form-input readonly id="theVulnerability" v-model="objt.theVulnerabilityName"></b-form-input>
+            <b-form-input readonly id="theVulnerability" v-model="panelObject.theVulnerabilityName" />
           </b-form-group>
           <b-form-group label="Risk Rating" label-class="font-weight-bold text-sm-left" label-for="theRiskRating" >
-            <b-form-input readonly id="theRiskRating" v-model="riskrating"></b-form-input>
+            <b-form-input readonly id="theRiskRating" v-model="riskrating" />
           </b-form-group>
-          <b-table bordered small :items="responses" :fields="responseTableFields" />
+          <b-table bordered small :items="this.panelParameters.responses" :fields="responseTableFields" />
         </b-tab>
         <b-tab title="Misuse Case">
           <b-form-textarea id="theNarrative" v-model="narrative" type="text" rows=10 readonly />
         </b-tab>
       </b-tabs>
     </b-container>
-  </b-modal>
+  </div>
 </template>
 
 <script>
 
 
 export default {
-  name: 'risk-modal',
+  name: 'risk-panel',
   props : {
-    environment : String,
-    risk : Object,
-    responseList : Array
+    panelParameters : Object,
+    panelObject : Object
   },
   data() {
     return {
-      theEnvironmentName : this.environment,
-      objt : this.risk,
-      responses : this.responseList,
       responseTableFields : [
         {key: 'responseName', label : 'Response'},
         {key: 'unmitScore', label : 'Unmitigated Score'},
@@ -65,30 +61,12 @@ export default {
       ]
     }
   },
-  watch : {
-    responseList: 'updateData'
-  },
   computed : {
-    dialogTitle() {
-      return (this.objt != undefined ? this.objt.theName : '') + ' Risk';
-    },
     riskrating() {
-      return this.objt != undefined && this.objt.theMisuseCase.theEnvironmentProperties.length > 0 ? this.objt.theMisuseCase.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.theEnvironmentName)[0].theRiskRating.rating : ''
+      return this.panelObject != undefined && this.panelObject.theMisuseCase != undefined && this.panelObject.theMisuseCase.theEnvironmentProperties.length > 0 ? this.panelObject.theMisuseCase.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.panelParameters.environment)[0].theRiskRating.rating : '';
     },
     narrative() {
-      return this.objt != undefined && this.objt.theMisuseCase.theEnvironmentProperties.length > 0 ? this.objt.theMisuseCase.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.theEnvironmentName)[0].theDescription : ''
-    }
-  },
-  methods : {
-    show() {
-      if (this.$refs.riskDialog != undefined) {
-        this.$refs.riskDialog.show();
-      }
-    },
-    updateData() {
-      this.objt = this.risk
-      this.theEnvironmentName = this.environment
-      this.responses = this.responseList
+      return this.panelObject != undefined && this.panelObject.theMisuseCase != undefined && this.panelObject.theMisuseCase.theEnvironmentProperties.length > 0 ? this.panelObject.theMisuseCase.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.panelParameters.environment)[0].theDescription : '';
     }
   }
 };
