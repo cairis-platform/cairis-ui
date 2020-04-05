@@ -22,9 +22,6 @@ Authors: Shamal Faily
 
   <div class="usecasepanel">
     <b-container v-if="panelObject != undefined">
-      <b-form-group label="Name" label-class="font-weight-bold text-sm-left" label-for="theName" >
-        <b-form-input readonly id="theName" v-model="panelObject.theName" />
-      </b-form-group>
       <b-form-group label="Description" label-class="font-weight-bold text-sm-left" label-for="theDescription" >
         <b-form-textarea id="theDescription" v-model="panelObject.theDescription" type="text" :rows=2 :max-rows="4" readonly />
       </b-form-group>

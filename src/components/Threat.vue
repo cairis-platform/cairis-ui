@@ -37,7 +37,7 @@ Authors: Shamal Faily
           <b-row>
             <b-col md="6">
               <b-form-group label="Threat" label-class="font-weight-bold text-md-left" label-for="theThreatInput">
-                <b-form-input id="theThreatInput" v-model="objt.theThreatName" type="text" required />
+                <b-form-input id="theThreatInput" v-model="objt.theName" type="text" required />
               </b-form-group>
             </b-col>
             <b-col md="6">
@@ -202,7 +202,7 @@ export default {
   methods: {
     checkForm() {
       this.errors = []
-      if (this.objt.theThreatName.length == 0) {
+      if (this.objt.theName.length == 0) {
         this.errors.push('Name is required');
       }
       if (this.objt.theType.length == 0) {

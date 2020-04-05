@@ -22,9 +22,6 @@ Authors: Shamal Faily
 
   <div id="obstaclepanel">
     <b-container v-if="panelObject != undefined">
-      <b-form-group label="Name" label-class="font-weight-bold text-sm-left" label-for="theName" >
-        <b-form-input readonly id="theName" v-model="panelObject.theName" />
-      </b-form-group>
       <b-form-group label="Originator" label-class="font-weight-bold text-sm-left" label-for="theOriginator" >
         <b-form-input readonly id="theOriginator" v-model="panelObject.theOriginator" />
       </b-form-group>

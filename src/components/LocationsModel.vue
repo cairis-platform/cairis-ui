@@ -85,7 +85,7 @@ export default {
       })
       .then(response => {
         if (this.theSelectedDimension == 'risks') {
-          axios.get('/api/risks/name/' + this.theSelectedObject.theName + '/threat/' + this.theSelectedObject.theThreatName + '/vulnerability/' + this.theSelectedObject.theVulnerabilityName + '/environment/' + this.theEnvironmentName,{
+          axios.get('/api/risks/name/' + this.theSelectedObject.theName + '/threat/' + this.theSelectedObject.theName + '/vulnerability/' + this.theSelectedObject.theVulnerabilityName + '/environment/' + this.theEnvironmentName,{
             baseURL : this.$store.state.url,
             params : {'session_id' : this.$store.state.session}
           })

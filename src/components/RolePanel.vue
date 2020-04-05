@@ -22,9 +22,6 @@ Authors: Shamal Faily
 
   <div class="rolepanel">
     <b-container v-if="panelObject != undefined">
-      <b-form-group label="Name" label-class="font-weight-bold text-sm-left" label-for="theName">
-        <b-form-input readonly id="theName" v-model="panelObject.theName" />
-      </b-form-group>
       <b-form-group label="Type" label-class="font-weight-bold text-sm-left" label-for="theType" >
         <b-form-input readonly id="theType" v-model="panelObject.theType" />
       </b-form-group>

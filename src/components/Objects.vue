@@ -562,7 +562,7 @@ export default {
       this.$refs.dirDialog.show();
     },
     addDirectoryEntry(dirEntry) {
-      const newObjt = (this.dimension == 'threat' ? {theThreatName : dirEntry.theLabel,theType : dirEntry.theType, theMethod: dirEntry.theName + ': ' + dirEntry.theDescription + '\nReference: ' + dirEntry.theReference ,theTags : [],theEnvironmentProperties: []} : {theName : dirEntry.theLabel, theType : dirEntry.theType, theDescription : dirEntry.theName + ': ' + dirEntry.theDescription + '\nReference: ' + dirEntry.theReference,theTags : [], theEnvironmentProperties : []});
+      const newObjt = {theName : dirEntry.theLabel, theType : dirEntry.theType, theDescription : dirEntry.theName + ': ' + dirEntry.theDescription + '\nReference: ' + dirEntry.theReference,theTags : [], theEnvironmentProperties : []};
       this.$router.push({ name: 'objectview', params: {dimension: this.dimension, objectName: dirEntry.theLabel, objectsLabel: this.theObjectViewParameters.objectsLabel, componentFile: this.theObjectViewParameters.componentFile, updatePath: this.theObjectViewParameters.updatePath, createPath: this.theObjectViewParameters.createPath, directoryEntry: newObjt}});
     },
     situateCountermeasure(index) {

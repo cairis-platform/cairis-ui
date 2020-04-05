@@ -22,9 +22,6 @@ Authors: Shamal Faily
 
   <div class="taskpanel">
     <b-container v-if="panelObject != undefined">
-      <b-form-group label="Name" label-class="font-weight-bold text-sm-left" label-for="theName" >
-        <b-form-input readonly id="theName" v-model="panelObject.theName" />
-      </b-form-group>
       <b-tabs>
         <b-tab title="Summary" active>
           <b-form-group label="Author" label-class="font-weight-bold text-sm-left" label-for="theAuthor" >
@@ -91,10 +88,10 @@ Authors: Shamal Faily
         return this.panelObject != undefined && this.panelObject.theEnvironmentProperties != undefined && this.panelObject.theEnvironmentProperties.length > 0 ? this.panelObject.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.panelParameters.environment)[0].theNarrative : '';
       },
       concerns() {
-        return this.panelObject != undefined && this.panelObject.theEnvironmentProperties != undefined && this.panelObject.theEnvironmentProperties.length > 0 ? this.panelObject.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.panelParameters.environment)[0].theAssets.map(concern => ({'concern' : concern})) : []
+        return this.panelObject != undefined && this.panelObject.theEnvironmentProperties != undefined && this.panelObject.theEnvironmentProperties.length > 0 ? this.panelObject.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.panelParameters.environment)[0].theAssets.map(concern => ({'concern' : concern})) : [];
       },
       participants() {
-        return this.panelObject != undefined && this.panelObject.theEnvironmentProperties != undefined && this.panelObject.theEnvironmentProperties.length > 0 ? this.panelObject.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.panelParameters.environment)[0].thePersonas.map(p => ({'thePersona' : p.thePersona, 'theDuration' : this.durationLookup[p.theDuration], 'theFrequency' : this.frequencyLookup[p.theFrequency], 'theDemands' : p.theDemands, 'theGoalConflict' : p.theGoalConflict})) : []
+        return this.panelObject != undefined && this.panelObject.theEnvironmentProperties != undefined && this.panelObject.theEnvironmentProperties.length > 0 ? this.panelObject.theEnvironmentProperties.filter(env => env.theEnvironmentName == this.panelParameters.environment)[0].thePersonas.map(p => ({'thePersona' : p.thePersona, 'theDuration' : this.durationLookup[p.theDuration], 'theFrequency' : this.frequencyLookup[p.theFrequency], 'theDemands' : p.theDemands, 'theGoalConflict' : p.theGoalConflict})) : [];
       }
     }
   };

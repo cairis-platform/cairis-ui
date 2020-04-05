@@ -257,7 +257,7 @@ templaterequirement : {
   theType : ''
 },
 threat : {
-  theThreatName : '',
+  theName : '',
   theType : '',
   theMethod : '',
   theTags : '',
