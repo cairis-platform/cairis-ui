@@ -24,22 +24,22 @@ Authors: Shamal Faily
     <b-container v-if="panelObject != undefined">
       <b-tabs>
         <b-tab title="Activities" active>
-          <b-form-textarea v-model="panelObject.theActivities" type="text" readonly />
+          <b-form-textarea v-model="panelObject.theActivities" type="text" rows="20" readonly />
         </b-tab>
         <b-tab title="Attitudes">
-          <b-form-textarea v-model="panelObject.theAttitudes" type="text" readonly />
+          <b-form-textarea v-model="panelObject.theAttitudes" type="text" rows="20" readonly />
         </b-tab>
         <b-tab title="Aptitudes">
-          <b-form-textarea v-model="panelObject.theAptitudes" type="text" readonly />
+          <b-form-textarea v-model="panelObject.theAptitudes" type="text" rows="20" readonly />
         </b-tab>
         <b-tab title="Motivations">
-          <b-form-textarea v-model="panelObject.theMotivations" type="text" readonly />
+          <b-form-textarea v-model="panelObject.theMotivations" type="text" rows="20" readonly />
         </b-tab>
         <b-tab title="Skills">
-          <b-form-textarea v-model="panelObject.theSkills" type="text" readonly />
+          <b-form-textarea v-model="panelObject.theSkills" type="text" rows="20" readonly />
         </b-tab>
         <b-tab title="Narrative">
-          <b-form-textarea v-model="narrative" type="text" readonly />
+          <b-form-textarea v-model="narrative" type="text" rows="20" readonly />
         </b-tab>
       </b-tabs>
     </b-container>

@@ -84,8 +84,9 @@ export default {
         params : {'session_id' : this.$store.state.session}
       })
       .then(response => {
-        if (this.theSelectedDimension == 'risks') {
-          axios.get('/api/risks/name/' + this.theSelectedObject.theName + '/threat/' + this.theSelectedObject.theName + '/vulnerability/' + this.theSelectedObject.theVulnerabilityName + '/environment/' + this.theEnvironmentName,{
+        let selectedObjt = response.data;
+        if (this.SelectedDimension == 'risks') {
+          axios.get('/api/risks/name/' + selectedObjt.theName + '/threat/' + selectedObjt.theName + '/vulnerability/' + selectedObjt.theVulnerabilityName + '/environment/' + this.theEnvironmentName,{
             baseURL : this.$store.state.url,
             params : {'session_id' : this.$store.state.session}
           })
@@ -98,7 +99,7 @@ export default {
           })
         }
         else {
-          this.theSelectedObject = response.data;
+          this.theSelectedObject = selectedObjt;
         }
       })
       .catch((error) => {
