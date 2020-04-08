@@ -287,10 +287,23 @@ export default {
       this.$refs.linkDialog.show();  
     },
     deleteLink(index) {
+      const originName = this.objt.theLocations[this.locationIndex].theName;
+      const linkedName = this.objt.theLocations[this.locationIndex].theLinks[index];
       this.objt.theLocations[this.locationIndex].theLinks.splice(index,1);
+      this.objt.theLocations.forEach(loc => {
+        if (loc.theName == linkedName) {
+          loc.theLinks = loc.theLinks.filter(li => li != originName);
+        }
+      });
     },
     addLocationLink : function(updLink) {
+      const originName = this.objt.theLocations[this.locationIndex].theName;
       this.objt.theLocations[this.locationIndex].theLinks.push(updLink);
+      this.objt.theLocations.forEach(loc => {
+        if (loc.theName == updLink) {
+          loc.theLinks.push(originName);
+        }
+      });
     }
   }
 }
