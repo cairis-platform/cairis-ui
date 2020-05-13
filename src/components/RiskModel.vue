@@ -89,7 +89,7 @@ export default {
         orientation: 'Vertical',
         tagged : '0'
       },
-      dimensionTypes : ['all','asset','attacker','countermeasure','obstacle','requirement','response','risk','role','task','threat','vulnerability'],
+      dimensionTypes : ['all','asset','attacker','countermeasure','document_reference','obstacle','requirement','response','risk','role','task','threat','vulnerability'],
       theSelectedObject: null,
       theSelectedDimension : '',
       isTagged : false,
@@ -107,7 +107,7 @@ export default {
   methods : {
     nodeClicked(url) {
       this.theSelectedDimension = url.slice(5).substring(0, url.slice(5).indexOf('/'))
-      if (['assets','attackers','countermeasures','misusecases','obstacles','requirements','responses','risks','roles','tasks','threats','vulnerabilities'].indexOf(this.theSelectedDimension) == -1) {
+      if (['assets','attackers','countermeasures','document_references','misusecases','obstacles','requirements','responses','risks','roles','tasks','threats','vulnerabilities'].indexOf(this.theSelectedDimension) == -1) {
         return;
       }
       axios.get(url,{

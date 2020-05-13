@@ -128,7 +128,8 @@ documentreference : {
     {key: 'objectsactions', label: ''},
     {key: 'theName', label: 'Name', sortable: true},
     {key: 'theDocName', label: 'Document', sortable: true},
-    {key: 'pretaction', label: ''}
+    {key: 'pretaction', label: ''},
+    {key: 'postaction', label: ''}
   ],
   theGetUrl : '/api/document_references',
   theDelUrl : '/api/document_references/name/'
