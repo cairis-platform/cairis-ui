@@ -21,6 +21,7 @@ Authors: Shamal Faily
 -->
   <div class="dataflow">
     <dimension-modal v-if="objt.theEnvironmentName != ''" ref="assetDialog" dimension="asset" :environment="objt.theEnvironmentName" :existing="objt.theAssets" v-on:dimension-modal-update="addDataFlowAsset"/> 
+    <dimension-modal v-if="objt.theEnvironmentName != ''" ref="obstacleDialog" dimension="obstacle" :environment="objt.theEnvironmentName" :existing="objt.theObstacles" v-on:dimension-modal-update="addDataFlowObstacle"/> 
     <p v-if="errors.length">
       <b>Please correct the following error(s):</b>
       <ul>
@@ -83,6 +84,19 @@ Authors: Shamal Faily
                   </b-table>
                 </b-col>
               </b-row>
+              <b-row>
+                <b-col md="12">
+                  <b-table striped bordered small :fields="obstacleTableFields" :items="dataFlowObstacles">
+                    <!-- eslint-disable-next-line -->
+                    <template v-slot:head(obstacleactions)="data"> 
+                      <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addObstacle"/> 
+                    </template>
+                    <template v-slot:cell(obstacleactions)="row">
+                      <font-awesome-icon icon="minus" :style="{color: 'red'}" @click.stop="deleteObstacle(row.index)"/>
+                    </template>
+                  </b-table>
+                </b-col>
+              </b-row>
 
             </b-container>
           </b-col>
@@ -129,6 +143,9 @@ export default {
   computed : {
     dataFlowAssets() {
       return this.objt.theAssets.length > 0 ? this.objt.theAssets.map(asset => ({name : asset})) : []
+    },
+    dataFlowObstacles() {
+      return this.objt.theObstacles.length > 0 ? this.objt.theObstacles.map(obs => ({name : obs})) : []
     }
   },
   data() {
@@ -143,6 +160,10 @@ export default {
       assetTableFields : [
         {key: 'assetactions', label : ''},
         {key: 'name', label : 'Asset'}
+      ],
+      obstacleTableFields : [
+        {key: 'obstacleactions', label : ''},
+        {key: 'name', label : 'Obstacle'}
       ]
     }
   },
@@ -247,6 +268,16 @@ export default {
     },
     addDataFlowAsset : function(assetName) {
       this.objt.theAssets.push(assetName);
+    },
+    addObstacle(evt) {
+      evt.preventDefault();
+      this.$refs.obstacleDialog.show();  
+    },
+    deleteObstacle(index) {
+      this.objt.theObstacles.splice(index,1);
+    },
+    addDataFlowObstacle : function(obsName) {
+      this.objt.theObstacles.push(obsName);
     },
     onCommit(evt) {
       evt.preventDefault();

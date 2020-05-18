@@ -60,7 +60,8 @@ export default {
         theFromName : '',
         theToType : 'process',
         theToName : '',
-        theAssets : []
+        theAssets : [],
+        theObstacles : []
       },
       commitLabel : 'Create',
     }

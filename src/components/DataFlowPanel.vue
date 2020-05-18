@@ -23,6 +23,7 @@ Authors: Shamal Faily
   <div class="dataflowpanel">
     <b-container v-if="panelObject != undefined">
       <b-table bordered small :items="assets" :fields="assetTableFields" />
+      <b-table bordered small :items="obstacles" :fields="obstacleTableFields" />
     </b-container>
   </div>
 </template>
@@ -39,6 +40,9 @@ Authors: Shamal Faily
       return {
         assetTableFields : [
           {key: 'name', label : 'Asset'}
+        ],
+        obstacleTableFields : [
+          {key: 'name', label : 'Obstacle'}
         ]
       }
     },
@@ -46,6 +50,9 @@ Authors: Shamal Faily
       assets() {
         return this.panelObject != undefined && this.panelObject.theAssets != undefined ? this.panelObject.theAssets.map(asset => ({name : asset})): [];
       },
+      obstacles() {
+        return this.panelObject != undefined && this.panelObject.theObstacles != undefined && this.panelObject.theObstacles.length > 0 ? this.panelObject.theObstacles.map(obs => ({name : obs})): [];
+      }
     }
   };
 </script>
