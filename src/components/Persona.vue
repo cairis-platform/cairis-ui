@@ -42,14 +42,19 @@ Authors: Shamal Faily
               <b-tab title="Summary" active>
                 <b-card bg-variant="light">
                   <b-row>
-                    <b-col md="6">
+                    <b-col md="5">
                       <b-form-group label="Persona" label-class="font-weight-bold text-md-left" label-for="thePersonaInput">
                         <b-form-input id="thePersonaInput" v-model="objt.theName" type="text" required />
                       </b-form-group>
                     </b-col>
-                    <b-col md="6">
+                    <b-col md="5">
                       <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-for="theTypeInput">
                         <b-form-select id="theTypeInput" v-model="objt.thePersonaType" :options="personaTypes" class="mb-3" required />
+                      </b-form-group>
+                    </b-col>
+                    <b-col md="2">
+                      <b-form-group label="Assumption-based" label-class="font-weight-bold text-md-left" label-for="theAssumptionCheck">
+                        <b-form-checkbox id="theAssumptionCheck" v-model="isAssumption" />
                       </b-form-group>
                     </b-col>
                   </b-row>
@@ -190,6 +195,14 @@ export default {
         this.objt.theEnvironmentProperties[this.envPropIndex].theDirectFlag = value;
       }
     },
+    isAssumption : {
+      get : function() {
+        return this.objt.isAssumption == 1 ? true : false; 
+      },
+      set : function(value) {
+        this.objt.isAssumption = (value ? 1 : 0);
+      }
+    }
   },
   components : {
     DimensionModal
