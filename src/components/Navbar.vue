@@ -76,6 +76,7 @@ Authors: Shamal Faily
         <b-dropdown-divider></b-dropdown-divider>
         <b-dropdown-item :to="{name: 'architecturalpatternmodel'}">Architectural Pattern</b-dropdown-item>
         <b-dropdown-item :to="{name: 'assetmodel'}">Asset</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'controlstructure'}">Control Structure</b-dropdown-item>
         <b-dropdown-item :to="{name: 'componentassetmodel'}">Component Asset</b-dropdown-item>
         <b-dropdown-item :to="{name: 'componentgoalmodel'}">Component Goal</b-dropdown-item>
         <b-dropdown-item :to="{name: 'dataflowdiagram'}">Data Flow</b-dropdown-item>

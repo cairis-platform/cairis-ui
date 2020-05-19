@@ -58,6 +58,11 @@ export default new Router({
       component: () => import('./views/About.vue')
     },
     {
+      path: '/model/control_structure',
+      name: 'controlstructure',
+      component: () => import('./views/ControlStructureView.vue')
+    },
+    {
       path: '/model/dataflow',
       name: 'dataflowdiagram',
       component: () => import('./views/DataFlowDiagramView.vue')

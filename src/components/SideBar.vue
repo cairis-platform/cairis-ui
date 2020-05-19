@@ -67,6 +67,7 @@ export default {
     'TemplateAssetPanel' : () => import('@/components/TemplateAssetPanel.vue'),
     'TemplateGoalPanel' : () => import('@/components/TemplateGoalPanel.vue'),
     'ThreatPanel' : () => import('@/components/ThreatPanel.vue'),
+    'TrustBoundaryPanel' : () => import('@/components/TrustBoundaryPanel.vue'),
     'UseCasePanel' : () => import('@/components/UseCasePanel.vue'),
     'UserGoalPanel' : () => import('@/components/UserGoalPanel.vue'),
     'VulnerabilityPanel' : () => import('@/components/VulnerabilityPanel.vue')
@@ -145,6 +146,9 @@ export default {
       }
       else if (this.dimension == 'threats') {
         return 'ThreatPanel';
+      }
+      else if (this.dimension == 'trust_boundaries') {
+        return 'TrustBoundaryPanel';
       }
       else if (this.dimension == 'usecases') {
         return 'UseCasePanel';
