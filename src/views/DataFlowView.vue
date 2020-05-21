@@ -62,7 +62,8 @@ export default {
         theToType : 'process',
         theToName : '',
         theAssets : [],
-        theObstacles : []
+        theObstacles : [],
+        theTags : []
       },
       commitLabel : 'Create',
     }

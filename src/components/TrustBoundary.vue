@@ -46,6 +46,13 @@ Authors: Shamal Faily
             </b-form-group>
             </b-col>
           </b-row>
+          <b-row>
+            <b-col md="12">
+              <b-form-group label="Tags" label-class="font-weight-bold text-md-left" label-for="theTagsInput">
+                <b-form-tags id="theTagsInput" v-model="objt.theTags" separator="," placeholder="Enter new tags separated by comma" remove-on-delete tag-variant="primary" tag-pills class="md-8"></b-form-tags>
+              </b-form-group>
+            </b-col>
+          </b-row>
         </b-card>
       </b-container>
 

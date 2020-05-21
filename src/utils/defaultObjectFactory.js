@@ -266,6 +266,7 @@ threat : {
 trustboundary : {
   theName : '',
   theDescription : '',
+  theTags : [],
   theEnvironmentProperties : []
 },
 usecase : {
