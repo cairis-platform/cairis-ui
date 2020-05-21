@@ -55,6 +55,7 @@ export default {
     return {
       objt : {
         theName : '',
+        theType : 'Information',
         theEnvironmentName : '',
         theFromType : 'entity',
         theFromName : '',

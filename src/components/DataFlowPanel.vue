@@ -22,6 +22,9 @@ Authors: Shamal Faily
 
   <div class="dataflowpanel">
     <b-container v-if="panelObject != undefined">
+      <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-for="theTypeSelect" >
+        <b-form-input readonly id="theType" v-model="panelObject.theType" />
+      </b-form-group>
       <b-table bordered small :items="assets" :fields="assetTableFields" />
       <b-table bordered small :items="obstacles" :fields="obstacleTableFields" />
     </b-container>

@@ -40,9 +40,14 @@ Authors: Shamal Faily
                     <b-form-input id="theDataFlowInput" v-model="objt.theName" type="text" required />
                   </b-form-group>
                 </b-col>
-                <b-col md="6">
+                <b-col md="3">
                   <b-form-group label="Environment" label-class="font-weight-bold text-md-left" label-for="theEnvironmentSelect" >
                     <dimension-select id="theEnvironmentSelect" ref="theEnvironmentSelect" dimension='environment' :initial="objt.theEnvironmentName" v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
+                  </b-form-group>
+                </b-col>
+                <b-col md="3">
+                  <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-for="theTypeSelect" >
+                    <b-form-select id="theType" v-model="objt.theType" :options="typeOptions" class="mb-3" required></b-form-select>
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -154,6 +159,7 @@ export default {
       objt : this.object,
       commitLabel : 'Create',
       theFromType : 'entity',
+      typeOptions : ['Information','Control','Feedback'],
       toTypeOptions : [
         {'text' : 'Process', 'value' : 'process'}
       ],
@@ -187,6 +193,9 @@ export default {
       }
       if (this.objt.theName.length == 0) {
         this.errors.push('Data flow name is required');
+      }
+      if (this.objt.theType.length == 0) {
+        this.errors.push('Type is required');
       }
       if (this.objt.theFromType.length == 0) {
         this.errors.push('From type is required');
