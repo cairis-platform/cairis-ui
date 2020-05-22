@@ -22,6 +22,9 @@ Authors: Shamal Faily
 
   <div class="trustboundarypanel">
     <b-container v-if="panelObject != undefined">
+      <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-for="theTypeInput" >
+        <b-form-input readonly id="theType" v-model="panelObject.theType" />
+      </b-form-group>
       <b-form-group label="Privilege" label-class="font-weight-bold text-sm-left" label-for="thePrivilege" >
         <b-form-input readonly id="thePrivilege" v-model="privilege" />
       </b-form-group>

@@ -265,6 +265,7 @@ threat : {
 },
 trustboundary : {
   theName : '',
+  theType : 'General',
   theDescription : '',
   theTags : [],
   theEnvironmentProperties : []

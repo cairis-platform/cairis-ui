@@ -33,9 +33,14 @@ Authors: Shamal Faily
       <b-container fluid>
         <b-card bg-variant="light">
           <b-row>
-            <b-col md="12">
+            <b-col md="9">
               <b-form-group label="Trust Boundary" label-class="font-weight-bold text-md-left" label-for="theTrustBoundaryInput">
                 <b-form-input id="theTrustBoundaryInput" v-model="objt.theName" type="text" required />
+              </b-form-group>
+            </b-col>
+            <b-col md="3">
+              <b-form-group label="Type" label-class="font-weight-bold text-md-left" label-for="theTypeSelect" >
+                <b-form-select id="theType" v-model="objt.theType" :options="typeOptions" class="mb-3" required></b-form-select>
               </b-form-group>
             </b-col>
           </b-row>
@@ -144,6 +149,7 @@ export default {
       commitLabel : this.label,
       envPropIndex : 0,
       errors : [],
+      typeOptions : ['Controller','Controlled Process','Sensor','Actuator','General'],
       envFields : [
         {key: 'envactions', label : ''},
         {key: 'theName', label : 'Environment'}
@@ -161,11 +167,14 @@ export default {
       if (this.objt.theName.length == 0) {
         this.errors.push('Name is required');
       }
+      if (this.objt.theType.length == 0) {
+        this.errors.push('Type is required');
+      }
       if (this.objt.theDescription.length == 0) {
         this.errors.push('Description is required');
       }
       if (this.objt.theEnvironmentProperties.length == 0) {
-        this.errors.push('No environment properties have been defined')
+        this.errors.push('No environment properties have been defined');
       }
       if (!this.errors.length) {
         return true;
