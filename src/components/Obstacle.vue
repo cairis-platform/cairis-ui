@@ -268,7 +268,23 @@ export default {
           theRationale : ''
          }
       },
-      obstacleCategories : ['Confidentiality Threat','Integrity Threat','Availability Threat','Accountability Threat','Anonymity Threat','Pseudonymity Threat','Unlinkability Threat','Unobservability Threat','Threat','Vulnerability','Duration','Frequency','Demands','Goal Support']
+      obstacleCategories : 
+        ['Confidentiality Threat',
+         'Integrity Threat',
+         'Availability Threat',
+         'Accountability Threat',
+         'Anonymity Threat',
+         'Pseudonymity Threat',
+         'Unlinkability Threat',
+         'Unobservability Threat',
+         'Threat',
+         'Vulnerability',
+         'Duration',
+         'Frequency',
+         'Demands',
+         'Goal Support',
+         'Loss',
+         'Hazard']
     }
   },
   methods : {
