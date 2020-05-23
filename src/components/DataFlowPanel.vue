@@ -26,7 +26,7 @@ Authors: Shamal Faily
         <b-form-input readonly id="theType" v-model="panelObject.theType" />
       </b-form-group>
       <b-table bordered small :items="assets" :fields="assetTableFields" />
-      <b-table bordered small :items="obstacles" :fields="obstacleTableFields" />
+      <b-table bordered small :items="panelObject.theObstacles" :fields="obstacleTableFields" />
     </b-container>
   </div>
 </template>
@@ -45,16 +45,15 @@ Authors: Shamal Faily
           {key: 'name', label : 'Asset'}
         ],
         obstacleTableFields : [
-          {key: 'name', label : 'Obstacle'}
+          {key: 'theObstacleName', label : 'Obstacle'},
+          {key: 'theKeyword', label : 'Keyword'},
+          {key: 'theContext', label : 'Context'}
         ]
       }
     },
     computed : {
       assets() {
         return this.panelObject != undefined && this.panelObject.theAssets != undefined ? this.panelObject.theAssets.map(asset => ({name : asset})): [];
-      },
-      obstacles() {
-        return this.panelObject != undefined && this.panelObject.theObstacles != undefined && this.panelObject.theObstacles.length > 0 ? this.panelObject.theObstacles.map(obs => ({name : obs})): [];
       }
     }
   };

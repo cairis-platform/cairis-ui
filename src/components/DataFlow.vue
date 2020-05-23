@@ -21,7 +21,7 @@ Authors: Shamal Faily
 -->
   <div class="dataflow">
     <dimension-modal v-if="objt.theEnvironmentName != ''" ref="assetDialog" dimension="asset" :environment="objt.theEnvironmentName" :existing="objt.theAssets" v-on:dimension-modal-update="addDataFlowAsset"/> 
-    <dimension-modal v-if="objt.theEnvironmentName != ''" ref="obstacleDialog" dimension="obstacle" :environment="objt.theEnvironmentName" :existing="objt.theObstacles" v-on:dimension-modal-update="addDataFlowObstacle"/> 
+    <dataflow-obstacle-modal v-if="objt.theEnvironmentName != ''" ref="obstacleDialog" :selectedObject="selectedObject" :existing="dataFlowObstacles" v-on:dataflow-obstacle-modal-update="updateDataFlowObstacle"/> 
     <p v-if="errors.length">
       <b>Please correct the following error(s):</b>
       <ul>
@@ -91,7 +91,7 @@ Authors: Shamal Faily
               </b-row>
               <b-row>
                 <b-col md="12">
-                  <b-table striped bordered small :fields="obstacleTableFields" :items="dataFlowObstacles">
+                  <b-table striped bordered small :fields="obstacleTableFields" :items="objt.theObstacles" @row-clicked="viewDataFlowObstacle">
                     <!-- eslint-disable-next-line -->
                     <template v-slot:head(obstacleactions)="data"> 
                       <font-awesome-icon icon="plus" :style="{color: 'green'}" @click.stop="addObstacle"/> 
@@ -131,6 +131,7 @@ Authors: Shamal Faily
 
 import objectMixin from '../mixins/objectMixin';
 import DimensionModal from './DimensionModal';
+import DataflowObstacleModal from '@/components/DataflowObstacleModal';
 import DimensionSelect from '@/components/DimensionSelect.vue';
 
 export default {
@@ -149,14 +150,15 @@ export default {
   ],
   components : {
     DimensionModal,
-    DimensionSelect
+    DimensionSelect,
+    DataflowObstacleModal
   },
   computed : {
     dataFlowAssets() {
       return this.objt.theAssets.length > 0 ? this.objt.theAssets.map(asset => ({name : asset})) : []
     },
     dataFlowObstacles() {
-      return this.objt.theObstacles.length > 0 ? this.objt.theObstacles.map(obs => ({name : obs})) : []
+      return this.selectedObject.update == false && this.objt.theObstacles.length > 0 ? this.objt.theObstacles.map(obs => obs.theObstacleName) : [];
     }
   },
   data() {
@@ -175,8 +177,19 @@ export default {
       ],
       obstacleTableFields : [
         {key: 'obstacleactions', label : ''},
-        {key: 'name', label : 'Obstacle'}
-      ]
+        {key: 'theObstacleName', label : 'Obstacle'},
+        {key: 'theKeyword', label : 'Keyword'},
+        {key: 'theContext', label : 'Context'}
+      ],
+      selectedObject : {
+        environment : '',
+        update : false,
+        dataFlowObstacle : {
+          theObstacleName : '',
+          theKeyword : 'not applicable',
+          theContext : ''
+        }
+      }
     }
   },
   methods : {
@@ -284,20 +297,34 @@ export default {
     addDataFlowAsset : function(assetName) {
       this.objt.theAssets.push(assetName);
     },
-    addObstacle(evt) {
-      evt.preventDefault();
-      this.$refs.obstacleDialog.show();  
-    },
     deleteObstacle(index) {
       this.objt.theObstacles.splice(index,1);
-    },
-    addDataFlowObstacle : function(obsName) {
-      this.objt.theObstacles.push(obsName);
     },
     onCommit(evt) {
       evt.preventDefault();
       if (this.checkForm()) {
         this.$emit('data-flow-commit',this.objt);
+      }
+    },
+    viewDataFlowObstacle(data,index) {
+      this.selectedObject['index'] = index
+      this.selectedObject['dataFlowObstacle'] = JSON.parse(JSON.stringify(data));
+      this.selectedObject['environment'] = this.objt.theEnvironmentName;
+      this.selectedObject['update'] = true;
+      this.$refs.obstacleDialog.show();  
+    },
+    addObstacle() {
+      this.selectedObject['dataFlowObstacle'] = {theObstacleName : '', theKeyword : 'not applicable', theContext: ''};
+      this.selectedObject['environment'] = this.objt.theEnvironmentName;
+      this.selectedObject['update'] = false;
+      this.$refs.obstacleDialog.show();  
+    },
+    updateDataFlowObstacle : function(updDfo) {
+      if (updDfo.update) {
+        this.$set(this.objt.theObstacles,updDfo.index,updDfo.object);
+      }
+      else {
+        this.objt.theObstacles.push(updDfo.object);
       }
     }
   }
