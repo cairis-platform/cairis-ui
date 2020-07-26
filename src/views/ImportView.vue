@@ -59,6 +59,17 @@ Authors: Shamal Faily
               </b-row>
             </b-card>
           </div>
+          <div v-if="isDiagramsNetModel">
+            <b-card bg-variant="light">
+              <b-row>
+                <b-col md="12">
+                  <b-form-group label="Environment" label-class="font-weight-bold text-md-left" label-for="theEnvironmentSelect">
+                    <dimension-select id="theEnvironmentSelect" dimension='environment' v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
+                  </b-form-group>
+                </b-col>
+              </b-row>
+            </b-card>
+          </div>
         </b-card>
       </b-container> 
       <b-container fluid>
@@ -91,6 +102,9 @@ export default {
     },
     overwriteFlag() {
       return this.isOverwrite == true ? 1 : 0;
+    },
+    isDiagramsNetModel() {
+      return (this.theModelType == 'diagrams.net (Data Flow Diagram)' || this.theModelType == 'diagrams.net (Asset Model)') ? true : false;
     }
   },
   components : {
@@ -103,7 +117,28 @@ export default {
       isOverwrite : true,
       errors : [],
       theModelType : 'Model Package',
-      modelTypes : ['Model Package','Model','Project data','Requirements','Risk Analysis','Usability','Misusability','Associations','Threat and Vulnerability Types','Domain Values','Threat and Vulnerability Directory','Security Pattern','Architectural Pattern','Attack Pattern','Synopses','Assets','Processes','Locations','Dataflows','Attack Tree (Dot)'],
+      modelTypes : ['Model Package',
+                    'Model',
+                    'Project data',
+                    'Requirements',
+                    'Risk Analysis',
+                    'Usability',
+                    'Misusability',
+                    'Associations',
+                    'Threat and Vulnerability Types',
+                    'Domain Values',
+                    'Threat and Vulnerability Directory',
+                    'Security Pattern',
+                    'Architectural Pattern',
+                    'Attack Pattern',
+                    'Synopses',
+                    'Assets',
+                    'Processes',
+                    'Locations',
+                    'Dataflows',
+                    'Attack Tree (Dot)',
+                    'diagrams.net (Data Flow Diagram)',
+                    'diagrams.net (Asset Model)'],
       theImportFile : '',
       theModelContent : '',
       theEnvironment : '',
