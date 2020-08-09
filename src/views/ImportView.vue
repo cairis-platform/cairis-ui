@@ -138,7 +138,8 @@ export default {
                     'Dataflows',
                     'Attack Tree (Dot)',
                     'diagrams.net (Data Flow Diagram)',
-                    'diagrams.net (Asset Model)'],
+                    'diagrams.net (Asset Model)',
+                    'User goals (Workbook)'],
       theImportFile : '',
       theModelContent : '',
       theEnvironment : '',
@@ -149,8 +150,8 @@ export default {
     onImport(evt) {
       evt.preventDefault();
       if (this.checkForm()) {
-        if (this.theModelType == 'Model Package') {
-          this.importPackage();
+        if (this.theModelType == 'Model Package'  || this.theModelType == 'User goals (Workbook)') {
+          this.importBinary();
         }
         else {
           this.importFile();
@@ -177,11 +178,11 @@ export default {
         return false;
       }
     },
-    importPackage() {
+    importBinary() {
       this.isLoading = true;
       const fd = new FormData();
       fd.append('file',this.theImportFile)
-      const url = this.$store.state.url + '/api/import/package?session_id=' + this.$store.state.session
+      const url = this.$store.state.url + (this.theModelType == 'Model Package' ? '/api/import/package' : '/api/import/file/user_goals')  + '?session_id=' + this.$store.state.session
       axios.post(url, fd)
       .then(response => {
         EventBus.$emit('operation-success',response.data.message);

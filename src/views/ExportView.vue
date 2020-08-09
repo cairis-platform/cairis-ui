@@ -41,6 +41,7 @@ Authors: Shamal Faily
                   <b-form-radio value="GRL">GRL</b-form-radio>
                   <b-form-radio value="Architectural Pattern">Architectural Pattern</b-form-radio>
                   <b-form-radio value="Security Patterns">Security Patterns</b-form-radio>
+                  <b-form-radio value="User goals (Workbook)">User goals (Workbook)</b-form-radio>
                 </b-form-radio-group>
               </b-form-group>
             </b-col>
@@ -104,9 +105,10 @@ export default {
     },
     exportURL() {
       return this.theModelType == 'Model' || this.theModelType == 'ModelXML' ? '/api/export/file' :
-        (this.theModelType == 'Architectural Pattern' ? '/api/export/file/architectural_pattern/' + this.theArchitecturalPatternName : 
+        (this.theModelType == 'Architectural Pattern' ? '/api/export/file/architectural_pattern/' + this.theParameterName : 
           (this.theModelType == 'Security Patterns' ? '/api/export/file/security_patterns' : 
-            ('/api/export/file/grl/task/' + this.theTaskName + '/persona/' + this.persona + '/environment/' + this.theEnvironmentName)));
+            (this.theModelType == 'User goals (Workbook)' ? '/api/export/file/user_goals' : 
+              ('/api/export/file/grl/task/' + this.theTaskName + '/persona/' + this.persona + '/environment/' + this.theEnvironmentName))));
     },
     persona() {
       return this.thePersonaName == 'all' ? 'ALL' : this.thePersonaName;
@@ -168,8 +170,8 @@ export default {
       evt.preventDefault();
       if (this.checkForm()) {
         this.isLoading = true;
-        this.theExportParameters.fileType = this.theModelType == 'Model' ? 'cairis' : 'xml';
-        const fileType = this.theModelType == 'Model' ? 'octet-stream' : 'xml';
+        this.theExportParameters.fileType = this.theModelType == 'Model' ? 'cairis' : (this.theModelType == 'User goals (Workbook)' ? 'xlsx' : 'xml');
+        const fileType = this.theModelType == 'Model' || this.theModelType == 'User goals (Workbook)' ? 'octet-stream' : 'xml';
         const exportHeaders = {'Content-Type': 'application/' + fileType} ;
 
         axios.get(this.exportURL,{
