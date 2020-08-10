@@ -139,6 +139,7 @@ export default {
                     'Attack Tree (Dot)',
                     'diagrams.net (Data Flow Diagram)',
                     'diagrams.net (Asset Model)',
+                    'Persona characteristics (Workbook)',
                     'User goals (Workbook)'],
       theImportFile : '',
       theModelContent : '',
@@ -150,7 +151,7 @@ export default {
     onImport(evt) {
       evt.preventDefault();
       if (this.checkForm()) {
-        if (this.theModelType == 'Model Package'  || this.theModelType == 'User goals (Workbook)') {
+        if (this.theModelType == 'Model Package'  || this.theModelType == 'Persona characteristics (Workbook)' || this.theModelType == 'User goals (Workbook)') {
           this.importBinary();
         }
         else {
@@ -182,7 +183,7 @@ export default {
       this.isLoading = true;
       const fd = new FormData();
       fd.append('file',this.theImportFile)
-      const url = this.$store.state.url + (this.theModelType == 'Model Package' ? '/api/import/package' : '/api/import/file/user_goals')  + '?session_id=' + this.$store.state.session
+      const url = this.$store.state.url + (this.theModelType == 'Model Package' ? '/api/import/package' : (this.theModelType == 'Persona characteristics (Workbook)' ? '/api/import/file/persona_characteristics' : '/api/import/file/user_goals'))  + '?session_id=' + this.$store.state.session;
       axios.post(url, fd)
       .then(response => {
         EventBus.$emit('operation-success',response.data.message);

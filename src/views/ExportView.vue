@@ -41,6 +41,7 @@ Authors: Shamal Faily
                   <b-form-radio value="GRL">GRL</b-form-radio>
                   <b-form-radio value="Architectural Pattern">Architectural Pattern</b-form-radio>
                   <b-form-radio value="Security Patterns">Security Patterns</b-form-radio>
+                  <b-form-radio value="Persona characteristics (Workbook)">Persona characteristics (Workbook)</b-form-radio>
                   <b-form-radio value="User goals (Workbook)">User goals (Workbook)</b-form-radio>
                 </b-form-radio-group>
               </b-form-group>
@@ -108,7 +109,8 @@ export default {
         (this.theModelType == 'Architectural Pattern' ? '/api/export/file/architectural_pattern/' + this.theParameterName : 
           (this.theModelType == 'Security Patterns' ? '/api/export/file/security_patterns' : 
             (this.theModelType == 'User goals (Workbook)' ? '/api/export/file/user_goals' : 
-              ('/api/export/file/grl/task/' + this.theTaskName + '/persona/' + this.persona + '/environment/' + this.theEnvironmentName))));
+              (this.theModelType == 'Persona characteristics (Workbook)' ? '/api/export/file/persona_characteristics' : 
+                ('/api/export/file/grl/task/' + this.theTaskName + '/persona/' + this.persona + '/environment/' + this.theEnvironmentName)))));
     },
     persona() {
       return this.thePersonaName == 'all' ? 'ALL' : this.thePersonaName;
@@ -171,7 +173,7 @@ export default {
       if (this.checkForm()) {
         this.isLoading = true;
         this.theExportParameters.fileType = this.theModelType == 'Model' ? 'cairis' : (this.theModelType == 'User goals (Workbook)' ? 'xlsx' : 'xml');
-        const fileType = this.theModelType == 'Model' || this.theModelType == 'User goals (Workbook)' ? 'octet-stream' : 'xml';
+        const fileType = this.theModelType == 'Model' || this.theModelType == 'User goals (Workbook)' || this.theModelType == 'Persona characteristics (Workbook)' ? 'octet-stream' : 'xml';
         const exportHeaders = {'Content-Type': 'application/' + fileType} ;
 
         axios.get(this.exportURL,{
