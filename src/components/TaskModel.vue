@@ -27,7 +27,7 @@ Authors: Shamal Faily
       <b-row>
         <b-col>
           <b-form-group label="Environment" label-for="taskModelEnvironment" :label-cols="4">
-            <dimension-select id="taskModelEnvironment" ref="taskModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" />
+            <dimension-select id="taskModelEnvironment" ref="taskModelEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
@@ -107,6 +107,12 @@ export default {
         this.$refs.taskModelTask.selected = this.theTaskName;
         this.$refs.taskModelMisuseCase.selected = this.theMisuseCaseName;
       }
+    },
+    environmentsLoaded(envName) {
+      this.theEnvironmentName = envName;
+      this.$refs.taskModelEnvironment.selected = envName;
+      this.theTaskName = 'all';
+      this.theMisuseCaseName = 'all'
     },
     taskSelected(taskName) {
       this.theTaskName = taskName
