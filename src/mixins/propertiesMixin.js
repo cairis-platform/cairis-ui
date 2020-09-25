@@ -96,6 +96,7 @@ export default {
       this.selectedProperty['update'] = false;
       const theProperties = (this.objt.theProperties != undefined ? this.objt.theProperties : this.objt.theEnvironmentProperties[this.envPropIndex].theProperties);
       this.selectedProperty['propertyNames'] = theProperties.filter(prop => (prop.value == 'None')).map(prop => prop.name);
+      this.selectedProperty['name'] = this.selectedProperty['propertyNames'].length > 0 ? this.selectedProperty['propertyNames'][0] : '';
       this.$refs.propertyDialog.show();  
     },
   }
