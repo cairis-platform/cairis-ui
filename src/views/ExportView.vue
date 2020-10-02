@@ -36,8 +36,8 @@ Authors: Shamal Faily
             <b-col md="12">
               <b-form-group label="Model" label-class="text-md-left font-weight-bold" label-for="theModelRadio">
                 <b-form-radio-group id="theModelRadio" v-model="theModelType">
-                  <b-form-radio value="Model">Model</b-form-radio>
-                  <b-form-radio value="ModelXML">Model (XML file)</b-form-radio>
+                  <b-form-radio value="Model">Model package (.cairis)</b-form-radio>
+                  <b-form-radio value="ModelXML">Model file (.xml)</b-form-radio>
                   <b-form-radio value="GRL">GRL</b-form-radio>
                   <b-form-radio value="Architectural Pattern">Architectural Pattern</b-form-radio>
                   <b-form-radio value="Security Patterns">Security Patterns</b-form-radio>
@@ -72,7 +72,7 @@ Authors: Shamal Faily
             </b-col>
           </b-row>
           <b-form-group label="File name" label-class="text-md-left font-weight-bold" label-for="theFileName">
-            <b-form-input id="theModelFile" v-model="theExportParameters.filename" type="text" required />
+            <b-form-input id="theModelFile" v-model="theFileName" type="text" required />
           </b-form-group>
 
         </b-card>
@@ -130,6 +130,7 @@ export default {
       theEnvironmentName : '',
       theTaskName : '',
       thePersonaName : '',
+      theFileName : 'model',
       theExportParameters : {
         session_id : this.$store.state.session,
         filename : 'model',
@@ -175,6 +176,16 @@ export default {
         this.theExportParameters.fileType = this.theModelType == 'Model' ? 'cairis' : (this.theModelType == 'User goals (Workbook)' ? 'xlsx' : 'xml');
         const fileType = this.theModelType == 'Model' || this.theModelType == 'User goals (Workbook)' || this.theModelType == 'Persona characteristics (Workbook)' ? 'octet-stream' : 'xml';
         const exportHeaders = {'Content-Type': 'application/' + fileType} ;
+
+        if (this.theModelType == 'Model') {
+          this.theExportParameters.filename = this.theFileName + '.cairis';
+        }
+        else if (this.theModelType == 'Persona characteristics (Workbook)' || this.theModelType == 'User goals (Workbook)') {
+          this.theExportParameters.filename = this.theFileName + '.xlsx';
+        }
+        else {
+          this.theExportParameters.filename = this.theFileName;
+        }
 
         axios.get(this.exportURL,{
           responseType : 'arraybuffer',
