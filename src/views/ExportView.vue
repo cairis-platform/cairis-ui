@@ -203,7 +203,9 @@ export default {
         })
         .catch((error) => {
           this.isLoading = false;
-          EventBus.$emit('operation-failure',error)
+          const decodedMsg = String.fromCharCode.apply(null,new Uint8Array(error.response.data));
+          const objt = JSON.parse(decodedMsg);
+          EventBus.$emit('operation-failure',objt['message']);
         });
       }
     },
