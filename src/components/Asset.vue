@@ -189,6 +189,9 @@ export default {
     assetAssociations() {
       return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theAssociations : [] ;
     },
+    tailAssets() {
+      return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theAssociations.map(assoc => assoc.theTailName) : [] ;
+    },
     unusedProperties() {
       return this.objt.theEnvironmentProperties.length > 0 && this.envPropIndex >= 0 ? this.objt.theEnvironmentProperties[this.envPropIndex].theProperties.filter(prop => (prop.value == 'None')).map(prop => prop.name) : [];
     },
@@ -320,9 +323,12 @@ export default {
     },
     addAssetAssociation() {
       this.selectedAssociation['asset'] = this.objt.theName;
+      this.selectedAssociation['assets'] = this.tailAssets;
+      this.selectedAssociation['assets'].push(this.objt.theName);
       this.selectedAssociation['environment'] = this.objt.theEnvironmentProperties[this.envPropIndex].theEnvironmentName;
       this.selectedAssociation['association'] = {theHeadNav : 0, theHeadType : 'Association', theHeadMultiplicity : '*', theHeadRole: '', theTailRole : '', theTailMultiplicity : '*', theTailNav : 0, theTailType : 'Association', theTailName : ''};
       this.selectedAssociation['update'] = false;
+      this.selectedAssociation['initial'] = '';
       this.$refs.assetAssociationDialog.show();  
     },
     deleteAssetAssociation(index) {
@@ -370,7 +376,9 @@ export default {
       }
     },
     viewAssetAssociation(data,index) {
-      this.selectedAssociation['asset'] = this.objt.theName
+      this.selectedAssociation['asset'] = this.objt.theName;
+      this.selectedAssociation['assets'] = this.tailAssets;
+      this.selectedAssociation['assets'].push(this.objt.theName);
       this.selectedAssociation['index'] = index
       this.selectedAssociation['environment'] = this.objt.theEnvironmentProperties[this.envPropIndex].theEnvironmentName
       this.selectedAssociation['association'] = JSON.parse(JSON.stringify(data));
