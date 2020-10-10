@@ -109,6 +109,11 @@ export default {
       if (this.objt.theName.length == 0) {
         this.errors.push('Document Reference name is required');
       }
+      const resChars = /[<>‘'`"\\:%/_*?#£$&]/ ;
+      const res = this.objt.theName.match(resChars);
+      if (res != null) {
+        this.errors.push('Character ' + res['index'] + ' in ' + this.objt.theName + ' is a reserved character.');
+      }
       if (this.objt.theDocName.length == 0) {
         this.errors.push('External Document is required');
       }

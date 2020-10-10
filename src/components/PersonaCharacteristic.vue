@@ -210,6 +210,11 @@ export default {
       if (this.objt.theNamelength == 0) {
         this.errors.push('Characteristic definition is required');
       }
+      const resChars = /[<>‘'`"\\:%/_*?#£$&]/ ;
+      const res = this.objt.theName.match(resChars);
+      if (res != null) {
+        this.errors.push('Character ' + res['index'] + ' in ' + this.objt.theName + ' is a reserved character.');
+      }
       if (this.objt.theGrounds.length == 0) {
         this.errors.push('No grounds have been defined')
       }

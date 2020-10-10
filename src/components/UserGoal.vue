@@ -163,6 +163,11 @@ export default {
       if (this.objt.theSynopsis.length == 0) {
         this.errors.push('User goal name is required');
       }
+      const resChars = /[<>‘'`"\\:%/_*?#£$&]/ ;
+      const res = this.objt.theName.match(resChars);
+      if (res != null) {
+        this.errors.push('Character ' + res['index'] + ' in ' + this.objt.theSynopsis + ' is a reserved character.');
+      }
       if (this.objt.theDimension.length == 0) {
         this.errors.push('Element type is required');
       }

@@ -329,6 +329,11 @@ export default {
       if (this.objt.theName.length == 0) {
         this.errors.push('Response Name is required');
       }
+      const resChars = /[<>‘'`"\\:%/_*?#£$&]/ ;
+      const res = this.objt.theName.match(resChars);
+      if (res != null) {
+        this.errors.push('Character ' + res['index'] + ' in ' + this.objt.theName + ' is a reserved character.');
+      }
       if (this.objt.theResponseType == 'Accept' && this.objt.theEnvironmentProperties.accept.length == 0) {
         this.errors.push('No environment properties have been defined')
       }

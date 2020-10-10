@@ -377,6 +377,11 @@ export default {
       if (this.objt.theName.length == 0) {
         this.errors.push('Obstacle name is required');
       }
+      const resChars = /[<>‘'`"\\:%/_*?#£$&]/ ;
+      const res = this.objt.theName.match(resChars);
+      if (res != null) {
+        this.errors.push('Character ' + res['index'] + ' in ' + this.objt.theName + ' is a reserved character.');
+      }
       if (this.objt.theOriginator.length == 0) {
         this.errors.push('Originator is required');
       }
