@@ -76,6 +76,7 @@ export default {
         object : objt
       })
       .then(response => {
+        document.title = objt.projectName;
         EventBus.$emit('operation-success',response.data.message)
         this.$router.push({ name: 'home'})
       })

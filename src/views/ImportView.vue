@@ -186,9 +186,24 @@ export default {
       const url = this.$store.state.url + (this.theModelType == 'Model package (.cairis)' ? '/api/import/package' : (this.theModelType == 'Persona characteristics (Workbook)' ? '/api/import/file/persona_characteristics' : '/api/import/file/user_goals'))  + '?session_id=' + this.$store.state.session;
       axios.post(url, fd)
       .then(response => {
-        EventBus.$emit('operation-success',response.data.message);
         this.isLoading = false;
-        this.$router.push({ name: 'home'})
+        EventBus.$emit('operation-success',response.data.message);
+        if (this.theModelType == 'Model package (.cairis)') {
+          axios.get('/api/settings',{
+            baseURL : this.$store.state.url,
+            params : {'session_id' : this.$store.state.session}
+           })
+          .then(response => {
+            document.title = response.data.projectName;
+            this.$router.push({ name: 'home'})
+          })
+          .catch((error) => {
+            EventBus.$emit('operation-failure',error);
+          });
+        }
+        else {
+          this.$router.push({ name: 'home'})
+        }
       })
       .catch((error) => {
         this.isLoading = false;
@@ -207,9 +222,24 @@ export default {
           object : importObjt
         })
         .then(response => {
-          EventBus.$emit('operation-success',response.data.message);
           this.isLoading = false;
-          this.$router.push({ name: 'home'})
+          EventBus.$emit('operation-success',response.data.message);
+          if (this.theModelType == 'Model file (.xml)') {
+            axios.get('/api/settings',{
+              baseURL : this.$store.state.url,
+              params : {'session_id' : this.$store.state.session}
+             })
+            .then(response => {
+              document.title = response.data.projectName;
+              this.$router.push({ name: 'home'})
+            })
+            .catch((error) => {
+              EventBus.$emit('operation-failure',error);
+            });
+          }
+          else {
+            this.$router.push({ name: 'home'})
+          }
         })
         .catch((error) => {
           this.isLoading = false;
