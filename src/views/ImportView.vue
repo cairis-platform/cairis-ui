@@ -35,7 +35,7 @@ Authors: Shamal Faily
           <b-form-group label="Model" label-class="text-md-left" label-cols="3" label-for="theModelSelect">
             <b-form-select id="theModelSelect" v-model="theModelType" :options="modelTypes" class="mb-3" required />
           </b-form-group>
-          <div v-show="theModelType == 'Model'">
+          <div v-show="theModelType == 'Model file (.xml)'">
             <b-form-group>
               <b-form-checkbox v-model="isOverwrite" >Overwrite existing</b-form-checkbox>
             </b-form-group>
