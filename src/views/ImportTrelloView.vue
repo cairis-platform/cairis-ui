@@ -197,6 +197,7 @@ export default {
       type: 'redirect',
       name: 'CAIRIS',
       scope: {read: 'true', write: 'true', account: 'allowAccount'},
+      interactive: 'false',
       expiration: 'never',
       success: function() {
         // eslint-disable-next-line
