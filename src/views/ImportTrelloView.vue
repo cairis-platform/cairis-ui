@@ -196,7 +196,7 @@ export default {
     Trello.authorize({
       type: 'redirect',
       name: 'CAIRIS',
-      scope: {read: 'true', write: 'true'},
+      scope: {read: 'true', write: 'true', account: 'allowAccount'},
       expiration: 'never',
       success: function() {
         // eslint-disable-next-line
