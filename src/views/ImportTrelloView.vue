@@ -188,6 +188,24 @@ export default {
       const newCard = {name: dr.theName, desc: dr.theExcerpt, due: null};
       // eslint-disable-next-line
       Trello.post('/lists/' + listId + '/cards',newCard,function() {});
+    },
+    populateControls() {
+      let that = this;
+      // eslint-disable-next-line
+      Trello.get('/members/me/boards',function(data){
+        that.boardNames = data.map(b => ({text: b.name, value: b.id}));
+
+        axios.get('/api/dimensions/table/persona',{
+          baseURL : that.$store.state.url,
+          params : {'session_id' : that.$store.state.session}
+        })
+        .then(response => {
+          that.personaNames = response.data;
+        })
+        .catch((error) => {
+          EventBus.$emit('operation-failure',error)
+        });
+      });
     }
   },
   mounted() {
@@ -200,21 +218,7 @@ export default {
       interactive: 'false',
       expiration: 'never',
       success: function() {
-        // eslint-disable-next-line
-        Trello.get('/members/me/boards',function(data){
-          that.boardNames = data.map(b => ({text: b.name, value: b.id}));
-
-          axios.get('/api/dimensions/table/persona',{
-            baseURL : that.$store.state.url,
-            params : {'session_id' : that.$store.state.session}
-          })
-          .then(response => {
-            that.personaNames = response.data;
-          })
-          .catch((error) => {
-            EventBus.$emit('operation-failure',error)
-          });
-        });
+        that.populateControls();
       },
       error: function() {
         EventBus.$emit('operation-failure','Authentication failed')

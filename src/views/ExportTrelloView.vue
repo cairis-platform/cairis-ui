@@ -120,7 +120,7 @@ export default {
         let that = this;
         // eslint-disable-next-line
         Trello.authorize({
-          type: 'popup',
+          type: 'redirect',
           name: 'CAIRIS',
           scope: {read: 'true', write: 'true'},
           expiration: 'never',
