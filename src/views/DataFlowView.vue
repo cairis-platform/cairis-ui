@@ -38,6 +38,10 @@ import EventBus from '../utils/event-bus';
 export default {
   props : {
     objectName : String,
+    fromName : String,
+    fromType : String,
+    toName : String,
+    toType : String,
     envName : String
   },
   mixins : [
@@ -73,7 +77,7 @@ export default {
       next();
     }
     else {
-      const url = "/api/dataflows/name/" + to.params.objectName + "/environment/" + to.params.envName
+      const url = "/api/dataflows/name/" + to.params.objectName + "/from_name/" + to.params.fromName + "/from_type/" + to.params.fromType + "/to_name/" + to.params.toName + "/to_type/" + to.params.toType + "/environment/" + to.params.envName
       axios.get(url,{
         baseURL : store.state.url,
         params : {'session_id' : store.state.session}
@@ -91,8 +95,8 @@ export default {
   },
   methods : {
     commitDataFlow(objt) {
-      this.objt = objt
-      var updateUrl = this.$store.state.url + "/api/dataflows/name/" + this.objectName + "/environment/" + this.envName + "?session_id=" + this.$store.state.session;
+      this.objt = objt;
+      var updateUrl = this.$store.state.url + "/api/dataflows/name/" + this.objectName + "/from_name/" + objt.theFromName + "/from_type/" + objt.theFromType + "/to_name/" + objt.theToName + "/to_type/" + objt.theToType + "/environment/" + this.envName + "?session_id=" + this.$store.state.session;
       var createUrl = this.$store.state.url + "/api/dataflows";
       this.commitObject(updateUrl,createUrl,'objectsview',undefined,'dataflow');
     }

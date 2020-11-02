@@ -175,7 +175,7 @@ export default {
             this.$router.push({ name: this.dimName, params : {sourceName : row.theSource, targetName: row.theDestination}});
             break;
           case 'dataflow':
-            this.$router.push({ name: this.dimName, params : {objectName: row.theName, envName: row.theEnvironmentName}});
+            this.$router.push({ name: this.dimName, params : {objectName: row.theName, fromName : row.theFromName, fromType : row.theFromType, toName : row.theToName, toType : row.theToType, envName: row.theEnvironmentName}});
             break;
           case 'user_goal':
             this.$router.push({ name: 'objectview', params: {dimension: this.dimension, objectName: row.theSynopsis, objectsLabel: this.theObjectViewParameters.objectsLabel, componentFile: this.theObjectViewParameters.componentFile, updatePath: this.theObjectViewParameters.updatePath, createPath: this.theObjectViewParameters.createPath}});
@@ -295,7 +295,7 @@ export default {
         this.selectedIndex = this.items.findIndex(o => o.theSource == row.item.theSource && o.theDestination == row.item.theDestination);
       }
       else if (this.dimName == 'dataflow') {
-        this.selectedObject = {'envName' : row.item.theEnvironmentName,'objectName' : row.item.theName};
+        this.selectedObject = {'envName' : row.item.theEnvironmentName,'objectName' : row.item.theName, 'fromName' : row.item.theFromName, 'fromType' : row.item.theFromType, 'toName' : row.item.theToName, 'toType' : row.item.theToType};
         this.selectedIndex = this.items.findIndex(o => o.theEnvironmentName == row.item.theEnvironmentName && o.theName == row.item.theName);
       }
       else if (this.dimName == 'user_goal') {
@@ -357,7 +357,7 @@ export default {
           deleteUrl += 'source/' + this.selectedObject.theSource + '/target/' + this.selectedObject.theDestination;
           break;
         case 'dataflow':
-          deleteUrl += this.selectedObject.objectName + '/environment/' + this.selectedObject.envName;
+          deleteUrl += this.selectedObject.objectName + '/from_name/' + this.selectedObject.fromName + '/from_type/' + this.selectedObject.fromType + '/to_name/' + this.selectedObject.toName + '/to_type/' + this.selectedObject.toType + '/environment/' + this.selectedObject.envName;
           break;
         case 'asset_value':
         case 'asset_type':

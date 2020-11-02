@@ -78,7 +78,7 @@ export default new Router({
       component: () => import('./views/DatabaseView.vue')
     },
     {
-      path: '/dataflow/:objectName/environment/:envName',
+      path: '/dataflow/:objectName/from_name/:fromName/from_type/:fromType/to_name/:toName/to_type/:toType/environment/:envName',
       name: 'dataflow',
       component: () => import('./views/DataFlowView.vue'),
       props: true
