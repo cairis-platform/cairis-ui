@@ -96,7 +96,7 @@ export default {
   methods : {
     commitDataFlow(objt) {
       this.objt = objt;
-      var updateUrl = this.$store.state.url + "/api/dataflows/name/" + this.objectName + "/from_name/" + objt.theFromName + "/from_type/" + objt.theFromType + "/to_name/" + objt.theToName + "/to_type/" + objt.theToType + "/environment/" + this.envName + "?session_id=" + this.$store.state.session;
+      var updateUrl = this.$store.state.url + "/api/dataflows/name/" + this.objectName + "/from_name/" + this.fromName + "/from_type/" + this.fromType + "/to_name/" + this.toName + "/to_type/" + this.toType + "/environment/" + this.envName + "?session_id=" + this.$store.state.session;
       var createUrl = this.$store.state.url + "/api/dataflows";
       this.commitObject(updateUrl,createUrl,'objectsview',undefined,'dataflow');
     }
