@@ -70,19 +70,18 @@ Authors: Shamal Faily
         this.$refs.propertyDialog.show();
       },
       onOk(evt) {
-        if (!this.securityProperty.rationale.length && this.securityProperty.name != 'None') {
+        if (this.securityProperty.value == 'None' || this.securityProperty.value == '') {
+          evt.preventDefault();
+          alert('Cannot enter a property with a value of None');
+        }
+        else if (!this.securityProperty.rationale.length) {
           evt.preventDefault();
           alert('Please enter rationale');
         }
         else {
           this.updateProperty.name = this.securityProperty.name;
           this.updateProperty.value = this.securityProperty.value;
-          if (this.securityProperty.value == 'None') {
-            this.updateProperty.rationale = 'None';
-          }
-          else {
-            this.updateProperty.rationale = this.securityProperty.rationale;
-          }
+          this.updateProperty.rationale = this.securityProperty.rationale;
           this.$emit('property-update',this.updateProperty);
           this.$refs.propertyDialog.hide(); 
         }
