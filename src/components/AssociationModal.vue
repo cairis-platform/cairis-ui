@@ -117,7 +117,9 @@ import DimensionSelect from '@/components/DimensionSelect.vue'
         this.$refs.associationDialog.show();
       },
       tailAssetSelected(item) {
-        this.association.association.theTailName = item;
+        if (item != undefined) {
+          this.association.association.theTailName = item;
+        }
       },
       tailAssetsLoaded(item) {
         this.association.association.theTailName = item;

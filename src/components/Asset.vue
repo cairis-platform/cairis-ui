@@ -382,13 +382,13 @@ export default {
     },
     viewAssetAssociation(data,index) {
       this.selectedAssociation['asset'] = this.objt.theName;
-      this.selectedAssociation['assets'] = this.tailAssets;
-      this.selectedAssociation['assets'].push(this.objt.theName);
       this.selectedAssociation['index'] = index
       this.selectedAssociation['environment'] = this.objt.theEnvironmentProperties[this.envPropIndex].theEnvironmentName
       this.selectedAssociation['association'] = JSON.parse(JSON.stringify(data));
       this.selectedAssociation['update'] = true;
       this.selectedAssociation['initial'] = this.selectedAssociation['association'].theTailName
+      this.selectedAssociation['assets'] = this.tailAssets.filter(v => v!= this.selectedAssociation['association'].theTailName);
+      this.selectedAssociation['assets'].push(this.objt.theName);
       this.$refs.assetAssociationDialog.show();  
     },
     assetTypeSelected(vtName) {
