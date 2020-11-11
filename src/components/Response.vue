@@ -326,7 +326,7 @@ export default {
       if (this.objt.theRisk.length == 0) {
         this.errors.push('Risk is required');
       }
-      if (this.objt.theName.length == 0) {
+      if (this.objt.theName.length == 0 || this.objt.theName.trim().length == 0) {
         this.errors.push('Response Name is required');
       }
       const resChars = /[<>‘'`"\\:%/_*?#£$&]/ ;

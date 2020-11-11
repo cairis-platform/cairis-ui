@@ -198,6 +198,7 @@ export default {
   methods: {
     checkForm() {
       this.errors = []
+
       if (this.objt.thePersonaName.length == 0) {
         this.errors.push('Persona is required');
       }
@@ -207,7 +208,7 @@ export default {
       if (this.objt.theModQual.length == 0) {
         this.errors.push('Modal Qualifier is required');
       }
-      if (this.objt.theNamelength == 0) {
+      if (this.objt.theName.length == 0 || this.objt.theName.trim().length == 0) {
         this.errors.push('Characteristic definition is required');
       }
       const resChars = /[<>‘'`"\\:%/_*?#£$&]/ ;

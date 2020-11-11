@@ -374,7 +374,7 @@ export default {
     },
     checkForm() {
       this.errors = []
-      if (this.objt.theName.length == 0) {
+      if (this.objt.theName.length == 0 || this.objt.theName.trim().length == 0) {
         this.errors.push('Obstacle name is required');
       }
       const resChars = /[<>‘'`"\\:%/_*?#£$&]/ ;

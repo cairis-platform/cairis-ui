@@ -210,7 +210,7 @@ export default {
       if (this.objt.theEnvironmentName.length == 0) {
         this.errors.push('Environment is required');
       }
-      if (this.objt.theName.length == 0) {
+      if (this.objt.theName.length == 0 || this.objt.theName.trim().length == 0) {
         this.errors.push('Data flow name is required');
       }
       const resChars = /[<>‘'`"\\:%/_*?#£$&]/ ;

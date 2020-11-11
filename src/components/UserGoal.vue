@@ -160,7 +160,7 @@ export default {
     },
     checkForm() {
       this.errors = []
-      if (this.objt.theSynopsis.length == 0) {
+      if (this.objt.theSynopsis.length == 0 || this.objt.theSynopsis.trim().length == 0) {
         this.errors.push('User goal name is required');
       }
       const resChars = /[<>‘'`"\\:%/_*?#£$&]/ ;
