@@ -65,6 +65,12 @@ export default {
         return ''
       }
     },
+    add_initial : {
+      type: Boolean,
+      default : function() {
+        return false;
+      }
+    },
     display_size : {
       type: String,
       default : function() {
@@ -133,6 +139,10 @@ export default {
           }
           if (ref.initial != '') {
             ref.selected = ref.initial;
+            if (ref.add_initial) {
+              ref.items.push(ref.initial);
+              ref.items.sort();
+            }
             this.$emit('dimension-items-updated',ref.selected);
           }
           else {

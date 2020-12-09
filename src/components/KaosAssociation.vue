@@ -61,7 +61,7 @@ Authors: Shamal Faily
               <b-row>
                 <b-col md="12">
                   <div v-if="objt.theSubGoalDimension != 'role'">
-                    <dimension-select id="theSubGoalSelect" ref="theSubGoalSelect" :is_disabled="disable" :environment='objt.theEnvironmentName' :dimension='objt.theSubGoalDimension' :initial="objt.theSubGoal" v-on:dimension-select-change="subGoalSelected" v-on:dimension-items-updated="subGoalsLoaded" />
+                    <dimension-select id="theSubGoalSelect" ref="theSubGoalSelect" :is_disabled="disable" :environment='objt.theEnvironmentName' :dimension='objt.theSubGoalDimension' :initial="objt.theSubGoal" add_initial v-on:dimension-select-change="subGoalSelected" v-on:dimension-items-updated="subGoalsLoaded" />
                   </div>
                   <div v-if="objt.theSubGoalDimension == 'role'">
                     <dimension-select id="theSubGoalSelect" ref="theSubGoalSelect" :is_disabled="disable" :dimension='objt.theSubGoalDimension' :initial="objt.theSubGoal" v-on:dimension-select-change="subGoalSelected" />
@@ -161,7 +161,9 @@ export default {
         {text : 'Use Case', value : 'usecase'},
         {text : 'Domain Property', value : 'domainproperty'},
         {text : 'Role', value : 'role'},
-        {text : 'Requirement', value : 'requirement'}
+        {text : 'Requirement', value : 'requirement'},
+        {text : 'Threat', value : 'threat'},
+        {text : 'Vulnerability', value : 'vulnerability'}
       ]
     }
   },
@@ -187,28 +189,40 @@ export default {
           {'text' : 'Role', 'value' : 'role'},
           {'text' : 'Requirement', 'value' : 'requirement'}
         ];
-        this.theSubGoalType = 'goal';
+        if (this.subGoalTypeOptions.map(x => x.value).includes(this.theSubGoalType) == false) {
+          this.theSubGoalType = 'goal';
+        }
       }
       else if (this.theGoalType == 'obstacle') {
         this.subGoalTypeOptions = [
           {'text' : 'Obstacle', 'value' : 'obstacle'},
-          {'text' : 'Threat', 'value' : 'threat'},
-          {'text' : 'Vulnerability', 'value' : 'vulnerability'},
           {'text' : 'Goal', 'value' : 'goal'},
           {'text' : 'Domain Property', 'value' : 'domainproperty'},
           {'text' : 'Misuse Case', 'value' : 'misusecase'},
           {'text' : 'Task', 'value' : 'task'},
           {'text' : 'Use Case', 'value' : 'usecase'},
           {'text' : 'Requirement', 'value' : 'requirement'},
-          {'text' : 'Role', 'value' : 'role'}
+          {'text' : 'Role', 'value' : 'role'},
+          {'text' : 'Threat', 'value' : 'unconnected_threat'},
+          {'text' : 'Vulnerability', 'value' : 'unconnected_vulnerability'},
         ];
-        this.theSubGoalType = 'obstacle';
+        if (this.objt.theSubGoalDimension == 'threat') {
+          this.theSubGoalType = 'unconnected_threat';
+        }
+        else if (this.objt.theSubGoalDimension == 'vulnerability') {
+          this.theSubGoalType = 'unconnected_vulnerability';
+        }
+        if (this.subGoalTypeOptions.map(x => x.value).includes(this.theSubGoalType) == false) {
+          this.theSubGoalType = 'obstacle';
+        }
       }
       else if (this.theGoalType == 'domainproperty') {
         this.subGoalTypeOptions = [
           {'text' : 'Obstacle', 'value' : 'obstacle'}
         ];
-        this.theSubGoalType = 'obstacle';
+        if (this.subGoalTypeOptions.map(x => x.value).includes(this.theSubGoalType) == false) {
+          this.theSubGoalType = 'obstacle';
+        }
       }
       else if (this.theGoalType == 'requirement') {
         this.subGoalTypeOptions = [
@@ -217,13 +231,17 @@ export default {
           {'text' : 'Role', 'value' : 'role'},
           {'text' : 'Obstacle', 'value' : 'obstacle'}
         ];
-        this.theSubGoalType = 'goal';
+        if (this.subGoalTypeOptions.map(x => x.value).includes(this.theSubGoalType) == false) {
+          this.theSubGoalType = 'goal';
+        }
       }
       else if (this.theGoalType == 'countermeasure') {
         this.subGoalTypeOptions = [
           {'text' : 'Task', 'value' : 'task'},
         ];
-        this.theSubGoalType = 'task';
+        if (this.subGoalTypeOptions.map(x => x.value).includes(this.theSubGoalType) == false) {
+          this.theSubGoalType = 'task';
+        }
       }
       this.setAssociationTypes();
     },
@@ -302,6 +320,12 @@ export default {
     onCommit(evt) {
       evt.preventDefault();
       if (this.checkForm()) {
+        if (this.objt.theSubGoalDimension == 'unconnected_threat') {
+          this.objt.theSubGoalDimension = 'threat';
+        }
+        else if (this.objt.theSubGoalDimension == 'unconnected_vulnerability') {
+          this.objt.theSubGoalDimension = 'vulnerability';
+        }
         this.$emit('kaos-association-commit',this.objt);
       }
     },
