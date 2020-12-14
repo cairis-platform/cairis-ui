@@ -48,7 +48,7 @@ Authors: Shamal Faily
               <b-row>
                 <b-col md="6">
                   <b-form-group label="Environment" label-class="font-weight-bold text-md-left" label-for="theEnvironmentSelect">
-                    <dimension-select id="theEnvironmentSelect" dimension='environment' v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
+                    <dimension-select id="theEnvironmentSelect" dimension='noncomposite_environment' v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
                   </b-form-group>
                 </b-col>
                 <b-col md="6">
@@ -64,7 +64,7 @@ Authors: Shamal Faily
               <b-row>
                 <b-col md="12">
                   <b-form-group label="Environment" label-class="font-weight-bold text-md-left" label-for="theEnvironmentSelect">
-                    <dimension-select id="theEnvironmentSelect" dimension='environment' v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
+                    <dimension-select id="theEnvironmentSelect" dimension='noncomposite_environment' v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
                   </b-form-group>
                 </b-col>
               </b-row>

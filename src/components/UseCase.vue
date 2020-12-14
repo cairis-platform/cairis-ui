@@ -21,7 +21,7 @@ Authors: Shamal Faily
 -->
 
   <div class="usecase">
-    <dimension-modal ref="environmentDialog" dimension="environment" :existing="environmentNames" v-on:dimension-modal-update="addUseCaseEnvironmentProperty"/> 
+    <dimension-modal ref="environmentDialog" dimension="noncomposite_environment" :existing="environmentNames" v-on:dimension-modal-update="addUseCaseEnvironmentProperty"/> 
     <dimension-modal ref="actorDialog" dimension="role" :existing="actorNames" v-on:dimension-modal-update="addUseCaseActor"/> 
     <step-modal v-if="objt.theEnvironmentProperties.length" ref="stepDialog" :usecaseStep="selectedStep" :usecaseActors="actorNames" :environment="environmentName" v-on:step-update="updateStep"/> 
     <exception-modal v-if="objt.theEnvironmentProperties.length" ref="excDialog" :stepException="selectedException" :usecase="objt.theName" :environment="environmentName" v-on:exception-update="updateException"/> 

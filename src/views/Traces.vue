@@ -26,7 +26,7 @@ Authors: Shamal Faily
         <b-row>
           <b-col>
             <b-form-group label="Environment" label-for="reqEnvironment" :label-cols="5" >
-              <dimension-select ref="traceEnvFilter" id="traceEnvironment" dimension="environment" v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
+              <dimension-select ref="traceEnvFilter" id="traceEnvironment" dimension="noncomposite_environment" v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
             </b-form-group>
           </b-col>
         </b-row>

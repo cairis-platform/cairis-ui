@@ -20,7 +20,7 @@ under the License.
 Authors: Shamal Faily 
 -->
   <div class="persona">
-    <dimension-modal ref="environmentDialog" dimension="environment" :existing="environmentNames" v-on:dimension-modal-update="addPersonaEnvironmentProperty"/> 
+    <dimension-modal ref="environmentDialog" dimension="noncomposite_environment" :existing="environmentNames" v-on:dimension-modal-update="addPersonaEnvironmentProperty"/> 
     <dimension-modal ref="roleDialog" dimension="role" :existing="environmentRoles" v-on:dimension-modal-update="addPersonaRole"/> 
     <p v-if="errors.length">
       <b>Please correct the following error(s):</b>

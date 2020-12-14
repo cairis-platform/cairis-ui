@@ -20,7 +20,7 @@ under the License.
 Authors: Shamal Faily 
 -->
   <div class="attacker">
-    <dimension-modal ref="environmentDialog" dimension="environment" :existing="environmentNames" v-on:dimension-modal-update="addAttackerEnvironmentProperty"/> 
+    <dimension-modal ref="environmentDialog" dimension="noncomposite_environment" :existing="environmentNames" v-on:dimension-modal-update="addAttackerEnvironmentProperty"/> 
     <dimension-modal ref="roleDialog" dimension="role" :existing="environmentRoleNames" v-on:dimension-modal-update="addAttackerRole"/> 
     <dimension-modal ref="motiveDialog" dimension="motivation" :existing="environmentMotives" v-on:dimension-modal-update="addAttackerMotive"/> 
     <capability-modal ref="capabilityDialog" :existing="capabilityNames" v-on:capability-modal-update="addAttackerCapability"/> 

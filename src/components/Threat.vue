@@ -21,7 +21,7 @@ Authors: Shamal Faily
 -->
 
   <div class="threat">
-    <dimension-modal ref="environmentDialog" dimension="environment" :existing="environmentNames" v-on:dimension-modal-update="addThreatEnvironmentProperty"/> 
+    <dimension-modal ref="environmentDialog" dimension="noncomposite_environment" :existing="environmentNames" v-on:dimension-modal-update="addThreatEnvironmentProperty"/> 
     <dimension-modal ref="assetDialog" dimension="asset" :environment="environmentName" :existing="assetNames" v-on:dimension-modal-update="addThreatAsset"/> 
     <dimension-modal ref="attackerDialog" dimension="attacker" :environment="environmentName" :existing="attackerNames" v-on:dimension-modal-update="addThreatAttacker"/> 
     <property-modal ref="propertyDialog" :securityProperty="selectedProperty" v-on:property-update="updateProperty"/> 

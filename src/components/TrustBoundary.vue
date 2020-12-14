@@ -21,7 +21,7 @@ Authors: Shamal Faily
 -->
 
   <div class="trustboundary">
-    <dimension-modal ref="environmentDialog" dimension="environment" :existing="environmentNames" v-on:dimension-modal-update="addTrustBoundaryEnvironmentProperty"/> 
+    <dimension-modal ref="environmentDialog" dimension="noncomposite_environment" :existing="environmentNames" v-on:dimension-modal-update="addTrustBoundaryEnvironmentProperty"/> 
     <trust-boundary-component-modal ref="compDialog" :environment="environmentName" v-on:trust-boundary-component-modal-update="addTrustBoundaryComponent"/> 
     <p v-if="errors.length">
       <b>Please correct the following error(s):</b>

@@ -21,7 +21,7 @@ Authors: Shamal Faily
 -->
 
   <div class="asset">
-    <dimension-modal ref="environmentDialog" dimension="environment" :existing="environmentNames" v-on:dimension-modal-update="addAssetEnvironmentProperty"/> 
+    <dimension-modal ref="environmentDialog" dimension="noncomposite_environment" :existing="environmentNames" v-on:dimension-modal-update="addAssetEnvironmentProperty"/> 
     <association-modal ref="assetAssociationDialog" :assetAssociation="selectedAssociation" v-on:association-update="updateAssetAssociation"/> 
     <property-modal ref="propertyDialog" :securityProperty="selectedProperty" v-on:property-update="updateProperty"/> 
     <asset-interface-modal ref="assetInterfaceDialog" :assetInterface="selectedInterface" v-on:interface-update="updateAssetInterface"/> 

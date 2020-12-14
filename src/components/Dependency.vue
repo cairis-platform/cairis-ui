@@ -35,7 +35,7 @@ Authors: Shamal Faily
               <b-row>
                 <b-col md="12">
                   <b-form-group label="Environment" label-class="font-weight-bold text-sm-left" label-for="theEnvironmentSelect" >
-                    <dimension-select id="theEnvironmentSelect" ref="theEnvironmentSelect" dimension='environment' :initial="objt.theEnvironmentName" v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
+                    <dimension-select id="theEnvironmentSelect" ref="theEnvironmentSelect" dimension='noncomposite_environment' :initial="objt.theEnvironmentName" v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
                   </b-form-group>
                 </b-col>
               </b-row>

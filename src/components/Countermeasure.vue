@@ -21,7 +21,7 @@ Authors: Shamal Faily
 -->
 
   <div class="countermeasure">
-    <dimension-modal ref="environmentDialog" dimension="environment" :existing="environmentNames" v-on:dimension-modal-update="addCountermeasureEnvironmentProperty"/> 
+    <dimension-modal ref="environmentDialog" dimension="noncomposite_environment" :existing="environmentNames" v-on:dimension-modal-update="addCountermeasureEnvironmentProperty"/> 
     <dimension-modal ref="roleDialog" dimension="role" :existing="roleNames" v-on:dimension-modal-update="addObjectRole"/> 
     <dimension-modal ref="reqDialog" dimension="requirement" :existing="requirementNames" v-on:dimension-modal-update="addCountermeasureRequirement"/> 
     <countermeasure-participant-modal v-if="objt.theEnvironmentProperties.length" ref="participantDialog" :taskParticipant="selectedParticipant" v-on:countermeasure-participant-update="updateParticipant"/> 

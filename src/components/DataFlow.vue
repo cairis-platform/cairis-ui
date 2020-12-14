@@ -20,7 +20,7 @@ under the License.
 Authors: Shamal Faily 
 -->
   <div class="dataflow">
-    <dimension-modal v-if="objt.theEnvironmentName != ''" ref="assetDialog" dimension="asset" :environment="objt.theEnvironmentName" :existing="objt.theAssets" v-on:dimension-modal-update="addDataFlowAsset"/> 
+    <dimension-modal v-if="objt.theEnvironmentName != ''" ref="assetDialog" dimension="information_asset" :environment="objt.theEnvironmentName" :existing="objt.theAssets" v-on:dimension-modal-update="addDataFlowAsset"/> 
     <dataflow-obstacle-modal v-if="objt.theEnvironmentName != ''" ref="obstacleDialog" :selectedObject="selectedObject" :existing="dataFlowObstacles" v-on:dataflow-obstacle-modal-update="updateDataFlowObstacle"/> 
     <p v-if="errors.length">
       <b>Please correct the following error(s):</b>
@@ -42,7 +42,7 @@ Authors: Shamal Faily
                 </b-col>
                 <b-col md="3">
                   <b-form-group label="Environment" label-class="font-weight-bold text-md-left" label-for="theEnvironmentSelect" >
-                    <dimension-select id="theEnvironmentSelect" ref="theEnvironmentSelect" dimension='environment' :initial="objt.theEnvironmentName" v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
+                    <dimension-select id="theEnvironmentSelect" ref="theEnvironmentSelect" dimension='noncomposite_environment' :initial="objt.theEnvironmentName" v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
                   </b-form-group>
                 </b-col>
                 <b-col md="3">

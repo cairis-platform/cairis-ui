@@ -48,7 +48,7 @@ Authors: Shamal Faily
               <b-form-group label="Domain" label-class="font-weight-bold text-md-left" >
                 <b-form-radio-group v-model="selectedDomain">
                   <b-form-radio value="asset">Asset</b-form-radio>
-                  <b-form-radio value="environment">Environment</b-form-radio>
+                  <b-form-radio value="noncomposite_environment">Environment</b-form-radio>
                 </b-form-radio-group>
               </b-form-group>
             </b-col>

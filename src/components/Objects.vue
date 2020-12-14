@@ -22,8 +22,8 @@ Authors: Shamal Faily
 
   <div class="objects">
     <b-breadcrumb :items="breadCrumbItems" />
-    <dimension-modal v-if="this.dimension == 'architectural_pattern'" ref="environmentDialog" dimension="environment" v-on:dimension-modal-update="viewWeaknessAnalysis"/> 
-    <dimension-modal v-if="this.dimension == 'security_pattern'" ref="spEnvDialog" dimension="environment" v-on:dimension-modal-update="applySecurityPattern"/> 
+    <dimension-modal v-if="this.dimension == 'architectural_pattern'" ref="environmentDialog" dimension="noncomposite_environment" v-on:dimension-modal-update="viewWeaknessAnalysis"/> 
+    <dimension-modal v-if="this.dimension == 'security_pattern'" ref="spEnvDialog" dimension="noncomposite_environment" v-on:dimension-modal-update="applySecurityPattern"/> 
     <dimension-modal v-if="this.dimension == 'countermeasure'" ref="spRmDialog" :dimensionUrl="spRmUrl" label="Situated security pattern" v-on:dimension-modal-update="removeSecurityPattern"/> 
     <object-dependency-modal ref="depDialog" :dependencies="objectDependencies" v-on:object-dependency-ok="deleteDependencies" />
     <add-trace-modal v-if="selectedTraceabilityObject != ''" ref="traceDialog" :dimension="dimension" :tobject="selectedTraceabilityObject" :isFrom="isPostTraceability" />
@@ -45,7 +45,7 @@ Authors: Shamal Faily
         <b-row>
           <b-col>
             <b-form-group label="Environment" label-class="font-weight-bold" label-for="reqEnvironment" >
-              <dimension-select ref="envFilter" id="vtEnvironment" dimension="environment" :initial="this.theEnvironnmentName" v-on:dimension-select-change="vtEnvironmentSelected" />
+              <dimension-select ref="envFilter" id="vtEnvironment" dimension="noncomposite_environment" :initial="this.theEnvironnmentName" v-on:dimension-select-change="vtEnvironmentSelected" />
             </b-form-group>
           </b-col>
         </b-row>

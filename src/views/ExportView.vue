@@ -57,7 +57,7 @@ Authors: Shamal Faily
           <b-row>
             <b-col md="4">
               <b-form-group v-if="theModelType == 'GRL'" label="Environment" label-class="text-md-left font-weight-bold" label-for="theEnvironmentSelect">
-                <dimension-select ref="environmentSelect" id="environmentSelect" dimension="environment" v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
+                <dimension-select ref="environmentSelect" id="environmentSelect" dimension="noncomposite_environment" v-on:dimension-select-change="environmentSelected" v-on:dimension-items-updated="environmentsLoaded" />
               </b-form-group>
             </b-col>
             <b-col md="4">

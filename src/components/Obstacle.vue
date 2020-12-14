@@ -20,7 +20,7 @@ under the License.
 Authors: Shamal Faily 
 -->
   <div class="obstacle">
-    <dimension-modal v-if="objt.theEnvironmentProperties" ref="environmentDialog" dimension="environment" :existing="environmentNames" v-on:dimension-modal-update="addObstacleEnvironmentProperty"/> 
+    <dimension-modal v-if="objt.theEnvironmentProperties" ref="environmentDialog" dimension="noncomposite_environment" :existing="environmentNames" v-on:dimension-modal-update="addObstacleEnvironmentProperty"/> 
     <dimension-modal v-if="objt.theEnvironmentProperties.length" ref="assetDialog" dimension="asset" :environment="environmentName" :existing="concernNames" v-on:dimension-modal-update="addObstacleConcern"/> 
     <kaos-refinement-modal v-if="objt.theEnvironmentProperties.length" ref="obstacleRefinementDialog" :goalAssociation="selectedAssociation" refinementType="Obstacle" :source="objt.theName" v-on:kaos-refinement-update="updateObstacleRefinement"/> 
     <kaos-refinement-modal v-if="objt.theEnvironmentProperties.length" ref="subObstacleRefinementDialog" :goalAssociation="selectedAssociation" refinementType="Sub-Obstacle" :source="objt.theName" v-on:kaos-refinement-update="updateSubObstacleRefinement"/> 

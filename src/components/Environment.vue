@@ -20,7 +20,7 @@ under the License.
 Authors: Shamal Faily 
 -->
   <div class="environment">
-    <dimension-modal ref="environmentDialog" dimension="environment" :existing="objt.theEnvironments" v-on:dimension-modal-update="addSubEnvironment"/> 
+    <dimension-modal ref="environmentDialog" dimension="noncomposite_environment" :existing="objt.theEnvironments" v-on:dimension-modal-update="addSubEnvironment"/> 
     <p v-if="errors.length">
       <b>Please correct the following error(s):</b>
       <ul>

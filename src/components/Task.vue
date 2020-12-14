@@ -21,7 +21,7 @@ Authors: Shamal Faily
 -->
 
   <div class="task">
-    <dimension-modal ref="environmentDialog" dimension="environment" :existing="environmentNames" v-on:dimension-modal-update="addTaskEnvironmentProperty"/> 
+    <dimension-modal ref="environmentDialog" dimension="noncomposite_environment" :existing="environmentNames" v-on:dimension-modal-update="addTaskEnvironmentProperty"/> 
     <dimension-modal v-if="objt.theEnvironmentProperties.length" ref="assetDialog" dimension="asset" :environment="environmentName" :existing="concernNames" v-on:dimension-modal-update="addTaskConcern"/> 
     <concern-association-modal v-if="objt.theEnvironmentProperties.length" ref="concernAssociationDialog" :concernAssociation="selectedConcernAssociation" :concerns="concernNames" v-on:concern-association-update="updateConcernAssociation"/> 
     <participant-modal v-if="objt.theEnvironmentProperties.length" ref="participantDialog" :taskParticipant="selectedParticipant" :taskParticipants="participantNames" v-on:participant-update="updateParticipant"/>
