@@ -287,7 +287,8 @@ user_goal : {
   theReference : '',
   theSynopsis : '',
   theSynopsisDimension : 'document_reference',
-  theInitialSatisfation : 'None'
+  theInitialSatisfaction : 'None',
+  theRelatedGoals : []
 },
 vulnerability : {
   theName : '',

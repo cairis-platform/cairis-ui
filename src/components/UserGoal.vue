@@ -96,7 +96,7 @@ export default {
   },
   computed : {
     systemGoals() {
-      return this.objt.theRelatedGoals.length > 0 ? this.objt.theRelatedGoals.map(g => ({name : g})): []
+      return this.objt.theRelatedGoals !=undefined && this.objt.theRelatedGoals.length > 0 ? this.objt.theRelatedGoals.map(g => ({name : g})): []
     }
   },
   data() {
@@ -164,7 +164,7 @@ export default {
         this.errors.push('User goal name is required');
       }
       const resChars = /[<>‘'`"\\:%/_*?#£$&]/ ;
-      const res = this.objt.theName.match(resChars);
+      const res = this.objt.theSynopsis.match(resChars);
       if (res != null) {
         this.errors.push('Character ' + res['index'] + ' in ' + this.objt.theSynopsis + ' is a reserved character.');
       }
