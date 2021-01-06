@@ -280,6 +280,15 @@ usecase : {
   theTags : '',
   theEnvironmentProperties : []
 },
+userstory : {
+  theName : '',
+  theAuthor : '',
+  theRole : '',
+  theDescription : '',
+  theUserGoal : '',
+  theAcceptanceCriteria : [],
+  theTags : ''
+},
 user_goal : {
   theActor : '',
   theActorType : 'persona',

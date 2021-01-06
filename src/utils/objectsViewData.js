@@ -401,6 +401,18 @@ user_goal : {
   theGetUrl : '/api/user_goals',
   theDelUrl : '/api/user_goals/name/'
 },
+userstory : {
+  bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'User stories', to: {name: 'objectsview', params: {dimension: 'userstory'}}}],
+  objectsFields : [
+    {key: 'objectsactions', label : ''},
+    {key: 'theName', label : 'Name', sortable: true},
+    {key: 'theRole', label : 'Who', sortable: true},
+    {key: 'theDescription', label : 'What', sortable: true},
+    {key: 'theUserGoal', label : 'Why', sortable: true}
+  ],
+  theGetUrl : '/api/userstories',
+  theDelUrl : '/api/userstories/name/'
+},
 vulnerability : {
   bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Vulnerabilities', to: {name: 'objectsview', params: {dimension: 'vulnerability'}}}],
   objectsFields : [

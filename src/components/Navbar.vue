@@ -62,6 +62,7 @@ Authors: Shamal Faily
         <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'task'}}">Tasks</b-dropdown-item>
         <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'user_goal'}}">User Goals</b-dropdown-item>
         <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'goal_contribution'}}">User Goal Contributions</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'userstory'}}">User Stories</b-dropdown-item>
         <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'dataflow'}}">Data Flows</b-dropdown-item>
         <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'trustboundary'}}">Trust Boundaries</b-dropdown-item>
         <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'externaldocument'}}">External Documents</b-dropdown-item>

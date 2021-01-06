@@ -197,6 +197,7 @@ export default {
           case 'taskcharacteristic':
           case 'threat':
           case 'usecase':
+          case 'userstory':
           case 'vulnerability':
             this.$router.push({ name: 'objectview', params: {dimension: this.dimension, objectName: row.theName, objectsLabel: this.theObjectViewParameters.objectsLabel, componentFile: this.theObjectViewParameters.componentFile, updatePath: this.theObjectViewParameters.updatePath, createPath: this.theObjectViewParameters.createPath}});
             break;
@@ -256,6 +257,7 @@ export default {
           case 'templateasset':
           case 'threat':
           case 'usecase':
+          case 'userstory':
           case 'user_goal':
           case 'vulnerability':
             this.$router.push({ name: 'objectview', params: {dimension: this.dimension, objectName: 'New ' + this.dimName, objectsLabel: this.theObjectViewParameters.objectsLabel, componentFile: this.theObjectViewParameters.componentFile, updatePath: this.theObjectViewParameters.updatePath, createPath: this.theObjectViewParameters.createPath}});

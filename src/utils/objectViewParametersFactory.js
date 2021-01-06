@@ -183,6 +183,12 @@ user_goal : {
   updatePath : '/api/user_goals/name/',
   createPath : '/api/user_goals'
 },
+userstory : {
+  objectsLabel : 'User stories',
+  componentFile : 'UserStory',
+  updatePath : '/api/userstories/name/',
+  createPath : '/api/userstories'
+},
 vulnerability : {
   objectsLabel : 'Vulnerabilities',
   componentFile : 'Vulnerability',
