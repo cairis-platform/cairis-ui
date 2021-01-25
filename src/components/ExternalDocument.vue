@@ -121,6 +121,10 @@ export default {
       if (this.objt.theAuthors.length == 0) {
         this.errors.push('Authors are required');
       }
+      const res2 = this.objt.theAuthors.match(resChars);
+      if (res2 != null) {
+        this.errors.push('Character ' + res2['index'] + ' in ' + this.objt.theAuthors + ' is a reserved character.');
+      }
       if (this.objt.theVersion.length == 0) {
         this.errors.push('Version is required');
       }
