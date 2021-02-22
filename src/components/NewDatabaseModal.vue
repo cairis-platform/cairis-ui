@@ -49,9 +49,20 @@ Authors: Shamal Faily
         this.$refs.newDbDialog.show();
       },
       onOk(evt) {
+        const resChars = /[<>‘'`"\\:%/_*?#£$&]/ ;
+        const res = this.theName.match(resChars);
+
         if (this.theName.length == 0) {
           evt.preventDefault();
           alert("Please enter a name");
+        }
+        else if (this.theName.indexOf(' ') >= 0) {
+          evt.preventDefault();
+          alert("Name cannot include spaces");
+        }
+        else if (res != null) {
+          evt.preventDefault();
+          alert('Character ' + res['index'] + ' in ' + this.theName + ' is a reserved character.');
         }
         else {
           this.$emit('new-database-modal-update',this.theName);
