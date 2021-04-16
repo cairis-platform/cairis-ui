@@ -130,7 +130,7 @@ export default {
       if (this.objt.theDescription.length == 0) {
         this.errors.push('Description is required');
       }
-      if (this.componentTypeValue && this.objt.theScore <= 0) {
+      if (this.componentTypeValue && this.objt.theScore < 0) {
         this.errors.push('Valid score is required');
       }
       if (this.componentTypeValue && this.objt.theRationale.length <= 0) {
