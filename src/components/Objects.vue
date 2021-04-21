@@ -177,6 +177,9 @@ export default {
           case 'dataflow':
             this.$router.push({ name: this.dimName, params : {objectName: row.theName, fromName : row.theFromName, fromType : row.theFromType, toName : row.theToName, toType : row.theToType, envName: row.theEnvironmentName}});
             break;
+          case 'policy_statement':
+            this.$router.push({ name: this.dimName, params : {goalName: row.theGoalName, envName : row.theEnvironmentName, subjName : row.theSubject, atName : row.theAccessType, resName : row.theResource}});
+            break;
           case 'user_goal':
             this.$router.push({ name: 'objectview', params: {dimension: this.dimension, objectName: row.theSynopsis, objectsLabel: this.theObjectViewParameters.objectsLabel, componentFile: this.theObjectViewParameters.componentFile, updatePath: this.theObjectViewParameters.updatePath, createPath: this.theObjectViewParameters.createPath}});
             break;
@@ -239,6 +242,9 @@ export default {
           case 'dataflow':
             this.$router.push({ name: this.dimName, params : {objectName: 'New ' + this.dimName, envName : 'To set'}});
             break;
+          case 'policy_statement':
+            this.$router.push({ name: this.dimName, params : {goalName: 'To set', envName : 'To set', subjName : 'To set', atName : 'To set', resName : 'To set'}});
+            break;
           case 'asset':
           case 'attacker':
           case 'countermeasure':
@@ -300,6 +306,10 @@ export default {
         this.selectedObject = {'envName' : row.item.theEnvironmentName,'objectName' : row.item.theName, 'fromName' : row.item.theFromName, 'fromType' : row.item.theFromType, 'toName' : row.item.theToName, 'toType' : row.item.theToType};
         this.selectedIndex = this.items.findIndex(o => o.theEnvironmentName == row.item.theEnvironmentName && o.theName == row.item.theName);
       }
+      else if (this.dimName == 'policy_statement') {
+        this.selectedObject = {'goalName' : row.item.theGoalName, 'envName' : row.item.theEnvironmentName,'subjName' : row.item.theSubject, 'atName' : row.item.theAccessType, 'resName' : row.item.theResource};
+        this.selectedIndex = this.items.findIndex(o => o.theGoalName == row.item.theGoalName && o.theEnvironmentName == row.item.theEnvironmentName && o.theSubject == row.item.theSubject && o.theAccessType == row.item.theAcceessType && o.theResource == row.item.theResource);
+      }
       else if (this.dimName == 'user_goal') {
         this.selectedObject = row.item.theSynopsis;
         this.selectedIndex = this.items.findIndex(o => o.theSynopsis == row.item.theSynopsis);
@@ -310,7 +320,7 @@ export default {
       }
       const that = this;
 
-      if (this.dimension != 'kaosassociation' && this.dimension != 'assetassociation' && this.dimension != 'dependency' && this.dimension != 'goal_contribution' && this.dimension != 'dataflow' && this.dimension != 'valuetype') {
+      if (this.dimension != 'kaosassociation' && this.dimension != 'assetassociation' && this.dimension != 'dependency' && this.dimension != 'goal_contribution' && this.dimension != 'dataflow' && this.dimension != 'valuetype' && this.dimension != 'policy_statement') {
         let objectDimension = this.dimension;
         if (objectDimension == 'personacharacteristic') {
           objectDimension = 'persona_characteristic';
@@ -360,6 +370,9 @@ export default {
           break;
         case 'dataflow':
           deleteUrl += this.selectedObject.objectName + '/from_name/' + this.selectedObject.fromName + '/from_type/' + this.selectedObject.fromType + '/to_name/' + this.selectedObject.toName + '/to_type/' + this.selectedObject.toType + '/environment/' + this.selectedObject.envName;
+          break;
+        case 'policy_statement':
+          deleteUrl += this.selectedObject.goalName + '/environment/' + this.selectedObject.envName + '/subject/' + this.selectedObject.subjName + '/access_type/' + this.selectedObject.atName + '/resource/' + this.selectedObject.resName;
           break;
         case 'asset_value':
         case 'asset_type':

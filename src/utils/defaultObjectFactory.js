@@ -157,6 +157,14 @@ personacharacteristic : {
   theBacking : [],
   theRebuttal : []
 },
+policy_statement : {
+  theGoalName : '',
+  theEnvironmentName : '',
+  theSubject : '',
+  theAccessType : 'interact',
+  theResource : '',
+  thePermission: 'deny'
+},
 response : {
   theName : '',
   theResponseType : 'Accept',

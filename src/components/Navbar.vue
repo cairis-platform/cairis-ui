@@ -43,6 +43,7 @@ Authors: Shamal Faily
         <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'dependency'}}">Dependencies</b-dropdown-item>
         <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'kaosassociation'}}">KAOS Associations</b-dropdown-item>
         <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'architecturalpattern'}}">Architectural Patterns</b-dropdown-item>
+        <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'policy_statement'}}">Policy Statements</b-dropdown-item>
       </b-nav-item-dropdown>
       <b-nav-item-dropdown text="Risk">
         <b-dropdown-item :to="{name: 'objectsview', params: {dimension: 'role'}}">Roles</b-dropdown-item>

@@ -104,6 +104,12 @@ personacharacteristic : {
   updatePath : '/api/persona_characteristics/name/',
   createPath : '/api/persona_characteristics'
 },
+policy_statement : {
+  objectsLabel : 'Policy statements',
+  componentFile : 'PolicyStatement',
+  updatePath : '/api/policy_statements/name/',
+  createPath : '/api/policy_statements'
+},
 response : {
   objectsLabel : 'Responses',
   componentFile : 'Response',

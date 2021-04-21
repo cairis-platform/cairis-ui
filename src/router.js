@@ -179,6 +179,12 @@ export default new Router({
       component: () => import('./views/PersonaModelView.vue')
     },
     {
+      path: '/policy_statement/goal/:goalName/environment/:envName/subject/:subjName/access_type/:atName/resource/:resName',
+      name: 'policy_statement',
+      component: () => import('./views/PolicyStatementView.vue'),
+      props: true
+    },
+    {
       path: '/properties',
       name: 'properties',
       component: () => import('./views/PropertiesView.vue')

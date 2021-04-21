@@ -173,6 +173,11 @@ export default {
         dimensionCheck('user_goal',next);
       });
     }
+    else if (to.params.dimension == 'policy_statement') {
+      dimensionCheck('goal',() => {
+        dimensionCheck('asset',next);
+      });
+    }
     else if (['environment','externaldocument','domainproperty','templategoal','taskcharacteristic','conceptreference'].indexOf(to.params.dimension) > -1) {
       next();
     }
@@ -280,6 +285,11 @@ export default {
       else if (this.dimension == 'userstory') {
         dimensionCheck('role',() => {
           dimensionCheck('user_goal',this.setData);
+        });
+      }
+      else if (this.dimension == 'policy_statement') {
+        dimensionCheck('goal',() => {
+          dimensionCheck('asset',this.setData);
         });
       }
       else if (['environment','externaldocument','conceptreference','domainproperty','templategoal','taskcharacteristic'].indexOf(this.dimension) > -1) {

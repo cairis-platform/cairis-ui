@@ -242,6 +242,19 @@ personacharacteristic : {
   theGetUrl : '/api/persona_characteristics/summary',
   theDelUrl : '/api/persona_characteristics/name/'
 },
+policy_statement : {
+  bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Policy statements', to: {name: 'objectsview', params : {dimension: 'policy_statement'}}}],
+  objectsFields : [ 
+    {key: 'objectsactions', label : ''},
+    {key: 'theEnvironmentName', label : 'Environment', sortable: true},
+    {key: 'theGoalName', label : 'Goal', sortable: true},
+    {key: 'theSubject', label : 'Subject', sortable: true},
+    {key: 'theAccessType', label : 'Access Type', sortable: true},
+    {key: 'theResource', label : 'Resource', sortable: true},
+  ],
+  theGetUrl : '/api/policy_statements',
+  theDelUrl : '/api/policy_statements/goal/'
+},
 response : {
   bcItems : [{text: 'Home', to: {name: 'home'}},{text: 'Responses', to: {name: 'objectsview', params : {dimension: 'response'}}}],
   objectsFields : [
