@@ -329,7 +329,8 @@ export default {
         thePriority : 'High',
         theCategory : 'Maintain',
         theGoalRefinements : [],
-        theSubGoalRefinements : []
+        theSubGoalRefinements : [],
+        thePolicy : null
       });
     },
     viewGoalRefinement(data,index) {

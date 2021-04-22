@@ -42,7 +42,7 @@ Authors: Shamal Faily
           <b-col md=12>
             <b-container fluid>
               <b-form-group label="Goal" label-class="font-weigh-bold text-md-left" label-for="theGoalSelect">
-                <dimension-select id="theGoalSelect" dimension='goal' :environment="this.objt.theEnvironmentName" :initial="this.objt.theGoalName" v-on:dimension-select-change="goalSelected" v-on:dimension-items-updated="goalsLoaded" />
+                <dimension-select id="theGoalSelect" :dimensionUrl='npgUrl' :initial="this.objt.theGoalName" v-on:dimension-select-change="goalSelected" v-on:dimension-items-updated="goalsLoaded" />
               </b-form-group>
             </b-container>
           </b-col>
@@ -116,6 +116,9 @@ export default {
   computed : {
     gcUrl() {
       return this.objt.theEnvironmentName.length > 0 && this.objt.theGoalName.length > 0 ? '/api/goals/name/' + this.objt.theGoalName + '/environment/' + this.objt.theEnvironmentName + '/concerns' : '';
+    },
+    npgUrl() {
+      return this.objt.theEnvironmentName.length > 0 ? '/api/dimensions/table/nonpolicy_goal/environment/' + this.objt.theEnvironmentName : '';
     }
   },
   methods : {
