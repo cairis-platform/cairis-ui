@@ -172,6 +172,18 @@ response : {
   theTags : '',
   theEnvironmentProperties : {accept : [], transfer : [], mitigate : []}
 },
+requirement : {
+  theName : '',
+  theLabel : '-1',
+  theDescription : '',
+  thePriority : '1',
+  theOriginator : '',
+  theFitCriterion : '',
+  theRationale : '',
+  theType : 'Functional',
+  theDomain : '',
+  theDomainType : 'asset'
+},
 risk : {
   theName : '',
   theVulnerabilityName : '',

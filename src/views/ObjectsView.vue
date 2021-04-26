@@ -72,7 +72,7 @@ export default {
     }
   },
   beforeRouteEnter (to, from, next) {
-    if (['requirement','goal','obstacle','usecase','dependency','asset','location','traceability','role','kaosassociation'].indexOf(to.params.dimension) > -1) {
+    if (['goal','obstacle','usecase','dependency','asset','location','traceability','role','kaosassociation'].indexOf(to.params.dimension) > -1) {
       dimensionCheck('environment',next);
     }
     else if (to.params.dimension == 'attacker') {
@@ -81,6 +81,11 @@ export default {
       });
     }
     else if (to.params.dimension == 'assetassociation') {
+      dimensionCheck('environment',() => {
+        dimensionCheck('asset',next);
+      });
+    }
+    else if (to.params.dimension == 'requirement') {
       dimensionCheck('environment',() => {
         dimensionCheck('asset',next);
       });
@@ -184,7 +189,7 @@ export default {
   },
   methods : {
     checkRoute() {
-      if (['requirement','goal','obstacle','usecase','dependency','asset','location','traceability','role','kaosassociation'].indexOf(this.dimension) > -1) {
+      if (['goal','obstacle','usecase','dependency','asset','location','traceability','role','kaosassociation'].indexOf(this.dimension) > -1) {
         dimensionCheck('environment',this.setData);
       }
       else if (this.dimension == 'attacker') {
@@ -193,6 +198,11 @@ export default {
         });
       }
       else if (this.dimension == 'assetassociation') {
+        dimensionCheck('environment',() => {
+          dimensionCheck('asset',this.setData);
+        });
+      }
+      else if (this.dimension == 'requirement') {
         dimensionCheck('environment',() => {
           dimensionCheck('asset',this.setData);
         });

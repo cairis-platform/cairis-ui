@@ -31,16 +31,6 @@ Authors: Shamal Faily
     <directory-modal ref="dirDialog" v-if="dimension == 'threat' || dimension == 'vulnerability'" :dimension="dimension" v-on:directory-modal-update="addDirectoryEntry"/> 
     <situate-countermeasure-modal ref="scDialog" :countermeasure="itemName" v-on:situate-countermeasure-update="applySituateCountermeasure"/>
     <b-card no-body>
-      <b-container v-if="dimension == 'requirement'" fluid>
-        <b-row class="justify-content-md-left">
-          <b-col md="2">
-            <b-form-radio-group buttons size="md" id="theDomainRadio" v-model="$store.state.domain" :options="domainOptions" class="sm-3" required name="theDomainRadio"/>
-          </b-col>
-          <b-col md="5">
-            <dimension-select id="domainFilter" ref="domainFilter" :dimension="$store.state.domain" v-on:dimension-select-change="domainSelected" v-on:dimension-items-updated="itemsUpdated" />
-          </b-col> 
-        </b-row>
-      </b-container>
       <b-container v-if="environmentSpecificValueType" fluid>
         <b-row>
           <b-col>
@@ -159,9 +149,6 @@ export default {
       }
       else {
         switch(this.dimension) {
-          case 'requirement':
-            this.$router.push({ name: this.dimName, params : {objectName: row.theName, domain:  {domain: this.$store.state.domain, domainName: this.$store.state.domainName}}});
-            break;
           case 'kaosassociation':
             this.$router.push({ name: this.dimName, params : {envName: row.theEnvironmentName,goalName : row.theGoal, subGoalName: row.theSubGoal}});
             break;
@@ -195,6 +182,7 @@ export default {
           case 'personacharacteristic':
           case 'response':
           case 'risk':
+          case 'requirement':
           case 'role':
           case 'task':
           case 'taskcharacteristic':
@@ -255,6 +243,7 @@ export default {
           case 'obstacle':
           case 'persona':
           case 'personacharacteristic':
+          case 'requirement':
           case 'response':
           case 'risk':
           case 'role':
@@ -280,7 +269,7 @@ export default {
             this.$router.push({ name: 'objectview', params: {dimension: this.dimName, objectName: 'New ' + this.dimName, objectsLabel: this.theObjectViewParameters.objectsLabel, componentFile: this.theObjectViewParameters.componentFile, updatePath: this.theObjectViewParameters.updatePath, createPath: this.theObjectViewParameters.createPath}});
             break;
           default:
-            this.$router.push({ name: this.dimName, params : {objectName: 'New ' + this.dimName, domain : {type : 'asset', name : ''}}});
+            this.$router.push({ name: 'objectview', params: {dimension: this.dimension, objectName: 'New ' + this.dimName, objectsLabel: this.theObjectViewParameters.objectsLabel, componentFile: this.theObjectViewParameters.componentFile, updatePath: this.theObjectViewParameters.updatePath, createPath: this.theObjectViewParameters.createPath}});
             break;
         }
       }
@@ -427,38 +416,17 @@ export default {
       this.updateDimension();
     },
     loadObjects() {
-      if (this.theGetUrl == '' && this.dimension == 'requirement' && this.$store.state.domainName != '') {
-        this.theGetUrl = '/api/requirements/' + this.$store.state.domain + '/' + this.$store.state.domainName;
-      } 
       if (this.theGetUrl != '') {
         axios.get(this.theGetUrl,{
           baseURL : this.$store.state.url,
           params : {'session_id' : this.$store.state.session}
          })
         .then(response => {
-          if (this.dimension == 'requirement') {
-            this.$refs.domainFilter.selected = this.$store.state.domainName;
-          }
           this.items = response.data;
         })
         .catch((error) => {
           EventBus.$emit('operation-failure',error)
         });
-      }
-    },
-    domainSelected(domName) {
-      if (domName != null) {
-        this.$store.state.domainName = domName;
-        this.$refs.domainFilter.selected = domName;
-        this.theGetUrl = '/api/requirements/' + this.$store.state.domain + '/' + domName;
-        this.loadObjects();
-      }
-    },
-    itemsUpdated(domName) {
-      if (this.dimension == 'requirement') {
-        this.$store.state.domainName = domName;
-        this.theGetUrl = '/api/requirements/' + this.$store.state.domain + '/' + this.$store.state.domainName;
-        this.loadObjects();
       }
     },
     vtEnvironmentSelected(envName) {
@@ -610,18 +578,10 @@ export default {
       .catch((error) => {
         EventBus.$emit('operation-failure',error.response.data.message);
       });
-    },
-    applyFilter() {
-      if (this.$store.state.domainName != '') {
-        this.$refs.domainFilter.selected = this.$store.state.domainName;
-      }
     }
   },
   mounted() {
     this.theObjectViewParameters = objectViewParametersFactory[this.dimension];
-    if (this.dimension == 'requirement') {
-      this.applyFilter();
-    }
     this.loadObjects();
     this.updateDimension();
   }

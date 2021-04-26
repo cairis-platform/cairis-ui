@@ -108,12 +108,7 @@ export default {
   },
   methods: {
     commitNamedObject(objt) {
-      if (this.dimension == 'requirement') {
-        this.objt = objt.object;
-      }
-      else {
-        this.objt = objt;
-      }
+      this.objt = objt;
       var updateUrl = this.$store.state.url + this.updatePath + encodeURIComponent(this.objectName) + "?session_id=" + this.$store.state.session;
       var createUrl = this.$store.state.url + this.createPath;
       this.commitObject(updateUrl,createUrl,'objectsview',undefined,this.dimension);

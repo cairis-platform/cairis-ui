@@ -37,8 +37,7 @@ import EventBus from '../utils/event-bus';
 
 export default {
   props : {
-    objectName : String,
-    domain : Object
+    objectName : String
   },
   mixins : [
     axiosMixin
@@ -82,8 +81,7 @@ export default {
           vm.commitLabel = 'Update';
           let objt = response.data;
           vm.objt = objt;
-          vm.objt.theDomain = to.params.domain.domainName;
-          vm.selectedDomain = to.params.domain.domain;
+          vm.selectedDomain = vm.objt.theDomain;
         });
       })
       .catch((error) => {

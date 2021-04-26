@@ -46,14 +46,14 @@ Authors: Shamal Faily
           <b-row>
             <b-col md="4">
               <b-form-group label="Domain" label-class="font-weight-bold text-md-left" >
-                <b-form-radio-group v-model="selectedDomain">
+                <b-form-radio-group v-model="domainType">
                   <b-form-radio value="asset">Asset</b-form-radio>
                   <b-form-radio value="noncomposite_environment">Environment</b-form-radio>
                 </b-form-radio-group>
               </b-form-group>
             </b-col>
             <b-col md="8">
-              <dimension-select id="reqDomains" ref="reqDomains" :dimension="selectedDomain" :initial="domain.domainName" v-on:dimension-select-change="domainSelected" v-on:dimension-items-updated="domainsLoaded" />
+              <dimension-select id="reqDomains" ref="reqDomains" :dimension="objt.theDomainType" :initial="objt.theDomain" v-on:dimension-select-change="domainSelected" v-on:dimension-items-updated="domainsLoaded" />
             </b-col>
           </b-row>
         </b-card>
@@ -122,7 +122,6 @@ export default {
   props : {
     object : Object,
     label : String,
-    domain : Object
   },
   watch : {
     object: 'setObject'
@@ -136,17 +135,22 @@ export default {
   data() {
     return {
       objt : this.object,
-      selectedDomain: this.domain.type,
       commitLabel : this.label,
       errors : [],
       reqPriorities: ['1','2','3'],
-      reqTypes: ['Functional','Data','Look and Feel','Usability','Performance','Operational','Maintainability','Portability','Security','Cultural and Political','Legal','Privacy'],
-      axiosParameters : {
-        post : {},
-        put : {}
-      }
+      reqTypes: ['Functional','Data','Look and Feel','Usability','Performance','Operational','Maintainability','Portability','Security','Cultural and Political','Legal','Privacy']
     }
   }, 
+  computed : {
+    domainType : {
+      get : function() {
+        return this.objt.theDomainType == 'environment' ? 'noncomposite_environment' : this.objt.theDomainType;
+      },
+      set : function(value) {
+        this.objt.theDomainType = value;
+      }
+    }
+  },
   methods: {
     checkForm() {
       this.errors = []
@@ -175,10 +179,10 @@ export default {
     onCommit(evt) {
       evt.preventDefault();
       if (this.checkForm()) {
-        this.$store.state.domain = this.selectedDomain;
-        this.$store.state.domainName = this.objt.theDomain;
-        this.domainSelected(this.$store.state.domainName);
-        this.$emit('object-commit',{object: this.objt,parameters: this.axiosParameters});
+        if (this.objt.theDomainType == 'noncomposite_environment') {
+          this.objt.theDomainType = 'environment';
+        }
+        this.$emit('object-commit',this.objt);
       }
     },
     onCancel(evt) {
@@ -186,38 +190,11 @@ export default {
       this.$router.push({ name: 'objectsview', params: {dimension: 'requirement'}});
     },
     domainSelected(domainName) {
-      this.objt.theDomain = domainName
-      this.$store.state.domain = this.selectedDomain;
-      this.$store.state.domainName = this.objt.theDomain;
-      if (this.selectedDomain == 'asset') {
-        this.axiosParameters = {post : {'asset' : domainName}, put : {}}
-      }
-      else {
-        this.axiosParameters = {post : {'environment' : domainName}, put : {}}
-      }
+      this.objt.theDomain = domainName;
     },
     domainsLoaded(domainName) {
-      this.objt.theDomain = domainName
-      this.$store.state.domain = this.selectedDomain;
-      this.$store.state.domainName = this.objt.theDomain;
-      if (this.selectedDomain == 'asset') {
-        this.axiosParameters = {post : {'asset' : domainName}, put : {}}
-      }
-      else {
-        this.axiosParameters = {post : {'environment' : domainName}, put : {}}
-      }
-    },
-    setFilters() {
-      if (this.$store.state.domain != '') {
-        this.selectedDomain = this.$store.state.domain;
-        this.domain.type = this.$store.state.domain;
-        this.domainSelected(this.$store.state.domainName);
-        this.$refs.reqDomains.selected = this.$store.state.domainName;
-      }
+      this.objt.theDomain = domainName;
     }
-  },
-  mounted() {
-    this.setFilters();
   }
 }
 </script>

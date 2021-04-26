@@ -271,16 +271,16 @@ requirement : {
   objectsFields : [
     {key: 'objectsactions', label : ''},
     {key: 'theName', label : 'Name', sortable: true},
+    {key: 'theDomain', label : 'Domain', sortable: true},
     {key: 'theDescription', label : 'Specification'},
     {key: 'thePriority', label : 'Priority', sortable: true},
-    {key: 'theRationale', label : 'Rationale'},
     {key: 'theFitCriterion', label : 'Fit Criterion'},
     {key: 'theOriginator', label : 'Originator', sortable: true},
     {key: 'theType', label : 'Type', sortable: true},
     {key: 'pretaction', label: ''},
     {key: 'postaction', label: ''}
   ],
-  theGetUrl : '',
+  theGetUrl : '/api/requirements',
   theDelUrl : '/api/requirements/name/'
 },
 risk : {

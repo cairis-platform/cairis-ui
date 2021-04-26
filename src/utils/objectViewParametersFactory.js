@@ -110,6 +110,12 @@ policy_statement : {
   updatePath : '/api/policy_statements/name/',
   createPath : '/api/policy_statements'
 },
+requirement : {
+  objectsLabel : 'Requirements',
+  componentFile : 'Requirement',
+  updatePath : '/api/requirements/name/',
+  createPath : '/api/requirements'
+},
 response : {
   objectsLabel : 'Responses',
   componentFile : 'Response',
