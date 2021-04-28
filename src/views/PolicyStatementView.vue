@@ -48,7 +48,7 @@ export default {
   ],
   computed : {
     bcItems() {
-     return [{text: 'Home', to: {name: 'home'}},{text: 'Policy statements', to: {name: 'objectsview', params: {dimension: 'policy_statement'}}},{text: this.objt.theEnvironmentName + " / " + this.objt.theGoalName + ' / ' + this.objt.theSubject + ' / ' + this.objt.theAccessType + ' / ' + this.objt.theResourcee, to : {name: 'policy_statement'}}]
+     return [{text: 'Home', to: {name: 'home'}},{text: 'Policy statements', to: {name: 'objectsview', params: {dimension: 'policy_statement'}}},{text: this.objt.theEnvironmentName + " / " + this.objt.theGoalName + ' / ' + this.objt.theSubject + ' / ' + this.objt.theAccessType + ' / ' + this.objt.theResource, to : {name: 'policy_statement'}}]
     }
   },
   components : {
