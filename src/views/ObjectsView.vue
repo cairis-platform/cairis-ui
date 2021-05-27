@@ -31,7 +31,7 @@ import axios from 'axios';
 import EventBus from '../utils/event-bus';
 import store from '../store';
 
-function dimensionCheck(dimName, cb) {
+function dimensionCheck(dimName, cb, cb2) {
   const dcUrl = '/api/dimensions/table/' + dimName;
   axios.get(dcUrl,{
     baseURL : store.state.url,
@@ -39,9 +39,7 @@ function dimensionCheck(dimName, cb) {
   })
   .then(response => {
     if (response.data.length > 0) {
-      if (cb != undefined) {
-        cb();
-      }
+      cb(cb2);
     }
     else {
       EventBus.$emit('operation-failure','You must define or import at least one ' + dimName + ' first.')
@@ -56,9 +54,6 @@ export default {
   props : {
     dimension : String
   },
-  watch : {
-    dimension : 'checkRoute' 
-  },
   components : {
     Objects
   },
@@ -68,250 +63,145 @@ export default {
       items: [],
       objectsFields : [], 
       theGetUrl : '',
-      theDelUrl : ''
+      theDelUrl : '',
+      theToDim : ''
     }
   },
   beforeRouteEnter (to, from, next) {
-    if (['goal','obstacle','usecase','dependency','asset','location','traceability','role','kaosassociation'].indexOf(to.params.dimension) > -1) {
-      dimensionCheck('environment',next);
-    }
-    else if (to.params.dimension == 'attacker') {
-      dimensionCheck('role',() => {
-        dimensionCheck('environment',next);
-      });
-    }
-    else if (to.params.dimension == 'assetassociation') {
-      dimensionCheck('environment',() => {
-        dimensionCheck('asset',next);
-      });
-    }
-    else if (to.params.dimension == 'requirement') {
-      dimensionCheck('environment',() => {
-        dimensionCheck('asset',next);
-      });
-    }
-    else if (to.params.dimension == 'vulnerability') {
-      dimensionCheck('vulnerability_type',() => {
-        dimensionCheck('environment',() => {
-          dimensionCheck('asset',next);
-        });
-      });
-    }
-    else if (to.params.dimension == 'threat') {
-      dimensionCheck('threat_type',() => {
-        dimensionCheck('environment',() => {
-          dimensionCheck('attacker',() => {
-            dimensionCheck('asset',next);
-          });
-        });
-      });
-    }
-    else if (to.params.dimension == 'risk') {
-      dimensionCheck('threat',() => {
-        dimensionCheck('vulnerability',next);
-      });
-    }
-    else if (to.params.dimension == 'response') {
-      dimensionCheck('risk',next);
-    }
-    else if (to.params.dimension == 'countermeasure') {
-      dimensionCheck('response',() => {
-        dimensionCheck('task',next);
-      });
-    }
-    else if (to.params.dimension == 'task' || to.params.dimension == 'user_goal') {
-      dimensionCheck('persona',() => {
-        dimensionCheck('role',next);
-      });
-    }
-    else if (to.params.dimension == 'persona') {
-      dimensionCheck('role',next);
-    }
-    else if (to.params.dimension == 'trustboundary') {
-      dimensionCheck('environment',() => {
-        dimensionCheck('usecase',next);
-      });
-    }
-    else if (to.params.dimension == 'dataflow') {
-      dimensionCheck('environment',() => {
-        dimensionCheck('usecase',next);
-      });
-    }
-    else if (to.params.dimension == 'templateasset') {
-      dimensionCheck('surface_type',() => {
-        dimensionCheck('access_right',() => {
-          dimensionCheck('privilege',next);
-        });
-      });
-    }
-    else if (to.params.dimension == 'templaterequirement') {
-      dimensionCheck('template_asset',next);
-    }
-    else if (to.params.dimension == 'architecturalpattern') {
-      dimensionCheck('template_asset',() => {
-        dimensionCheck('protocol',next);
-      });
-    }
-    else if (to.params.dimension == 'securitypattern') {
-      dimensionCheck('template_asset',next);
-    }
-    else if (to.params.dimension == 'documentreference') {
-      dimensionCheck('external_document',next);
-    }
-    else if (to.params.dimension == 'personacharacteristic') {
-      dimensionCheck('external_document',() => {
-        dimensionCheck('document_reference',next);
-      });
-    }
-    else if (to.params.dimension == 'goal_contribution') {
-      dimensionCheck('external_document',() => {
-        dimensionCheck('document_reference',next);
-      });
-    }
-    else if (to.params.dimension == 'locations') {
-      dimensionCheck('persona',() => {
-        dimensionCheck('asset',next);
-      });
-    }
-    else if (to.params.dimension == 'userstory') {
-      dimensionCheck('role',() => {
-        dimensionCheck('user_goal',next);
-      });
-    }
-    else if (to.params.dimension == 'policy_statement') {
-      dimensionCheck('goal',() => {
-        dimensionCheck('asset',next);
-      });
-    }
-    else if (['environment','externaldocument','domainproperty','templategoal','taskcharacteristic','conceptreference'].indexOf(to.params.dimension) > -1) {
-      next();
-    }
+    next(vm => {
+      vm.checkRouteBeforeEntry(to,from,next);
+    });
+  },
+  beforeRouteUpdate(to, from, next) {
+    this.theToDim = to.params.dimension;
+    this.checkRouteBeforeEntry(to,from,this.setData,next);
   },
   methods : {
-    checkRoute() {
-      if (['goal','obstacle','usecase','dependency','asset','location','traceability','role','kaosassociation'].indexOf(this.dimension) > -1) {
-        dimensionCheck('environment',this.setData);
+    checkRouteBeforeEntry(to,from,next,cb2) {
+      if (['goal','obstacle','usecase','dependency','asset','location','traceability','role','kaosassociation'].indexOf(to.params.dimension) > -1) {
+        dimensionCheck('environment',next,cb2);
       }
-      else if (this.dimension == 'attacker') {
+      else if (to.params.dimension == 'attacker') {
         dimensionCheck('role',() => {
-          dimensionCheck('environment',this.setData);
+          dimensionCheck('environment',next,cb2);
         });
       }
-      else if (this.dimension == 'assetassociation') {
+      else if (to.params.dimension == 'assetassociation') {
         dimensionCheck('environment',() => {
-          dimensionCheck('asset',this.setData);
+          dimensionCheck('asset',next,cb2);
         });
       }
-      else if (this.dimension == 'requirement') {
+      else if (to.params.dimension == 'requirement') {
         dimensionCheck('environment',() => {
-          dimensionCheck('asset',this.setData);
+          dimensionCheck('asset',next,cb2);
         });
       }
-      else if (this.dimension == 'vulnerability') {
+      else if (to.params.dimension == 'vulnerability') {
         dimensionCheck('vulnerability_type',() => {
           dimensionCheck('environment',() => {
-            dimensionCheck('asset',this.setData);
+            dimensionCheck('asset',next,cb2);
           });
         });
       }
-      else if (this.dimension == 'threat') {
+      else if (to.params.dimension == 'threat') {
         dimensionCheck('threat_type',() => {
           dimensionCheck('environment',() => {
             dimensionCheck('attacker',() => {
-              dimensionCheck('asset',this.setData);
+              dimensionCheck('asset',next,cb2);
             });
           });
         });
       }
-      else if (this.dimension == 'risk') {
+      else if (to.params.dimension == 'risk') {
         dimensionCheck('threat',() => {
-          dimensionCheck('vulnerability',this.setData);
+          dimensionCheck('vulnerability',next,cb2);
         });
       }
-      else if (this.dimension == 'response') {
-        dimensionCheck('risk',this.setData);
+      else if (to.params.dimension == 'response') {
+        dimensionCheck('risk',next,cb2);
       }
-      else if (this.dimension == 'countermeasure') {
-        dimensionCheck('response', () => {
-          dimensionCheck('task',this.setData);
+      else if (to.params.dimension == 'countermeasure') {
+        dimensionCheck('response',() => {
+          dimensionCheck('task',next,cb2);
         });
       }
-      else if (this.dimension == 'task' || this.dimension == 'user_goal') {
+      else if (to.params.dimension == 'task' || to.params.dimension == 'user_goal') {
         dimensionCheck('persona',() => {
-          dimensionCheck('role',this.setData);
+          dimensionCheck('role',next,cb2);
         });
       }
-      else if (this.dimension == 'persona') {
-        dimensionCheck('role',this.setData);
+      else if (to.params.dimension == 'persona') {
+        dimensionCheck('role',next,cb2);
       }
-      else if (this.dimension == 'trustboundary') {
+      else if (to.params.dimension == 'trustboundary') {
         dimensionCheck('environment',() => {
-          dimensionCheck('usecase',this.setData);
+          dimensionCheck('usecase',next,cb2);
         });
       }
-      else if (this.dimension == 'dataflow') {
+      else if (to.params.dimension == 'dataflow') {
         dimensionCheck('environment',() => {
-          dimensionCheck('usecase',this.setData);
+          dimensionCheck('usecase',next,cb2);
         });
       }
-      else if (this.dimension == 'templateasset') {
+      else if (to.params.dimension == 'templateasset') {
         dimensionCheck('surface_type',() => {
           dimensionCheck('access_right',() => {
-            dimensionCheck('privilege',this.setData);
+            dimensionCheck('privilege',next,cb2);
           });
         });
       }
-      else if (this.dimension == 'templaterequirement') {
-        dimensionCheck('template_asset',this.setData);
+      else if (to.params.dimension == 'templaterequirement') {
+        dimensionCheck('template_asset',next,cb2);
       }
-      else if (this.dimension == 'architecturalpattern') {
+      else if (to.params.dimension == 'architecturalpattern') {
         dimensionCheck('template_asset',() => {
-          dimensionCheck('protocol',this.setData);
+          dimensionCheck('protocol',next,cb2);
         });
       }
-      else if (this.dimension == 'securitypattern') {
-        dimensionCheck('template_asset',() => {
-          dimensionCheck('protocol',this.setData);
-        });
+      else if (to.params.dimension == 'securitypattern') {
+        dimensionCheck('template_asset',next,cb2);
       }
-      else if (this.dimension == 'documentreference') {
-        dimensionCheck('external_document',this.setData);
+      else if (to.params.dimension == 'documentreference') {
+        dimensionCheck('external_document',next,cb2);
       }
-      else if (this.dimension == 'personacharacteristic') {
+      else if (to.params.dimension == 'personacharacteristic') {
         dimensionCheck('external_document',() => {
-          dimensionCheck('document_reference',this.setData);
+          dimensionCheck('document_reference',next,cb2);
         });
       }
-      else if (this.dimension == 'goal_contribution') {
+      else if (to.params.dimension == 'goal_contribution') {
         dimensionCheck('external_document',() => {
-          dimensionCheck('document_reference',this.setData);
+          dimensionCheck('document_reference',next,cb2);
         });
       }
-      else if (this.dimension == 'locations') {
+      else if (to.params.dimension == 'locations') {
         dimensionCheck('persona',() => {
-          dimensionCheck('asset',this.setData);
+          dimensionCheck('asset',next,cb2);
         });
       }
-      else if (this.dimension == 'userstory') {
+      else if (to.params.dimension == 'userstory') {
         dimensionCheck('role',() => {
-          dimensionCheck('user_goal',this.setData);
+          dimensionCheck('user_goal',next,cb2);
         });
       }
-      else if (this.dimension == 'policy_statement') {
+      else if (to.params.dimension == 'policy_statement') {
         dimensionCheck('goal',() => {
-          dimensionCheck('asset',this.setData);
+          dimensionCheck('asset',next,cb2);
         });
       }
-      else if (['environment','externaldocument','conceptreference','domainproperty','templategoal','taskcharacteristic'].indexOf(this.dimension) > -1) {
-        this.setData();
+      else if (['environment','externaldocument','domainproperty','templategoal','taskcharacteristic','conceptreference'].indexOf(to.params.dimension) > -1) {
+        next(cb2);
       }
     },
-    setData() {
-      const viewData = objectsViewData[this.dimension];
+    setData(cb) {
+      const viewData = objectsViewData[this.theToDim == '' ? this.dimension : this.theToDim];
       this.bcItems = viewData.bcItems;
       this.objectsFields = viewData.objectsFields;
       this.theGetUrl = viewData.theGetUrl;
       this.theDelUrl = viewData.theDelUrl;
+      if (cb != undefined) {
+        cb();
+      }
     }
   },
   mounted() {
