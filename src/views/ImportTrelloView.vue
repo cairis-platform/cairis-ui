@@ -212,7 +212,7 @@ export default {
     const that = this;
     // eslint-disable-next-line
     Trello.authorize({
-      type: 'redirect',
+      type: 'popup',
       name: 'CAIRIS',
       scope: {read: 'true', write: 'true', account: 'allowAccount'},
       interactive: 'false',
