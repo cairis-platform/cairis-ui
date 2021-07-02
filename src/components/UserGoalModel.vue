@@ -31,8 +31,13 @@ Authors: Shamal Faily
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
+          <b-form-group label="Persona" label-for="pFilter" :label-cols="2" >
+            <dimension-select ref="pFilter" id="pFilter" dimension="persona" :environment="theEnvironmentName" initial="all" includeall v-on:dimension-select-change="personaSelected" v-on:dimension-items-updated="personasLoaded" />
+          </b-form-group>
+        </b-col>
+        <b-col v-if="theEnvironmentName != ''">
           <b-form-group label="Filter" label-for="ugFilter" :label-cols="2" >
-            <dimension-select ref="ugFilter" id="ugmFilter" dimension="ugm_filter" :environment="theEnvironmentName" initial="all" includeall v-on:dimension-select-change="filterSelected" v-on:dimension-items-updated="filtersLoaded" />
+            <dimension-select ref="ugFilter" id="ugmFilter" :dimensionUrl="filterUrl" initial="all" includeall v-on:dimension-select-change="filterSelected" v-on:dimension-items-updated="filtersLoaded" />
           </b-form-group>
         </b-col>
         <b-col v-if="theEnvironmentName != ''">
@@ -44,7 +49,7 @@ Authors: Shamal Faily
     </b-container>
     </b-card>
     <b-container fluid>
-      <graphical-model v-if="theEnvironmentName != ''" ref="graphicalModel" :api="dfdURI" v-on:graphical-model-url="nodeClicked"/>
+      <graphical-model v-if="theEnvironmentName != ''" ref="graphicalModel" :api="ugmURI" v-on:graphical-model-url="nodeClicked"/>
     </b-container>
   </div>
 </template>
@@ -59,8 +64,11 @@ import EventBus from '../utils/event-bus';
 
 export default {
   computed : {
-    dfdURI() {
-      return "/api/user_goals/model/environment/" + this.theEnvironmentName + "/filter_name/" + this.theFilterName ;
+    ugmURI() {
+      return "/api/user_goals/model/environment/" + this.theEnvironmentName + "/persona/" + this.thePersonaName + "/filter_name/" + this.theFilterName ;
+    },
+    filterUrl() {
+      return "/api/user_goals/model/environment/" + this.theEnvironmentName + "/persona/" + this.thePersonaName + "/filters";
     },
     sidebarTitle() {
       return this.theSelectedObject != undefined ? this.theSelectedObject.theName : '';
@@ -72,6 +80,7 @@ export default {
   data() {
     return {
       theEnvironmentName : '',
+      thePersonaName : 'all',
       theFilterName : 'all',
       theSelectedObject: null,
       theSelectedDimension: ''
@@ -108,10 +117,16 @@ export default {
       this.theEnvironmentName = envName;
       this.$refs.ugEnvironment.selected = envName;
     },
-    filterSelected(filterName) {
-      this.theFilterName = filterName;
+    personaSelected(personaName) {
+      this.thePersonaName = personaName;
+    },
+    personasLoaded(personaName) {
+      this.thePersonaName = personaName;
     },
     filtersLoaded(filterName) {
+      this.theFilterName = filterName;
+    },
+    filterSelected(filterName) {
       this.theFilterName = filterName;
     },
     refreshModel() {
