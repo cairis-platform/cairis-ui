@@ -42,7 +42,7 @@ Authors: Shamal Faily
           <b-col md=12>
             <b-container fluid>
               <b-form-group label="Goal" label-class="font-weigh-bold text-md-left" label-for="theGoalSelect">
-                <dimension-select id="theGoalSelect" :dimensionUrl='npgUrl' :initial="this.objt.theGoalName" v-on:dimension-select-change="goalSelected" v-on:dimension-items-updated="goalsLoaded" />
+                <dimension-select id="theGoalSelect" :dimensionUrl='npgUrl' :initial="this.objt.theGoalName" add_initial v-on:dimension-select-change="goalSelected" v-on:dimension-items-updated="goalsLoaded" />
               </b-form-group>
             </b-container>
           </b-col>
@@ -60,7 +60,7 @@ Authors: Shamal Faily
           </b-col>
           <b-col md="3">
             <b-form-group label="Resource" label-class="font-weigh-bold text-md-left" label-for="theResourceSelect">
-              <dimension-select id="theResourceSelect" :dimensionUrl='gcUrl' :initial="this.objt.theResource" v-on:dimension-select-change="resourceSelected" v-on:dimension-items-updated="resourcesLoaded" />
+              <dimension-select id="theResourceSelect" :dimensionUrl='gcUrl' :initial="this.objt.theResource" v-on:dimension-select-change="resourceSelected" v-on:dimension-items-updated="resourcesLoaded" /> 
             </b-form-group>
           </b-col>
           <b-col md="3">
@@ -167,19 +167,25 @@ export default {
       this.objt.theEnvironmentName = item;
     },
     goalSelected(item) {
-      this.objt.theGoalName = item;
+      if (item != undefined) {
+        this.objt.theGoalName = item;
+      }
     },
     goalsLoaded(item) {
       this.objt.theGoalName = item;
     },
     subjectSelected(item) {
-      this.objt.theSubject = item;
+      if (item != undefined) {
+        this.objt.theSubject = item;
+      }
     },
     subjectsLoaded(item) {
       this.objt.theSubject = item;
     },
     resourceSelected(item) {
-      this.objt.theResource = item;
+      if (item != undefined) {
+        this.objt.theResource = item;
+      }   
     },
     resourcesLoaded(item) {
       this.objt.theResource = item;

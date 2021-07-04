@@ -139,7 +139,7 @@ export default {
           }
           if (ref.initial != '') {
             ref.selected = ref.initial;
-            if (ref.add_initial) {
+            if (ref.add_initial && ref.items.indexOf(ref.initial) == -1) {
               ref.items.push(ref.initial);
               ref.items.sort();
             }
