@@ -162,6 +162,10 @@ export default {
       if (res != null) {
         this.errors.push('Character ' + res['index'] + ' in ' + this.objt.theName + ' is a reserved character.');
       }
+
+      if (this.objt.theDomain.length == 0) {
+        this.errors.push((this.objt.theDomainType == 'noncomposite_environment' ? "Environment" : "Asset") + " needs to be selected");
+      }
       if (this.objt.theDescription.length == 0) {
         this.errors.push('Description is required');
       }
